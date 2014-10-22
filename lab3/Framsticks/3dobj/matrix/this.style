@@ -1,0 +1,335 @@
+style:
+name:Matrix
+info:~
+No one can be told what the Matrix is.
+You have to see it for yourself...
+~
+code:~
+
+function default_part_build()
+{
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  Element.node = GeomBuilder.currentNode;
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function food_model_build()
+{
+VisualModel.color=Math.rnd01*0xffffff;
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("computer.ac");
+}
+
+function default_joint_build()
+{
+  loadAndAddAsTransformNode("stick.ac");
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e = Creature.energy / Creature.energ0;
+  if (e > 1.0)
+    e = 1.0;
+  else if (e < 0.05)
+    e = 0.05;
+  GeomBuilder.matrixScale(1, 1, e);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1.0, 1.0);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function modelviewer_build()
+{
+  Scene.backcolor = 0x000000;
+  Scene.worldtexture = "matrixback2.png";
+}
+
+function modelviewer_build_empty()
+{
+  modelviewer_build();
+}
+
+function world_build()
+{
+  Scene.backcolor = 0xffcc88;
+  Scene.worldtexture = "cubeworld.png";
+  switch (World.wrldtyp)
+  {
+  case 0:
+    buildFlatWorld();
+    break;
+  case 1:
+    buildBlockWorld();
+    break;
+  case 2:
+    buildSmoothWorld();
+  }
+}
+
+function buildFlatWorld()
+{
+  if (World.wrldbnd == 0)
+    buildFlatBoundary();
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([0, 0, 0, World.wrldsiz, 0, 0, World.wrldsiz, World.wrldsiz, 0, 0, World.wrldsiz, 0]);
+  VertexBuilder.addNormal(0, 0, 1);
+  VertexBuilder.genTexCoordsXY(1, 1);
+  Material.new();
+  Material.setFlat();
+  Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+  Material.enable(GL.TEXTURE_2D);
+  Material.texture = "matrixback.png";
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+function buildBlockWorld()
+{
+  Simulator.print("building blockworld geometry...");
+  var xs = WorldMap.xsize - 2, ys = WorldMap.ysize - 2;
+  var blockx = World.wrldsiz / xs, blocky = World.wrldsiz / ys;
+  var mx, my, x, y;
+  y = 0.0;
+  Material.new();
+  Material.setFlat();
+  Material.enable(GL.TEXTURE_2D);
+  Material.texture = "matrixback.png";
+  for (my = 1;my <= ys;my++)
+  {
+    x = 0.0;
+    for (mx = 1;mx <= xs;mx++)
+    {
+      addBlock(x, y, blockx, blocky, mx, my);
+      x += blockx;
+    }
+    y += blocky;
+  }
+  buildFlatBoundary();
+}
+
+function addBlock(x1, y1, xsize, ysize, mx, my)
+{
+  var z, z0, zx, zy, zxy, zy0, zy1, zx0, zx1, n1, nn;
+  z = WorldMap.getMap(mx, my).z;
+
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+
+  switch (WorldMap.getMap(mx, my).type)
+  {
+  case 0:
+    z0 = z;
+    zx = z;
+    zy = z;
+    zxy = z;
+    VertexBuilder.addNormal(0, 0, 1);
+    break;
+  case 1:
+    z0 = WorldMap.getMap(mx - 1, my).z;
+    zy = z0;
+    zx = WorldMap.getMap(mx + 1, my).z;
+    zxy = zx;
+    n1 = z0 - zx;
+    nn = Math.sqrt(n1 * n1 + xsize * xsize);
+    VertexBuilder.addNormal(n1 / nn, 0.0, xsize / nn);
+    break;
+  case 2:
+    z0 = WorldMap.getMap(mx, my - 1).z;
+    zx = z0;
+    zy = WorldMap.getMap(mx, my + 1).z;
+    zxy = zy;
+    n1 = z0 - zy;
+    nn = Math.sqrt(n1 * n1 + ysize * ysize);
+    VertexBuilder.addNormal(0.0, n1 / nn, ysize / nn);
+    break;
+  }
+  var x2 = x1 + xsize, y2 = y1 + ysize;
+  VertexBuilder.addVertex([x1, y1, z0, x2, y1, zx, x2, y2, zxy, x1, y2, zy]);
+  VertexBuilder.material = Material.object;
+  VertexBuilder.addTexCoord([0, 0, 0, 1, 1, 1, 1, 0]);
+  GeomBuilder.add(VertexBuilder.node);
+
+  switch (WorldMap.getMap(mx, my - 1).type)
+  {
+  case 0:
+    zy0 = WorldMap.getMap(mx, my - 1).z;
+    zy1 = zy0;
+    break;
+  case 1:
+    zy0 = WorldMap.getMap(mx - 1, my - 1).z;
+    zy1 = WorldMap.getMap(mx + 1, my - 1).z;
+    break;
+  case 2:
+    zy0 = z0;
+    zy1 = z0;
+    break;
+  }
+  if ((z0 != zy0) || (zx != zy1))
+  {
+    //Simulator.print("zy:"+z0+" "+zx+" "+zy1+" "+zy0);
+    VertexBuilder.newQuads();
+    VertexBuilder.addVertex([x2, y1, zx, x1, y1, z0, x1, y1, zy0, x2, y1, zy1]);
+    if ((z0 + zx) > (zy0 + zy1))
+      VertexBuilder.addNormal(0, -1, 0);
+    else
+      VertexBuilder.addNormal(0, 1, 0);
+    VertexBuilder.material = Material.object;
+    VertexBuilder.addTexCoord([0, 0, 0, 1, 1, 1, 1, 0]);
+    //VertexBuilder.genTexCoordsXZ(0.03,0.03);
+    GeomBuilder.add(VertexBuilder.node);
+  }
+
+  switch (WorldMap.getMap(mx - 1, my).type)
+  {
+  case 0:
+    zx0 = WorldMap.getMap(mx - 1, my).z;
+    zx1 = zx0;
+    break;
+  case 1:
+    zx0 = z0;
+    zx1 = z0;
+    break;
+  case 2:
+    zx0 = WorldMap.getMap(mx - 1, my - 1).z;
+    zx1 = WorldMap.getMap(mx - 1, my + 1).z;
+    break;
+  }
+  if ((z0 != zx0) || (zy != zx1))
+  {
+    //Simulator.print("zx:"+z0+" "+zx+" "+zx1+" "+zx0);
+    VertexBuilder.newQuads();
+    VertexBuilder.addVertex([x1, y1, z0, x1, y2, zy, x1, y2, zx1, x1, y1, zx0]);
+    if ((z0 + zy) > (zx0 + zx1))
+      VertexBuilder.addNormal( -1, 0, 0);
+    else
+      VertexBuilder.addNormal(1, 0, 0);
+    VertexBuilder.material = Material.object;
+    VertexBuilder.addTexCoord([0, 0, 0, 1, 1, 1, 1, 0]);
+    //VertexBuilder.genTexCoordsYZ(0.03,0.03);
+    GeomBuilder.add(VertexBuilder.node);
+  }
+}
+
+function buildSmoothWorld()
+{
+  buildFlatBoundary();
+  build_smoothworld();
+}
+
+function build_smoothworld()
+{
+Simulator.print("building smoothworld geometry...");
+
+var bx=World.wrldsiz/(WorldMap.xsize-1);
+var by=World.wrldsiz/(WorldMap.ysize-1);
+
+var mx0,my0,x0,y0;
+y0=0.0;
+for(my0=1;my0<WorldMap.ysize;my0++)
+{
+x0=0.0;
+for(mx0=1;mx0<WorldMap.xsize;mx0++)
+{
+VertexBuilder.newTriangleStrip();
+add_smoothpoint(mx0-1,my0,x0,y0+by);
+add_smoothpoint(mx0-1,my0-1,x0,y0);
+add_smoothpoint(mx0,my0,x0+bx,y0+by);
+add_smoothpoint(mx0,my0-1,x0+bx,y0);
+
+VertexBuilder.genTexCoordsXY(0.2,0.2);
+
+GeomBuilder.addBranch(GeomBuilder.rootNode);
+Material.new();
+Material.setSmooth();
+VertexBuilder.material=Material.object;
+GeomBuilder.add(VertexBuilder.node);
+
+x0+=bx;
+}
+y0+=by;
+}
+
+}
+
+function add_smoothpoint(mapx,mapy,x,y)
+{
+  var z=WorldMap.getMap(mapx,mapy).z;
+  VertexBuilder.addVertex(x,y,z);
+  var zx1=WorldMap.getMap(mapx-1,mapy).z;
+  var zx2=WorldMap.getMap(mapx+1,mapy).z;
+  var zy1=WorldMap.getMap(mapx,mapy-1).z;
+  var zy2=WorldMap.getMap(mapx,mapy+1).z;
+  VertexBuilder.addNormal_1(zx1-zx2,zy1-zy2,2.0);
+}
+
+function buildFlatBoundary()
+{
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  var s = World.wrldsiz;
+  var s2 = s + 50;
+  VertexBuilder.newQuadStrip();
+  VertexBuilder.addVertex([0, 0, 0, -50, -50, 0, s, 0, 0, s2, -50, 0, s, s, 0, s2, s2, 0,
+  0, s, 0, -50, s2, 0, 0, 0, 0, -50, -50, 0]);
+  VertexBuilder.addNormal(0, 0, 1);
+  VertexBuilder.genTexCoordsXY(0.2, 0.2);
+  Material.new();
+  Material.setFlat();
+  Material.shininess = 10;
+  Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+  Material.diffuse = 0xff0000;
+  Material.specular = 0x808080;
+  Material.emission = 0;
+  Material.ambient = 0;
+  Material.enable(GL.TEXTURE_2D);
+  Material.texture = "matrixback.png";
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+function onLoad()
+{
+  VisParams.none = "Only THE ONE could change the matrix settings...";
+}
+~
+
+prop:
+id:none
+name:Message
+type:s 0

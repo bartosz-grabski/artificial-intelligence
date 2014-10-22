@@ -1,0 +1,60 @@
+<HTML><HEAD><TITLE>CreatureSignals</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>CreatureSignals class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Signal sources associated with the creature. See also: Signal, WorldSignals, NeuroSignals</DIV><BR>
+9 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="7"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Signal count</p>
+<p class="help">Number of signals in this set</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr">returns <A HREF="c_signal.html">Signal</A></div></td><td>
+<p class="membername">add</p>
+<code>function add(string channel)</code><br>
+<p class="help">Create a new signal</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;addProperty
+<div class="typedescr">returns <A HREF="c_signal.html">Signal</A></div></td><td>
+<p class="membername">add</p>
+<code>function addProperty(string channel, untyped property)</code><br>
+<p class="help">Create a signal that automatically reflects one of the creature's properties (i.e. its power is equal to the property value).<BR/>
+Example:<BR/>
+Creature.signals.addProperty("energy","energy"); //then, Neuro.signals.receive("energy") in custom neuron would work similarly to the built-in smell sensor</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">clear</p>
+<code>function clear()</code><br>
+<p class="help">Delete all signals</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns <A HREF="c_signal.html">Signal</A></div></td><td>
+<p class="membername">get</p>
+<code>function get(integer index)</code><br>
+<p class="help">Access individual signals (index=0 .. size-1)</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;receive
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">receive</p>
+<code>function receive(string channel)</code><br>
+<p class="help">Receive the aggregated signal power in a given channel.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;receiveFilter
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">receive</p>
+<code>function receiveFilter(string channel, float max_distance, float flavor, float filter)</code><br>
+<p class="help">Receive the aggregated signal power in a given channel.<BR/>
+<BR/>
+Additional filtering options:<BR/>
+- Max distance only receives the neighbor signals (based on their physical location)<BR/>
+- Flavor filtering: only signals having the flavor close to the specified one will be received. The filter value is the maximum allowed difference.</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;receiveSet
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">receive</p>
+<code>function receiveSet(string channel, float max_distance)</code><br>
+<p class="help">Get all signals in the specified range. Returns a readonly vector object containing Signal objects (individual signals can be accessed as result[0], .., result[result.size-1]).</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;receiveSingle
+<div class="typedescr">returns <A HREF="c_signal.html">Signal</A></div></td><td>
+<p class="membername">receive</p>
+<code>function receiveSingle(string channel, float max_distance)</code><br>
+<p class="help">Find the signal source having the highest signal power (including the distance)</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

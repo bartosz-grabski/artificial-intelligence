@@ -1,0 +1,64 @@
+show:
+info:
+expdef:standard
+code:~
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  Simulator.import("default.sim");
+  World.wrldsiz = 20;
+  World.wrldwat = -1.0;
+  VisualStyle.style = "theater";
+  ShowManager.info = "Registered to " + ShowManager.regname + ". Thank you!";
+
+  if (ShowManager.mode == 0)
+  ShowManager.info = ShowManager.info +
+                       "\n\nClick \"Menu\" -> \"Select a show...\" to choose a show and its options.\nWithin most shows, you can also drag the mouse with the left button pressed to adjust the camera, and double click on objects to select them. Use the mouse wheel to zoom. Press the control key and click to grab a creature. Press Shift and right mouse click for additional actions.";
+
+  ShowManager.info = ShowManager.info +
+                     "\n\nThe Framsticks Theater is a part of the Framsticks project. Please visit the web site for more details and software.";
+
+  TrackingCam.setViewDir(90, 20);
+  TrackingCam.cam_zoom = 0.6;
+
+  ExpParams.MaxCreated = 1;
+  ExpParams.feed = 0;
+  CreatureSelection.clear();
+  Populations.clearGroup(0);
+  Populations.group = 0;
+  Population.death = 0;
+  //var cr=Population.createFromString("rrlllllwX(,,LLwqXX,,wXX(XX,XlX,),)");
+  GenePools.clearGroup(0);
+  Simulator.import("theaterwelcome.gen", 2);
+  //var cr=Population.createFromString("rrlllllX(,,LLXX,,XX(XX,XlX,),)");
+  var cr = Population.createFromGeno(GenePool[0].geno);
+  cr.nnenabled = 1;
+  cr.moveAbs((World.wrldsiz - cr.size_x) / 2, (World.wrldsiz - cr.size_y) / 2, -2);
+
+  var i;
+
+  for (i = 1;i < 7;i++)
+  {
+    var c = Population.createFromGeno(GenePool[i].geno);
+    c.nnenabled = 1;
+    c.moveAbs((World.wrldsiz - cr.size_x)*0.5 + World.wrldsiz*0.3*Math.cos(i),
+              (World.wrldsiz - cr.size_y)*0.5 + World.wrldsiz*0.3*Math.sin(i),
+              -2);
+  }
+
+  GenePools.clearGroup(0);
+  Populations.group = 1;
+  Population.death = 0;
+
+  GLDisplay.desiredsimspeed=100;
+}
+
+function onShowStep()
+{
+  var anim=Math.time;
+  TrackingCam.setViewDir(90.0 + 10.0*Math.sin(anim*0.5), 20.0 + 10.0*Math.cos(anim*0.5));
+  TrackingCam.cam_zoom = 0.8 * (2.5 + Math.sin(anim * 0.15)) / 2.5;
+}
+
+~

@@ -1,0 +1,22 @@
+class:
+name:ChSel_Test
+longname:Channel select
+description:Sample custom neuron class. This one works just like the "ChSel" neuron.
+prefinputs:1
+prefoutput:1
+icon:41,6,4,25,0,25,100,75,70,75,30,25,0,1,75,50,100,50,1,70,50,55,50,3,50,55,55,50,50,45,50,55,1,30,50,50,50,1,35,53,39,47
+code:~
+function init()
+{}
+
+function go()
+{
+  Neuro.state = Neuro.getWeightedInputStateChannel(0, Fields.ch);
+}
+~
+
+prop:
+id:ch
+name:channel
+type:d
+

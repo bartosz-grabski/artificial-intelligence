@@ -1,0 +1,49 @@
+<HTML><HEAD><TITLE>Dictionary</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Dictionary class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Dictionary associates stored values with string keys ("key" is the first argument in get/set/remove functions). Integer "key" can be used to enumerate all elements (the sequence of elements is not preserved).<BR/>
+Example:<BR/>
+var d=Dictionary.new(); d.set("name","John"); d.set("age",44);<BR/>
+var i;<BR/>
+for(i=0;i&lt;d.size;i++) Simulator.print(d.getKey(i)+" is "+d.get(i));</DIV><BR>
+9 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="1"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">element count</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;toString
+<div class="typedescr">string</div></td><td>
+<p class="membername">textual form</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">clear data</p>
+<code>function clear()</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;find
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">find</p>
+<code>function find(untyped value)</code><br>
+<p class="help">returns the element key or null if not found</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns untyped</div></td><td>
+<p class="membername">get named or indexed element</p>
+<code>function get(untyped key)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getKey
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">get a key of the indexed element</p>
+<code>function getKey(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_dictionary.html">Dictionary</A></div></td><td>
+<p class="membername">create new Dictionary</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;remove
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">remove named or indexed element</p>
+<code>function remove(untyped key)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set named or indexed element</p>
+<code>function set(untyped key, untyped value)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

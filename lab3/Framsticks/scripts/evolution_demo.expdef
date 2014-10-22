@@ -1,0 +1,1383 @@
+expdef:
+name:Demonstration of evolution
+info:~
+This experiment definition demonstrates the process of evolution.
+Individuals are placed in a circle. A new individual is cloned, mutated or crossed over. 
+Then it is evaluated in the middle of the circle, and, depending on its fitness, may replace a poorer, existing individual or disappear.~
+code:~
+
+/*
+Author: Marcin Szelag
+Supervisor: Maciej Komosinski
+Created: January-March 2005
+
+Technical info:
+- one gene pool
+- one population with individuals, of given size
+- all genotypes from gene pool are visualized in the world - corresponding creatures stay in a circle
+- visualization for copying, mutating and crossing over genotypes
+- a few predefined well-observed fitnesses (vertical position, velocity, body size)
+- no energy flow calculation
+- creatures die after defined number of steps
+- experiment state saving / loading possible
+
+If you wish to change experiment parameters, be aware that for some parameters you need to do this before experiment initialization.
+Read tooltip help for parameters of interest for more information.
+*/
+
+//TODO - alternative layout (e.g. creatures in a line, sorted from best to worst)
+
+//================================================================================
+
+//Global variables dictionary
+/*
+  Fields are (name => description):
+
+  NewCycleStarted => Continue current or start new cycle?
+  KillOneCreature => Kill one creature or it has been already killed in current life cycle?
+  NextOrdinalNumber => Ordinal number for next created genotype
+  PerformanceCalculationMethod => Choosen performance calculation method before switching performance calculation off
+  NumberOfCreaturesToShift
+  ShiftedCreatureIndex1
+  ShiftedCreatureIndex2
+  DeletedCreatureIndex
+  DeletedGenotypeIndex
+  CreaturesCircleNormalizedRadius => "Normalized radius of creatures circle" from (0, 1] interval
+    Percentage of the "World radius".
+    "Radius of creatures circle" = "Normalized radius of creatures circle" * "World radius".
+    "World radius" is a segment from world center to world boundary.
+  CreatureShiftNormalizedLength => "Normalized length of creature shift" from (0, 1) interval
+    Percentage of the "Radius of creatures circle".
+    While creature is shifted towards world center or back it covers the distance equal to "Normalized length of creature shift" * "Radius of creatures circle".
+  StepsForCreatureShift => Number of steps per creature shift
+    Number of steps each creature does when shifted from creatures circle circumference towards world center or back.
+    Creatures shifting is used to show parent (in case of mutation or copy) or parents (in case of crossover) for current creature,
+    which appears in the center of the circle.
+  StepsForCreatureShiftFinish => Number of steps per creature shift finish
+    Used when creature from the circle center replaces creature from circle circumference.
+    Process of exchange has three phases:
+    1) Creature from the center approaches creature from the circle circumference
+       ("Number of steps per creature shift" is used at this time),
+    2) Creature from the circle circumference disapears,
+    3) Moving creature finishes its move and takes place just released at circle circumference
+    "Number of steps per creature shift finish" is used to establish in how many steps last (i.e. third) phase happens.
+  NormalizedRadiusIncrementPerShiftStep =>
+    Fraction of the creatures' circle radius added to (subtracted from) currently moving creature radius on each shift step.
+    Shift is always towards circle center from one of the well defined positions on the circle or towards one of the well defined positions on the circle, from circle center.
+    Should be value from range (0,1].
+  NormalizedRadiusIncrementPerShiftFinishStep => Should be value from range (0,1].
+*/
+global globals;
+
+//Vector of global variables names (i.e. strings indexing globals dictionary).
+//Unfortunately Dictionary class doesn' t have any method to get entries names so they must be set manually.
+//SIC: Update globalsNames initialization section in onExpDefLoad when adding, deleting or changing any global variable name in globals dictionary.
+global globalsNames;
+
+//Vector of creatures fields names, containing names of the fields that should be saved into corresponding genotype user3 field by prepareGenotypesForWrite function, when saving experiment state
+global savedCreatureFieldsNames;
+
+//================================================================================
+
+@include "standard_select.inc"
+@include "standard_placement.inc"
+
+//================================================================================
+
+/*
+********************************
+  BEGIN STANDARD FUNCTIONS BLOCK
+********************************
+*/
+
+//================================================================================
+
+//Experiment definition loading
+//*********************
+function onExpDefLoad()
+//*********************
+{
+  //Clear libraries (remove all groups except the first one)
+  GenePools.clear();
+  Populations.clear();
+
+  //Clear groups
+  GenePools.clearGroup(0);
+  Populations.clearGroup(0);
+
+  //Select current groups
+  GenePools.group = 0;
+  Populations.group = 0;
+
+  //Genotypes group
+  GenePools.get(0).name = "Genotypes"; //Group zero is the default one and doesn't have to be added
+
+  //Update fitness formula
+  update_fitformula();
+
+  //Creatures group
+  Populations.get(0).name = "Creatures";
+  Populations.get(0).energy = 0; //No energy calculation
+  Populations.get(0).death = 0; //No death
+  Populations.get(0).nnsim = 1; //Immediate neural net simulation
+  Populations.get(0).perfperiod = 50; //Performance sampling period
+  Populations.get(0).enableperf = 1; //Immediate performance calculation
+  Populations.get(0).colmask = 0; //Disable colisions
+  
+  //Experiment parameters initialization
+  ExpParams.initialgen = "X"; //Initial genotype, mutated to create initial population of genotypes
+  ExpParams.delrule = 2; //Delete the worst genotype
+  ExpParams.MaxCreated = 9; //World capacity
+  ExpParams.rotation = 4; //Random rotation
+  ExpParams.creath = 0.1; //Creation height
+  ExpParams.predefinedSetup = 0; //Choose predefined setup
+  ExpParams_predefinedSetup_set(); //Load predefined setup
+  ExpParams.lifeLengthInSteps = 400;
+  ExpParams.numberOfIdleSteps = 50;
+
+  ExpParams.p_nop = 0; //Probability of no genetic operation (copy)
+  ExpParams.p_mut = 50; //Probability of mutation
+  ExpParams.p_xov = 50; //Probability of crossover
+  ExpParams.xov_mins = 0; //No crossover restrictions
+  ExpParams.selrule = 2; //Selection by means of the tournament with 2 genotypes
+
+  ExpParams.cr_norm = 0; // Normalize each criterion to 0..1 interval before weighting
+  ExpParams.cr_simi = 0; //Similarity speciation. If enabled, fitness of each genotype will be reduced by its phenotypic similarity to all other genotypes in the gene pool
+
+  //Experiment state initialization
+  ExpState.totaltestedcr = 0; //Total number of creatures evaluated so far
+  ExpState.stepType = 0; //Normal simulation
+  ExpState.stepsCounter = 0; //Number of steps in current life cycle
+
+  //Set world parameters
+  World.wrldtyp = 0; //Flat surface
+  World.wrldbnd = 0; //No world boundary
+  World.wrldsiz = 20; //Side length of the world
+
+  //Set vector of global variables names (i.e. strings indexing globals dictionary).
+  //SIC: Update this section when adding, deleting or changing any global variable name in globals dictionary.
+  globalsNames = Vector.new();
+  globalsNames.add("NewCycleStarted");
+  globalsNames.add("KillOneCreature");
+  globalsNames.add("NextOrdinalNumber");
+  globalsNames.add("PerformanceCalculationMethod");
+  globalsNames.add("NumberOfCreaturesToShift");
+  globalsNames.add("ShiftedCreatureIndex1");
+  globalsNames.add("ShiftedCreatureIndex2");
+  globalsNames.add("DeletedCreatureIndex");
+  globalsNames.add("DeletedGenotypeIndex");
+  globalsNames.add("CreaturesCircleNormalizedRadius");
+  globalsNames.add("CreatureShiftNormalizedLength");
+  globalsNames.add("StepsForCreatureShift");
+  globalsNames.add("StepsForCreatureShiftFinish");
+  globalsNames.add("NormalizedRadiusIncrementPerShiftStep");
+  globalsNames.add("NormalizedRadiusIncrementPerShiftFinishStep");
+
+  //Set vector of saved creature fields names
+  //SIC: Update this section when you want to change creature's fields saved as a string in genotype's user3 field
+  //SIC: If you update this section remember to update also the appriopriate switch in arrangeCreatures function
+  savedCreatureFieldsNames = Vector.new();
+  savedCreatureFieldsNames.add("perf");
+  savedCreatureFieldsNames.add("nnenabled");
+  savedCreatureFieldsNames.add("lifespan");
+  savedCreatureFieldsNames.add("c_velocity");
+  savedCreatureFieldsNames.add("c_vertpos");
+  savedCreatureFieldsNames.add("user1");
+  savedCreatureFieldsNames.add("user2");
+  savedCreatureFieldsNames.add("user3");
+
+  //Create global variables dictionary
+  globals = Dictionary.new();
+
+  //Set changeable global variables
+  globals.set("NewCycleStarted", 0);
+  globals.set("KillOneCreature", 0);
+  globals.set("NextOrdinalNumber", 1);
+  //Set constant global variables
+  globals.set("CreaturesCircleNormalizedRadius", 1);
+  globals.set("CreatureShiftNormalizedLength", 0.6);
+  globals.set("StepsForCreatureShift", 18);
+  globals.set("StepsForCreatureShiftFinish", 12);
+  //Calculate constant global variables
+  globals.set("NormalizedRadiusIncrementPerShiftStep", globals["CreatureShiftNormalizedLength"] / globals["StepsForCreatureShift"]);
+  globals.set("NormalizedRadiusIncrementPerShiftFinishStep", (1.0 - globals["CreatureShiftNormalizedLength"]) / globals["StepsForCreatureShiftFinish"]);
+}
+
+//================================================================================
+
+//Experiment initialization
+//******************
+function onExpInit()
+//******************
+{
+  //Clear groups
+  GenePools.clearGroup(0);
+  Populations.clearGroup(0);
+
+  //Select current groups
+  GenePools.group = 0;
+  Populations.group = 0;
+
+  //Reset total number of simulation steps
+  Simulator.time = 0;
+
+  //Reset total number of evaluated creatures
+  ExpState.totaltestedcr = 0;
+  //Reset step type
+  ExpState.stepType = 0;
+  //Reset steps counter
+  ExpState.stepsCounter = 0;
+
+  //Reset (Set) changeable global variables
+  globals.set("NewCycleStarted", 0);
+  globals.set("KillOneCreature", 0);
+  globals.set("NextOrdinalNumber", 1);
+
+  //Create ExpParams.MaxCreated genotypes as mutants of ExpParams.initialgen
+  createInitialGenotypes();
+  //Place all genotypes' corresponding creatures in the world, in the circle
+  arrangeCreatures("circle");
+}
+
+//================================================================================
+
+//New organism created in the world
+//***************
+function onBorn()
+//***************
+{
+  //Place new creature in the world's center
+  place_randomly(1, ExpParams.rotation);
+}
+
+//================================================================================
+
+//Simulation step
+//***************
+function onStep()
+//***************
+{
+  switch (ExpState.stepType)
+  {
+    case 0: //Normal step
+      //New life cycle has to be started
+      if (ExpState.stepsCounter == 0 && globals["NewCycleStarted"] == 0)
+      {
+        //Kill one creature to fullfill creatures limit - choose which one
+        if (globals["KillOneCreature"] == 1)
+        {
+          globals.set("KillOneCreature", 0);
+
+          var creatureIndex;
+          var creaturesCount = Populations.get(0).size;
+
+          //Search for really simulated creature and select it
+          for (creatureIndex = 0; creatureIndex < creaturesCount; creatureIndex++)
+          {
+            Populations.creature = creatureIndex; //Change current creature
+            if (Creature.user1 == "simulation") //Really simulated creature found
+              break;
+          }
+
+          //Actualize genotype for current creature
+          copyPerformanceToGenotype(Populations.creature, findGenotypeIndexByOrdinalNumber(Creature.user2));
+
+          Creature.nnenabled = 0; //Switch off simulated creature's neural network
+          Creature.perf = 0; //Switch off simulated creature's performance calculation
+
+          //Get index of the genotype to delete
+          globals.set("DeletedGenotypeIndex", selectedForDeletion());
+          //Get ordinal number of the genotype to delete
+          var deletedGenotypeOrdinalNumber = GenePools.get(0).get(globals["DeletedGenotypeIndex"]).num;
+
+          //Genotype for currently dying creature was selected for deletion
+          if (deletedGenotypeOrdinalNumber == Creature.user2)
+          {
+            //Kill really simulated (current) creature
+            Populations.killSelected();
+            //Select genotype to delete (corresponding to deleted creature)
+            GenePools.genotype = globals["DeletedGenotypeIndex"];
+            //And delete selected genotype
+            GenePools.deleteSelected();
+
+            ExpState.stepsCounter = 0; //Reset steps counter
+            ExpState.stepType = 11; //Do idle steps
+          }
+          //Other genotype has been selected for deletion
+          else
+          {
+            //Find creature for selected genotype (using genotype's ordinal number and creature's user2 field)
+            globals.set("DeletedCreatureIndex", findCreatureIndexByOrdinalNumber(deletedGenotypeOrdinalNumber));
+
+            var tempVector = Vector.new();
+            //Copy angle from creature to delete to current creature, which will soon take deleted creature's position
+            //and need to know this angle to approach the circle boundary
+            tempVector.add(Populations.get(0).get(globals["DeletedCreatureIndex"]).user3[0]);
+            //Set central creature's radius
+            tempVector.add(0.0);
+            Creature.user3 = tempVector;
+
+            //Save performance calculation method and switch performance calculation off
+            globals.set("PerformanceCalculationMethod", Populations.get(0).enableperf);
+            Populations.get(0).enableperf = 0; //Switch off performance calculation for all creatures
+
+            ExpState.stepType = 7; //Currently simulated creature returns to the middle of the circle
+            ExpState.stepsCounter = 0; //Reset number of steps
+          }
+        }
+        //Create new creature since there is enough place in the world
+        else
+        {
+          //Create new genotype, put it into temporary buffer and select it
+          createAndSelectGenotype(); //New genotype has information about it's parent (parents)
+
+          if (Genotype.isValid)
+          {
+            //Set appriopriate ordinal number
+            Genotype.num = globals["NextOrdinalNumber"];
+            //Increment ordinal number for future use
+            globals.set("NextOrdinalNumber", globals["NextOrdinalNumber"] + 1);
+
+            GenePools.copySelected(0); //Place genotype from buffer in gene pool 0 and make it current
+            Genotype.popsiz = 0; //Set instances to zero in order to mark, that this genotype has not been evaluated yet
+
+            globals.set("NewCycleStarted", 1);
+
+            globals.set("PerformanceCalculationMethod", Populations.get(0).enableperf); //Save performance calculation method
+            Populations.get(0).enableperf = 0; //Switch off performance calculation for all creatures
+
+            ExpState.stepType = 1; //Parent (Parents) approaching to the center of the circle
+            ExpState.stepsCounter = 0; //Reset number of steps
+          }
+          else
+            Simulator.print("invalid genotype - ignored: " + Genotype.info);
+        }
+      }
+      else
+      {
+        ExpState.stepsCounter++;
+
+        if (ExpState.stepsCounter >= ExpParams.lifeLengthInSteps) //Simulated creature life cycle has ended
+        {
+          ExpState.stepsCounter = 0;
+          globals.set("NewCycleStarted", 0);
+          globals.set("KillOneCreature", 1);
+        }
+      }
+    case 1: //Parent (Parents) approaching to the center of the circle
+      if (ExpState.stepsCounter == 0) //It's first time when current case is beeing executed - mark creature (creatures) to move and do the first move
+      {
+        //Get parent (parents) for current genotype
+        if (Genotype.user1 == "copy" || Genotype.user1 == "mutant" || (Genotype.user1 == "cross" && Genotype.user2 == Genotype.user3) || Genotype.user1 == "copy - second genotype for crossover not found")
+        {
+          globals.set("NumberOfCreaturesToShift", 1);
+          globals.set("ShiftedCreatureIndex1", findCreatureIndexByOrdinalNumber(Genotype.user2));
+        }
+        else if (Genotype.user1 == "cross" && Genotype.user2 != Genotype.user3)
+        {
+          globals.set("NumberOfCreaturesToShift", 2);
+          globals.set("ShiftedCreatureIndex1", findCreatureIndexByOrdinalNumber(Genotype.user2));
+          globals.set("ShiftedCreatureIndex2", findCreatureIndexByOrdinalNumber(Genotype.user3));
+        }
+
+        doShiftStep("inside", globals["NormalizedRadiusIncrementPerShiftStep"]);
+        ExpState.stepsCounter++;
+      }
+      else if (ExpState.stepsCounter >= globals["StepsForCreatureShift"]) //All shift steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 2; //Go to next stage
+      }
+      else //Next shift step
+      {
+        doShiftStep("inside", globals["NormalizedRadiusIncrementPerShiftStep"]);
+        ExpState.stepsCounter++;
+      }
+
+    case 2: //Idle steps before creating new creature
+      if (ExpState.stepsCounter >= ExpParams.numberOfIdleSteps) //All idle steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 3; //Go to next stage
+      }
+      else //Next idle step
+        ExpState.stepsCounter++;
+    case 3: //Parent (Parents) ready - create new creature in the world
+      //Bring creature to life; Populations.creature is altered and set to new creature index
+      Populations.createFromGenotype(); //Implicit onBorn call
+
+      Creature.user1 = "simulation"; //Remember that this creature is the really simulated one
+      Creature.user2 = Genotype.num; //Remember which genotype results in current creature
+      Creature.user3 = [-1, 0.0];
+
+      Creature.nnenabled = 0; //Disable neural network for current creature
+      Creature.perf = 0; //And switch off its performance calculation
+
+      ExpState.stepType = 4; //Go to next stage
+
+    case 4: //Idle steps after creating new creature
+      if (ExpState.stepsCounter >= ExpParams.numberOfIdleSteps) //All idle steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 5; //Go to next stage
+      }
+      else //Next idle step
+        ExpState.stepsCounter++;
+    case 5: //Parent (Parents) returning to original place (places)
+      if (ExpState.stepsCounter >= globals["StepsForCreatureShift"]) //All shift steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 6; //Go to next stage
+      }
+      else //Next shift step
+      {
+        doShiftStep("outside", globals["NormalizedRadiusIncrementPerShiftStep"]);
+        ExpState.stepsCounter++;
+      }
+    case 6: //Parents on their original places - start simulation
+      var creatureIndex;
+      var creaturesCount = Populations.get(0).size;
+
+      //Search for really simulated creature and select it
+      for (creatureIndex = 0; creatureIndex < creaturesCount; creatureIndex++)
+      {
+        Populations.creature = creatureIndex; //Change current creature
+        if (Creature.user1 == "simulation") //Really simulated creature found
+          break;
+      }
+
+      Creature.nnenabled = 1; //Enable neural network for current creature
+      Creature.perf = 1; //And switch on its performance calculation
+
+      Populations.get(0).enableperf = globals["PerformanceCalculationMethod"]; //Restore performance calculation method
+
+      ExpState.stepsCounter = 0; //Reset steps counter
+      ExpState.stepType = 0; //Go to stage 0
+    case 7: //Currently simulated creature returns to the middle of the circle (if it has moved from it)
+      //TODO - move simulated creature smoothly (or instantly) to the circle center
+
+      ExpState.stepsCounter = 0; //Reset steps counter
+      ExpState.stepType = 8; //Go to next stage
+    case 8: //Creature from the middle approaches circle boundary
+      if (ExpState.stepsCounter == 0) //It's first time when current case is beeing executed - mark creature to move and do the first move
+      {
+        globals.set("NumberOfCreaturesToShift", 1);
+        globals.set("ShiftedCreatureIndex1", Populations.creature); //Mark currently dying creature (from the middle of the circle)
+
+        doShiftStep("outside", globals["NormalizedRadiusIncrementPerShiftStep"]);
+        ExpState.stepsCounter++;
+      }
+      else if (ExpState.stepsCounter >= globals["StepsForCreatureShift"]) //All shift steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 9; //Go to next stage
+      }
+      else //Next shift step
+      {
+        doShiftStep("outside", globals["NormalizedRadiusIncrementPerShiftStep"]);
+        ExpState.stepsCounter++;
+      }
+    case 9: //Delete creature from the circle boundary; delete its genotype from GenePools
+      //Select creature to kill
+      Populations.creature = globals["DeletedCreatureIndex"];
+      //And remove it from the world
+      Populations.killSelected();
+
+      //Select genotype to delete (corresponding to killed creature)
+      GenePools.genotype = globals["DeletedGenotypeIndex"];
+      //And delete it from gene pool
+      GenePools.deleteSelected();
+
+      //Deleting a creature affects indices within Populations => update of global variable "ShiftedCreatureIndex1" needed
+      var creatureIndex;
+      var creaturesCount = Populations.get(0).size;
+
+      //Search for moving creature and select it once more
+      for (creatureIndex = 0; creatureIndex < creaturesCount; creatureIndex++)
+      {
+        Populations.creature = creatureIndex; //Change current creature
+        if (Creature.user1 == "simulation") //Really simulated creature found
+           break;
+      }
+      globals.set("ShiftedCreatureIndex1", Populations.creature); //Update global variable "ShiftedCreatureIndex1"
+
+      ExpState.stepsCounter = 0; //Reset steps counter
+      ExpState.stepType = 10; //Go to next stage
+    case 10: //Creature from the middle finishes its move to the circle boundary
+      if (ExpState.stepsCounter >= globals["StepsForCreatureShiftFinish"]) //All shift finish steps done
+      {
+        Creature.user1 = "visualization"; //Mark creature as visualization
+
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 11; //Go to next stage
+      }
+      else //Next shift finish step
+      {
+        doShiftStep("outside", globals["NormalizedRadiusIncrementPerShiftFinishStep"]);
+        ExpState.stepsCounter++;
+      }
+    case 11: //Idle steps after circle circumference creature replacement or after central creature disappearance
+      if (ExpState.stepsCounter >= ExpParams.numberOfIdleSteps) //All idle steps done
+      {
+        ExpState.stepsCounter = 0; //Reset steps counter
+        ExpState.stepType = 0; //Go to stage 0
+        Populations.get(0).enableperf = globals["PerformanceCalculationMethod"]; //Restore performance calculation method
+      }
+      else //Next idle step
+        ExpState.stepsCounter++;
+  }
+}
+
+//================================================================================
+
+//Function called to kill currently selected creature
+//***************
+function onDied()
+//***************
+{
+  ExpState.totaltestedcr++;
+  Simulator.checkpoint();
+}
+
+//================================================================================
+
+/*
+******************************
+  END STANDARD FUNCTIONS BLOCK
+******************************
+*/
+
+//================================================================================
+
+//*******************************
+function createInitialGenotypes()
+//*******************************
+{
+  var i;
+  //Spawn genotype library with mutations of initial genotype
+  for (i = 0; i < ExpParams.MaxCreated - 1; i++)
+  {
+    GenePools.newGenotype(ExpParams.initialgen); //Create new genotype, place it in temporary buffer and select it
+    Genotype.mutate(); //Mutate it
+    Genotype.popsiz = 0; //Set number of instances to 0 (genotypes not evaluated yet)
+    //Genotype.popsiz = 1; //Set number of instances to 1
+
+    //Set all user fields
+    Genotype.user1 = "initial";
+    Genotype.user2 = null;
+    Genotype.user3 = null;
+
+    //Set appriopriate ordinal number
+    Genotype.num = globals["NextOrdinalNumber"];
+    //Increment ordinal number for future use
+    globals.set("NextOrdinalNumber", globals["NextOrdinalNumber"] + 1);
+
+    //Place genotype from buffer in gene pool 0 and make it current
+    GenePools.copySelected(0);
+  }
+}
+
+//================================================================================
+
+//Function used to create creatures from genotypes.
+//When placing creatures one have to remember that each creature is enclosed in a box with one stick length margin.
+//Creature.moveAbs method moves bottom-left-down corner of the creature to the given 3D point
+//Therefore if for example we want to have creature's center at [20.0, 10.0, z] coordinates,
+//and our creature genotype is X (one stick along OX axis),
+//we have to move the creature to absolute location [18.5, 9.0],
+//since it's size_x is 3.0 and its size_y is 2.0 and:
+//18.5 = 20.0 - 3.0 / 2
+//9.0  = 10.0 - 2.0 / 2
+//****************************
+function arrangeCreatures(how)
+//****************************
+{
+  //Save current genotype and creature indices
+  var currentGenotypeIndex = GenePools.genotype;
+  var currentCreatureIndex = Populations.creature;
+
+  var centerCoordinates; //x and y
+  var lowerLeftCornerCoordinates; //x and y
+
+  var genotypesCount = GenePools.get(0).size; //Get number of genotypes to visualize
+  var genotypeIndex;
+
+  //Place all creatures in the world
+  for (genotypeIndex = 0; genotypeIndex < genotypesCount; genotypeIndex++)
+  {
+    //Select next genotype from gene pool 0
+    GenePools.genotype = genotypeIndex;
+
+    //Place all initial genotype's corresponding creatures in the circle
+    if (how == "circle")
+    {
+      //Bring creature to life; Populations.creature is altered and set to new creature index
+      Populations.createFromGenotype(); //Implicit onBorn call
+
+      Creature.user1 = "visualization"; //Remember that this creature only represents some genotype from gene pool
+      Creature.user2 = Genotype.num; //Remember which genotype results in current creature
+      Creature.user3 = [(Math.twopi * genotypeIndex) / genotypesCount, 1.0];
+  
+      Creature.nnenabled = 0; //Switch off neural net for current creature
+      Creature.perf = 0; //And switch off its performance calculation
+    }
+    //Create creatures on the basis of their details from genotypes' user3 fields (if genotype's user3 field is not empty)
+    else if (how == "restore")
+    {
+      //No corresponding creature yet => go to next genotype
+      if (Genotype.user3 == "null")
+        continue;
+
+      //Bring creature to life; Populations.creature is altered and set to new creature index
+      Populations.createFromGenotype(); //Implicit onBorn call
+
+      var fieldsVector = String.split(Genotype.user3, "&");
+
+      var fieldIndex;
+      var fieldVector;
+      var fieldName;
+      var fieldValue;
+      var fieldValueVector;
+      var fieldValueVectorIndex;
+
+      for (fieldIndex = 0; fieldIndex < fieldsVector.size; fieldIndex++)
+      {
+        fieldVector = String.split(fieldsVector[fieldIndex], "=");
+        fieldName = fieldVector[0];
+        fieldValue = fieldVector[1];
+
+        //Value represents a vector
+        if (String.indexOf(fieldValue, "|") >= 0)
+        {
+          fieldValueVector = String.split(fieldValue, "|");
+          for (fieldValueVectorIndex = 0; fieldValueVectorIndex < fieldValueVector.size; fieldValueVectorIndex++)
+            //Replace string with parsed value
+            fieldValueVector.set(fieldValueVectorIndex, parseValue(fieldValueVector[fieldValueVectorIndex]));
+
+          //Only user1, user2, and user3 fields may contain vectors, since none of standard Creature fields is of type Vector
+          switch (fieldName)
+          {
+            case "user1":
+              Creature.user1 = fieldValueVector;
+            case "user2":
+              Creature.user2 = fieldValueVector;
+            case "user3":
+              Creature.user3 = fieldValueVector;
+          }
+        }
+        //Simple value
+        else
+          //Update this switch if you changed savedCreatureFieldsNames variable
+          switch (fieldName)
+          {
+            case "perf":
+              Creature.perf = parseValue(fieldValue);
+            case "nnenabled":
+              Creature.nnenabled = parseValue(fieldValue);
+            case "lifespan":
+              Creature.lifespan = parseValue(fieldValue);
+            case "c_velocity":
+              Creature.c_velocity = parseValue(fieldValue);
+            case "c_vertpos":
+              Creature.c_vertpos = parseValue(fieldValue);
+            case "user1":
+              Creature.user1 = parseValue(fieldValue);
+            case "user2":
+              Creature.user2 = parseValue(fieldValue);
+          }
+      }
+    }
+
+    //Calculate creature's coordinates
+    centerCoordinates = getXYForPoleCoordinates(Creature.user3); //Coordinates of creature's center
+    lowerLeftCornerCoordinates = getXYForCreatureLowerLeftCorner(centerCoordinates[0], centerCoordinates[1], Creature.size_x, Creature.size_y); //Coordinates of creature's lower left corner
+
+    //Move current creature
+    //TODO - eventually change creature z coordinate after move, if world is higher in target place
+    Creature.moveAbs(lowerLeftCornerCoordinates[0], lowerLeftCornerCoordinates[1], Creature.pos_z);//Assigning values for creature's pos_x, pos_y or center_x, center_y doesn't work
+  }
+
+  //Restore current genotype and creature indices
+  GenePools.genotype = currentGenotypeIndex;
+  Populations.creature = currentCreatureIndex;
+}
+
+//================================================================================
+
+//Function translating coordinates from pole (center = world center; radius fraction in [0, 1], equal to poleCoordinates[1]; angle in [0, 2*pi], equal to poleCoordinates[0]) to cartesian
+//When radius fraction == 1, then radius equals to creatures' circle radius
+//Creatures' circle radius == (World.wrldsiz / 2) * globals["CreaturesCircleNormalizedRadius"]
+//***********************************************
+function getXYForPoleCoordinates(poleCoordinates)
+//***********************************************
+{
+  var coordinates = Vector.new(); //Create new vector
+
+  //Calculate coordinates for the center of the world
+  var centerX = World.wrldsiz / 2;
+  var centerY = World.wrldsiz / 2;
+
+  //Calculate non-normalized radius
+  var radius = (World.wrldsiz / 2) * globals["CreaturesCircleNormalizedRadius"] * poleCoordinates[1];
+
+  //Calculate creature's coordinates
+  coordinates.add(centerX + Math.cos(poleCoordinates[0]) * radius);
+  coordinates.add(centerY + Math.sin(poleCoordinates[0]) * radius);
+  
+  return coordinates;
+}
+
+//================================================================================
+
+//Get lower left corner 2D coordinates for a creature whose center must be at [centerX, centerY] and whose 2D size is sizeX * sizeY
+//**********************************************************************
+function getXYForCreatureLowerLeftCorner(centerX, centerY, sizeX, sizeY)
+//**********************************************************************
+{
+  var coordinates = Vector.new(); //Create new vector
+
+  coordinates.add(centerX - sizeX / 2);
+  coordinates.add(centerY - sizeY / 2);
+
+  return coordinates;
+}
+
+//================================================================================
+
+//Function used to get genotype index in GenePools class, for genotype with given ordinal number
+//******************************************************
+function findGenotypeIndexByOrdinalNumber(ordinalNumber)
+//******************************************************
+{
+  var result = -1;
+  var genotypeIndex = null;
+
+  for (genotypeIndex = 0; genotypeIndex < GenePools.get(0).size; genotypeIndex++)
+  {
+    var genotype = GenePools.get(0).get(genotypeIndex);
+    if (genotype.num == ordinalNumber)
+    {
+      result = genotypeIndex;
+      break;
+    }
+  }
+
+  return result;
+}
+
+//================================================================================
+
+//Function used to get creature index in Populations class, representing genotype with given ordinal number
+//******************************************************
+function findCreatureIndexByOrdinalNumber(ordinalNumber)
+//******************************************************
+{
+  var result = -1;
+  var creatureIndex;
+
+  for (creatureIndex = 0; creatureIndex < Populations.get(0).size; creatureIndex++)
+  {
+    var creature = Populations.get(0).get(creatureIndex);
+    if (creature.user2 == ordinalNumber)
+    {
+      result = creatureIndex;
+      break;
+    }
+  }
+
+  return result;
+}
+
+//================================================================================
+
+//Function used to perform one shift step using absolute creature positioning
+//It uses these global variables:
+//- globals
+//***************************************************************
+function doShiftStep(shiftType, normalizedRadiusIncrementPerStep)
+//***************************************************************
+{
+  var centerCoordinates;
+  var lowerLeftCornerCoordinates;
+
+  Populations.creature = globals["ShiftedCreatureIndex1"]; //Select parent 1 creature
+
+  //Move parent 1 along its radius, in right direction
+  switch (shiftType)
+  {
+    case "inside":
+      Creature.user3.set(1, Creature.user3[1] - normalizedRadiusIncrementPerStep);
+      centerCoordinates = getXYForPoleCoordinates(Creature.user3);
+    case "outside":
+      Creature.user3.set(1, Creature.user3[1] + normalizedRadiusIncrementPerStep);
+      centerCoordinates = getXYForPoleCoordinates(Creature.user3);
+  }
+  lowerLeftCornerCoordinates = getXYForCreatureLowerLeftCorner(centerCoordinates[0], centerCoordinates[1], Creature.size_x, Creature.size_y); //Coordinates of creature's lower left corner
+  //TODO - eventually change creature z coordinate after move, if world is higher in target place
+  Creature.moveAbs(lowerLeftCornerCoordinates[0], lowerLeftCornerCoordinates[1], Creature.pos_z);
+
+  //Move parent 2 along its radius, in right direction (if present)
+  if (globals["NumberOfCreaturesToShift"] == 2)
+  {
+    Populations.creature = globals["ShiftedCreatureIndex2"]; //Select parent 2 creature
+
+    //Move parent 2 in right direction
+    switch (shiftType)
+    {
+      case "inside":
+        Creature.user3.set(1, Creature.user3[1] - normalizedRadiusIncrementPerStep);
+        centerCoordinates = getXYForPoleCoordinates(Creature.user3);
+      case "outside":
+        Creature.user3.set(1, Creature.user3[1] + normalizedRadiusIncrementPerStep);
+        centerCoordinates = getXYForPoleCoordinates(Creature.user3);
+    }
+    lowerLeftCornerCoordinates = getXYForCreatureLowerLeftCorner(centerCoordinates[0], centerCoordinates[1], Creature.size_x, Creature.size_y); //Coordinates of creature's lower left corner
+    //TODO - eventually change creature z coordinate after move, if world is higher in target place
+    Creature.moveAbs(lowerLeftCornerCoordinates[0], lowerLeftCornerCoordinates[1], Creature.pos_z);
+  }
+}
+
+//================================================================================
+
+//Function used to copy performance figures from creature Populations.creatureIndex to genotype GenePools.genotypeIndex
+//**************************************************************
+function copyPerformanceToGenotype(creatureIndex, genotypeIndex)
+//**************************************************************
+{
+  Populations.creature = creatureIndex;
+  GenePools.genotype = genotypeIndex;
+
+  GenePools.addPerformanceFromCreature();
+}
+
+//================================================================================
+
+//Creates new genotype, puts it into temporary buffer and makes it current (selects it)
+//********************************
+function createAndSelectGenotype()
+//********************************
+{
+  var parentGenotypeOrdinalNumber1;
+  var parentGenotypeOrdinalNumber2;
+
+  var sel;
+  sel = (ExpParams.p_nop + ExpParams.p_mut + ExpParams.p_xov) * Math.rnd01;
+  if (sel < ExpParams.p_nop)
+  {
+    GenePools.genotype = selectedForCreation();
+    parentGenotypeOrdinalNumber1 = Genotype.num; //Save current genotype's (parent's) ordinal number
+
+    GenePools.newGenotype(Genotype.genotype); //Copy current genotype and place it into temporary buffer; a copy becames current genotype now
+
+    //Remember parent
+    Genotype.user1 = "copy";
+    Genotype.user2 = parentGenotypeOrdinalNumber1;
+    Genotype.user3 = null;
+  }
+  else
+  {
+    sel = sel - ExpParams.p_nop;
+    if (sel < ExpParams.p_mut)
+    {
+      GenePools.genotype = selectedForCreation(); //Select current genotype
+      parentGenotypeOrdinalNumber1 = Genotype.num; //Save current genotype's (parent's) ordinal number
+
+      GenePools.mutateSelected(); //Mutate current genotype and place new genotype into temporary buffer;  a copy becames current genotype now
+
+      //Remember parent
+      Genotype.user1 = "mutant";
+      Genotype.user2 = parentGenotypeOrdinalNumber1;
+      Genotype.user3 = null;
+    }
+    else
+    {
+      var other;
+
+      GenePools.genotype = selectedForCreation(); //Select current genotype
+      parentGenotypeOrdinalNumber1 = Genotype.num; //Save parent 1 ordinal number
+
+      if (ExpParams.xov_mins > 0.0)
+        other = selectedSimilar();
+      else
+        other = selectedForCreation();
+
+      if (other >= 0)
+      {
+        parentGenotypeOrdinalNumber2 = GenePools.get(0).get(other).num; //Save parent 2 ordinal number
+        GenePools.crossoverSelected(other); //Crossover current and other genotype and place child genotype into temporary buffer as current genotype
+
+        //Remember parents
+        Genotype.user1 = "cross";
+        Genotype.user2 = parentGenotypeOrdinalNumber1;
+        Genotype.user3 = parentGenotypeOrdinalNumber2;
+      }
+      else
+      {
+        GenePools.newGenotype(Genotype.genotype); //Copy current genotype and place it into temporary buffer; a copy becames current genotype now
+
+        //Remember parent
+        Genotype.user1 = "copy - second genotype for crossover not found";
+        Genotype.user2 = parentGenotypeOrdinalNumber1;
+        Genotype.user3 = null;
+
+        Simulator.print("crossover - second genotype not found?");
+      }
+    }
+  }
+}
+
+//================================================================================
+
+//Update fitness formula for current genotype group
+//************************************************************************************************************************************************************
+function ExpParams_cr_c_set, ExpParams_cr_v_set, ExpParams_cr_gl_set, ExpParams_cr_vpos_set, ExpParams_cr_norm_set, ExpParams_cr_simi_set, update_fitformula()
+//************************************************************************************************************************************************************
+{
+  var formula = "" + ExpParams.cr_c;
+  formula += singlecrit("cr_vpos", "vertpos");
+  formula += singlecrit("cr_v", "velocity");
+  formula += singlecrit("cr_gl", "strsiz");
+  if (ExpParams.cr_simi)
+    formula = "(" + formula + ")*this.simi";
+  GenePool.fitness = "return " + formula + ";";
+}
+
+//================================================================================
+
+//************************************
+function singlecrit(crname, fieldname)
+//************************************
+{
+  var weight = ExpParams.[crname];
+  if (weight == 0.0)
+    return "";
+  if (ExpParams.cr_norm)
+    return "+this.getNormalized(Genotype:" + fieldname + ")*" + weight;
+  else
+    return "+this." + fieldname + "*" + weight;
+}
+
+//================================================================================
+
+//Change predefined setup
+//**************************************
+function ExpParams_predefinedSetup_set()
+//**************************************
+{
+  switch (ExpParams.predefinedSetup)
+  {
+    case 0: //Vertical position optimization
+      ExpParams.cr_vpos = 1; //Weight of vertical position in total fitness
+      ExpParams.cr_v = 0; //Weight of horizontal velocity in total fitness
+      ExpParams.cr_gl = 0; //Weight of body size (number of parts) in total fitness
+      Populations.get(0).nnsim = 0;
+      setMutationProfile(1);
+      
+    case 1: //Velocity optimization
+      ExpParams.cr_vpos = 0; //Weight of vertical position in total fitness
+      ExpParams.cr_v = 1; //Weight of horizontal velocity in total fitness
+      ExpParams.cr_gl = 0; //Weight of body size (number of parts) in total fitness
+      Populations.get(0).nnsim = 1;
+      setMutationProfile(1);
+      
+    case 2: //Body size optimization
+      ExpParams.cr_vpos = 0; //Weight of vertical position in total fitness
+      ExpParams.cr_v = 0; //Weight of horizontal velocity in total fitness
+      ExpParams.cr_gl = 1; //Weight of body size (number of parts) in total fitness
+      Populations.get(0).nnsim = 0;
+      setMutationProfile(0);
+  }
+}
+
+//this function adjusts key probabilities so that
+//irrelevant mutations (for selected fitness) are not performed
+function setMutationProfile(bodyfitness)
+{
+  if (bodyfitness==1) 
+  {
+    GenMan.f0_n_new=GenMan.f0_n_del=GenMan.f0_c_new=GenMan.f0_c_del=0;
+    GenMan.f0_n_prp=GenMan.f0_c_wei=0;
+    GenMan.f1_nmConn=GenMan.f1_nmProp=0;
+    GenMan.f1_nmWei=0;
+  } else
+  {
+    GenMan.f0_n_new=GenMan.f0_n_del=GenMan.f0_c_new=GenMan.f0_c_del=5;
+    GenMan.f0_n_prp=GenMan.f0_c_wei=10;
+    GenMan.f1_nmConn=GenMan.f1_nmProp=0.1;
+    GenMan.f1_nmWei=1;
+  }
+}
+
+
+//================================================================================
+
+//Function used to convert global variables dictionary into a string of "|" and "=" separated substrings.
+//Each substring is either global variable name or global variable value.
+//Substrings are grouped in pairs, e.g. "name1=value1|name2=value2".
+//Created string is saved into ExpState.globals field (original dictionary can't be saved there because Dictionary is not a simple type but a class).
+//Function uses these global variables:
+//- globals
+//- globalsNames
+//******************************
+function saveGlobalsToExpState()
+//******************************
+{
+  var globalsString = "";
+  var globalName = "";
+
+  var nameIndex;
+  var namesCount = globalsNames.size;
+  for (nameIndex = 0; nameIndex < namesCount; nameIndex++)
+  {
+    globalName = globalsNames[nameIndex];
+    globalsString += globalName;
+    globalsString += "=";
+    globalsString += globals[globalName];
+
+    //Not the last pair => append "|"
+    if (nameIndex < namesCount - 1)
+      globalsString += "|";
+  }
+
+  ExpState.globals = globalsString;
+}
+
+//================================================================================
+
+//Save current genotype and creature indices to ExpState.currentGenotype and ExpState.currentCreature fields
+//*************************************************
+function saveCurrentGenotypeAndCreatureToExpState()
+//*************************************************
+{
+  ExpState.currentGenotype = GenePools.genotype;
+  ExpState.currentCreature = Populations.creature;
+}
+
+//================================================================================
+
+//Get string of global variables names and values pairs from ExpState.globals field, parse it and save globals variables in a dictionary
+//Function uses these global variables:
+//- globals
+//********************************
+function loadGlobalsFromExpState()
+//********************************
+{
+  var globalsString = ExpState.globals;
+
+  //Create vector of name=value substrings
+  var globalsPairs = String.split(globalsString, "|");
+  var tempVector;
+
+  //Recreate global variables dictionary
+  globals = Dictionary.new();
+
+  var pairIndex;
+  for (pairIndex = 0; pairIndex < globalsPairs.size; pairIndex++)
+  {
+    //Separate name and value
+    tempVector = String.split(globalsPairs[pairIndex], "=");
+
+    //Add global variable to dictionary
+    globals.set(tempVector[0], parseValue(tempVector[1]));
+  }
+}
+
+//================================================================================
+
+//Load current genotype and creature indices from ExpState.currentGenotype and ExpState.currentCreature fields
+//***************************************************
+function loadCurrentGenotypeAndCreatureFromExpState()
+//***************************************************
+{
+  GenePools.genotype = ExpState.currentGenotype;
+  Populations.creature = ExpState.currentCreature;
+}
+
+//================================================================================
+
+//Parse given string and return null, float, int or string value
+//******************************
+function parseValue(valueString)
+//******************************
+{
+  var value;
+
+  //"null" string => value is empty
+  if (valueString == "null")
+    value = null;
+  //There is a dot in the string
+  else if (String.indexOf(valueString, ".") >= 0)
+  //Try to parse float
+  {
+    value = String.parseFloat(valueString);
+
+    //Value is a string => leave it as it is
+    if (value == 0.0 && valueString != "0.0")
+      value = valueString;
+  }
+  else
+  //Try to parse int
+  {
+    value = String.parseInt(valueString);
+
+    //Value is a string => leave it as it is
+    if (value == 0 && valueString != "0")
+      value = valueString;
+  }
+
+  return value;
+}
+
+//================================================================================
+
+//Compress all genotypes (user2, user3) fields pairs into strings and save these strings into user2 field.
+//Save corresponding creatures details in genotypes' user3 fields (as "&" and "=" separated strings).
+//*********************************
+function prepareGenotypesForWrite()
+//*********************************
+{
+  //Save current genotype and creature indices
+  var currentGenotypeIndex = GenePools.genotype;
+  var currentCreatureIndex = Populations.creature;
+
+  //Get number of genotypes
+  var genotypesCount = GenePools.get(0).size;
+  var parentsOrdinalNumbersString;
+  var correspondingCreatureIndex;
+  var creatureDetailsString;
+  var genotypeIndex;
+
+  //Modify all genotypes
+  for (genotypeIndex = 0; genotypeIndex < genotypesCount; genotypeIndex++)
+  {
+    //Set current genotype
+    GenePools.genotype = genotypeIndex;
+
+    //Construct string of "|" separated parents ordinal numbers
+    parentsOrdinalNumbersString = "parents="; //Needed to ensure that user2 field will be treated as string when loaded
+    parentsOrdinalNumbersString += Genotype.user2;
+    parentsOrdinalNumbersString += "|";
+    parentsOrdinalNumbersString += Genotype.user3;
+
+    //Save constructed string to user2 field
+    Genotype.user2 = parentsOrdinalNumbersString;
+
+    //Find corresponding creature
+    correspondingCreatureIndex = findCreatureIndexByOrdinalNumber(Genotype.num);
+
+    //Corresponding creature found
+    if (correspondingCreatureIndex >= 0)
+    {
+      //Corresponding creature's details string
+      creatureDetailsString = "";
+
+      Populations.creature = correspondingCreatureIndex;
+
+      //Create corresponding creature's details string
+      var fieldIndex;
+      var vectorFieldIndex;
+      var fieldName;
+  
+      for (fieldIndex = 0; fieldIndex < savedCreatureFieldsNames.size; fieldIndex++)
+      {
+        fieldName = savedCreatureFieldsNames[fieldIndex];
+  
+        creatureDetailsString += fieldName; //Append field name
+        creatureDetailsString += "="; //Append equality sign
+  
+        //Vector value => append all vector fields values, separated by "|"
+        if (typeof Creature.[fieldName] == "Vector")
+          for (vectorFieldIndex = 0; vectorFieldIndex < Creature.[fieldName].size; vectorFieldIndex++)
+          {
+            creatureDetailsString += Creature.[fieldName][vectorFieldIndex];
+            //Not last vector field => append "|"
+            if (vectorFieldIndex < Creature.[fieldName].size - 1)
+              creatureDetailsString += "|";
+          }
+        //Normal value (int, float, string or null)
+        else
+          creatureDetailsString += Creature.[fieldName]; //Append field value
+  
+        //Not last field => append "&"
+        if (fieldIndex < savedCreatureFieldsNames.size - 1)
+          creatureDetailsString += "&";
+      }
+
+      //Save corresponding creature's details string to current genotype's user3 field
+      Genotype.user3 = creatureDetailsString;
+    }
+    //Corresponding creature not found
+    else
+      Genotype.user3 = null;
+  }
+
+  //Restore current genotype and creature indices
+  GenePools.genotype = currentGenotypeIndex;
+  Populations.creature = currentCreatureIndex;
+}
+
+//================================================================================
+
+//Restore all genotypes user2 and user3 fields on the basis of the string from user2 field (set separate parents' ordinal numbers in genotypes' user2 and user3 fields)
+//****************************
+function decompressGenotypes()
+//****************************
+{
+  //Save current genotype index
+  var currentGenotypeIndex = GenePools.genotype;
+
+  //Get number of genotypes
+  var genotypesCount = GenePools.get(0).size;
+  var genotypeIndex;
+  //Vector of current genotype's parents ordinal numbers
+  var parentsOrdinalNumbers;
+
+  //Modify all genotypes
+  for (genotypeIndex = 0; genotypeIndex < genotypesCount; genotypeIndex++)
+  {
+    //Set current genotype
+    GenePools.genotype = genotypeIndex;
+
+    //Split string of "|" separated parents ordinal numbers
+    parentsOrdinalNumbers = String.split(String.split(Genotype.user2, "=")[1], "|");
+
+    //Save current genotype parent's ordinal numbers in user2 and user3 fields
+    Genotype.user2 = parseValue(parentsOrdinalNumbers[0]);
+    Genotype.user3 = parseValue(parentsOrdinalNumbers[1]);
+  }
+
+  //Restore current genotype index
+  GenePools.genotype = currentGenotypeIndex;
+}
+
+//================================================================================
+
+/*
+********************************
+  BEGIN STANDARD FUNCTIONS BLOCK
+********************************
+*/
+
+//================================================================================
+
+//Experiment state loading
+//******************
+function onExpLoad()
+//******************
+{
+  //Global variables were defined and onExpDefLoad was called automatically before this function started executing
+
+  GenePools.group = 0;
+  Populations.group = 0;
+  GenePools.clearGroup(0);
+  Populations.clearGroup(0);
+  Loader.addClass(sim_params.*);
+  Loader.addClass(Population.*);
+  Loader.addClass(GenePool.*);
+  Loader.setBreakLabel(Loader.OnComment, "onExpLoad_Comment");
+  Loader.setBreakLabel(Loader.BeforeObject, "onExpLoad_Object");
+  Loader.setBreakLabel(Loader.BeforeUnknown, "onExpLoad_Unknown");
+  Loader.run();
+  if (GenePool.size > 0)
+    Simulator.print("Experiment successfully loaded (" + GenePool.size + " genotypes)");
+
+  //Load global variables names and values pairs from ExpState.globals field
+  loadGlobalsFromExpState();
+  //Load current genotype and creature indices from ExpState.currentGenotype and ExpState.currentCreature fields
+  loadCurrentGenotypeAndCreatureFromExpState();
+  //Reset globals string
+  ExpState.globals = "";
+  //Reset indices values
+  ExpState.currentGenotype = null;
+  ExpState.currentCreature = null;
+  //Create creatures on the basis of their details from genotypes' user3 fields (if genotype's user3 field is not empty)
+  arrangeCreatures("restore");
+  //Restore all genotypes user2 and user3 fields on the basis of the string from user2 field (set separate parents' ordinal numbers in genotypes' user2 and user3 fields)
+  decompressGenotypes();
+}
+
+//================================================================================
+
+//**************************
+function onExpLoad_Unknown()
+//**************************
+{
+  if (Loader.objectName != "org")
+    return ;
+
+  GenePools.genotype = -1;
+  Loader.currentObject = Genotype.*;
+  Interface.makeFrom(Genotype.*).setAllDefault();
+  Loader.loadObject();
+  GenePools.copySelected(0);
+}
+
+//================================================================================
+
+//*************************
+function onExpLoad_Object()
+//*************************
+{
+  if (Loader.objectName != "Population")
+    return ;
+
+  Populations.group = 0;
+}
+
+//================================================================================
+
+//Experiment state saving
+//******************
+function onExpSave()
+//******************
+{
+  //Save global variables names and values pairs string into ExpState.globals field
+  saveGlobalsToExpState();
+  //Save current genotype and creature indices to ExpState.currentGenotype and ExpState.currentCreature fields
+  saveCurrentGenotypeAndCreatureToExpState();
+  //Compress all genotypes (user2, user3) fields pairs into strings and save these strings into user2 field
+  //Save corresponding creatures details in genotypes' user3 fields (as "&" and "=" separated strings)
+  //(initial creatures' rotations are not saved since they are unimportant)
+  prepareGenotypesForWrite();
+
+  File.writeComment("'evolution_demo.expdef' data");
+  File.writeObject(sim_params.*);
+  GenePools.group = 0;
+  File.writeObject(GenePool.*);
+  Populations.group = 0;
+  File.writeObject(Population.*);
+
+  var i = 0;  
+  GenePools.group = 0;
+  while (i < GenePool.size)
+  {
+    GenePools.genotype = i;
+    File.writeNameObject("org", Genotype.*);
+    i++;
+  }
+
+  Simulator.print("Experiment successfully saved (" + GenePool.size + " genotypes)");
+
+  //Reset globals string
+  ExpState.globals = "";
+  //Reset indices values
+  ExpState.currentGenotype = null;
+  ExpState.currentCreature = null;
+  //Restore all genotypes user2 and user3 fields on the basis of the string from user2 field (set separate parents' ordinal numbers in genotypes' user2 and user3 fields)
+  decompressGenotypes();
+}
+
+//================================================================================
+
+/*
+******************************
+  END STANDARD FUNCTIONS BLOCK
+******************************
+*/
+
+//================================================================================
+
+~
+
+#include "evolution_demo_props.inc"
+

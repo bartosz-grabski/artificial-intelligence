@@ -1,0 +1,329 @@
+expdef:
+name:Boids
+info:~
+Boids, developed by Craig Reynolds in 1986, is an artificial life program, simulating the flocking behaviour of birds.
+
+As with most artificial life simulations, Boids is an example of emergent behaviour; that is, the complexity of Boids arises from the interaction of individual agents (the boids, in this case) adhering to a set of simple rules. The rules applied in the simplest Boids world are as follows:
+
+    * separation: steer to avoid crowding local flockmates
+    * alignment: steer towards the average heading of local flockmates
+    * cohesion: steer to move toward the average position of local flockmates
+
+(http://en.wikipedia.org/wiki/Boids)
+~
+code:~
+
+global ceiling; //max allowed altitude for boids, above which they tend to turn downwards
+
+/*
+Collision detection is based on very scarce information (only three sensor directions, all in one plane), thus occasionally some creatures cannot avoid walls and fly into obstacles (also due to high speed = large "step"). This might be improved by further tuning parameters of collision avoidance, or by adding more sensors (up and down, so that they are no longer planar). While not perfect, simplicity of currently implemented collision detection makes it beautiful, so we stick to this version.
+*/
+
+global global_step_dt;
+
+function onExpDefLoad()
+{
+  global_step_dt=0.1;
+
+  World.wrldg = 0;
+  Population.name = "Creatures";
+  Population.death = 0;
+  Population.colmask = 0;
+  Population.bodysim = 0;
+  Population.energy = 0;
+  Shapes.set("1p_", "//0\np:0,0,0\np:1,0,0\np:0.75,0.25,0\np:0.75,-0.25,0\nj:0,1\nj:1,2\nj:1,3\n", -3);
+  SignalView.mode = 0; //signals are not displayed
+
+  ceiling = 17;
+  ExpParams_worldmap_set(); //force call handler
+
+  // the following example demonstrates live signal properties using the label formula:
+  //
+  //SignalView.mode = 1;//Custom
+  //SignalView.addMap("flock",0xffffff);
+  //SignalView.labels = "return \"z=\"+Signal.value.z;";
+}
+
+function onBorn()
+{
+  Creature.rotate(Math.rndUni(0, Math.twopi), Math.rndUni(0, Math.twopi), Math.rndUni(0, Math.twopi));
+  Creature.moveAbs(World.wrldsiz*Math.rnd01, World.wrldsiz*Math.rnd01, World.wrldsiz*Math.rnd01);
+  var sig = Creature.signals.add("flock");
+  sig.value = Creature.getMechPart(0);
+  Creature.localDrive = (global_step_dt*5, 0, 0);
+}
+
+function levelCreature(mechpart, amount) //levels the creature a bit so that it flies more "horizontally"
+{
+  var o = mechpart.orient.clone();
+  o.y.z = 0;
+  o.z.x = 0;
+  o.z.y = 0;
+  o.z.z = 1;
+  mechpart.orient.between2(mechpart.orient, o, 1.0-amount*global_step_dt);
+}
+
+function onCreaturesStep(cr)
+{
+  var p = cr.getMechPart(0);
+  var n = cr.signals.receiveSet("flock", ExpParams.range);
+  if (n.size > 0)
+  {
+    var i;
+    var orient = Orient.new();
+    var mp;
+    var distvec = XYZ.new(0, 0, 0);
+    var dist;
+    var mindist = ExpParams.separ;
+    var mindistvec = null;
+    var center = XYZ.new(0, 0, 0);
+    for (i = 0;i < n.size;i++)
+    {
+      mp = n[i].value;
+      orient.x.add(mp.orient.x);
+      orient.y.add(mp.orient.y);
+      orient.z.add(mp.orient.z);
+      distvec.set(mp.pos);
+      distvec.sub(p.pos);
+      center.add(distvec);
+      dist = distvec.length;
+      if (dist < mindist)
+      {
+        mindist = dist;
+        mindistvec = distvec.clone();
+      }
+    }
+    if (ExpParams.rule2)
+    {
+      orient.normalize();
+      p.orient.between2(p.orient, orient, 1.0-0.5*global_step_dt);
+    }
+    if (ExpParams.rule1 && (mindistvec != null))
+    {
+      mindistvec.scale( -1);
+      mindistvec.normalize();
+      p.orient.betweenOV(p.orient, mindistvec, 1.0-1.0*global_step_dt);
+    }
+    else
+    {
+      if (ExpParams.rule3)
+      {
+        center.normalize();
+        p.orient.betweenOV(p.orient, center, 1.0-0.5*global_step_dt);
+      }
+    }
+  }
+
+  var level_amount = 0.5; //tend to fly horizontally
+
+  if (Math.rnd01 < 0.1*global_step_dt)
+    cr.rotate(Math.rnd01 - 0.5, Math.rnd01 - 0.5, Math.rnd01 - 0.5);
+
+  // obstacle avoidance
+  if (ExpParams.rule4)
+  {
+    //the following makes 2D obstacle avoidance more effective in 3D world (intersect near ground will not fool that much detection of real obstacles)
+    if ((p.z < 5.0) && (p.orient.x.z < 0)) //flying downwards and low?
+      level_amount += 1.0; //level more!
+
+    // calculate vector straight ahead - used for detecting obstacles
+    var front = cr.localToWorld(1, 0, 0);
+    front.sub(p.pos);
+
+    var vFront = [front.x, front.y, front.z];
+    var vCent = [p.pos.x, p.pos.y, p.pos.z];
+
+    // calculate the point of collision
+    var intersect = WorldMap.intersect(vCent, vFront, ExpParams.obstacledist);
+
+    // if there is indeed an obstacle in the given distance
+    if (intersect)
+    {
+      // If the distance to the obstacle is higher than 0, then correct the course
+      if (intersect[3] > 0.0)
+      {
+        //the following makes 2D obstacle avoidance more effective in 3D world (left/right turns will be more effective when it flies horizontally)
+        if (intersect[3] < 5.0) //close to obstacle?
+          level_amount += 1.0; //level more!
+
+        // calculate left/right vectors for checking at which side the obstacle is closer
+        var frontL = cr.localToWorld(5, -1, 0);
+        var frontR = cr.localToWorld(5, 1, 0);
+        var turnangle = Math.atan(1.0 / 5.0); //same as angle of "looking" (frontL,frontR)
+        frontL.sub(p.pos);
+        frontR.sub(p.pos);
+        frontL.normalize();
+        frontR.normalize();
+
+        var vFrontL = [frontL.x, frontL.y, frontL.z];
+        var vFrontR = [frontR.x, frontR.y, frontR.z];
+
+        // calculate left/right points of collision
+        var interL = WorldMap.intersect(vCent, vFrontL, ExpParams.obstacledist);
+        var interR = WorldMap.intersect(vCent, vFrontR, ExpParams.obstacledist);
+
+        var dists = [10000, intersect[3], 10000]; //distances to obstacle towards left, center, right. 10000 means "no obstacle seen"
+        if (interL)
+          dists.set(0, interL[3]); //obstacle seen on left
+        if (interR)
+          dists.set(2, interR[3]); //obstacle seen on right
+        var i;
+        var max = 0;
+        for (i = 1;i < 3;i++) //choose the best direction to go based on 'dists'. Bigger values are better
+        {
+          var k1 = dists[max];
+          var k2 = dists[i];
+          if (k1 > k2)
+            ;
+          else if (k1 < k2)
+            max = i; //wins bigger value
+          else if (Math.rnd01 < 0.5) //equal values: wins random value
+            max = i;
+        }
+
+        if (dists[1] <= 3)
+          turnangle *= 4.0 - dists[1]; //up to 4x sharper turns when obstacle is very close ahead
+        var angle = turnangle * (max - 1) * 10.0 * global_step_dt;
+        //Simulator.print("dists="+dists+"   max="+max+"   angle="+angle);
+        cr.rotateLocal(0, 0, angle);
+      }
+    }
+  }
+
+  levelCreature(p, level_amount);
+  
+  if (p.x < 0 || p.y < 0 || p.x > World.wrldsiz || p.y > World.wrldsiz)
+  {
+    var dir = (World.wrldsiz / 2, World.wrldsiz / 2, p.z);
+    dir.sub(p.pos);
+    dir.normalize();
+    p.orient.betweenOV(p.orient, dir, 1.0-1.0*global_step_dt);
+  }
+
+  if (p.z < 3 || p.z > ceiling)
+  {
+    var dir = (p.oxx * 5.0, p.oxy * 5.0, 7.0 - p.z);
+    dir.sub(p.pos);
+    dir.normalize();
+    p.orient.betweenOV(p.orient, dir, 1.0-1.0*global_step_dt);
+    if (p.z < 1.0)
+      p.z = 1.0;
+  }  
+}
+
+function onStep()
+{
+  if (Population.size < ExpParams.crcount)
+    Populations.createFromString("//0\nm:Vstyle=boid\np:");
+  else if (Population.size > ExpParams.crcount)
+  {
+    Populations.creature = 0;
+    Populations.deleteSelected();
+  }
+}
+
+function ExpParams_worldmap_set()
+{
+  if (ExpParams.worldmap == 0)
+    World.wrldtyp = 0;
+  else
+    World.wrldtyp = 1;
+  if (ExpParams.worldmap == 5)
+    World.wrldsiz = 45; //larger world for "forest"
+  else
+    World.wrldsiz = 35;
+
+  var b = "0 "; //bottom level
+  var T = "" + (ceiling + 2) + " "; //peak level
+  var t = "" + (ceiling * 4 / 5) + " "; //lower peak level
+
+  switch (ExpParams.worldmap)
+  {
+  case 0:     //empty
+    World.wrldmap = "";
+    break;
+  case 1:     //single peak
+    World.wrldmap = "M 3 3\n" + b + b + b + "\n" + b + T + b + "\n" + b + b + b;
+    break;
+  case 2:     //three peaks
+    World.wrldmap = "M 3 3\n" + b + b + T + "\n" + t + b + b + "\n" + b + b + T;
+    break;
+  case 3:     //four peaks
+    World.wrldmap = "M 3 3\n" + T + b + T + "\n" + b + b + b + "\n" + t + b + T;
+    break;
+  case 4:     //corridor
+    World.wrldmap = "M 3 3\n" + T + b + T + "\n" + T + b + T + "\n" + T + b + t;
+    break;
+  case 5:     //forest
+    generateRandomWorld(20, 20, 0.02, ceiling + 2); //low density so that the flock can merge after being split by obstacles
+    break;
+  }
+}
+
+// Generates random block map
+// x, y - dimensions of the map
+// coverage - in percentage, how much of the map is covered with blocks, takes values from 0 to 1
+// height - blocks height
+function generateRandomWorld(x, y, coverage, height)
+{
+  var i, j, map = "M " + x + " " + y;
+
+  for (i = 0; i < y; i++)
+  {
+    map += "\n";
+    for (j = 0; j < x; j++)
+      if (Math.rnd01 < coverage)
+        map += " " + height;
+      else
+        map += " 0";
+  }
+
+  World.wrldmap = map;
+}
+~
+
+prop:
+id:crcount
+name:Number of boids
+type:d 0 300 30
+
+prop:
+id:rule1
+name:Rule 1 - Separation
+type:d 0 1 1
+
+prop:
+id:rule2
+name:Rule 2 - Alignment
+type:d 0 1 1
+
+prop:
+id:rule3
+name:Rule 3 - Cohesion
+type:d 0 1 1
+
+prop:
+id:rule4
+name:Rule 4 - Obstacle avoidance
+type:d 0 1 0
+
+prop:
+id:range
+name:Neighborhood range
+type:f 1 10 6
+
+prop:
+id:separ
+name:Separation distance
+type:f 1 10 2
+
+prop:
+id:obstacledist
+name:Obstacle avoidance distance
+type:f 5 20 10
+
+prop:
+id:worldmap
+name:World setting
+type:d 0 5 0 ~No obstacles~Single peak~Three peaks~Four peaks~Corridor~Forest
+

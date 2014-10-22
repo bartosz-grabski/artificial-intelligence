@@ -1,0 +1,129 @@
+<HTML><HEAD><TITLE>File</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>File class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Provides read/write access to the filesystem. Can be used in the experiment definition to save the experiment state (onExpSave). Files are created in the "scripts_output" subdirectory of the directory where the Framsticks executable is located.</DIV><BR>
+29 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;EOF
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">EndOfFile</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;info
+<div class="typedescr">string</div></td><td>
+<p class="membername">information</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">name</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;path
+<div class="typedescr">string</div></td><td>
+<p class="membername">full path</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;pathseparator
+<div class="typedescr">string</div></td><td>
+<p class="membername">/ or \</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;append
+<div class="typedescr">returns <A HREF="c_file.html">File </A></div></td><td>
+<p class="membername">append buffered to the file</p>
+<code>function append(string filename, string description)</code><br>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;appendDirect
+<div class="typedescr">returns <A HREF="c_file.html">File </A></div></td><td>
+<p class="membername">append unbuffered to the disk file</p>
+<code>function appendDirect(string filename, string description)</code><br>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;close
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">close a file</p>
+<code>function close()</code><br>
+<p class="help">returns file contents if it has been buffered</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;create
+<div class="typedescr">returns <A HREF="c_file.html">File</A></div></td><td>
+<p class="membername">create a new buffered file</p>
+<code>function create(string filename, string description)</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createDirect
+<div class="typedescr">returns <A HREF="c_file.html">File</A></div></td><td>
+<p class="membername">create a new unbuffered disk file</p>
+<code>function createDirect(string filename, string description)</code><br>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;exists
+<div class="typedescr">returns integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">test if a file exists</p>
+<code>function exists()</code><br>
+<p class="help">Sample:<BR/>
+File.exists("default.sim") -&gt; return 0 or 1</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;flush
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">flush</p>
+<code>function flush()</code><br>
+<p class="help">useful for unbuffered disk files only (openDirect, appendDirect)</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_file.html">File </A></div></td><td>
+<p class="membername">create a new memory file</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newFromString
+<div class="typedescr">returns <A HREF="c_file.html">File </A></div></td><td>
+<p class="membername">create a new memory file with string contents</p>
+<code>function newFromString(string text)</code><br>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;open
+<div class="typedescr">returns <A HREF="c_file.html">File </A></div></td><td>
+<p class="membername">open existing file for reading</p>
+<code>function open(string filename)</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;readLine
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">read line</p>
+<code>function readLine()</code><br>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;readObject
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">read object</p>
+<code>function readObject(object)</code><br>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;readUntilEOF
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">read everything</p>
+<code>function readUntilEOF()</code><br>
+</TD></TR><TR><TD><A NAME="28"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;system
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">system</p>
+<code>function system(string executable, <A HREF="c_vector.html">Vector</A> string_arguments)</code><br>
+<p class="help">Invokes a system command and returns its exit code (0 usually means the command was completed successfully).<BR/>
+<BR/>
+Example:<BR/>
+File.system("wget",["-O","/tmp/filename","http://example.com/file"]);</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeComment
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write comment string</p>
+<code>function writeComment(string anything)</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeNameObject
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write object with alternate name</p>
+<code>function writeNameObject(string name, object)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObject
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write object</p>
+<code>function writeObject(object)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectBegin
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write object header</p>
+<code>function writeObjectBegin(object)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectEnd
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">finish object </p>
+<code>function writeObjectEnd()</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectField
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write single field</p>
+<code>function writeObjectField(object, untyped field_index_or_name)</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectFieldForce
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write single field</p>
+<code>function writeObjectFieldForce(object, untyped field_index_or_name)</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectFields
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write all fields</p>
+<code>function writeObjectFields(object)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeObjectFieldsForce
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write all fields</p>
+<code>function writeObjectFieldsForce(object)</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;writeString
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">write anything</p>
+<code>function writeString(untyped anything)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

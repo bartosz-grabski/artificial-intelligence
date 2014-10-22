@@ -1,0 +1,102 @@
+show:
+name:Boids
+info:~
+Boids, developed by Craig Reynolds in 1986, is an artificial life program that simulates the flocking behaviour of birds.
+
+As with most artificial life simulations, Boids is an example of emergent behaviour; that is, the complexity of Boids arises from the interaction of individual agents (the boids, in this case) adhering to a set of simple rules. The rules applied in the simplest Boids world are as follows:
+
+    * separation: steer to avoid crowding local flockmates
+    * alignment: steer towards the average heading of local flockmates
+    * cohesion: steer to move toward the average position of local flockmates
+~
+expdef:boids
+code:~
+
+global g_step;
+
+function onLoad()
+{
+//World.wrldsiz=50; //follow expdef behavior
+GLDisplay.desiredsimspeed = 15;
+ShowParams_set();
+TrackingCam.cam_tracking=2;
+TrackingCam.cam_trspeed=2;
+g_step = 0;
+}
+
+function ShowParams_set()
+{
+ExpParams.crcount=[1,30,75,200][ShowParams.crcount];
+ExpParams.rule1=ShowParams.rule1;
+ExpParams.rule2=ShowParams.rule2;
+ExpParams.rule3=ShowParams.rule3;
+ExpParams.rule4=ShowParams.rule4;
+ExpParams.range=[3,6,9][ShowParams.range];
+ExpParams.separ=[1,2,4][ShowParams.separ];
+ExpParams.worldmap=ShowParams.worldmap;
+}
+
+function onShowStep()
+{
+g_step++;
+if (g_step > 400)
+  {
+  if (CreatureSelection.count>0)
+        CreatureSelection.clear();
+  else
+	{
+	TrackingCam.cam_trspeed=10;
+        CreatureSelection.add(Populations.get(0).get(0));
+	}
+  g_step=0;
+  }
+}
+
+function onMouseClick(options, xy, point, vector)
+{
+g_step=-2000;
+return 0;
+}
+
+~
+
+prop:
+id:crcount
+name:Number of boids
+type:d 0 2 1 ~1~30~75~200
+
+prop:
+id:rule1
+name:Rule 1 - Separation
+type:d 0 1 1
+
+prop:
+id:rule2
+name:Rule 2 - Alignment
+type:d 0 1 1
+
+prop:
+id:rule3
+name:Rule 3 - Cohesion
+type:d 0 1 1
+
+prop:
+id:rule4
+name:Rule 4 - Obstacle avoidance
+type:d 0 1 1
+
+prop:
+id:range
+name:Neighborhood range
+type:d 0 2 1 ~Small~Medium~Big
+
+prop:
+id:separ
+name:Separation distance
+type:d 0 2 1 ~Small~Medium~Big
+
+prop:
+id:worldmap
+name:World setting
+type:d 0 5 2 ~No obstacles~Single peak~Three peaks~Four peaks~Corridor~Forest
+

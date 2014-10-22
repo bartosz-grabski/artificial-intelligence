@@ -1,0 +1,26 @@
+script:
+name:Toy Spring Sticks
+help:Make creature joints look like springs
+code:~
+function main()
+{
+  var n=30;
+  var r=0.15;
+  var cycles=5.0;
+  var parts="p:0,0,0\n";
+  var joints="";
+  var i;
+
+  for(i=0;i<n;i++)
+  {
+    var a=(6.282*cycles*i)/n;
+    var x=(1.0*i)/n,y=r*Math.sin(a),z=r*Math.cos(a);
+    parts+="p:"+x+","+y+","+z+"\n";
+    joints+="j:"+i+","+(i+1)+"\n";
+  }
+  parts+="p:1,0,0\n";
+  joints+="j:"+i+","+(i+1)+"\n";
+  var gen="//0\n"+parts+joints;
+  Shapes.set("j_",gen,-3);
+}
+~

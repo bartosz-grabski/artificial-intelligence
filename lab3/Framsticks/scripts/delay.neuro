@@ -1,0 +1,45 @@
+class:
+name:Delay
+longname:Delay
+prefinputs:-1
+prefoutput:1
+icon:~
+90,11,3,25,0,25,100,75,50,25,0,1,75,50,100,50,16,39,49,48,32,48,27,43,22,33,22,28,27,28,32,37,49,37,51,28,68,28,73,33,78,43,78,48,73,48,68,39,51,39,49,1,34,43,42,43,1,28,70,48,70,1,28,72,48,72,1,29,74,47,74,1,31,76,45,76,1,35,45,41,45,1,36,47,40,47,1,37,49,39,49~
+code:~
+function init()
+{
+  var i;
+  Fields.mem = Vector.new();
+  for (i = 0;i < Fields.t;i++)
+    Fields.mem.add(Neuro.state);
+  Fields.last = 0;
+}
+
+function go()
+{
+  Neuro.state = Fields.mem.get(Fields.last);
+  Fields.mem.set(Fields.last, Neuro.weightedInputSum);
+  Fields.last++;
+  if (Fields.last >= Fields.t)
+    Fields.last = 0;
+}
+~
+
+prop:
+id:t
+name:delay time (in steps)
+type:d 1 1000
+flags:0
+
+prop:
+id:mem
+name:memory
+type:o
+flags:32
+
+prop:
+id:last
+name:last item
+type:d
+flags:32
+

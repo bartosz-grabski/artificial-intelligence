@@ -1,0 +1,44 @@
+<HTML><HEAD><TITLE>WorldMap</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>WorldMap class in <A HREF="x_visualstyledefinition.html">Visual style definition</A></H2>
+<DIV CLASS="classdesc">Environment details for "Blocks" and "Heightfield" world type. The most important concept is a "Map", which is the array of Map elements. Internally, Maps have more elements than could be deduced from the user-supplied World.wrldsiz, as additional rows of element are added to provide smooth transitions to the flat surroundings.<BR/>
+<BR/>
+Blocks: x/ysize=World.wrldsiz+4 rows of blocks (from which only 2+World.wrldsiz rows are placed within the world boundaries)<BR/>
+<BR/>
+Smooth: x/ysize=World.wrldsiz+2 rows of vertices (creating World.wrldsiz+1 rows of triangles, everything within the world boundaries)<BR/>
+</DIV><BR>
+6 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;xsize
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Map x size</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ysize
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Map y size</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getHeight
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Height</p>
+<code>function getHeight(float x, float y)</code><br>
+<p class="help">Height at any 2d coordinate</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getMap
+<div class="typedescr">returns object</div></td><td>
+<p class="membername">getMap</p>
+<code>function getMap(integer x, integer y)</code><br>
+<p class="help">retrieve map cell object</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;intersect
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">intersect</p>
+<code>function intersect(<A HREF="c_vector.html">Vector</A> 3d_point, <A HREF="c_vector.html">Vector</A> 3d_direction, float range)</code><br>
+<p class="help">Calculate the intersection point between the world surface and the ray projected from "3d point" towards the given direction. 3D points are actually 3-elements Vector objects. The resulting vector contains the additional fourth element - the intersection point distance. The function returns null if there is no intersection.<BR/>
+<BR/>
+See "standard_events.inc" file, which uses "intersect" for calculating the world coordinates corresponding to the user-clicked screen location.<BR/>
+Bugs: This function does not currently handle the heightfield environment correctly (works as if it was flat)</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;intersect
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">intersect</p>
+<code>function intersect(<A HREF="c_vector.html">Vector</A> 3d_point, <A HREF="c_vector.html">Vector</A> 3d_direction)</code><br>
+<p class="help">Works like intersect(3d point,3d direction,range) for inifinite range, that is without limiting the intersection distance</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Visual style definition</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

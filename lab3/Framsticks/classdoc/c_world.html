@@ -1,0 +1,61 @@
+<HTML><HEAD><TITLE>World</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>World class in <A HREF="x_visualstyledefinition.html">Visual style definition</A></H2>
+<DIV CLASS="classdesc">Environment properties.</DIV><BR>
+10 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="8"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;nnspeed
+<div class="typedescr">float, 0&nbsp;..&nbsp;1000<br>
+default=1</div></td><td>
+<p class="membername">NN speed</p>
+<p class="help">Number of neural network simulation steps in each physics simulation step</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;signals
+<div class="typedescr"><A HREF="c_worldsignals.html">WorldSignals</A></div></td><td>
+<p class="membername">Signal sources</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simtype
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1<li>0 = MechaStick (default)<li>1 = ODE</div></td><td>
+<p class="membername">Simulation engine</p>
+<p class="help">MechaStick is a fast and simple primary Framsticks simulation engine.<BR/>
+ODE is Open Dynamics Engine by Russel Smith et al.<BR/>
+<BR/>
+NOTE: switching between simulation engines causes removal of all objects in the world (e.g. creatures).</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;wrldbnd
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = None<li>1 = Fence (default)<li>2 = Teleport</div></td><td>
+<p class="membername">Boundaries</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldg
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=1</div></td><td>
+<p class="membername">Gravity</p>
+<p class="help">You can adjust gravity for your experiments.<BR/>
+The "official" setting used to evaluate and compare creatures is 1.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;wrldmap
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Map</p>
+<p class="help">Description of the world (Type: Blocks or Heighfield). Enter<BR/>
+   r &lt;sizex&gt; &lt;sizey&gt; [seed]<BR/>
+to generate a random landscape, or<BR/>
+   m &lt;sizex&gt; &lt;sizey&gt; digits<BR/>
+   M &lt;sizex&gt; &lt;sizey&gt; numbers<BR/>
+to provide height values.<BR/>
+<BR/>
+See also the WorldMap object.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldsiz
+<div class="typedescr">float, 10&nbsp;..&nbsp;1000<br>
+default=20</div></td><td>
+<p class="membername">Size</p>
+<p class="help">Side length of the world</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;wrldtyp
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Flat surface (default)<li>1 = Blocks<li>2 = Height field</div></td><td>
+<p class="membername">Type</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldwat
+<div class="typedescr">float, -20&nbsp;..&nbsp;50<br>
+default=-1</div></td><td>
+<p class="membername">Water level</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;wrldchg
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Trigger world update</p>
+<code>function wrldchg()</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Visual style definition</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

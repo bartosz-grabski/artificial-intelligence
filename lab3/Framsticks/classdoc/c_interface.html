@@ -1,0 +1,84 @@
+<HTML><HEAD><TITLE>Interface</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Interface class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Used to query for object member descriptions. Example:<BR/>
+var iface=Interface.makeFrom(someobject); var description="this object has "+iface.properties+" properties, first property is "+iface.getId(0);</DIV><BR>
+19 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="2"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;groups
+<div class="typedescr">integer</div></td><td>
+<p class="membername">group count</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">object name</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;properties
+<div class="typedescr">integer</div></td><td>
+<p class="membername">property count</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;findGroupId
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">group # for group name</p>
+<code>function findGroupId(string name)</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;findId
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">item # for id</p>
+<code>function findId(string name)</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;findIdInGroup
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">item # for id in group</p>
+<code>function findIdInGroup(string name, untyped group_name_or_index)</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns untyped</div></td><td>
+<p class="membername">value of item #</p>
+<code>function get(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getFlags
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">flags for item #</p>
+<code>function getFlags(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getGroup
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">group # for item #</p>
+<code>function getGroup(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getGroupName
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">group name for group #</p>
+<code>function getGroupName(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getHelp
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">help for item #</p>
+<code>function getHelp(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getId
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">id for item #</p>
+<code>function getId(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getName
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">name for item #</p>
+<code>function getName(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getType
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">type for item #</p>
+<code>function getType(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;invoke
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">invoke action</p>
+<code>function invoke(untyped function_name_or_index, <A HREF="c_vector.html">Vector</A> arguments)</code><br>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;makeFrom
+<div class="typedescr">returns <A HREF="c_interface.html">Interface</A></div></td><td>
+<p class="membername">get interface object</p>
+<code>function makeFrom(object)</code><br>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set value of item #</p>
+<code>function set(integer index, untyped value)</code><br>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;setAllDefault
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set default values for all items</p>
+<code>function setAllDefault()</code><br>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;setDefault
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set default value for item #</p>
+<code>function setDefault(integer index)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

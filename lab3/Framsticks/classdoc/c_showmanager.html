@@ -1,0 +1,89 @@
+<HTML><HEAD><TITLE>ShowManager</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>ShowManager class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+23 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="21"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;changedProperty
+<div class="typedescr">integer</div></td><td>
+<p class="membername">last changed property #</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;changedPropertyId
+<div class="typedescr">string</div></td><td>
+<p class="membername">last changed property id</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;code
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Code</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;dispinfo
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Hide all<li>1 = Show status<li>2 = Show description and status</div></td><td>
+<p class="membername">Text display</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Experiment definition</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;info
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Information</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;mode
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Initial<li>1 = Temporary<li>2 = On request</div></td><td>
+<p class="membername"></p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">Title</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;regname
+<div class="typedescr">string</div></td><td>
+<p class="membername">Registered to</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;show
+<div class="typedescr">string</div></td><td>
+<p class="membername">Current show</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;showlog
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Show log</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;switchmode
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Disabled<li>1 = Sequence<li>2 = Random</div></td><td>
+<p class="membername"></p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;switchshows
+<div class="typedescr">string</div></td><td>
+<p class="membername"></p>
+<p class="help">names of the shows participating in automatic switching (comma separated). Use * as a wildcard.</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;switchtime
+<div class="typedescr">integer, 0&nbsp;..&nbsp;9999</div></td><td>
+<p class="membername"></p>
+<p class="help">time between switching (seconds)</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;userspeed
+<div class="typedescr">integer, 0&nbsp;..&nbsp;5<li>0 = Paused<li>1 = Very slow<li>2 = Slow<li>3 = Normal (default)<li>4 = Fast<li>5 = Very fast</div></td><td>
+<p class="membername">Speed</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;about
+<div class="typedescr"></div></td><td>
+<p class="membername">Please register this program here!</p>
+<code>function about()</code><br>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr"></div></td><td>
+<p class="membername">add property (id,type,name,help)</p>
+<code>function add()</code><br>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addGroup
+<div class="typedescr"></div></td><td>
+<p class="membername">add group (name)</p>
+<code>function addGroup()</code><br>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr"></div></td><td>
+<p class="membername">remove all properties</p>
+<code>function clear()</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;dummy
+<div class="typedescr"></div></td><td>
+<p class="membername"></p>
+<code>function dummy()</code><br>
+<p class="help">This is the empty item in the Theater's menu</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;reload
+<div class="typedescr"></div></td><td>
+<p class="membername">Reload current show</p>
+<code>function reload()</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;remove
+<div class="typedescr"></div></td><td>
+<p class="membername">remove property (index)</p>
+<code>function remove()</code><br>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;removeGroup
+<div class="typedescr"></div></td><td>
+<p class="membername">remove group (index)</p>
+<code>function removeGroup()</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

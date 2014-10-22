@@ -1,0 +1,302 @@
+show:
+name:Biomorph
+info:~
+User-driven evolution. Choose a creature and double-click it to create its offspring. Eight creatures are mutated from the one in the middle.
+~
+expdef:standard
+code:~
+
+global g_anim;
+global g_animspeed;
+global g_animtime;
+global g_selcreature;
+global g_selx;
+global g_sely;
+global g_selz;
+global g_lasttime;
+global g_speed;
+global g_frames;
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  g_speed = 1.0;
+  g_frames = 0;
+  g_lasttime = Math.time;
+  Simulator.import("default.sim");
+  World.wrldtyp = 1;
+  World.wrldmap = "m 3 3 676787676";
+  World.wrldsiz = 20.0;
+  World.wrldbnd = 1;
+  GLDisplay.simsteps = 0;
+  ShowParams.differ = 1;
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_zoom = 1.5;
+  ShowParams_restart_f1_call();
+  g_animspeed = 0.002;
+}
+
+function restartWithGenotype(gen, name)
+{
+  CreatureSelection.clear();
+  Populations.clearGroup(0);
+  Populations.group = 0;
+  var cr = Population.createFromString(gen);
+  cr.name = name;
+  cr.info = "the origin";
+  if (cr == null)
+  {
+    CLI.println("initial genotype is invalid!");
+    return ;
+  }
+  cr.moveAbs((World.wrldsiz -cr.size_x) / 2, (World.wrldsiz - cr.size_y) / 2, 3);
+  updateBanner();
+  g_anim = 0;
+  breed();
+}
+
+function createMutant(threshold)
+{
+  Populations.creature = 0;
+  var retry = 20;
+  var distance;
+  var g = Creature.geno; // previous genotype used for similarity comparison
+  GenePools.getFromCreature();
+  while (retry-- >= 0)
+  {
+    GenePools.mutateSelected();
+    if (!Genotype.isValid)
+    {
+      GenePools.getFromCreature();
+      continue;
+    }
+    //	CLI.println(g.genotype+" ... "+Genotype.geno.genotype);
+    if (threshold < 0.001)
+      break; // no threshold
+    distance = Similarity.evaluateDistance(g, Genotype.geno);
+    //	CLI.println("distance="+distance);
+    if (distance >= threshold)
+      break;
+  }
+  if (!Genotype.isValid)
+  {
+    CLI.println("invalid mutant!");
+  }
+  else
+  {
+    Population.createFromGenotype();
+  }
+}
+
+function breed()
+{
+  var i;
+  for (i = 0;i < 8;i++)
+    createMutant([0.0, 0.5, 2.0, 10.0][ShowParams.differ]);
+  
+  //adjust world size to fit creatures:
+  var size=0.0;
+  var c,count=9;
+  for (c = 0;c < count;c++)
+  {
+    var cr = Population.get(c);
+    size+=Math.max(cr.size_x,cr.size_y)/2;
+    //Simulator.print(""+cr.size_x+" "+cr.size_y+" "+cr.size_z);
+  }
+  var newsize=(2.0+3.0)*(size/count+2.5); //(2 margin tiles + 3 world blocks)*(average creature size + margin)
+  if (newsize>1.15*World.wrldsiz || newsize<World.wrldsiz*0.7) //resize world only if significant change in size is required
+    World.wrldsiz=newsize;
+  //center creatures in the middle of the (just resized) world
+  for (c = 0;c < count;c++)
+  {
+    var cr = Population.get(c);
+    cr.moveAbs((World.wrldsiz - cr.size_x) / 2, (World.wrldsiz - cr.size_y) / 2, 3);
+  }
+    
+  g_anim = 1;
+  g_animtime = 0.0;
+}
+
+function updateBanner()
+{
+  var t = "";
+  if (Population.size > 0)
+  {
+    var cr = Population.get(0);
+    t += "Current creature '" + cr.name + "' has a genotype\n" + cr.genotype + "\nwhich is " + cr.info + ".";
+  }
+  GLDisplay.banner = t;
+}
+
+function explodeStep()
+{
+  g_animtime = g_animtime + g_animspeed;
+  if (g_animtime > 1.0)
+  {
+    g_animtime = 1.0;
+    g_anim = 0;
+  }
+
+  var t1 = g_animtime, t2 = 1.0 - g_animtime;
+  var i, j, c, cr;
+  var tx, ty, tz, x, y, z;
+  c = 0;
+  for (i = -1;i <= 1;i++)
+    for (j = -1;j <= 1;j++)
+    {
+      if ((i == 0) && (j == 0))
+        continue;
+      c++;
+      tx = World.wrldsiz * (0.5 + 0.2 * i);
+      ty = World.wrldsiz * (0.5 + 0.2 * j);
+      if ((i == 0) || (j == 0))
+        tz = 2.0;
+      else
+        tz = 1.0;
+      tz += t1 * t2 * 30.0;
+      cr = Population.get(c);
+      x = (t2 * (World.wrldsiz / 2)) + (t1 * tx) - (cr.size_x / 2);
+      y = (t2 * (World.wrldsiz / 2)) + (t1 * ty) - (cr.size_y / 2);
+      z = t2 * 3 + t1 * tz;
+      cr.moveAbs(x, y, z);
+    }
+}
+
+function selectionStep()
+{
+  g_animtime = g_animtime + g_animspeed;
+  if (g_animtime > 1.0)
+  {
+    g_animtime = 1.0;
+    g_anim = 0;
+  }
+
+  var t1 = g_animtime, t2 = 1.0 - g_animtime;
+  var i, j, c, cr;
+  var tx, ty, tz, x, y, z;
+  for (c = 0;c <= 8;c++)
+  {
+    cr = Population.get(c);
+    if (cr == g_selcreature)
+    {
+      x = (t1 * ((World.wrldsiz - cr.size_x) / 2)) + (t2 * g_selx);
+      y = (t1 * ((World.wrldsiz - cr.size_y) / 2)) + (t2 * g_sely);
+      z = t1 * 3 + t2 * g_selz;
+      cr.moveAbs(x, y, z);
+    }
+    else
+      cr.move(0, 0, g_animspeed*cr.size_z* -1.0);
+  }
+
+  if (g_anim == 0)
+  {
+    for (c = 0;c < Population.size;c++)
+    {
+      cr = Population.get(c);
+      if (cr != g_selcreature)
+      {
+        Populations.creature = c;
+        Populations.deleteSelected();
+        c--;
+      }
+    }
+    updateBanner();
+    breed();
+  }
+}
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(TrackingCam.cam_dir + g_animspeed, TrackingCam.cam_h);
+  switch (g_anim)
+  {
+  case 1:
+    explodeStep();
+    break;
+  case 2:
+    selectionStep();
+    break;
+  }
+  g_frames++;
+  var t = Math.time;
+  var dt = Math.time - g_lasttime;
+  if ((dt > 1.0) && (g_frames > 5))
+  {
+    dt = dt / g_frames;
+    if (dt < 0.001)
+      dt = 0.001;
+    else if (dt > 1.0)
+      dt = 1.0;
+    //	CLI.println("adjusted anim speed for "+1.0/dt+" fps");
+    g_animspeed = (g_animspeed + g_speed * dt) / 2.0;
+    g_lasttime = t;
+    g_frames = 0;
+  }
+}
+
+function onSelectionChange()
+{
+  if (CreatureSelection.count > 0)
+  {
+    if (g_anim == 0)
+    {
+      g_anim = 2;
+      g_animtime = 0.0;
+      g_selcreature = CreatureSelection.get(0);
+      CLI.println("selected:\n" + g_selcreature.genotype);
+      g_selx = g_selcreature.pos_x;
+      g_sely = g_selcreature.pos_y;
+      g_selz = g_selcreature.pos_z;
+    }
+    CreatureSelection.clear();
+  }
+  updateBanner();
+}
+
+function ShowParams_restart_f1_call()
+{
+  restartWithGenotype("X", "Simplest f1 genotype");
+}
+
+function ShowParams_restart_f9_call()
+{
+  restartWithGenotype("/*9*/R", "Simplest f9 genotype");
+}
+
+function ShowParams_restart_f4_call()
+{
+  restartWithGenotype("/*4*/X>", "Simplest f4 genotype");
+}
+
+function ShowParams_restart_f0_call()
+{
+  restartWithGenotype("//0\np:\np:\nj:0,1,dx=1\n", "Simplest f0 genotype");
+}
+
+~
+
+prop:
+id:restart_f1
+name:Restart and use f1 genetics (recurrent encoding)
+type:p
+
+prop:
+id:restart_f9
+name:Restart and use f9 genetics (perpendicular encoding)
+type:p
+
+prop:
+id:restart_f4
+name:Restart and use f4 genetics (developmental encoding)
+type:p
+
+prop:
+id:restart_f0
+name:Restart and use f0 genetics (low-level encoding)
+type:p
+
+prop:
+id:differ
+name:Mutant variation
+type:d 0 3 ~Default~Small~Medium~Big
+

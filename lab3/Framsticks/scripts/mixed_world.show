@@ -1,0 +1,33 @@
+show:
+name:Mixed world
+info:~
+No evolution, creatures are just simulated in a mixed land-and-water environment.
+~
+expdef:standard
+code:~
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  Simulator.import("f-x.sim");
+  Simulator.import("show_noevol.sim");
+  ExpParams.selrule = 0; // random selection
+  World.wrldsiz = 40;
+  Simulator.import("walking.gen");
+  Simulator.import("swimming.gen");
+  ShowParams_water_set();
+  GLDisplay.desiredsimspeed = 50;
+}
+
+function ShowParams_water_set()
+{
+  World.wrldwat = [ -1.5, 0.5, 8.5][ShowParams.water];
+}
+
+~
+
+prop:
+id:water
+name:Water level
+type:d 0 2 1 ~Low~Medium~High
+

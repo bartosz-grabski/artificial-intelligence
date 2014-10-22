@@ -1,0 +1,267 @@
+expdef:
+name:Dance
+info:~
+A synchronous framsdance :-)~
+code:~
+
+//by MacKo, 2004
+//sound and show->expdef+show, 2007
+
+global g_tempo;
+global g_arrangerequest;
+global g_beat; //beat params vector
+
+function onExpDefLoad()
+{
+  Math.seed = Math.time;
+  g_arrangerequest = 100;
+  g_beat=[1,2,3,4,5,6,7,8];
+  Simulator.import("show_noevol.sim");
+  World.wrldsiz = 60.0;
+  World.wrldbnd = 2;
+
+  Populations.group = 0; //everything in this show concerns group 0
+  Population.nnsim = 1;
+  Population.death = 0;
+  Population.energy = 0; 
+  Population.colmask = 0; //ignore collisions
+
+  ExpParams.dancers = 3;
+  ExpParams_dancers_set();
+  ExpParams.tempo = 1;
+  ExpParams_tempo_set();
+
+  ExpParams_restart_land_call();
+}
+
+function onBorn()
+{
+   place_randomly(0, 4);
+}
+
+global g_lastsound;
+function danceStep()
+{
+  var i, j;
+  var sin=Math.sin((0.0 + Simulator.time) / g_tempo);
+  var sound=(Simulator.time%g_tempo)*4/g_tempo;
+  if (g_lastsound!=sound) {playBeat(sound); g_lastsound=sound;}
+  for (i = 0;i < Population.size;i++)
+  {
+    var cr = Population.get(i);
+    for (j = 0;j < cr.numneurons;j++)
+    {
+      var d = String.substr(cr.getNeuroDef(j).d, 0, 1);
+      if (d != "|" && d != "@")
+        continue;
+
+      cr.getNeuro(j).hold = 1;
+      cr.getNeuro(j).currState = sin * (((j % 2) * 2) - 1);
+      //      each 2nd - negative           ^^^^^^^^^^^
+    }
+  }
+}
+
+function newBeat()
+{
+  var i;
+  for(i=0;i<4;i++) g_beat.set(i,8.1758 * Math.pow(2,(20.0+Math.random(60))/12)); //base freq
+  for(i=5;i<8;i++) g_beat.set(i,Math.random(5)*15); //variability
+  for(i=0;i<4;i++) if (Math.random(8)==0) g_beat.set(i,g_beat[Math.random(4)]); //same base freq twice
+  for(i=0;i<4;i++) if (Math.random(5)==0) g_beat.set(i,0); //'no sound' marker
+}
+
+function playBeat(phase)
+{
+  if (ExpParams.sound==0 || phase<0 || phase>3) return;
+  if (g_beat[phase]<=0) return;
+  var x;
+  for(x=0;x<[6,2,4,2][phase];x++) 
+    Simulator.sound(g_beat[phase]+Math.random(g_beat[4+phase])-g_beat[4+phase]/2,8);
+}
+
+
+function newArrangement()
+{
+  var i, a = 0 + Math.rnd01 * 3; //3 arrangements supported - see switch(a) below
+  var x, y; //new (target) positions
+  var side = 0 + (Math.sqrt(Population.size) + 0.999);
+  var spacing = World.wrldsiz / (side + 1); // grid spacing
+  Simulator.print("Setting arrangement #" + a + ", " + Population.size + " creatures.");
+  for (i = 0;i < Population.size;i++)
+  {
+    switch (a)
+    {
+    case 0:  //single line
+      x = (0.5 + i) * World.wrldsiz / Population.size;
+      y = World.wrldsiz / 2;
+      break;
+    case 1:  //grid
+      x = (0.0 + (1 + i % side)) * spacing;
+      y = (0.0 + (1 + i / side)) * spacing;
+      break;
+    case 2:  //circle
+      x = World.wrldsiz / 2.0 + World.wrldsiz / 3.0 * Math.cos(Math.twopi * i / Population.size);
+      y = World.wrldsiz / 2.0 + World.wrldsiz / 3.0 * Math.sin(Math.twopi * i / Population.size);
+      break;
+    }
+    var cr = Population.get(i);
+    cr.user1 = [cr.pos_x, cr.pos_y]; //save current position
+    cr.user2 = [x - (cr.size_x + cr.size_y + cr.size_z) / 6,
+                y - (cr.size_x + cr.size_y + cr.size_z) / 6]; //save new arrangement position
+    cr.user3 = 0.0; //arrangement progress counter
+  }
+
+  /*other arrangement ideas:
+  line+frontman
+  circle+middleman
+  2 lines
+  ...and perhaps 3D arrangements for water dances - sphere, 3D grid.
+  
+  another idea - modify the world map to make the scene more interesting
+  (frontman standing on a higher block etc.)
+  World.wrldtyp = 1;
+  World.wrldmap = "m 3 3 676787676";
+  */
+  
+  newBeat();
+}
+
+function arrange()
+{
+  var i, p;
+  for (i = 0;i < Population.size;i++)
+  {
+    var cr = Population.get(i);
+    if (typeof(cr.user3) != typeof(null))
+    {
+      //Simulator.print("#"+i+" "+cr.user1+", "+cr.user2+", "+cr.user3);
+      if (cr.user3 < 100) //while moving to new positions...
+      {
+        cr.user3++;
+        p = cr.user3 / 100.0;
+      } else //keep it in the previously arranged position
+      {
+        cr.user1 = [cr.pos_x, cr.pos_y]; //current position
+        p = 0.1; //1.0=immediately move to the desired position. 0.1=be soft
+      }
+      cr.moveAbs(cr.user1[0] + (cr.user2[0] - cr.user1[0])*p,
+                 cr.user1[1] + (cr.user2[1] - cr.user1[1])*p,
+                 cr.pos_z);
+    }
+  }
+}
+
+@include "standard_select.inc"
+@include "standard_placement.inc"
+
+function onStep()
+{
+  Populations.group = 0;
+  if (Population.size < ExpParams.MaxCreated)
+  {
+    GenePools.genotype = selectedForCreation();
+    if (Genotype.isValid)
+      Populations.createFromGenotype();
+    else
+      Simulator.print("invalid genotype - ignored: " + Genotype.info);
+  } else while (Population.size > ExpParams.MaxCreated)
+  {
+    Populations.creature = Population.size - 1;
+    Populations.deleteSelected();
+  }
+  
+  danceStep();
+  if ((Simulator.time % 3000) == 0 || Simulator.time == g_arrangerequest)
+    newArrangement();
+  if ((Simulator.time % 1000) == 0)
+    newBeat();
+  arrange();
+}
+
+function removeTooBig()
+{
+  var i, m;
+  for (i = GenePool.size - 1;i >= 0;i--)
+  {
+    m = Model.newFromGeno(GenePool.get(i).geno);
+    if (m.size_x > World.wrldsiz / 6 || m.size_y > World.wrldsiz / 6 || m.size_z > World.wrldsiz / 6)
+    {
+      Simulator.print("Dismissed too big dancer, " + GenePool.get(i).name + ".");
+      GenePools.genotype = i;
+      GenePools.deleteSelected();
+    }
+  }
+}
+
+function ExpParams_restart_land_call()
+{
+  World.wrldwat = -1;
+  ExpParams.creath = 0.1;
+  Populations.clearGroup(0);
+  GenePools.clearGroup(0);
+  Simulator.import("walking.gen");
+  removeTooBig();
+  g_arrangerequest = Simulator.time + 20;
+}
+
+function ExpParams_restart_water_call()
+{
+  World.wrldwat = 6;
+  ExpParams.creath = -3;
+  Populations.clearGroup(0);
+  GenePools.clearGroup(0);
+  Simulator.import("swimming.gen");
+  removeTooBig();
+  g_arrangerequest = Simulator.time + 20;
+}
+
+function ExpParams_arrangement_call()
+{
+  Populations.group = 0;
+  newArrangement();
+}
+
+function ExpParams_dancers_set()
+{
+  ExpParams.MaxCreated = [2, 3, 4, 9, 16, 25][ExpParams.dancers];
+  g_arrangerequest = Simulator.time + 20;
+}
+
+function ExpParams_tempo_set()
+{
+  g_tempo = [80, 50, 20][ExpParams.tempo];
+}
+~
+
+#include "standard_props.inc"
+
+prop:
+id:restart_land
+name:Land dance
+type:p
+
+prop:
+id:restart_water
+name:Water dance
+type:p
+
+prop:
+id:dancers
+name:Number of dancers
+type:d 0 5 ~2~3~4~9~16~25
+
+prop:
+id:tempo
+name:Dance tempo
+type:d 0 2 ~Slow~Medium~Fast
+
+prop:
+id:arrangement
+name:Change arrangement
+type:p
+
+prop:
+id:sound
+name:Beat
+type:d 0 1 1

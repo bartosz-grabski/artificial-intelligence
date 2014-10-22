@@ -1,0 +1,124 @@
+<HTML><HEAD><TITLE>Neuro</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Neuro class in <A HREF="x_neurondefinitions.html">Neuron definitions</A></H2>
+<DIV CLASS="classdesc">Live Neuron object.</DIV><BR>
+28 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;channelCount
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of output channels</p>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;classObject
+<div class="typedescr"><A HREF="c_neuroclass.html">NeuroClass</A></div></td><td>
+<p class="membername">Neuron class for this neuron</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;creature
+<div class="typedescr"><A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername">Gets owner creature</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;currState
+<div class="typedescr">float</div></td><td>
+<p class="membername">Neuron state (channel 0)</p>
+<p class="help">The only difference from the "state" field is that currState, when written, changes the internal neuron state immediately (which disturbs the regular synchronous NN operation). This feature should only be used while controlling the neuron 'from outside' (like a neuro probe) and not in the neuron definition. See also: Neuro.hold</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;def
+<div class="typedescr"><A HREF="c_neurodef.html">NeuroDef</A></div></td><td>
+<p class="membername">Neuron definition from which this live neuron was built</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;fields
+<div class="typedescr"><A HREF="c_fields.html">Fields</A></div></td><td>
+<p class="membername">Custom neuron fields</p>
+<p class="help">Neurons can have different fields depending on their class. Script neurons have their fields defined using the "prop:" syntax. If you develop a custom neuron script you should use the Fields object for accessing your own neuron fields. The Neuro.fields property is meant for accessing the neuron fields from the outside script.<BR/>
+Examples:<BR/>
+var c=Populations.createFromString("X[N]");<BR/>
+Simulator.print("standard neuron inertia="+c.getNeuro(0).fields.in);<BR/>
+c=Populations.createFromString("X[Nn,e:0.1]");<BR/>
+Simulator.print("noisy neuron error rate="+c.getNeuro(0).fields.e);<BR/>
+<BR/>
+The Interface object can be used to discover which fields are available for a certain neuron object:<BR/>
+c=Populations.createFromString("X[N]");<BR/>
+var iobj=Interface.makeFrom(c.getNeuro(0).fields);<BR/>
+var i;<BR/>
+for(i=0;i&lt;iobj.properties;i++)<BR/>
+ Simulator.print(iobj.getId(i)+" ("+iobj.getName(i)+")");</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;getInputCount
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Get input count</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;hold
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Hold state</p>
+<p class="help">"Holding" means keeping the neuron state as is, blocking the regular neuron operation. This is useful when your script needs to inject some control signals into the NN. Without "holding", live neurons would be constantly overwriting your changes, and the rest of the NN could see inconsistent states, depending on the connections. Setting hold=1 ensures the neuron state will be only set by you, and not by the neuron. The enforced signal value can be set using Neuro.currState before or after setting hold=1. Set hold=0 to resume normal operation.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;inputSum
+<div class="typedescr">float</div></td><td>
+<p class="membername">Full signal sum</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;joint
+<div class="typedescr"><A HREF="c_mechjoint.html">MechJoint</A></div></td><td>
+<p class="membername">The Joint object where this neuron is located</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;part
+<div class="typedescr"><A HREF="c_mechpart.html">MechPart</A></div></td><td>
+<p class="membername">The Part object where this neuron is located</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;position_x
+<div class="typedescr">float</div></td><td>
+<p class="membername">Position x</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;position_y
+<div class="typedescr">float</div></td><td>
+<p class="membername">Position y</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;position_z
+<div class="typedescr">float</div></td><td>
+<p class="membername">Position z</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;signals
+<div class="typedescr"><A HREF="c_neurosignals.html">NeuroSignals</A></div></td><td>
+<p class="membername">Signals</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;state
+<div class="typedescr">float</div></td><td>
+<p class="membername">Neuron state (channel 0)</p>
+<p class="help">When read, returns the current neuron state.<BR/>
+When written, sets the next neuron state (for use in the neuron definition)</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;weightedInputSum
+<div class="typedescr">float</div></td><td>
+<p class="membername">Full weighted signal sum</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getInputChannelCount
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">Get channel count for input</p>
+<code>function getInputChannelCount(integer input)</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getInputState
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get input signal</p>
+<code>function getInputState(integer input)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getInputStateChannel
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get input signal from channel</p>
+<code>function getInputStateChannel(integer input, integer channel)</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getInputSum
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get signal sum</p>
+<code>function getInputSum(integer input)</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getInputWeight
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get input weight</p>
+<code>function getInputWeight(integer input)</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getStateChannel
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get output state for channel</p>
+<code>function getStateChannel(integer channel)</code><br>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getWeightedInputState
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get weighted input signal</p>
+<code>function getWeightedInputState(integer input)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getWeightedInputStateChannel
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get weighted input signal from channel</p>
+<code>function getWeightedInputStateChannel(integer input, integer channel)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getWeightedInputSum
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Get weighted signal sum</p>
+<code>function getWeightedInputSum(integer input)</code><br>
+<p class="help">Uses any number of inputs starting with the specified input. getWeightedInputSum(0)=weightedInputSum</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;setCurrStateChannel
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Set neuron for channel</p>
+<code>function setCurrStateChannel(integer channel, float value)</code><br>
+<p class="help">Analogous to "currState".</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;setStateChannel
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Set output state for channel</p>
+<code>function setStateChannel(integer channel, float value)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Neuron definitions</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

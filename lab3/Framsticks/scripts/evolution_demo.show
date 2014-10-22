@@ -1,0 +1,164 @@
+show:
+name:Demonstration of evolution
+info:evolution demo
+expdef:evolution_demo
+code:~
+
+/*
+Author: Marcin Szelag
+Supervisor: Maciej Komosinski
+Created: January-February 2005
+*/
+
+//================================================================================
+
+//Initialize experiment in ...set handlers or there will be global Simulator.init?
+global gInitializeExperiment;
+
+//================================================================================
+
+
+//todo: opis w teatrze na koncu tekstu opisu - najlepszy obecnie fitness
+//i ostatnio oceniony fitness (podobnie zmienia sie opis w biomorph.show).
+
+
+/*
+********************************
+  BEGIN STANDARD FUNCTIONS BLOCK
+********************************
+*/
+
+//================================================================================
+
+function onLoad()
+{
+  ShowManager.info = Simulator.expdef_info;
+  Math.seed = Math.time;
+  GLDisplay.desiredsimspeed=500;
+
+  //Switch of experiment initialization in ...set handlers
+  gInitializeExperiment = 0;
+
+  ShowParams.creaturesCount = 1;
+  ShowParams.selectionMethod = 3;
+  ShowParams.mutationAndCrossoverProbability = 1;
+  ShowParams.geneticRepresentation = 1;
+  ShowParams.predefinedSetup = 0;
+  ShowParams_predefinedSetup_set();
+
+  //Global experiment initialization
+  Simulator.init();
+
+  //Switch on experiment initialization in ...set handlers
+  gInitializeExperiment = 1;
+}
+
+//================================================================================
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(Math.sin(0.1 * Math.time) * 40, 20.0 + Math.sin(0.07 * Math.time) * 15);
+}
+
+//================================================================================
+
+/*
+******************************
+  END STANDARD FUNCTIONS BLOCK
+******************************
+*/
+
+//================================================================================
+
+function ShowParams_creaturesCount_set()
+{
+  ExpParams.MaxCreated = [5, 9, 13, 17][ShowParams.creaturesCount]; //World capacity
+  if (gInitializeExperiment)
+    Simulator.init();
+}
+
+//================================================================================
+
+function ShowParams_selectionMethod_set()
+{
+  ExpParams.selrule = ShowParams.selectionMethod;
+}
+
+//================================================================================
+
+function ShowParams_mutationAndCrossoverProbability_set()
+{
+  switch (ShowParams.mutationAndCrossoverProbability)
+  {
+    case 0:
+      ExpParams.p_mut = 80;
+      ExpParams.p_xov = 20;
+      break;
+    case 1:
+      ExpParams.p_mut = 50;
+      ExpParams.p_xov = 50;
+      break;
+    case 2:
+      ExpParams.p_mut = 20;
+      ExpParams.p_xov = 80;
+      break;
+  }
+}
+
+//================================================================================
+
+function ShowParams_geneticRepresentation_set()
+{
+  switch (ShowParams.geneticRepresentation)
+  {
+    case 0: //f0
+      ExpParams.initialgen = "//0\np:\np:1\nj:0, 1, dx=1";
+      break;
+    case 1: //f1
+      ExpParams.initialgen = "X";
+      break;
+    case 2: //f9
+      ExpParams.initialgen = "/*9*/R";
+      break;
+  }
+
+  if (gInitializeExperiment)
+    Simulator.init();
+}
+
+//================================================================================
+
+function ShowParams_predefinedSetup_set()
+{
+  ExpParams.predefinedSetup = ShowParams.predefinedSetup;
+}
+
+//================================================================================
+
+~
+
+prop:
+id:creaturesCount
+name:Creatures count
+type:d 0 3 ~5~9~13~17
+
+prop:
+id:selectionMethod
+name:Selection method
+type:d 0 5 ~Random~Fitness-proportional(roulette)~Tournament (2 genotypes)~Tournament(3 genotypes)~Tournament(4 genotypes)~Tournament(5 genotypes)
+
+prop:
+id:mutationAndCrossoverProbability
+name:Prob. of mutation / crossover
+type:d 0 2 ~80% / 20%~50% / 50%~20% / 80%
+
+prop:
+id:geneticRepresentation
+name:Genetic representation
+type:d 0 2 ~f0~f1~f9
+
+prop:
+id:predefinedSetup
+name:Predefined setup
+type:d 0 2 ~Maximize vertical position of body center~Maximize velocity~Maximize number of parts in body
+

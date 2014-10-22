@@ -1,0 +1,39 @@
+class:
+name:SeeLight2
+longname:Light receptor 2
+description:~
+Returns the average signal intensity of all nearby transmitters. Unlike "SeeLight", signals do not attenuate over distance (however, the maximal signal distance is limited by the "range" parameter).~
+prefinputs:0
+prefoutput:1
+preflocation:1
+vhints:32
+# 32=receptor class
+icon:~
+34,3,7,100,50,90,50,90,40,70,40,80,50,70,60,90,60,90,50,4,10,10,50,30,30,40,55,53,47,53,1,55,53,50,46~
+code:~
+
+function go()
+{
+// unlike "SeeLight" which uses signals.receive() (returning the aggregated signal power),
+// this receptor calculates its output by analyzing individual signals, which results in 
+// more flexibility but also some more work:
+  var received=Neuro.signals.receiveSet("light",Fields.range);
+  if (received.size>0)
+  {
+    var i,sum=0.0;
+    for(i=0;i<received.size;i++)
+    {
+      // could also use other signal properties here
+      // to calculate something more sophisticated than just the average
+      sum+=received[i].power;
+    }
+    Neuro.state=sum/received.size;
+  }
+  else Neuro.state=0;
+}
+~
+
+prop:
+id:range
+type:f 0 100 10
+

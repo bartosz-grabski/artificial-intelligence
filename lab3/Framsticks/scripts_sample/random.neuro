@@ -1,0 +1,15 @@
+class:
+name:Rnd_Test
+longname:Random value
+description:Sample custom neuron class. This one works just like Rnd neuron.
+prefoutput:1
+code:~
+function init()
+{}
+
+function go()
+{
+  Neuro.state = Math.rnd01 * 2.0 - 1.0;
+}
+~
+

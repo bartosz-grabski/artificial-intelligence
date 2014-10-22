@@ -1,0 +1,47 @@
+<HTML><HEAD><TITLE>RowFormat</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>RowFormat class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+<DIV CLASS="classdesc">Used for creating simple listings of objects (in command line applications). There is only one shared RowFormat object. In order to use RowFormat you should first configure it, by adding column definitions (prepare or addColumn), i.e. defining column names and widths. Then, the "format" method can be invoked on a number of objects (of the same class) returning the formatted rows of the table.<BR/>
+<BR/>
+Example:<BR/>
+RowFormat.clear();<BR/>
+RowFormat.prepare(Genotype.*,"name/20,strsiz/5,nnsiz/5,fit/6");<BR/>
+CLI.println(RowFormat.format(Genotype.*));</DIV><BR>
+7 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="5"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;fieldsep
+<div class="typedescr">string</div></td><td>
+<p class="membername">field separator</p>
+<p class="help">The character used for separating columns</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;fillchar
+<div class="typedescr">string</div></td><td>
+<p class="membername">fill character</p>
+<p class="help">The characted used for padding the columns contents</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;header
+<div class="typedescr">string</div></td><td>
+<p class="membername">header</p>
+<p class="help">Contains the field names with the same formatting applied (i.e. with fill and separators)</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addColumn
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">addColumn</p>
+<code>function addColumn(integer Field#, integer Column_width)</code><br>
+<p class="help">Low level call, adds a single column. "prepare" is better.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">clear</p>
+<code>function clear()</code><br>
+<p class="help">Remove all existing column definitions.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;format
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">format</p>
+<code>function format(object Object)</code><br>
+<p class="help">Returns the formatted string taking data from the supplied object.</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;prepare
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">prepare</p>
+<code>function prepare(object Object, string Column_Descriptions)</code><br>
+<p class="help">Adds a number of columns, described as FIELD_NAME/WIDTH, columns are separated by "," (comma). Existing column definitions are not removed. Usually you will need to call "clear()" before "prepare".</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

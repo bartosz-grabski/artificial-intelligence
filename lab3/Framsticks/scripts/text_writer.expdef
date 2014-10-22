@@ -1,0 +1,500 @@
+expdef:
+name:Text writer
+info:~
+This experiment definition displays formatted (and flowing) text using
+creatures as letters and digits. It requires the "fonts.gen" file.
+Only big letters and digits can be used in the text.
+
+Initialize the experiment to situate the text.
+
+The text can be formatted using HTML-like tags:
+
+<left>
+<center>
+<right>
+<justify> - are used to start a paragraph
+
+<hNUMBER> - sets the height (elevation) of the text (see also the 'Gravity' setting)
+
+<hsNUMBER> - sets hotizontal spacing between letters
+
+<vsNUMBER> - sets vertical spacing between lines
+
+<f0>
+<f1> - select the font (f0 is more regular)
+~
+code:~
+
+//by MarCas, 2005
+
+global tw_font;
+global tw_align;
+global tw_space;
+global tw_hspace;
+
+global tw_last_word;
+global tw_last_line;
+
+global tw_pos_x;
+global tw_pos_y;
+global tw_pos_z;
+
+global tw_result;
+
+function onExpDefLoad()
+{
+  // set default values
+  ExpParams.text = "<h1>\n<vs1.3>\n<center>STAR WARS\n<left>\n";
+  ExpParams.text += "<justify>A LONG TIME AGO IN A GALAXY FAR FAR AWAY A BATTLE RAGED\n<left>\n";
+  ExpParams.text += "<justify>FOR EONS A FIERCE STRUGGLE HAD RAVAGED PLUMONIA\nAND WITHOUT INTERVENTION NO ONE WOULD LIVE TO SEE THE END\n<left>\n";
+  //ExpParams.text += "<justify>THE INHABITANTS OF PLUMONIA WERE CREATURES OF VIRTUE AND PEACE\n<left>\n";
+  //ExpParams.text += "<center>HOWEVER THERE WERE THOSE WHO HELD NOT THE HIGH REGARD FOR EQUALITY AND HONOR\n<left>\n";
+  ExpParams.collisions = 0;
+  World.wrldtyp = 0;
+  World.wrldbnd = 0;
+  World.wrldsiz = 30;
+  World.wrldwat = -1;
+
+  // load default fonts
+  GenePools.clearGroup(0);
+  Simulator.import("fonts.gen", 2);
+  if (GenePools.get(0).size < 72)
+    Simulator.message("Problems with the 'fonts.gen' file?", 1);
+}
+
+function onExpInit()
+{
+  // set collision mask
+  Population.colmask = ExpParams.collisions;
+
+  // set start values
+  tw_font = "f0";
+  tw_align = "left";
+  tw_space = 0.25;
+  tw_hspace = 2.5;
+
+  tw_last_word = 0;
+  tw_last_line = 0;
+
+  tw_pos_x = -1.0 + World.wrldsiz;
+  tw_pos_y = World.wrldsiz;
+  tw_pos_z = -1.0;
+
+  // clear live library
+  Populations.group = 0;
+  Populations.clearGroup(0);
+
+  tw_result = 0;
+  var tw_mode = 0;
+  var tw_letter;
+  var tw_last_letter="";
+  var tw_command;
+  var i;
+  for (i = 0; i < String.len(ExpParams.text); i++)
+  {
+    // read letter
+    tw_letter = String.substr(ExpParams.text, i, 1);
+
+    // replace white spaces with space
+    if (tw_letter == "\t" || tw_letter == "\n")
+      tw_letter = " ";
+
+    switch (tw_mode)
+    {
+      // read text mode
+    case 0:
+      if (tw_letter == "<")
+      {
+        tw_command = "";
+        tw_mode = 1;
+      }
+      else if (tw_letter == ">")
+        tw_mode = 2;
+      else if (tw_letter != " " || tw_last_letter != " ")
+      {
+        tw_last_letter = tw_letter;
+        writeLetter(tw_letter);
+      }
+      break;
+
+      // read commands mode
+    case 1:
+      if (tw_letter == ">")
+      {
+        realizeCommand(tw_command);
+        tw_mode = 0;
+      }
+      else
+        tw_command += tw_letter;
+      break;
+
+      // read special char mode
+    case 2:
+      writeLetter(tw_letter);
+      tw_mode = 0;
+      break;
+
+    default:
+      Simulator.message("Bad mode.", 2);
+    }
+  }
+  if (tw_result > 0)
+    Simulator.message("The font is missing " + tw_result + " symbols!", 1);
+}
+
+function onStep()
+{
+  // set collision mask
+  Population.colmask = ExpParams.collisions;
+
+  var dz;
+
+  var i;
+  var the_end = 1;
+  for (i = 0; i < Population.size; i++)
+  {
+    Populations.creature = i;
+    dz = WorldMap.getHeight(Creature.pos_x + Creature.size_x / 2, Creature.pos_y + Creature.size_y / 2 - 0.01 * ExpParams.speed) - WorldMap.getHeight(Creature.pos_x + Creature.size_x / 2, Creature.pos_y + Creature.size_y / 2);
+    Creature.moveAbs(Creature.pos_x, Creature.pos_y - 0.01 * ExpParams.speed, Creature.pos_z + dz);
+    if (Creature.pos_y + Creature.size_y > 0)
+      the_end = 0;
+  }
+  if (the_end)
+    Simulator.stop();
+}
+
+// find genotype in gene pool for selected letter and font
+function tw_findGenotype(tw_letter)
+{
+  var gen1 = -1;
+  var gen2 = -1;
+  var gen3 = -1;
+
+  var i;
+  for (i = 0; i < GenePool.size; i++)
+  {
+    GenePools.genotype = i;
+
+    if (Genotype.name == "f0")
+      gen3 = i;
+    else if (Genotype.name == tw_font)
+      gen2 = i;
+    else if (Genotype.name == tw_font + "_" + tw_letter)
+      gen1 = i;
+  }
+
+  if (gen1 >= 0)
+    return gen1;
+  else
+  {
+    tw_result++;
+    if (gen2 >= 0)
+      return gen2;
+    else
+      return gen3;
+  }
+}
+
+// get pos_x of selected creature
+function tw_get_pos(a)
+{
+  var tmp = Populations.creature;
+  Populations.creature = a;
+  var tw_pos = Creature.pos_x;
+  Populations.creature = tmp;
+  return tw_pos;
+}
+
+// get size of selected creature
+function tw_get_size(a)
+{
+  var tmp = Populations.creature;
+  Populations.creature = a;
+  var tw_size = Creature.size_x - 2;
+  Populations.creature = tmp;
+  return tw_size;
+}
+
+// calculate distance between left and right ends of letters line
+function tw_dist(a, b)
+{
+  return tw_get_pos(a) + tw_get_size(a) - tw_get_pos(b);
+}
+
+// align letters to left in line
+function tw_left(a, b)
+{
+  var tw_old_pos_x = tw_get_pos(a) + tw_get_size(a);
+  var tw_new_pos_x = -1.0 + World.wrldsiz;
+  var tw_delta_x = tw_new_pos_x - tw_old_pos_x;
+
+  var tmp = Populations.creature;
+
+  var i;
+  for (i = a; i <= b; i++)
+  {
+    Populations.creature = i;
+    tw_pos_x = Creature.pos_x + tw_delta_x;
+    Creature.moveAbs(tw_pos_x, tw_pos_y, Creature.pos_z);
+  }
+
+  Populations.creature = tmp;
+
+  return tw_pos_x;
+}
+
+// center letters in line
+function tw_center(a, b)
+{
+  var tw_old_pos_x = tw_get_pos(b);
+  var tw_new_pos_x = 0.5 * (World.wrldsiz - tw_dist(a, b)) - 1;
+  var tw_delta_x = tw_new_pos_x - tw_old_pos_x;
+
+  var tmp = Populations.creature;
+
+  var i;
+  for (i = a; i <= b; i++)
+  {
+    Populations.creature = i;
+    tw_pos_x = Creature.pos_x + tw_delta_x;
+    Creature.moveAbs(tw_pos_x, tw_pos_y, Creature.pos_z);
+  }
+
+  Populations.creature = tmp;
+
+  return tw_pos_x;
+}
+
+// align letters to right in line
+function tw_right(a, b)
+{
+  var tw_old_pos_x = tw_get_pos(b);
+  var tw_new_pos_x = -1.0;
+  var tw_delta_x = tw_new_pos_x - tw_old_pos_x;
+
+  var tmp = Populations.creature;
+
+  var i;
+  for (i = a; i <= b; i++)
+  {
+    Populations.creature = i;
+    tw_pos_x = Creature.pos_x + tw_delta_x;
+    Creature.moveAbs(tw_pos_x, tw_pos_y, Creature.pos_z);
+  }
+
+  Populations.creature = tmp;
+
+  return tw_pos_x;
+}
+
+// justify letters in line
+function tw_justify(a, b)
+{
+  var denominator = tw_dist(a, b) - tw_get_size(a);
+  if (denominator == 0)
+    return tw_left(a, b);
+  else
+  {
+    var tw_delta = tw_get_pos(b);
+    var tw_skala = (World.wrldsiz - tw_get_size(a)) / denominator;
+
+    var tmp = Populations.creature;
+
+    var i;
+    for (i = a; i <= b; i++)
+    {
+      Populations.creature = i;
+      tw_pos_x = tw_skala * (Creature.pos_x - tw_delta) - 1;
+      Creature.moveAbs(tw_pos_x, tw_pos_y, Creature.pos_z);
+    }
+
+    Populations.creature = tmp;
+
+    return tw_pos_x;
+  }
+}
+
+// write one letter
+function writeLetter(tw_letter)
+{
+  if (tw_letter == " ")
+  {
+    tw_last_word = Population.size;
+    tw_pos_x -= tw_space * 4;
+  }
+  else
+  {
+    GenePools.group = 0;
+    GenePools.genotype = tw_findGenotype(tw_letter);
+    Populations.createFromGenotype();
+
+    Creature.rotate(0, Math.pi, 0); //need to rotate letters because they were designed rotated :-/
+
+    if (Populations.creature > tw_last_line)
+      tw_pos_x -= tw_space + tw_get_size(Populations.creature);
+    Creature.moveAbs(tw_pos_x, tw_pos_y, tw_pos_z);
+
+    switch (tw_align)
+    {
+    case "left":
+      if (tw_dist(tw_last_line, Populations.creature) > World.wrldsiz)
+      {
+        if (tw_last_word > tw_last_line)
+        {
+          tw_left(tw_last_line, tw_last_word - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_left(tw_last_word, Populations.creature);
+          tw_last_line = tw_last_word;
+        }
+        else
+        {
+          tw_left(tw_last_line, Populations.creature - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_left(Populations.creature, Populations.creature);
+          tw_last_line = Populations.creature;
+        }
+      }
+      else
+        tw_pos_x = tw_left(tw_last_line, Populations.creature);
+      break;
+
+    case "center":
+      if (tw_dist(tw_last_line, Populations.creature) > World.wrldsiz)
+      {
+        if (tw_last_word > tw_last_line)
+        {
+          tw_center(tw_last_line, tw_last_word - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_center(tw_last_word, Populations.creature);
+          tw_last_line = tw_last_word;
+        }
+        else
+        {
+          tw_center(tw_last_line, Populations.creature - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_center(Populations.creature, Populations.creature);
+          tw_last_line = Populations.creature;
+        }
+      }
+      else
+        tw_pos_x = tw_center(tw_last_line, Populations.creature);
+      break;
+
+    case "right":
+      if (tw_dist(tw_last_line, Populations.creature) > World.wrldsiz)
+      {
+        if (tw_last_word > tw_last_line)
+        {
+          tw_right(tw_last_line, tw_last_word - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_right(tw_last_word, Populations.creature);
+          tw_last_line = tw_last_word;
+        }
+        else
+        {
+          tw_right(tw_last_line, Populations.creature - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_right(Populations.creature, Populations.creature);
+          tw_last_line = Populations.creature;
+        }
+      }
+      else
+        tw_pos_x = tw_right(tw_last_line, Populations.creature);
+      break;
+
+    case "justify":
+      if (tw_dist(tw_last_line, Populations.creature) > World.wrldsiz)
+      {
+        if (tw_last_word > tw_last_line)
+        {
+          tw_justify(tw_last_line, tw_last_word - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_left(tw_last_word, Populations.creature);
+          tw_last_line = tw_last_word;
+        }
+        else
+        {
+          tw_justify(tw_last_line, Populations.creature - 1);
+          tw_pos_y += tw_hspace;
+          tw_pos_x = tw_left(Populations.creature, Populations.creature);
+          tw_last_line = Populations.creature;
+        }
+      }
+      else
+        tw_pos_x = tw_left(tw_last_line, Populations.creature);
+      break;
+    }
+    tw_pos_x -= tw_space;
+  }
+}
+
+function testCommand(tw_command, cmd)
+{
+  return String.indexOf(tw_command, cmd);
+}
+
+function commandValue(tw_command, cmd)
+{
+  return 0.0 + String.right(tw_command, String.len(tw_command) - String.len(cmd));
+}
+
+// perform command
+function realizeCommand(tw_command)
+{
+  if (testCommand(tw_command, "left") >= 0)
+  {
+    tw_align = "left";
+    tw_pos_x = -1.0 + World.wrldsiz;
+    tw_pos_y += tw_hspace;
+    tw_last_line = tw_last_word = Population.size;
+  }
+  else if (testCommand(tw_command, "center") >= 0)
+  {
+    tw_align = "center";
+    tw_pos_x = -1.0 + 0.5 * World.wrldsiz;
+    tw_pos_y += tw_hspace;
+    tw_last_line = tw_last_word = Population.size;
+  }
+  else if (testCommand(tw_command, "right") >= 0)
+  {
+    tw_align = "right";
+    tw_pos_x = -1.0;
+    tw_pos_y += tw_hspace;
+    tw_last_line = tw_last_word = Population.size;
+  }
+  else if (testCommand(tw_command, "justify") >= 0)
+  {
+    tw_align = "justify";
+    tw_pos_x = -1.0 + World.wrldsiz;
+    tw_pos_y += tw_hspace;
+    tw_last_line = tw_last_word = Population.size;
+  }
+  else if (testCommand(tw_command, "vs") >= 0)
+    tw_hspace = 2.0 + commandValue(tw_command, "vs");
+  else if (testCommand(tw_command, "hs") >= 0)
+    tw_space = commandValue(tw_command, "hs") / 2;
+  else if (testCommand(tw_command, "h") >= 0)
+    tw_pos_z = commandValue(tw_command, "h");
+  else
+    tw_font = tw_command;
+}
+~
+
+prop:
+id:text
+name:Text
+type:s 1
+help:The text you want to see
+
+prop:
+id:collisions
+name:Collisions
+type:d 0 1
+help:When turned on, nearby letters will collide and bounce
+
+prop:
+id:speed
+name:Speed
+type:d 1 100 5
+help:Text movement: 1-slowest, 100-fastest
+

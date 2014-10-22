@@ -1,0 +1,262 @@
+<HTML><HEAD><TITLE>Creature</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Creature class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">The object inside the simulated world, including its physical structure, neural network and performance data. Food pieces, obstacles and other movable objects can be implemented as Creatures even though the are not "alive". See also: Population.</DIV><BR>
+65 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="14"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;bodysim
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Body simulation</p>
+<p class="help">(Physical) body simulation can be disabled for individual objects which makes them immovable. Disabled objects can still participate in collisions depending on their collisions masks.<BR/>
+<BR/>
+Bugs: the standard collision handler does not work for disabled objects when ODE simulation is used. It means that these objects won't physically interact with other objects. The custom (scripting) handlers work as expected.</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;buildproblems
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Build problems</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;c_velocity
+<div class="typedescr">float</div></td><td>
+<p class="membername">Velocity</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;c_vertpos
+<div class="typedescr">float</div></td><td>
+<p class="membername">Vertical position</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;c_vertvelocity
+<div class="typedescr">float</div></td><td>
+<p class="membername">Vertical velocity</p>
+</TD></TR><TR><TD><A NAME="31"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;center_x
+<div class="typedescr">float</div></td><td>
+<p class="membername">center.x</p>
+<p class="help">Center of gravity</p>
+</TD></TR><TR><TD><A NAME="32"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;center_y
+<div class="typedescr">float</div></td><td>
+<p class="membername">center.y</p>
+<p class="help">Center of gravity</p>
+</TD></TR><TR><TD><A NAME="33"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;center_z
+<div class="typedescr">float</div></td><td>
+<p class="membername">center.z</p>
+<p class="help">Center of gravity</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;distance
+<div class="typedescr">float</div></td><td>
+<p class="membername">Distance</p>
+</TD></TR><TR><TD><A NAME="48"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;drive
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">Enforce constant speed</p>
+<p class="help">Measured in global coordinates</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;energ0
+<div class="typedescr">float</div></td><td>
+<p class="membername">Starting energy</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;energy
+<div class="typedescr">float</div></td><td>
+<p class="membername">Energy</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;energy_b
+<div class="typedescr">float</div></td><td>
+<p class="membername">Energy balance</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;energy_m
+<div class="typedescr">float</div></td><td>
+<p class="membername">Energy costs</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;energy_p
+<div class="typedescr">float</div></td><td>
+<p class="membername">Energy income</p>
+</TD></TR><TR><TD><A NAME="59"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;geno
+<div class="typedescr"><A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">genotype</p>
+<p class="help">Source genotype for this creature</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;genotype
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Genotype</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;gnum
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Generation</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="field.gif" ALT="field" TITLE="field">&nbsp;group
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">group</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;idleen
+<div class="typedescr">float</div></td><td>
+<p class="membername">Idle power consumption</p>
+</TD></TR><TR><TD><A NAME="63"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;index
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Index</p>
+<p class="help">Index of this Creature in its Population.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;info
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Info</p>
+<p class="help">Additional info or comments</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;lifespan
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Life span</p>
+</TD></TR><TR><TD><A NAME="61"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;liveModel
+<div class="typedescr"><A HREF="c_model.html">Model</A></div></td><td>
+<p class="membername">current model</p>
+<p class="help">A Model object that is a copy of the current (temporary) geometry of this creature</p>
+</TD></TR><TR><TD><A NAME="49"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;localDrive
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">Enforce constant speed</p>
+<p class="help">Measured in local coordinates, that is, with respect to the current orientation of the creature.<BR/>
+See also: Creature.orient</p>
+</TD></TR><TR><TD><A NAME="60"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;model
+<div class="typedescr"><A HREF="c_model.html">Model</A></div></td><td>
+<p class="membername">source model</p>
+<p class="help">Source Model for this creature</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">Name</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;nnenabled
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">NN enabled</p>
+</TD></TR><TR><TD><A NAME="35"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;numjoints
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of joints</p>
+</TD></TR><TR><TD><A NAME="36"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;numneurons
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of neurons</p>
+</TD></TR><TR><TD><A NAME="34"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;numparts
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of parts</p>
+</TD></TR><TR><TD><A NAME="45"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;orient
+<div class="typedescr"><A HREF="c_orient.html">Orient</A></div></td><td>
+<p class="membername">orientation</p>
+<p class="help">By convention, the orientation of the creature is equal to the orientation of its first Part</p>
+</TD></TR><TR><TD><A NAME="57"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;othermask
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2147483647<br>
+default=0</div></td><td>
+<p class="membername">Collision mask (other)</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;perf
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Off<li>1 = On<li>2 = Waiting for stabilization</div></td><td>
+<p class="membername">Performance calculation</p>
+<p class="help">Initial value of this property is taken from Population.enableperf</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;pos_x
+<div class="typedescr">float</div></td><td>
+<p class="membername">position.x</p>
+<p class="help">(pos_x,pos_y,pos_z) is the point of minimal coordinates ("bottom left corner") of the creature, including imaginary Part sizes (Part.s, usually 1.0). See also: Creature.moveAbs</p>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;pos_y
+<div class="typedescr">float</div></td><td>
+<p class="membername">position.y</p>
+<p class="help">See Creature.pos_x</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;pos_z
+<div class="typedescr">float</div></td><td>
+<p class="membername">position.z</p>
+<p class="help">See Creature.pos_x</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;selfcol
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Self-collisions</p>
+<p class="help">Enable/disable detection of self-collisions (within a creature body). They can only occur when using the ODE simulation engine. If enabled, the creature will have its sticks collide during lifespan.</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;selfcolstate
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Self-collisions</p>
+<p class="help">Current self-collision state</p>
+</TD></TR><TR><TD><A NAME="56"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;selfmask
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2147483647<br>
+default=0</div></td><td>
+<p class="membername">Collision mask (self)</p>
+</TD></TR><TR><TD><A NAME="64"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;signals
+<div class="typedescr"><A HREF="c_creaturesignals.html">CreatureSignals</A></div></td><td>
+<p class="membername">Signal sources</p>
+</TD></TR><TR><TD><A NAME="28"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;size_x
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box x size</p>
+<p class="help">(size_x,size_y,size_z) are dimensions of the axis-aligned bounding box of the creature, including the imaginary part sizes (Part.s, usually 1.0). A creature consisting of a single default Part has the size of (2.0,2.0,2.0) - twice the Part.s value (like a sphere diameter is twice its radius).<BR/>
+See also: Creature.moveAbs</p>
+</TD></TR><TR><TD><A NAME="29"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;size_y
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box y size</p>
+<p class="help">See Creature.size_x</p>
+</TD></TR><TR><TD><A NAME="30"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;size_z
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box z size</p>
+<p class="help">See Creature.size_x</p>
+</TD></TR><TR><TD><A NAME="62"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;uid
+<div class="typedescr">string</div></td><td>
+<p class="membername">#</p>
+</TD></TR><TR><TD><A NAME="37"></A><IMG SRC="field.gif" ALT="field" TITLE="field">&nbsp;user1
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">User field 1</p>
+</TD></TR><TR><TD><A NAME="38"></A><IMG SRC="field.gif" ALT="field" TITLE="field">&nbsp;user2
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">User field 2</p>
+</TD></TR><TR><TD><A NAME="39"></A><IMG SRC="field.gif" ALT="field" TITLE="field">&nbsp;user3
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">User field 3</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;velocity
+<div class="typedescr">float</div></td><td>
+<p class="membername">Avg. velocity</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;vertpos
+<div class="typedescr">float</div></td><td>
+<p class="membername">Avg. vertical position</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;vertvel
+<div class="typedescr">float</div></td><td>
+<p class="membername">Avg. vertical velocity</p>
+</TD></TR><TR><TD><A NAME="58"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;currentGeometryAsF0
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">currentGeometryAsF0</p>
+<code>function currentGeometryAsF0()</code><br>
+</TD></TR><TR><TD><A NAME="51"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getJoint
+<div class="typedescr">returns <A HREF="c_joint.html">Joint</A></div></td><td>
+<p class="membername">getJoint (static Model information)</p>
+<code>function getJoint(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="54"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getMechJoint
+<div class="typedescr">returns <A HREF="c_mechjoint.html">MechJoint</A></div></td><td>
+<p class="membername">getMechJoint (current properties)</p>
+<code>function getMechJoint(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="53"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getMechPart
+<div class="typedescr">returns <A HREF="c_mechpart.html">MechPart</A></div></td><td>
+<p class="membername">getMechPart (current properties)</p>
+<code>function getMechPart(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="55"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getNeuro
+<div class="typedescr">returns <A HREF="c_neuro.html">Neuro</A></div></td><td>
+<p class="membername">getNeuro</p>
+<code>function getNeuro(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="52"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getNeuroDef
+<div class="typedescr">returns <A HREF="c_neurodef.html">NeuroDef</A></div></td><td>
+<p class="membername">getNeuroDef</p>
+<code>function getNeuroDef(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="50"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getPart
+<div class="typedescr">returns <A HREF="c_part.html">Part</A></div></td><td>
+<p class="membername">getPart (static Model information)</p>
+<code>function getPart(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="43"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;localToWorld
+<div class="typedescr">returns <A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">return world coordinates</p>
+<code>function localToWorld(float x, float y, float z)</code><br>
+<p class="help">Local coordinates are measured with respect to the position and orientation of the first Part</p>
+</TD></TR><TR><TD><A NAME="40"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;move
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">move</p>
+<code>function move(float x, float y, float z)</code><br>
+<p class="help">Shift the creature by a given vector.</p>
+</TD></TR><TR><TD><A NAME="41"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;moveAbs
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">move to absolute location</p>
+<code>function moveAbs(float x, float y, float z)</code><br>
+<p class="help">Moves the creature so that its origin (pos_x,pos_y,pos_z) is placed at the given location. The origin is the point of minimal coordinates ("bottom left corner"), including imaginary part sizes (Part.s, usually 1.0).<BR/>
+Assuming a simple single-stick creature "X" having parts at (0,0,0) and (1,0,0),<BR/>
+<BR/>
+origin (pos_x,pos_y,pos_z) = (-1,-1,-1)<BR/>
+size (size_x,size_y,size_z) = (3,2,2)<BR/>
+<BR/>
+The following example places the bottom of a creature at a given location (x,y,z):<BR/>
+Creature.moveAbs(x-(Creature.size_x/2),y-(Creature.size_y/2),z-1.0)<BR/>
+(assuming that the part size is 1.0)</p>
+</TD></TR><TR><TD><A NAME="42"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;moveLocal
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">move in local coordinates</p>
+<code>function moveLocal(float x, float y, float z)</code><br>
+<p class="help">Local coordinates are measured with respect to the position and orientation of the first Part</p>
+</TD></TR><TR><TD><A NAME="46"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;rotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate</p>
+<code>function rotate(float x, float y, float z)</code><br>
+<p class="help">Rotate the creature around X, Y and Z axes. Should only be used immediately after creating a new creature (before the first simulation step is performed for this creature), otherwise further simulation can be disturbed.</p>
+</TD></TR><TR><TD><A NAME="47"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;rotateLocal
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate in local coordinates</p>
+<code>function rotateLocal(float x, float y, float z)</code><br>
+<p class="help">Rotate the creature around (local) X, Y and Z axes. Should only be used immediately after creating a new creature (before the first simulation step is performed for this creature), otherwise further simulation can be disturbed.</p>
+</TD></TR><TR><TD><A NAME="44"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;worldToLocal
+<div class="typedescr">returns <A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">return local coordinates</p>
+<code>function worldToLocal(float x, float y, float z)</code><br>
+<p class="help">Local coordinates are measured with respect to the position and orientation of the first Part</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

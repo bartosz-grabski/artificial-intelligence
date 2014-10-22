@@ -1,0 +1,108 @@
+<HTML><HEAD><TITLE>VertexBuilder</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>VertexBuilder class in <A HREF="x_visualstyledefinition.html">Visual style definition</A></H2>
+24 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="22"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;material
+<div class="typedescr">object</div></td><td>
+<p class="membername">material</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;node
+<div class="typedescr">integer</div></td><td>
+<p class="membername">geometry node</p>
+<p class="help">This field returns the geometry node for use in GeomBuilder. You have to set all relevant geometry properties before using this field. The usual sequence:<BR/>
+1. newXXX - selects the geometry type (see your OpenGL manual for explanation)<BR/>
+2. Set all properties (add vertices, normals, colors, texture coordinates, material). All unspecified properties are assumed to have default values.<BR/>
+3. Use the resulting node ( GeomBuilder.add(VertexBuilder.node) )</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;twosided
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">twosided</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addCalculatedNormal
+<div class="typedescr"></div></td><td>
+<p class="membername">add calculated normal vector</p>
+<code>function addCalculatedNormal()</code><br>
+<p class="help">calculate the normal vector from 3 coordinates. integer arguments are the vertices' indices. 0,1,2... = first, second, third vertex, -1,-2,-3,... = last, last-1, last-2 vertex</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addColor
+<div class="typedescr"></div></td><td>
+<p class="membername">add color (4 values)</p>
+<code>function addColor()</code><br>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addNormal
+<div class="typedescr"></div></td><td>
+<p class="membername">add normal vector (3 coordinates or vector)</p>
+<code>function addNormal()</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addNormal_1
+<div class="typedescr"></div></td><td>
+<p class="membername">add normal vector (3 coordinates), normalizing the coordinates</p>
+<code>function addNormal_1()</code><br>
+<p class="help">use addNormal instead of this function</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addTexCoord
+<div class="typedescr"></div></td><td>
+<p class="membername">add texture coordinates (2 coordinates or vector)</p>
+<code>function addTexCoord()</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addVertex
+<div class="typedescr"></div></td><td>
+<p class="membername">add vertex (3 coordinates or vector)</p>
+<code>function addVertex()</code><br>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;genTexCoords
+<div class="typedescr"></div></td><td>
+<p class="membername">generate texture coordinates</p>
+<code>function genTexCoords()</code><br>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;genTexCoordsXY
+<div class="typedescr"></div></td><td>
+<p class="membername">generate texture coordinates for XY plane</p>
+<code>function genTexCoordsXY()</code><br>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;genTexCoordsXZ
+<div class="typedescr"></div></td><td>
+<p class="membername">generate texture coordinates for XZ plane</p>
+<code>function genTexCoordsXZ()</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;genTexCoordsYZ
+<div class="typedescr"></div></td><td>
+<p class="membername">generate texture coordinates for YZ plane</p>
+<code>function genTexCoordsYZ()</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function new(integer type)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newLineLoop
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newLineLoop()</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newLines
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newLines()</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newLineStrip
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newLineStrip()</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newPoints
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newPoints()</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newPolygon
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newPolygon()</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newQuads
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newQuads()</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newQuadStrip
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newQuadStrip()</code><br>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newTriangleFan
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newTriangleFan()</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newTriangles
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newTriangles()</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newTriangleStrip
+<div class="typedescr"></div></td><td>
+<p class="membername">start new empty geometry</p>
+<code>function newTriangleStrip()</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Visual style definition</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

@@ -1,0 +1,257 @@
+show:
+name:Terrain race
+info:Speed competition
+expdef:standard
+code:~
+
+//by MacKo, 2004, 2005
+
+global g_restartrequest;
+global g_newterrainrequest;
+global g_starttime;
+global g_lasttesttime, g_lasttestscore; //for detecting stagnation
+global g_lastcamchange;
+global g_camdeltaangle;
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  Simulator.import("default.sim");
+  Simulator.import("show_noevol.sim");
+
+  Populations.group = 0;
+  Population.nnsim = 2; //will be enabled directly for each creature
+  Population.death = 0;
+  Population.energy = 0;
+  Population.colmask = 0; //ignore collisions; could be 12 to allow eating apples, but then new apples appear in random places...
+
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_zoom = 1.2;
+  TrackingCam.setViewDir(270, 30); //270:side view
+  GLDisplay.simsteps = 0;
+
+  ShowParams.length = 1;
+  ShowParams.difficulty = 1;
+  ShowParams_length_set();
+  ShowParams.runners = 2;
+  ShowParams_runners_set();
+  GLDisplay.desiredsimspeed=100;
+
+  Simulator.import("walking.gen");
+  removeBad();
+  g_restartrequest = Simulator.time + 20; //20 zeby sie utworzyly stwory... to samo w runners_set()
+  g_newterrainrequest = -1;
+  g_lastcamchange = Math.time;
+  g_camdeltaangle = 0;
+}
+
+function putOnTheGround(cr, x, y) //just to adjust the proper "z" value in the new (x,y) world place
+{
+  var z = WorldMap.getHeight(x, y);
+  if (World.wrldwat > z) // water here!
+  {
+    if (ExpParams.creath > 0)
+      z = World.wrldwat + ExpParams.creath;
+    else
+      z = (1.0 + ExpParams.creath) * World.wrldwat - z * ExpParams.creath;
+  }
+  else                 // land area
+  {
+    if (ExpParams.creath > 0)
+      z += ExpParams.creath;
+  }
+  cr.moveAbs(x, y, z - 0.999);
+}
+
+function restartRace()
+{
+  var i, y;
+  Populations.group = 0;
+  var count = Population.size;
+  if (count == 0)
+    return ;
+  Simulator.print("Restarting race... " + count + " runners.");
+  World.wrldtyp = 2;
+  for (i = 0;i < count;i++)
+  {
+    y = World.wrldsiz / (3 * count + 1) * (3.0 * i + 2);
+    Populations.group = 0;
+    var cr = Population.get(i);
+    Populations.creature=i;
+    cr.rotate(0,0,GenePool.get(GenePools.findGenotypeForCreature()).user1); //use rotateAbs instead, when it is available
+    putOnTheGround(cr, World.wrldsiz - 10.0 - cr.size_x / 2, y - cr.size_y / 2);
+    cr.user1 = 10.0 - cr.size_x / 2; //target x
+    cr.nnenabled = 1; //bring to life
+    Populations.group = 1; //food "target indicator"
+    cr = Population.get(i);
+    putOnTheGround(cr, 10.0 - cr.size_x / 2, y - cr.size_y / 2);
+  }
+  g_starttime = Math.time;
+  g_lasttesttime = g_starttime;
+  g_lasttestscore = 99999;
+}
+
+function status()
+{
+  var i, best = 0, cr, s;
+  Populations.group = 0;
+  if (Population.size == 0)
+    return "no runners yet...";
+  for (i = 1;i < Population.size;i++)
+    if (Population.get(i).pos_x < Population.get(best).pos_x)
+      best = i;
+  var lane = Population.size - best;
+  cr = Population.get(best);
+  i = 0 + (cr.pos_x - cr.user1);
+  s = cr.name + " leads on lane #" + lane + ", " + i + "m to finish";
+  if (i < 4)
+    s = cr.name + " on lane #" + lane + " finishing...";
+  if (i < 1)
+  {
+    s = cr.name + " on lane #" + lane + " wins!!!";
+    g_newterrainrequest = Simulator.time + 95;
+  }
+  //add more nice messages, like "xxx gives up?" etc.
+
+  var t = 0 + (Math.time - g_starttime);
+  if (g_starttime)
+    s = "Elapsed time: " + (t / 60) + ":" + String.format("%02d", t % 60) + "\n" + s;
+
+  if (Math.time - g_lasttesttime > 60) //stagnation detection - every minute
+  {
+    if (g_lasttestscore - i < 2)
+    {
+      s = "This race seems too difficult... let's start another one!";
+      g_newterrainrequest = Simulator.time + 295;
+    }
+    g_lasttesttime = Math.time;
+    g_lasttestscore = i;
+  }
+  return s;
+}
+
+function setCam()
+{
+  if (Math.time - g_lastcamchange > 20)
+  {
+    g_camdeltaangle = (Math.rnd01 - 0.5) / 2;
+    //add also: TrackingCam.setTarget(winner), TrackingCam.setTarget(looser), funny comments, etc.
+    g_lastcamchange = Math.time;
+  }
+  TrackingCam.setViewDir(TrackingCam.cam_dir + g_camdeltaangle, TrackingCam.cam_h); //270:side view, 0=360:front view
+  if (TrackingCam.cam_dir < 270 || TrackingCam.cam_dir > 359)
+    g_camdeltaangle = 0;
+}
+
+function onSimStep()
+{
+  if (Simulator.time == g_restartrequest)
+    ShowParams_restart_race_call();
+  if (Simulator.time == g_newterrainrequest)
+    ShowParams_length_set();
+  if ((Simulator.time % 100) == 0 &&
+      !(g_newterrainrequest > Simulator.time || g_restartrequest > Simulator.time)) //no pending requests
+    GLDisplay.banner = status();
+}
+
+function onShowStep()
+{
+    setCam();
+}
+
+function removeBad()
+{
+  var allowed = [56, 58, 60, 77, 80, 83, 287, 307]; //only those who can walk straight
+  var angles = [Math.pi, 0, 0, Math.pi, Math.pi, 0, 0, 0]; //rotation needed for some of them
+  var i, j;
+  
+  for (i = GenePool.size - 1;i >= 0;i--)
+  {
+    GenePools.genotype = i;
+    j = allowed.find(GenePool.get(i).num);
+    if (j<0)
+    {
+      Simulator.print("\"" + Genotype.name + "\" can't run straight, dismissed.");
+      GenePools.deleteSelected();
+    } else Genotype.user1 = angles[j];
+  }
+}
+
+function makeTrackSegment(currH, nextH)
+{
+  var d = nextH - currH;
+  var s = "" + currH;
+  s += " " + (currH + d * 1 / 4);
+  s += " " + (currH + d * 3 / 4);
+  s += " " + nextH;
+  return s;
+}
+
+function makeTrack()
+{
+  var height = 1.0, track, i;
+  track = makeTrackSegment(height, height) + " ";
+  var diffic = ShowParams.difficulty * 3 + 1;
+  for (i = 0;i < ShowParams.length + 1;i++)
+  {
+    var prevheight = height;
+    height += Math.rnd01 * diffic - 0.5 * diffic;
+    track += makeTrackSegment(prevheight, height) + " ";
+  }
+  track += makeTrackSegment(height, height);
+  return track;
+}
+
+function ShowParams_length_set, ShowParams_difficulty_set, ShowParams_runners_set()
+{
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  ExpParams.MaxCreated = [2, 3, 5, 7, 9][ShowParams.runners];
+  ExpParams.feed = ExpParams.MaxCreated;
+  World.wrldtyp = 0; //flat for some time to allow new creatures be revived on a flat plane
+  g_restartrequest = Simulator.time + 20;
+
+  var l = makeTrack(), l2 = ""; //l2 is the separating (a little higher) lane
+  var i, k = "";
+  var v = String.split2(l, " ");
+  l = "";
+  for (i = v.size - 1;i >= 0;i--) //reversing order
+  {
+    l += "" + v[i] + " ";
+    l2 += "" + (1.5 + v[i]) + " "; //higher: +1.5
+  }
+  for (i = 0;i < ExpParams.MaxCreated;i++)
+    k += l2 + "\n" + l + "\n" + l + "\n";
+  //  Simulator.print("\n"+l+"\n"+l2);
+  World.wrldmap = "M " + 4 * (3 + ShowParams.length) + " " + (ExpParams.MaxCreated * 3 + 1) + " " + k + l2;
+  World.wrldsiz = 6.0 * 4 * (3 + ShowParams.length);
+  World.wrldwat = 0;
+  World.wrldbnd = 1;
+}
+
+function ShowParams_restart_race_call()
+{
+  restartRace();
+}
+
+~
+
+prop:
+id:restart_race
+name:Restart race
+type:p
+
+prop:
+id:runners
+name:Number of runners
+type:d 0 4 ~2~3~5~7~9
+
+prop:
+id:length
+name:Race length
+type:d 0 2 ~Short~Medium~Long
+
+prop:
+id:difficulty
+name:Race difficulty
+type:d 0 2 ~Easy~Medium~Hard

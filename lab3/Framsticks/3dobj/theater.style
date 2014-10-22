@@ -1,0 +1,147 @@
+style:
+name:Theater
+info:Used in the Framsticks Theater intro
+code:~
+
+@include "stdneurons.inc"
+
+function default_model_build()
+{
+  VisualModel.jointshadow = 1;
+}
+
+function food_model_build()
+{
+  VisualModel.partshadow = 1;
+}
+
+function default_part_build()
+{
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  Element.node = GeomBuilder.currentNode;
+}
+
+function default_flag_build()
+{
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  Element.node = GeomBuilder.currentNode;
+  if (World.wrldwat > -5.0)
+    Loader.load("thankyou.ac");
+  else
+    Loader.load("please.ac");
+  if (Loader.loaded)
+    GeomBuilder.add(Loader.loaded);
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("balloon.ac");
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  var as=p.as;
+  Element.useJointPart2();
+  as=(as+p.as)/2;  
+  loadAndAddAsTransformNode("greenstick" + (1 + 4.999*as) + ".ac");
+}
+
+function default_part_update, default_flag_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0,0,-0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e;
+  if (Creature.energ0>0)
+   {
+   e = Creature.energy / Creature.energ0;
+   if (e > 1.0)
+    e = 1.0;
+   else if (e < 0.05)
+    e = 0.05;
+   GeomBuilder.matrixScale(e, e, e);
+   }
+  else e=1.0;
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1, 1);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = 0;
+  Scene.worldtexture = "";
+}
+
+function modelviewer_build()
+{
+  Scene.backcolor = 0;
+  Scene.worldtexture = "";
+}
+
+function world_build()
+{
+  Scene.backcolor = 0;
+  Scene.worldtexture = "";
+  Loader.load("theater2.ac");
+  var scale = World.wrldsiz / 20.0;
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixScale(scale, scale, scale);
+  GeomBuilder.matrixMove(0, 0, -0.2);
+  GeomBuilder.setMatrix(GeomBuilder.currentNode);
+  GeomBuilder.add(Loader.loaded);
+
+  if (World.wrldwat > -5.0)
+  {
+    var i, s;
+    for (i = 0;i < 14;i++)
+    {
+      s = 0.4 + 0.2 * Math.rnd01;
+      Loader.load("balloon.ac");
+      GeomBuilder.addTransform(GeomBuilder.rootNode);
+      GeomBuilder.matrixReset();
+      GeomBuilder.matrixScale(s, s, s);
+      GeomBuilder.matrixMove(Math.rnd01*World.wrldsiz, Math.rnd01*World.wrldsiz, 4.0 + Math.rnd01*6.0);
+      GeomBuilder.setMatrix(GeomBuilder.currentNode);
+      GeomBuilder.add(Loader.loaded);
+    }
+  }
+}
+
+~

@@ -1,0 +1,394 @@
+expdef:
+name:Batch evaluation of loaded genotypes
+info:~
+Use this experiment to evaluate all genotypes one by one.
+Use gene pool capacity parameter to set the required number of evaluations of each genotype.
+
+The genotypes for evaluation _must_ be different.
+
+First load your genotypes for evaluation, then initialize experiment,
+then adjust all simulation parameters, and finally run the simulation
+to perform all evaluations.
+
+After evaluation, fitness of each genotype contains the average fitness,
+user1 field contains standard deviation, and user2 field contains the
+average time (in seconds) needed for single evaluation.
+~
+code:~
+
+global g_evaluations; //Vector to hold subsequent genotype fitness values
+global g_time0; //used for estimating simulation time needed for evaluation
+
+function onExpDefLoad()
+{
+  // define genotype and creature groups
+  GenePools.clear();
+  Populations.clear();
+  GenePool.name = "Genotypes";
+  update_fitformula();
+  Population.name = "Creatures";
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 13; //13=1+4+8
+  Populations.addGroup("Food");
+  Population.nnsim = 0;
+  Population.enableperf = 0;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 148; //148=4+16+128
+
+  ExpParams.initialgen = "X";
+  ExpParams.capacity = 10;
+  ExpParams.delrule = 0;
+  ExpParams.MaxCreated = 1;
+  ExpParams.p_nop = 1;
+  ExpParams.p_mut = 0;
+  ExpParams.p_xov = 0;
+  ExpParams.xov_mins = 0;
+  ExpParams.selrule = 2;
+  ExpParams.cr_c = 0;
+  ExpParams.cr_life = 0;
+  ExpParams.cr_v = 1;
+  ExpParams.cr_gl = 0;
+  ExpParams.cr_joints = 0;
+  ExpParams.cr_nnsiz = 0;
+  ExpParams.cr_nncon = 0;
+  ExpParams.cr_di = 0;
+  ExpParams.cr_vpos = 0;
+  ExpParams.cr_vvel = 0;
+  ExpParams.cr_norm = 0;
+  ExpParams.cr_simi = 0;
+  ExpParams.Energy0 = 1000;
+  ExpParams.e_meta = 1;
+  ExpParams.feed = 0;
+  ExpParams.feede0 = 200;
+  ExpParams.feedtrans = 1;
+  ExpParams.placement = 0;
+  ExpParams.rotation = 0;
+  ExpParams.creath = 0.1;
+  ExpParams.foodgen = "";
+  ExpState.totaltestedcr = 0;
+}
+
+function onExpInit()
+{
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+//  GenePools.clearGroup(0);
+//  GenePools.newGenotype(ExpParams.initialgen);
+//  GenePools.copySelected(0);
+  ExpState.totaltestedcr = 0;
+  ExpParams_cleardata_call();
+  g_evaluations=Vector.new();
+  g_time0=null;
+}
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  if (typeof(g_time0)==typeof(null)) g_time0=Math.time;
+  var retry = 20; //try 20 times
+  var placed_ok=0;
+  while (retry--)
+  {
+    var trycentral=(ExpParams.placement == 1) && (retry == 19); //place central only in the first trial
+    place_randomly(trycentral,ExpParams.rotation); 
+    if (!Populations.creatBBCollisions(0))
+      {placed_ok=1;break;}
+  }
+  if (!placed_ok)
+    Simulator.message("onBorn() could not avoid collisions.", 2);
+
+  if (Populations.group == 0)
+  { // creature
+    var n=Creature.numjoints;
+    if (n==0) n=Creature.numparts; //creatures with only one Part will live just as long as one-stick creatures
+    Creature.idleen = ExpParams.e_meta * n;
+    Creature.energ0 = Creature.energ0 * ExpParams.Energy0 * n;
+    Creature.energy = Creature.energ0;
+  }
+  else
+  { // food
+    Creature.name = "Food";
+    Creature.idleen = 0;
+    Creature.energ0 = ExpParams.feede0;
+    Creature.energy = Creature.energ0;
+  }
+}
+
+function addfood()
+{
+  Populations.group = 1;
+  if (ExpParams.foodgen == "")
+    Populations.createFromString("//0\nm:Vstyle=food\np:");
+  else
+    Populations.createFromString(ExpParams.foodgen);
+}
+
+function onStep()
+{
+  Populations.group = 0; // creatures
+  if (Population.size < ExpParams.MaxCreated)
+  {
+    selectGenotype();
+    if (Genotype.isValid)
+      Populations.createFromGenotype();
+    else
+      Simulator.print("invalid genotype - ignored: " + Genotype.info);
+  }
+
+  if (ExpParams.aging > 0)
+  {
+    var i = 0;
+    while (i < Population.size)
+    {
+      Populations.creature = i;
+      Creature.idleen = ExpParams.e_meta * Creature.numjoints
+                        * Math.exp((0.6931471806 * Creature.lifespan) / ExpParams.aging);
+      i++;
+    }
+  }
+
+  Populations.group = 1; // food
+  if (Population.size < ExpParams.feed)
+    addfood();
+}
+
+function updatePerformanceWithPopSize()
+{
+  GenePools.genotype = GenePools.findGenotypeForCreature();
+  if (GenePools.genotype < 0) // not found in gene pool
+  {
+    GenePools.getFromCreature();
+    Genotype.num = 0; // 0 = it will be filled automatically
+    GenePools.copySelected(0);
+    Genotype.popsiz = 0;
+  }
+  GenePools.addPerformanceFromCreature();
+}
+
+function printStats()
+{
+  var f = File.create("genosEval.txt",
+                      "Evaluated genotypes (fitness, fitness standard deviation, average evaluation time).");
+  var i;
+  GenePools.group = 0;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    f.writeString("" + Genotype.num + "\t" + Genotype.fit + "\t" + Genotype.user1+ "\t" + Genotype.user2+"\n");
+  }
+  f.close();
+}
+
+function onDied()
+{
+  if (Populations.group != 0)
+    return ; // ignore food
+//  Simulator.print(g_evaluations.size);
+  GenePools.genotype = GenePools.findGenotypeForCreature();
+  var popsiz=Genotype.popsiz;
+  Genotype.popsiz=0; //trick to have the fitness value for the single genotype instance...
+  updatePerformanceWithPopSize();
+  g_evaluations.add(Genotype.fit); //...which is added to the vector
+  Genotype.popsiz=popsiz+1;
+  if (Genotype.popsiz >= ExpParams.capacity)
+  {
+    Genotype.popsiz=0;
+    Genotype.fit=g_evaluations.avg;
+    Genotype.user1=g_evaluations.stdev;
+    Genotype.user2=(Math.time-g_time0)/ExpParams.capacity; //average time for evaluation
+    if (Math.time-g_time0>2) Simulator.print(""+100*ExpState.totaltestedcr/GenePools.get(0).size + "% complete...");
+    //Simulator.print("" + Genotype.num + "\t" + Genotype.fit + "\t" + Genotype.user1+ "\t" + Genotype.user2);
+    g_time0=null;
+    g_evaluations.clear();
+    ExpState.totaltestedcr++;
+    if (ExpState.totaltestedcr >= GenePools.get(0).size)
+    {
+      Simulator.print("Evaluation complete.");
+      Simulator.stop();
+      printStats();
+    }
+  }
+  //LimitGenePool();
+  //Simulator.autosave();
+}
+
+function selectedForDeletion()
+{
+  if (ExpParams.delrule == 0)
+    return GenePools.random();
+  if (ExpParams.delrule == 1)
+    return GenePools.revroulette();
+  return GenePools.worst();
+}
+
+function selectedForCreation()
+{
+  return ExpState.totaltestedcr;
+}
+
+function selectedSimilar()
+{
+  if (ExpParams.selrule == 0)
+    return GenePools.randomLikeThis(ExpParams.xov_mins);
+  else
+    return GenePools.likeThisRoulette(ExpParams.xov_mins);
+}
+
+function selectGenotype()
+{
+  var sel;
+  sel = (ExpParams.p_nop + ExpParams.p_mut + ExpParams.p_xov) * Math.rnd01;
+  if (sel < ExpParams.p_nop)
+    GenePools.genotype = selectedForCreation();
+  else
+  {
+    sel = sel - ExpParams.p_nop;
+    if (sel < ExpParams.p_mut)
+    {
+      GenePools.genotype = selectedForCreation();
+      GenePools.mutateSelected();
+    }
+    else
+    {
+      var other;
+      GenePools.genotype = selectedForCreation();
+      if (ExpParams.xov_mins > 0.0)
+        other = selectedSimilar();
+      else
+        other = selectedForCreation();
+      if (other >= 0)
+        GenePools.crossoverSelected(other);
+      else
+        Simulator.print("crossover - second genotype not found?");
+    }
+  }
+}
+
+function onFoodCollision()
+{
+  var e = Collision.Part2.ing * ExpParams.feedtrans;
+  //Simulator.print("transferring "+e+" from "+Collision.Creature1.name+" to "+Collision.Creature2.name);
+  Collision.Creature1.energy_m = Collision.Creature1.energy_m + e;
+  Collision.Creature2.energy_p = Collision.Creature2.energy_p + e;
+}
+
+function ExpParams_cleardata_call()
+{
+  var i;
+  GenePools.group = 0;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    Genotype.popsiz = 0;
+  }
+  Simulator.print("Performance data reset.");
+}
+
+function LimitGenePool()
+{
+  if (GenePool.totalpop > (ExpParams.capacity + 1))
+    Simulator.print("Removing " + (GenePool.totalpop - ExpParams.capacity) + " genotypes");
+  while (GenePool.totalpop > ExpParams.capacity)
+    GenePools.deleteOne(selectedForDeletion());
+}
+
+function ExpParams_capacity_set()
+{
+  LimitGenePool();
+}
+
+function limitPopulation(g,n)
+{
+  Populations.group = g;
+  n=Population.size-n;
+  while(n>0)
+  {
+    Populations.creature=Population.size-1;
+    Populations.deleteSelected();
+    n--;
+  }
+}
+
+function ExpParams_MaxCreated_set()
+{
+  limitPopulation(0,ExpParams.MaxCreated); //creatures
+}
+
+function ExpParams_feed_set()
+{
+  limitPopulation(1,ExpParams.feed); //food
+}
+
+function
+ExpParams_cr_c_set, ExpParams_cr_life_set, ExpParams_cr_v_set, ExpParams_cr_gl_set,
+ExpParams_cr_joints_set, ExpParams_cr_nnsiz_set, ExpParams_cr_nncon_set, ExpParams_cr_di_set,
+ExpParams_cr_vpos_set, ExpParams_cr_vvel_set, ExpParams_cr_norm_set, ExpParams_cr_simi_set,
+update_fitformula()
+{
+  var formula = "" + ExpParams.cr_c;
+  formula += singlecrit("cr_life", "lifespan");
+  formula += singlecrit("cr_v", "velocity");
+  formula += singlecrit("cr_gl", "strsiz");
+  formula += singlecrit("cr_joints", "strjoints");
+  formula += singlecrit("cr_nnsiz", "nnsiz");
+  formula += singlecrit("cr_nncon", "nncon");
+  formula += singlecrit("cr_di", "distance");
+  formula += singlecrit("cr_vpos", "vertpos");
+  formula += singlecrit("cr_vvel", "vertvel");
+  if (ExpParams.cr_simi)
+    formula = "(" + formula + ")*this.simi";
+  GenePool.fitness = "return " + formula + ";";
+}
+
+function singlecrit(crname, fieldname)
+{
+  var weight = ExpParams.[crname];
+  if (weight == 0.0)
+    return "";
+  if (ExpParams.cr_norm)
+    return "+this.getNormalized(Genotype:" + fieldname + ")*" + weight;
+  else
+    return "+this." + fieldname + "*" + weight;
+}
+
+@include "standard_events.inc"
+@include "standard_loadsave.inc"
+
+~
+
+#include "standard_props.inc"
+
+
+prop:
+id:cleardata
+name:Clear performance info
+type:p
+help:~
+Sets the number of instances of each genotype to zero (as if it has never been evaluated).
+Genotype performance values stay intact, yet they are meaningless if a genotype has no instances.~
+
+state:
+id:notes
+name:Notes
+type:s 1
+help:~
+You can write anything here
+(it will be saved to the experiment file)~
+
+state:
+id:totaltestedcr
+name:Evaluated creatures
+help:Total number of the creatures evaluated in the experiment
+type:d
+flags:16
+
+state:
+id:creaturesgrouploaded
+name:creaturesgrouploaded
+type:d
+flags:34

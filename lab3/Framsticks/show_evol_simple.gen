@@ -1,0 +1,336 @@
+# created Wed Mar 26 20:57:33 2003
+# by Framsticks 2.4
+GenePool:
+name:Genotypes
+fitness:return 0.0+this.velocity*1.0;
+fitfun:0
+fitm:2
+fitma:2
+
+org:
+name:Arociz Sehe
+genotype:~
+(cX[@, p:0.846, 1:-10][G]a(accaacmX[@, p:1, 1:-0.131][G]), )~
+info:~
+Crossing over of 'Epemik Hehe' (55.00%) and 'Adocuw Hehe' (45.00%)~
+num:689
+gnum:223
+popsiz:1
+lifespan:4999
+velocity:2.03609e-07
+distance:0.00101784
+vertvel:1.87074e-07
+vertpos:-0.0133347
+user1:
+user2:
+user3:
+
+org:
+name:Ihykad Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.394][G]cmEX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:0.55][G]), )~
+info:6.90% mutation of 'Efykik Hehe'
+num:706
+gnum:223
+popsiz:1
+lifespan:4999
+velocity:0.000414677
+distance:2.07297
+vertvel:0.000279838
+vertpos:0.039106
+user1:
+user2:
+user3:
+
+org:
+name:Etykaf Si
+genotype:(cccacmX, )
+info:~
+Crossing over of 'Ihykad Hehe' (36.36%) and 'Etesip Sehe' (63.64%)~
+num:708
+gnum:225
+popsiz:1
+lifespan:4999
+velocity:0
+distance:0
+vertvel:0
+vertpos:-0.01
+user1:
+user2:
+user3:
+
+org:
+name:Yrykik Ehete
+genotype:~
+(cmEX[@, p:0.846, 1:-5.103][G]EX[@, p:0.846, 1:-5.103][G]cmEX[@, p:0.846, 1:-8.502][G]a(cmEX[@, p:0.846, 1:-8.502][G]a(acccacmEmX[@, p:1, 1:-0.131][G]), acccacmX[@, p:1, 1:0.55][G]), )~
+info:~
+Crossing over of 'Onocid Hehe' (64.61%) and 'Ifykam Ehehe' (35.39%)~
+num:715
+gnum:225
+popsiz:1
+lifespan:4999
+velocity:1.1142e-07
+distance:0.000556986
+vertvel:1.07588e-07
+vertpos:-0.0171473
+user1:
+user2:
+user3:
+
+org:
+name:Ohykim Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-5.103][G]cX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.084][G]), )~
+info:6.90% mutation of 'Egocuh Hehe'
+num:718
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:0.000443759
+distance:2.21835
+vertvel:0.00030256
+vertpos:0.040529
+user1:
+user2:
+user3:
+
+org:
+name:Ipykif Sehe
+genotype:~
+(cmEX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:0.55][G]), )~
+info:31.03% mutation of 'Ihykad Hehe'
+num:721
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:1.39332e-07
+distance:0.000696521
+vertvel:1.11516e-07
+vertpos:-0.0133345
+user1:
+user2:
+user3:
+
+org:
+name:Uyku Ehete
+genotype:~
+(cmEX[@,p:0.846,1:-5.103][G]cmEX[@, p:0.846, 1:-8.502][G]a(accca(acccacmX[@, p:1, 1:-1.084][G]),X[@, p:1, 1:1.539][G]), )~
+info:~
+Crossing over of 'Amykiz Hehe' (72.73%) and 'Egykuz Hehe' (27.27%)~
+num:722
+gnum:226
+popsiz:1
+lifespan:4999
+velocity:9.53954e-08
+distance:0.000476881
+vertvel:9.02053e-08
+vertpos:-0.0160013
+user1:
+user2:
+user3:
+
+org:
+name:Egykuz Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-5.103][G]cmEX[@, p:0.846, 1:-8.502][G]a(acccacmEmX[@, p:1, 1:1.539][G]), )~
+info:6.38% mutation of 'Onocid Hehe'
+num:709
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:0.000466134
+distance:2.3302
+vertvel:0.000328507
+vertpos:0.0412945
+user1:
+user2:
+user3:
+
+org:
+name:Ufesaw Sehe
+genotype:~
+(cX[@, p:0.846, 1:-10][G]a(accaacmX[@, p:1, 1:1.401][G]), )~
+info:10.00% mutation of 'Arociz Sehe'
+num:734
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:1.56608e-07
+distance:0.000782883
+vertvel:1.39411e-07
+vertpos:-0.0133332
+user1:
+user2:
+user3:
+
+org:
+name:Arocir Hehe
+genotype:~
+i(cmEX[@,p:0.846,1:-5.103][G]cmEX[@, p:0.846, 1:-8.502][G]a(acccacmEmX[@, p:1, 1:-0.131][G]), )~
+info:1.06% mutation of 'Onocid Hehe'
+num:737
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:0.000437247
+distance:2.1858
+vertvel:0.000309838
+vertpos:0.0394375
+user1:
+user2:
+user3:
+
+org:
+name:Emykuz Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.766][G]cX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.084][G]), )~
+info:6.90% mutation of 'Ohykim Hehe'
+num:733
+gnum:225
+popsiz:2
+lifespan:4999
+velocity:0.000475636
+distance:2.3777
+vertvel:0.000335179
+vertpos:0.0392872
+user1:
+user2:
+user3:
+
+org:
+name:Owesis Sehe
+genotype:~
+A(cX[@, p:0.846, 1:-10][G]a(accaacmX[@, p:1, 1:1.401][G]), )~
+info:1.69% mutation of 'Ufesaw Sehe'
+num:739
+gnum:225
+popsiz:1
+lifespan:4999
+velocity:2.10984e-07
+distance:0.00105471
+vertvel:1.94748e-07
+vertpos:-0.0133342
+user1:
+user2:
+user3:
+
+org:
+name:Osocip Hehe
+genotype:~
+i(cmEX[@,p:0.846,1:-4.806][G]cmEX[@, p:0.846, 1:-8.502][G]a(acccacmEmX[@, p:1, 1:-0.131][G]), )~
+info:6.32% mutation of 'Arocir Hehe'
+num:740
+gnum:225
+popsiz:1
+lifespan:4999
+velocity:0.000505524
+distance:2.52712
+vertvel:0.000368431
+vertpos:0.0434938
+user1:
+user2:
+user3:
+
+org:
+name:Epocal Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-5.103][G]cmEX[@, p:0.846, 1:-8.502][G]a(acccacmEmX[@, p:1, 1:-0.621][G]), )~
+info:6.45% mutation of 'Egykuz Hehe'
+num:741
+gnum:225
+popsiz:1
+lifespan:4999
+velocity:0.000501632
+distance:2.50766
+vertvel:0.000356321
+vertpos:0.0434904
+user1:
+user2:
+user3:
+
+org:
+name:Okykuh Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.394][G]cmEX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:3.68][G]), )~
+info:4.60% mutation of 'Ihykad Hehe'
+num:735
+gnum:224
+popsiz:1
+lifespan:4999
+velocity:0.000472572
+distance:2.36239
+vertvel:0.000335777
+vertpos:0.0422671
+user1:
+user2:
+user3:
+
+org:
+name:Afykic Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.766][G]AcX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.084][G]), )~
+info:2.30% mutation of 'Emykuz Hehe'
+num:744
+gnum:226
+popsiz:1
+lifespan:4999
+velocity:0.00047496
+distance:2.37432
+vertvel:0.000341709
+vertpos:0.0438855
+user1:
+user2:
+user3:
+
+org:
+name:Aesin Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.766][G]cX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.47][G]), )~
+info:6.90% mutation of 'Emykuz Hehe'
+num:745
+gnum:226
+popsiz:1
+lifespan:4999
+velocity:0.000506811
+distance:2.53355
+vertvel:0.000365787
+vertpos:0.0452163
+user1:
+user2:
+user3:
+
+org:
+name:Ucocuw Hehe
+genotype:~
+(cmEX[@,p:0.846,1:-6.766][G]AcX[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.084][G]X), )~
+info:1.14% mutation of 'Afykic Hehe'
+num:746
+gnum:227
+popsiz:1
+lifespan:4999
+velocity:1.26218e-06
+distance:0.00630964
+vertvel:1.25966e-06
+vertpos:-0.0154917
+user1:
+user2:
+user3:
+
+org:
+name:Idykir Hehe
+genotype:~
+(cmX[@, p:1, 1:-1.084][G]X[@, p:0.846, 1:-10][G]a(acccacmX[@, p:1, 1:-1.084][G]), )~
+info:~
+Crossing over of 'Afykic Hehe' (72.29%) and 'Afykic Hehe' (27.71%)~
+num:747
+gnum:227
+popsiz:1
+lifespan:4999
+velocity:0.000240926
+distance:1.20439
+vertvel:0.0001971
+vertpos:0.00411067
+user1:
+user2:
+user3:
+

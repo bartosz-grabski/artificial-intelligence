@@ -1,0 +1,191 @@
+script:
+name:Brain simplifier
+help:Removes all brain neurons that do not influence effectors. Converts genotypes to f0.
+code:~
+
+//created in january 2007 by Piotr Sobkowski, psobkowski@op.pl
+//refactored in october 2009 by Maciej Komosinski
+
+global neuroind_1, neuroind_2;
+
+function main()
+{
+	Simulator.print("Simplifing brain(s)...");
+
+  if (GenePool.size == 0)
+  {
+    Simulator.message("This script needs some genotypes.", 2);
+    return ;
+  }
+
+  var i, j, k, n;
+
+  for (i = 0; i < GenePools.size; i++)
+  {
+    GenePools.group = i;
+    var newGenotypes = Vector.new();
+
+    // tries to simplify brain for each genotype in the group
+    for (j = 0; j < GenePool.size; j++)
+    {
+      var model = Model.newFromGeno(GenePool.get(j).geno);
+      var brainSize = model.numneurons;
+
+      structSimplify(model);
+
+      // builds new genotype from string
+
+      var genotypeLines = String.split2(model.geno.f0genotype, "\n");
+      var stringGenotype = "";
+      var neuroIndex = -1;
+      var neuroNewIndex = 0;
+
+      for (n = 0; n < neuroind_1.size; n++)
+      {
+        if (neuroind_1.get(n) == 0)
+          neuroind_1.set(n, -1);
+        else
+        {
+          neuroind_1.set(n, neuroNewIndex);
+          neuroNewIndex++;
+        }
+      }
+
+      var first = 1;
+
+      // analyzes each genotype line
+      for (n = 0; n < genotypeLines.size; n++)
+      {
+        var firstInLine = String.substr(genotypeLines.get(n), 0, 1);
+
+        // analyzes neuron
+        if (firstInLine == "n")
+        {
+          neuroIndex++;
+          if (neuroind_1.get(neuroIndex) < 0)
+          {
+            brainSize -= 1;
+            continue;
+          }
+        } // analyzes connection
+        else if (firstInLine == "c")
+        {
+          var cLine = String.split2(genotypeLines.get(n), ",");
+          var cTemp = String.split2(cLine.get(0), ":");
+
+          var vFirst = String.split2(cTemp.get(1), "=");
+          var vSecond = String.split(cLine.get(1), "=");
+
+          var cFirst = String.parseInt(vFirst.get(vFirst.size - 1));
+          var cSecond = String.parseInt(vSecond.get(vSecond.size - 1));
+
+          var u;
+          var rest = "";
+          for (u = 2; u < cLine.size; u++)
+          {
+            rest += "," + cLine.get(u);
+          }
+
+          if ((neuroind_1.get(cFirst) >= 0) && (neuroind_1.get(cSecond) >= 0))
+          {
+            if (!first)
+              stringGenotype += "\n" + "c:" + neuroind_1.get(cFirst) + "," + neuroind_1.get(cSecond) + rest;
+            else
+            {
+              stringGenotype += "c:" + neuroind_1.get(cFirst) + "," + neuroind_1.get(cSecond) + rest;
+              first = 0;
+            }
+          }
+          continue;
+        }
+        if (!first)
+          stringGenotype += "\n" + genotypeLines.get(n);
+        else
+        {
+          stringGenotype += genotypeLines.get(n);
+          first = 0;
+        }
+      }
+
+      // creates new geno object
+
+      var geno = Geno.newFrom(stringGenotype, 48, model.geno.name, model.geno.info);
+
+      if (brainSize < model.numneurons)
+        geno.info += "\nbrainSimplifier.script: Brain simplified from " + model.numneurons + " to " + brainSize + " neurons.";
+      else
+        geno.info += "\nbrainSimplifier.script: Could not simplify this brain.";
+
+      newGenotypes.add(geno);
+    }
+
+
+    // removes all old genotypes from each group
+    GenePools.clearGroup(i);
+
+    // adds new simplified genotypes
+    for (k = 0; k < newGenotypes.size; k++)
+    {
+      GenePool.addGeno(newGenotypes.get(k));
+    }
+  }
+}
+
+// simplifies current genotype neuron structure
+function structSimplify(currentModel)
+{
+  var neuroReadyToBeCopied = Vector.new();
+  var i;
+
+  for (i = 0; i < currentModel.numneurons; i++)
+  {
+    neuroReadyToBeCopied.add(0);
+  }
+
+  neuroind_1 = neuroReadyToBeCopied;
+  neuroind_2 = Vector.new();
+
+  // search for effectors
+  for (i = 0; i < currentModel.numneurons; i++)
+  {
+    var neuroType = getNeuroType(currentModel.getNeuroDef(i));
+
+    // if neuron is effector and it is not visited
+    if ( ((neuroType == "@") || (neuroType == "|")) && (!neuroind_1.get(i)) )
+      analyzeNextNeuro(i, 0, currentModel);
+  }
+
+  //analyzes further neurons
+  for (i = 0; i < neuroind_2.size; i++)
+    analyzeNextNeuro(neuroind_2.get(i), 0, currentModel);
+}
+
+function getNeuroType(neuro)
+{
+  return String.substr(neuro.d, 0, 1); // first sign in neuro line
+}
+
+// sets neuron ready to be copied
+function analyzeNextNeuro(index, counter, currentModel)
+{
+  var neuroReadyToBeCopied = neuroind_1;
+  var neuro = currentModel.getNeuroDef(index);
+
+  neuroind_1.set(index, 1);
+
+  var i;
+
+  for (i = 0; i < neuro.getInputCount; i++)
+  {
+    if ((neuro.getInputNeuroIndex(i) >= 0) &&
+        (!neuroReadyToBeCopied.get(neuro.getInputNeuroIndex(i))))
+    {
+      neuroind_2.add(neuro.getInputNeuroIndex(i));
+    }
+  }
+
+  return ;
+}
+
+~
+

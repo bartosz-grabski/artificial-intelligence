@@ -1,0 +1,60 @@
+AC3Db
+MATERIAL "vrmlmat0" rgb 1 1 1 amb 0.2 0.2 0.2 emis 0.1 0.1 0.1 spec 0.5 0.5 0.5 shi 10 trans 0.000000
+OBJECT world
+kids 1
+OBJECT poly
+name "banner"
+texture "banner.png"
+numvert 8
+-5 -0.829694 -0.25655
+-5 -0.829694 0.262009
+-5 0.862445 -0.25655
+-5 0.862445 0.262009
+5 -0.829694 -0.25655
+5 -0.829694 0.262009
+5 0.862445 -0.25655
+5 0.862445 0.262009
+numsurf 6
+SURF 0x0
+mat 0
+refs 4
+0 0 0
+1 0 0
+3 0 1
+2 0 1
+SURF 0x0
+mat 0
+refs 4
+6 1 1
+7 1 1
+5 1 0
+4 1 0
+SURF 0x0
+mat 0
+refs 4
+4 1 0
+5 1 0
+1 0 0
+0 0 0
+SURF 0x0
+mat 0
+refs 4
+2 0 1
+3 0 1
+7 1 1
+6 1 1
+SURF 0x0
+mat 0
+refs 4
+0 1 1
+2 1 0
+6 0 0
+4 0 1
+SURF 0x0
+mat 0
+refs 4
+5 1 1
+7 1 0
+3 0 0
+1 0 1
+kids 0

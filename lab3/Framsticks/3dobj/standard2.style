@@ -1,0 +1,165 @@
+style:
+name:Standard for Viewing genotypes in Theater
+info:Default FramsView visual style
+code:~
+
+@include "stdneurons.inc"
+
+function default_model_build()
+{
+  VisualModel.jointshadow = VisParams.shadows;
+}
+
+function food_model_build()
+{
+  VisualModel.partshadow = VisParams.shadows;
+}
+
+function default_part_build()
+{
+  if (VisParams.axes)
+    loadAndAddAsTransformNode("xyz.ac");
+  else
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+  }
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function manipulator_part_build()
+{
+  loadAndAddAsTransformNode("manip-close.ac");
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("apple.ac");
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0,0,-0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e = Creature.energy / Creature.energ0;
+  if (e > 1.0)
+    e = 1.0;
+  else if (e < 0.05)
+    e = 0.05;
+  GeomBuilder.matrixScale(e, e, e);
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  var as=p.as;
+  Element.useJointPart2();
+  as=(as+p.as)/2;  
+  loadAndAddAsTransformNode("greenstick" + (1 + 4.999*as) + ".ac");
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1, 1);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function setScenePanorama(which)
+{
+  Scene.worldtexture = ["", "field_.png", "ocean_.png", "darkcity_.png"][which];
+}
+
+function onLoad()
+{
+  VisParams.panorama = 1;
+  VisParams.shadows = 1;
+  VisParams.axes = 0;
+  VisParams.bgcolor = 0xffcc88;
+}
+
+function VisParams_set()
+{
+  VisualStyle.rebuild();
+}
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = VisParams.bgcolor;
+  setScenePanorama(VisParams.panorama);
+}
+
+// min.x/y/z = s6/5/4   max.x/y/z = s3/2/1
+function modelviewer_build(minx, miny, minz, maxx, maxy, maxz)
+{
+  Scene.backcolor = VisParams.bgcolor;
+  setScenePanorama(VisParams.panorama);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([minx, miny, minz, maxx, miny, minz, maxx, maxy, minz, minx, maxy, minz]);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+  Material.disable(GL.TEXTURE_2D);
+  Material.disable(GL.LIGHTING);
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+  VertexBuilder.newLines();
+  VertexBuilder.addVertex([minx, miny, minz, minx, miny, maxz, minx, miny, maxz, maxx, miny, maxz,
+                           maxx, miny, maxz, maxx, miny, minz, minx, maxy, minz, minx, maxy, maxz,
+                           minx, maxy, maxz, maxx, maxy, maxz, maxx, maxy, maxz, maxx, maxy, minz,
+                           minx, miny, maxz, minx, maxy, maxz, maxx, miny, maxz, maxx, maxy, maxz]);
+  VertexBuilder.addColor(0xff000000);
+  GeomBuilder.add(VertexBuilder.node);
+}
+~
+
+prop:
+id:panorama
+name:Body view panorama
+type:d 0 3 ~None~Field~Ocean~Dark city
+
+prop:
+id:bgcolor
+name:Body view background
+type:d 0 16777215 c
+
+prop:
+id:shadows
+name:Shadows
+type:d 0 1
+
+prop:
+id:axes
+name:X/Y/Z axes
+type:d 0 1
+

@@ -1,0 +1,308 @@
+style:
+name:Standard-XYZ
+info:Displays 3D orientation of creature parts
+code:~
+
+@include "stdneurons.inc"
+
+function default_model_build()
+{
+  VisualModel.jointshadow = 1;
+}
+
+function food_model_build()
+{
+  VisualModel.partshadow = 1;
+}
+
+function default_part_build()
+{
+  loadAndAddAsTransformNode("xyz.ac");
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function manipulator_part_build()
+{
+  loadAndAddAsTransformNode("manip-close.ac");
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  var as=p.as;
+  Element.useJointPart2();
+  as=(as+p.as)/2;  
+  loadAndAddAsTransformNode("greenstick" + (1 + 4.999*as) + ".ac");
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("apple.ac");
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0,0,-0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e;
+  if (Creature.energ0>0)
+   {
+   e = Creature.energy / Creature.energ0;
+   if (e > 1.0)
+    e = 1.0;
+   else if (e < 0.05)
+    e = 0.05;
+   GeomBuilder.matrixScale(e, e, e);
+   }
+  else e=1.0;
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1, 1);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function setScenePanorama(which)
+{
+  Scene.worldtexture = ["", "field_.png", "ocean_.png", "darkcity_.png"][which];
+}
+
+function world_build()
+{
+  Scene.backcolor = 0xffcc88;
+  setScenePanorama(VisParams.worldpan);
+  if (World.wrldbnd == 0)
+  {
+    buildFlatBoundary();
+  }
+  else
+  {
+    Loader.load("flyingworld3.ac");
+    if (!Loader.loaded)
+      return ;
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    GeomBuilder.matrixReset();
+    var siz = World.wrldsiz / 20.0;
+    GeomBuilder.matrixScale(siz, siz, siz);
+    GeomBuilder.matrixMove(0, 0, -0.2);
+    GeomBuilder.setMatrix(GeomBuilder.currentNode);
+    GeomBuilder.add(Loader.loaded);
+  }
+  switch (World.wrldtyp)
+  {
+  case 0:
+    buildFlatWorld();
+    break;
+  case 1:
+    buildBlockWorld();
+    break;
+  case 2:
+    buildSmoothWorld();
+  }
+}
+
+@include "stdblocks.inc"
+@include "stdsmooth.inc"
+@include "stdboundary.inc"
+
+function buildFlatWorld()
+{
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  var z = -0.2;
+  VertexBuilder.addVertex([0.0, 0.0, z, World.wrldsiz, 0.0, z,
+                           World.wrldsiz, World.wrldsiz, z, 0.0, World.wrldsiz, z]);
+  VertexBuilder.addColor(0.85, 0.75, 0.55);
+  VertexBuilder.addNormal(0, 0, 1);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.disable(GL.TEXTURE_2D);
+  Material.specular = 0;
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+  buildWorldBoundary();
+  buildWorldWater();
+}
+
+function buildFlatBoundary()
+{
+  var ma = World.wrldsiz * 2;
+  var mi = 0.0 - World.wrldsiz;
+  var si = World.wrldsiz;
+  var z = -0.2;
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, 0.0, z, ma, 0.0, z, ma, si, z, si, si, z,
+                           0.0, si, z, si, si, z, si, ma, z, 0.0, ma, z,
+                           mi, 0.0, z, 0.0, 0.0, z, 0.0, si, z, mi, si, z,
+                           0.0, mi, z, si, mi, z, si, 0.0, z, 0.0, 0.0, z]);
+  VertexBuilder.addColor(0.80, 0.70, 0.50);
+  VertexBuilder.addNormal(0, 0, 1);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.specular = 0;
+  Material.disable(GL.TEXTURE_2D);
+  VertexBuilder.material = Material.object;
+
+  GeomBuilder.add(VertexBuilder.node);
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, si, z, ma, si, z, ma, ma, z, si, ma, z,
+                           si, mi, z, ma, mi, z, ma, 0.0, z, si, 0.0, z,
+                           mi, si, z, 0.0, si, z, 0.0, ma, z, mi, ma, z,
+                           mi, mi, z, 0.0, mi, z, 0.0, 0.0, z, mi, 0.0, z]);
+  VertexBuilder.addColor(0.85, 0.75, 0.55);
+  VertexBuilder.addNormal(0, 0, 1);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.disable(GL.TEXTURE_2D);
+  Material.specular = 0;
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+function buildWorldWater()
+{
+  if (World.wrldwat < -5.0)
+    return ;
+  var mi = 0.0, ma = World.wrldsiz;
+  if (World.wrldbnd == 0)
+  {
+    mi -= ma;
+    ma += ma;
+  }
+  else
+  {
+    var z = World.wrldwat;
+    if (z > 0.0)
+    {
+      z += 1.0;
+      GeomBuilder.addBranch(GeomBuilder.rootNode);
+      VertexBuilder.newLines();
+      VertexBuilder.addVertex([mi, mi, z, ma, mi, z, ma, mi, z, ma, ma, z,
+                               ma, ma, z, mi, ma, z, mi, ma, z, mi, mi, z,
+                               mi, mi, z, mi, mi, mi, mi, ma, z, mi, ma, mi,
+                               ma, ma, z, ma, ma, mi, ma, mi, z, ma, mi, mi]);
+      VertexBuilder.addColor(0xff000000);
+      Material.new();
+      Material.setFlat();
+      Material.disable(GL.TEXTURE_2D);
+      Material.disable(GL.LIGHTING);
+      Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+      VertexBuilder.material = Material.object;
+      GeomBuilder.add(VertexBuilder.node);
+    }
+  }
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([mi, mi, World.wrldwat, ma, mi, World.wrldwat, ma, ma, World.wrldwat, mi, ma, World.wrldwat]);
+  VertexBuilder.addNormal(0.0, 0.0, 1.0);
+  VertexBuilder.addColor(0x80ff8833);
+  VertexBuilder.genTexCoordsXY(0.17, 0.17);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.enable(GL.TEXTURE_2D);
+  Material.enable(GL.BLEND);
+  Material.enable(GL.COLOR_MATERIAL);
+  Material.disable(GL.LIGHTING);
+  Material.translucent = 1;
+  Material.texture = "waves.png";
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+function onLoad()
+{
+  if (VisualStyle.tex)
+  {
+    VisParams.worldpan = 2;
+    VisParams.modelpan = 1;
+  }
+  else
+  {
+    VisParams.worldpan = 0;
+    VisParams.modelpan = 0;
+  }
+}
+
+function VisParams_set()
+{
+  VisualStyle.rebuild();
+}
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = 0xffcc88;
+  setScenePanorama(VisParams.modelpan);
+}
+
+// min.x/y/z = s6/5/4   max.x/y/z = s3/2/1
+function modelviewer_build(minx, miny, minz, maxx, maxy, maxz)
+{
+  Scene.backcolor = 0xffcc88;
+  setScenePanorama(VisParams.modelpan);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([minx, miny, minz, maxx, miny, minz, maxx, maxy, minz, minx, maxy, minz]);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+  Material.disable(GL.TEXTURE_2D);
+  Material.disable(GL.LIGHTING);
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+  VertexBuilder.newLines();
+  VertexBuilder.addVertex([minx, miny, minz, minx, miny, maxz, minx, miny, maxz, maxx, miny, maxz,
+                           maxx, miny, maxz, maxx, miny, minz, minx, maxy, minz, minx, maxy, maxz,
+                           minx, maxy, maxz, maxx, maxy, maxz, maxx, maxy, maxz, maxx, maxy, minz,
+                           minx, miny, maxz, minx, maxy, maxz, maxx, miny, maxz, maxx, maxy, maxz]);
+  VertexBuilder.addColor(0xff000000);
+  GeomBuilder.add(VertexBuilder.node);
+}
+~
+
+prop:
+id:worldpan
+name:World panorama
+type:d 0 3 ~None~Field~Ocean~Dark city
+
+prop:
+id:modelpan
+name:Body view panorama
+type:d 0 3 ~None~Field~Ocean~Dark city
+

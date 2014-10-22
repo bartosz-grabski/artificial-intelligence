@@ -1,0 +1,80 @@
+<HTML><HEAD><TITLE>XYZ</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>XYZ class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">3D vector</DIV><BR>
+16 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="10"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;length
+<div class="typedescr">float</div></td><td>
+<p class="membername">length</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;toString
+<div class="typedescr">string</div></td><td>
+<p class="membername">textual form</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;x
+<div class="typedescr">float</div></td><td>
+<p class="membername">x</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;y
+<div class="typedescr">float</div></td><td>
+<p class="membername">y</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;z
+<div class="typedescr">float</div></td><td>
+<p class="membername">z</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">add</p>
+<code>function add(<A HREF="c_xyz.html">XYZ</A>)</code><br>
+<p class="help">Note: it does not return a new object, just modifies the existing one</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;clone
+<div class="typedescr">returns <A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">create new XYZ object copying the coordinates</p>
+<code>function clone()</code><br>
+<p class="help">Note: copying object references does not create new objects. Use clone() if a new object is needed.<BR/>
+<BR/>
+Example:<BR/>
+var o1=(1,2,3), o2=o1, o3=o1.clone();<BR/>
+o1.y=9999;<BR/>
+//o2 is now (1,9999,3) but o3 is still (1,2,3)</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">get one of coordinates</p>
+<code>function get(integer index)</code><br>
+<p class="help">this function makes the XYZ objects "indexable" (so you can use [] for accessing subsequent fields, like in Vector)</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">create new XYZ object</p>
+<code>function new(float x, float y, float z)</code><br>
+<p class="help">3D vectors objects can be also created using the (x,y,z) notation, i.e. var v=(1,2,3) is the same as var v=XYZ.new(1,2,3);</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;normalize
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">normalize</p>
+<code>function normalize()</code><br>
+<p class="help">scales the vector length to 1.0</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;revRotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">reverse rotate using Orient object</p>
+<code>function revRotate(<A HREF="c_orient.html">Orient</A>)</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;rotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate using Orient object</p>
+<code>function rotate(<A HREF="c_orient.html">Orient</A>)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;scale
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">multiply by scalar</p>
+<code>function scale(float)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set (copy) coordinates from another XYZ object</p>
+<code>function set(<A HREF="c_xyz.html">XYZ</A>)</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set3
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set individual 3 coordinates</p>
+<code>function set3(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;sub
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">subtract</p>
+<code>function sub(<A HREF="c_xyz.html">XYZ</A>)</code><br>
+<p class="help">Note: it does not return a new object, just modifies the existing one</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

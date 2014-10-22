@@ -1,0 +1,241 @@
+style:
+name:White void
+info:Useful for making "technical" screenshots
+code:~
+
+@include "stdneurons.inc"
+@include "plane3d.inc" //for createPlaneVertices()
+
+function default_model_build()
+{
+  Element.useCreature();
+  if (VisParams.shadows)
+  {
+  if (Creature.numjoints>0)
+	VisualModel.jointshadow = 0.01*VisParams.joint_width;
+  else
+	VisualModel.partshadow = 0.2;
+  }
+
+  if (Creature.group) return;
+  if (VisParams.plane==0) return;
+  
+  VertexBuilder.newQuads();
+  var minx=Creature.pos_x;
+  var miny=Creature.pos_y;
+  var minz=Creature.pos_z;
+  var maxx=minx+Creature.size_x;
+  var maxy=miny+Creature.size_y;
+  var maxz=minz+Creature.size_z;
+
+  //use quick, inaccurate mode to just guess symmetry plane
+  //save original parameters
+  var olda=Symmetry.symAlphaSteps;
+  var oldb=Symmetry.symBetaSteps;
+  var oldp=Symmetry.symPosSteps;
+  
+  //time complexity of Symmetry.calculateSymmetry is O(alphaSteps*betaSteps*posSteps * sticks^2*log(sticks))
+  var sticks=Creature.model.numjoints;
+  
+  /* now adjust parameters to quickly guess symmetry plane
+  1. stepsAlpha = stepsBeta
+  2. stepsAlpha >= 2
+  3. posSteps >= 2
+  angles are probably more important than posSteps, but hard to say how much (2, 3 times?) 
+  so let's divide angles by sqrt(sticks), and pos by sticks. log(sticks) in time complexity stays not depreciated */
+  Symmetry.symAlphaSteps=Math.max(2.0,20.0/Math.sqrt(sticks));
+  Symmetry.symBetaSteps=Symmetry.symAlphaSteps;
+  Symmetry.symPosSteps=Math.max(2,10/sticks);
+  
+  //calculate
+  //Simulator.print(Creature.name+" "+Symmetry.symAlphaSteps+" "+Symmetry.symBetaSteps+" "+Symmetry.symPosSteps);
+  Symmetry.calculateSymmetry(Creature.model);
+  
+  //restore original parameters
+  Symmetry.symAlphaSteps=olda;
+  Symmetry.symBetaSteps=oldb;
+  Symmetry.symPosSteps=oldp;
+
+  // createPlaneVertices([-0.305212, -0.939347, -0.156434], 0.0798513,
+  createPlaneVertices([Symmetry.symResultA, Symmetry.symResultB, Symmetry.symResultC], Symmetry.symResultD,
+      [minx, miny, minz], [maxx, maxy, maxz]);
+
+  VertexBuilder.addColor(0xbb9999ff); //0xbb=transparent (alpha)
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.translucent = 1;
+  Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+  Material.disable(GL.TEXTURE_2D);
+  Material.disable(GL.LIGHTING);
+  Material.enable(GL.BLEND);
+  VertexBuilder.material = Material.object;
+  GeomBuilder.currentNode = VisualModel.rootNode;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+function food_model_build()
+{
+default_model_build();
+if (Creature.numjoints==0)
+	VisualModel.partshadow = VisParams.shadows;
+}
+
+function default_part_build()
+{
+  Element.useCreature();
+  if (Creature.numjoints>0)
+	{
+	GeomBuilder.addTransform(GeomBuilder.rootNode);
+	Element.node = GeomBuilder.currentNode;
+	}
+  else
+	{
+	loadAndAddAsTransformNode("greenball.ac");
+	}
+  if (VisParams.axes)
+	{
+	Loader.load("xyz.ac");
+	GeomBuilder.currentNode=Element.node;
+	GeomBuilder.add(Loader.loaded);
+	}
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function manipulator_part_build()
+{
+  loadAndAddAsTransformNode("manip-close.ac");
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  var as=p.as;
+  Element.useJointPart2();
+  as=(as+p.as)/2;  
+  var stick;
+  if ((World.simtype==1)&&(ODE.odeshape==1))
+	stick="boxstick_flat.ac";
+  else
+	stick="greenstick" + (1 + 4.999*as) + ".ac";
+  loadAndAddAsTransformNode(stick);
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("apple.ac");
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0,0,-0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e;
+  if (Creature.energ0>0)
+   {
+   e = Creature.energy / Creature.energ0;
+   if (e > 1.0)
+    e = 1.0;
+   else if (e < 0.05)
+    e = 0.05;
+   GeomBuilder.matrixScale(e, e, e);
+   }
+  else e=1.0;
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  if ((World.simtype==1)&&(ODE.odeshape==1))
+	{
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixMove(MechPart.x-GeomBuilder.matrix00*0.2,MechPart.y-GeomBuilder.matrix01*0.2,MechPart.z-GeomBuilder.matrix02*0.2);
+  GeomBuilder.matrixScale(MechJoint.length+0.4, 1, 1);
+	}
+  else
+	{
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  var width=1.0*VisParams.joint_width/100.0;
+  GeomBuilder.matrixScale(MechJoint.length,width,width);
+	}
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function world_build()
+{
+  Scene.backcolor = 0xffffff;
+  Scene.worldtexture = "";
+}
+
+function onLoad()
+{}
+
+function VisParams_set()
+{
+  VisualStyle.rebuild();
+}
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = 0xffffff;
+  Scene.worldtexture = "";
+}
+
+
+function modelviewer_build(minx, miny, minz, maxx, maxy, maxz)
+{
+  Scene.backcolor = 0xffffff;
+  Scene.worldtexture = "";
+}
+~
+
+prop:
+id:joint_width
+name:Stick width (%)
+type:d 10 150 100
+
+prop:
+id:shadows
+name:Shadows
+type:d 0 1
+
+prop:
+id:axes
+name:X/Y/Z axes
+type:d 0 1
+
+prop:
+id:plane
+name:Guess symmetry plane
+type:d 0 1 0
+help:~
+Displays a guess of the symmetry plane (may take a long time to compute for complex bodies).
+Use scripting and the Symmetry class to compute symmetry accurately.~

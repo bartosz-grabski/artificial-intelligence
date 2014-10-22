@@ -1,0 +1,322 @@
+style:
+name:Football
+info:Football players and balls.
+code:~
+
+//by Dariusz Jarczynski, 2005
+
+function default_model_build()
+{
+  VisualModel.jointshadow = 1;
+}
+
+function food_model_build()
+{
+  VisualModel.partshadow = 1;
+}
+
+function default_part_build()
+{
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  Element.node = GeomBuilder.currentNode;
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function manipulator_part_build()
+{
+  loadAndAddAsTransformNode("manip-close.ac");
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  var as=p.as;
+  Element.useJointPart2();
+  as=(as+p.as)/2;  
+  
+  if (as > 0.4)
+    loadAndAddAsTransformNode("sportstick5.ac");
+  else if (as > 0.3)
+    loadAndAddAsTransformNode("sportstick4.ac");
+  else if (as > 0.2)
+    loadAndAddAsTransformNode("sportstick3.ac");
+  else if (as > 0.1)
+    loadAndAddAsTransformNode("sportstick2.ac");
+  else 
+    loadAndAddAsTransformNode("sportstick1.ac");
+}
+
+function default_neuro_build()
+{
+  Element.useNeuro();
+  var filename;
+  if (n.class == "|")
+    filename = "neuro-bend.ac";
+  else
+  {
+    filename = "neuro-" + n.class + ".ac";
+  }
+  Loader.load(filename);
+  if (Loader.loaded)
+    GeomBuilder.add(Loader.loaded);
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("football.ac");
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0, 0, -0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e;
+  if (Creature.energ0 > 0)
+  {
+    e = Creature.energy / Creature.energ0;
+    if (e > 1.0)
+      e = 1.0;
+    else if (e < 0.05)
+      e = 0.05;
+    GeomBuilder.matrixScale(e, e, e);
+  }
+  else
+    e = 1.0;
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1.0, 1.0);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = 0xffcc88;
+  Scene.worldtexture = "";
+}
+
+function modelviewer_build()
+{
+  Scene.backcolor = 0xffcc88;
+  Scene.worldtexture = "";
+}
+
+function world_build()
+{
+  Scene.backcolor = 0x999999;
+  Scene.worldtexture = "field_.png";
+  switch (World.wrldtyp)
+  {
+  case 0:
+    buildFlatWorld();
+    break;
+
+  case 1:
+    if (World.wrldbnd == 0)
+      buildFlatBoundary();
+    buildBlockWorld();
+    break;
+
+  case 2:
+    if (World.wrldbnd == 0)
+      buildFlatBoundary();
+    buildSmoothWorld();
+  }
+}
+
+function buildFlatWorld()
+{
+  Loader.load("playground.ac");
+  if (!Loader.loaded)
+    return ;
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  GeomBuilder.matrixReset();
+  var scale = World.wrldsiz / 20.0;
+  GeomBuilder.matrixScale(scale, scale, scale);
+  GeomBuilder.matrixMove(0, 0, -0.2);
+  GeomBuilder.setMatrix(GeomBuilder.currentNode);
+  GeomBuilder.add(Loader.loaded);
+  buildNonstdWorldBoundary();
+  if (World.wrldwat > 0.0)
+    buildWorldWater();
+}
+
+function buildWorldWater()
+{
+  if (World.wrldwat < -5.0)
+    return ;
+  var mi = 0.0, ma = World.wrldsiz;
+  if (World.wrldbnd == 0)
+  {
+    mi -= ma;
+    ma += ma;
+  }
+  else
+  {
+    var z = World.wrldwat;
+    if (z > 0.0)
+    {
+      z += 1.0;
+      GeomBuilder.addBranch(GeomBuilder.rootNode);
+      VertexBuilder.newLines();
+      VertexBuilder.addVertex([mi, mi, z, ma, mi, z, ma, mi, z, ma, ma, z,
+                               ma, ma, z, mi, ma, z, mi, ma, z, mi, mi, z,
+                               mi, mi, z, mi, mi, mi, mi, ma, z, mi, ma, mi,
+                               ma, ma, z, ma, ma, mi, ma, mi, z, ma, mi, mi]);
+      VertexBuilder.addColor(0xff000000);
+      Material.new();
+      Material.setFlat();
+      Material.disable(GL.TEXTURE_2D);
+      Material.disable(GL.LIGHTING);
+      Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+      VertexBuilder.material = Material.object;
+      GeomBuilder.add(VertexBuilder.node);
+    }
+  }
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([mi, mi, World.wrldwat, ma, mi, World.wrldwat, ma, ma, World.wrldwat, mi, ma, World.wrldwat]);
+  VertexBuilder.addNormal(0.0, 0.0, 1.0);
+  VertexBuilder.addColor(0x80ff8833);
+  VertexBuilder.genTexCoordsXY(0.17, 0.17);
+  Material.new();
+  Material.setFlat();
+  Material.disable(GL.CULL_FACE);
+  Material.enable(GL.TEXTURE_2D);
+  Material.enable(GL.BLEND);
+  Material.enable(GL.COLOR_MATERIAL);
+  Material.disable(GL.LIGHTING);
+  Material.translucent = 1;
+  Material.texture = "waves.png";
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+@include "../stdblocks.inc"
+@include "../stdsmooth.inc"
+@include "../stdboundary.inc"
+
+//nonstandard boundary:
+
+function buildNonstdWorldBoundary()
+{
+  if (World.wrldbnd == 1)
+  {
+    var spacing, node, pos, z;
+
+    Loader.load("banner.ac");
+    if (Loader.loaded == 0)
+      return ;
+
+    GeomBuilder.addBranch(GeomBuilder.rootNode);
+    node = GeomBuilder.currentNode;
+    pos = 0.0;
+    z = 0.8;
+    spacing = 10.0;
+    spacing = World.wrldsiz / (0 + World.wrldsiz / spacing); //integer number of plates
+
+    while (pos + spacing <= World.wrldsiz + 1)
+    {
+      GeomBuilder.addTransform(node);
+      GeomBuilder.matrixReset();
+      GeomBuilder.matrixMove(pos + spacing / 2, -0.5, z);
+      GeomBuilder.matrixScale(spacing / 10 - 0.1, 1.0, 1.0);
+      GeomBuilder.setMatrix(GeomBuilder.currentNode);
+      GeomBuilder.add(Loader.loaded);
+      //how to make each plate of different, random color?
+      //maybe some day...
+
+      GeomBuilder.addTransform(node);
+      GeomBuilder.matrixMove( 0, (World.wrldsiz + 1.0), 0);
+      GeomBuilder.setMatrix(GeomBuilder.currentNode);
+      GeomBuilder.add(Loader.loaded);
+
+      GeomBuilder.addTransform(node);
+      GeomBuilder.matrixReset();
+      GeomBuilder.matrixOrient(0, 0, 1.57);
+      GeomBuilder.matrixScale(spacing / 10 - 0.1, 1, 1);
+      GeomBuilder.matrixMove( -0.5, pos + spacing / 2, z);
+      GeomBuilder.setMatrix(GeomBuilder.currentNode);
+      GeomBuilder.add(Loader.loaded);
+
+      GeomBuilder.addTransform(node);
+      GeomBuilder.matrixMove(World.wrldsiz + 1, 0, 0);
+      GeomBuilder.setMatrix(GeomBuilder.currentNode);
+      GeomBuilder.add(Loader.loaded);
+
+      pos += spacing;
+    }
+  }
+  else
+    buildWorldBoundary();
+}
+
+function buildFlatBoundary()
+{
+  var ma = World.wrldsiz * 2;
+  var mi = 0.0 - World.wrldsiz;
+  var si = World.wrldsiz;
+  var z = -0.2;
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, 0.0, z, ma, 0.0, z, ma, si, z, si, si, z,
+                           0.0, si, z, si, si, z, si, ma, z, 0.0, ma, z,
+                           mi, 0.0, z, 0.0, 0.0, z, 0.0, si, z, mi, si, z,
+                           0.0, mi, z, si, mi, z, si, 0.0, z, 0.0, 0.0, z]);
+  VertexBuilder.addColor(0.80, 0.70, 0.50);
+  VertexBuilder.addNormal(0, 0, 1);
+  Material.new();
+  Material.setFlat();
+  Material.specular = 0;
+  Material.disable(GL.TEXTURE_2D);
+  VertexBuilder.material = Material.object;
+
+  GeomBuilder.add(VertexBuilder.node);
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, si, z, ma, si, z, ma, ma, z, si, ma, z,
+                           si, mi, z, ma, mi, z, ma, 0.0, z, si, 0.0, z,
+                           mi, si, z, 0.0, si, z, 0.0, ma, z, mi, ma, z,
+                           mi, mi, z, 0.0, mi, z, 0.0, 0.0, z, mi, 0.0, z]);
+  VertexBuilder.addColor(0.85, 0.75, 0.55);
+  VertexBuilder.addNormal(0, 0, 1);
+  Material.new();
+  Material.setFlat();
+  Material.disable(GL.TEXTURE_2D);
+  Material.specular = 0;
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+~

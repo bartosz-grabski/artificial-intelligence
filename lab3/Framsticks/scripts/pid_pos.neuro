@@ -1,0 +1,66 @@
+class:
+name:PIDP
+longname:PID Positional [EXPERIMENTAL!]
+description:PID Regulator (positional/full value form)
+prefinputs:1
+prefoutput:1
+code:~
+//http://www.controlviews.com/articles/QandA/velocityfullvalue.html
+
+function init()
+{
+  Fields.e_0 = 0.0;
+  Fields.e_1 = 0.0;
+  Fields.e_2 = 0.0;
+}
+
+function go()
+{
+  Fields.e_1 = Fields.e_0;
+  Fields.e_0 = Neuro.weightedInputSum; //Neuro.getInputState(0);
+  Fields.e_2 += Fields.e_0;
+
+  Neuro.state = Fields.k*Fields.e_0 + 
+                Fields.e_2*(Fields.k/Fields.ti) + 
+                Fields.k*Fields.td*(Fields.e_0 - Fields.e_1);
+}
+~
+
+#prop:
+#id:kt
+#name:K-theta
+#type:f 0.01 100.0
+
+prop:
+id:k
+name:K
+type:f 0.01 100.0
+
+prop:
+id:ti
+name:Ti
+type:f 0.01 100.0
+
+prop:
+id:td
+name:Td
+type:f 0.01 100.0
+
+prop:
+id:e_0
+name:E_0
+type:f
+flags:32
+
+prop:
+id:e_1
+name:E_1
+type:f
+flags:32
+
+prop:
+id:e_2
+name:E_2
+type:f
+flags:32
+

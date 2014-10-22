@@ -1,0 +1,79 @@
+AC3Db
+MATERIAL "vrmlmat0" rgb 1 0.466667 0 amb 0.2 0.2 0.2 emis 0 0 0 spec 0.5 0.5 0.5 shi 10 trans 0.000000
+MATERIAL "vrmlmat1" rgb 1 1 1 amb 0.5 0.5 0.5 emis 0.5 0.5 0.5 spec 0.5 0.5 0.5 shi 10 trans 0.000000
+OBJECT world
+kids 2
+OBJECT poly
+name "box"
+numvert 8
+0.1815831 -0.056605 -0.0622598
+0.181583 3.0134 -0.0622598
+0.181583 3.0134 0.0677402
+0.1815831 -0.056605 0.0677402
+0.0484169 -0.056605 -0.0622598
+0.048417 3.0134 -0.0622598
+0.048417 3.0134 0.0677402
+0.0484169 -0.056605 0.0677402
+numsurf 6
+SURF 0x0
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+SURF 0x0
+mat 0
+refs 4
+6 0 0
+7 0 0
+3 0 0
+2 0 0
+SURF 0x0
+mat 0
+refs 4
+7 0 0
+6 0 0
+5 0 0
+4 0 0
+SURF 0x0
+mat 0
+refs 4
+4 0 0
+5 0 0
+1 0 0
+0 0 0
+SURF 0x0
+mat 0
+refs 4
+1 0 0
+5 0 0
+6 0 0
+2 0 0
+SURF 0x0
+mat 0
+refs 4
+4 0 0
+0 0 0
+3 0 0
+7 0 0
+kids 0
+OBJECT poly
+name "rect"
+texture "/home/sz/frams/3dobj/theater_txt.png"
+texrep 1.000000 0.500000
+numvert 4
+-1.66226 3.1934 0.15
+1.59774 3.1934  0.15
+1.59774 1.9734  0.15
+-1.66226 1.9734 0.15
+numsurf 1
+SURF 0x20
+mat 1
+refs 4
+3 0 1
+2 1 1
+1 1 0
+0 0 0
+kids 0
+

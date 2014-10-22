@@ -1,0 +1,662 @@
+# Gene pool: "swimming"
+# Creatures which swim (water environment)
+# Downloaded on 2009-11-24 from Framsticks Experimentation Center
+
+org:
+name:Jellyfish #1
+genotype:~
+WX[S:-.1](X[S:1], XWXLWX[|-1:1, -2:1][@-1:-.1]LLWWrrX[|-2:.1, =:.01][@-2:-.1]rrLLWWX(, , rrllllllllllllwwX[G:-.6, =:1](, rrlllllwwXMX[|-1:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-3:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-5:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-7:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-9:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-11:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-13:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-15:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-17:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-19:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-21:-.75](wXX[|-1:-.3]), rrlllllwwXMX[|-23:-.75](wXX[|-1:-.3]), )))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: A.S.Wigand, 1998-00-00~
+num:114
+popsiz:0
+
+org:
+name:Jellyfish #2
+genotype:~
+WX[S:-.1](X[S:1], XWXLWX[|-1:1, -2:1][@-1:-.1]LLWrrX[|-2:.1, =:.01][@-2:-.1]rrLLWWX(, , rrllllllllllllwwX[G:-.4, =:1](, rrlllllwwXMX[|-1:-2.2](XX[|-1:-.3]), rrlllllwwXMX[|-3:-2](XX[|-1:-.3]), rrlllllwwXMX[|-5:-2](XX[|-1:-.3]), rrlllllwwXMX[|-7:-2](XX[|-1:-.3]), rrlllllwwXMX[|-9:-2](XX[|-1:-.3]), rrlllllwwXMX[|-11:-1.8](XX[|-1:-.3]), rrlllllwwXMX[|-13:-1.8](XX[|-1:-.3]), rrlllllwwXMX[|-15:-2](XX[|-1:-.3]), rrlllllwwXMX[|-17:-2](XX[|-1:-.3]), rrlllllwwXMX[|-19:-2](XX[|-1:-.3]), rrlllllwwXMX[|-21:-2](XX[|-1:-.3]), rrlllllwwXMX[|-23:-2.2](XX[|-1:-.3]), )))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: A.S.Wigand, 1998-00-00~
+num:115
+popsiz:0
+
+org:
+name:Jellyfish #3
+genotype:~
+WX[S:1](WX[S:-.1], XWXLWX[|-1:1, -2:1, =:.09][@2:1]LLWrrX[@-3:-1, -4:-1]rrLLWWX(, , rrllllllllllllwwX[G:-.38, =:1](, rrlllllwwXMX[|-1:-2.2](XMX[|-1:.4]), rrlllllwwXMX[|-3:-2](XMX[|-1:.5]), rrlllllwwXMX[|-5:-2](XMX[|-1:.5]), rrlllllwwXMX[|-7:-2](XMX[|-1:.5]), rrlllllwwXMX[|-9:-2](XMX[|-1:.5]), rrlllllwwXMX[|-11:-1.8](XMX[|-1:.6]), rrlllllwwXMX[|-13:-1.8](XMX[|-1:.6]), rrlllllwwXMX[|-15:-2](XMX[|-1:.5]), rrlllllwwXMX[|-17:-2](XMX[|-1:.5]), rrlllllwwXMX[|-19:-2](XMX[|-1:.5]), rrlllllwwXMX[|-21:-2](XMX[|-1:.5]), rrlllllwwXMX[|-23:-2.2](XMX[|-1:.4]), )))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: A.S.Wigand, 1998-00-00~
+num:116
+popsiz:0
+
+org:
+name:Sinefish
+genotype:~
+MeX[@0:905.710]eX[|0:-2.773, 1:0.795]XMMMX[|0:-0.797, 1:0.837]MX[|0:0.837, 1:2.543, -1:0.832]X[|0:0.854, 1:0.837]MMMMEX[|0:0.977, 1:0.837]XMMMX[|0:0.854, 1:0.837]MX[|0:0.854, 1:1.282]X[|0:0.854, 1:0.837]MMMMX[|0:0.854, 1:0.837]MMMMXMMX[|0:0.854, 1:0.837]MX[|0:0.854, 1:2.478]X[|0:0.854, 1:0.837]MMMMX[|0:0.854, 1:0.837]MMMMXX[|0:0.854, 1:0.837]MMMMX[|1:0.837]MMMMX[|0:0.854, 1:0.837]MMX[|0:-1.047, 1:166.154]MX[|0:0.854, 1:2.946]X[|0:0.949, 1:0.837]X[@0:2.664, -1:-1.707]~
+info:~
+HOW CREATED:
+Evolved under various conditions
+I simply took a single stick and let it evolve.
+
+SUBMITTED BY: Unknown, 2000-00-00
+PERFORMANCE:
+It is quite fast and makes a very nice sine
+movement. Run it in enough deep water.~
+num:117
+popsiz:0
+
+org:
+name:Catfish
+genotype:~
+rlllllWXlMMM(LLLLLLmwwX, , , RRllllMMXlMMMMX[|1:0.740, 0:1.285]lllMMMMMMMMMX[|1:1.408]lllllMMX[|1:2.444]lMMMMMX[|1:2.444]LLLLLLLLMMMX[|-4:1.346, /:-0.434, !:1.000]Lm(llllllllllllcccMWX(, , mLLX[|1:1, =:.4], ), , , lllllllMwX[1:1, 2:-1, !:.1, =:.8]LLLMM(, , , lllllllXX[S:1, 1:-.75, !:.2, =:.8], , , , , lllllllXX[S:.5, -1:-.75, !:.2, =:.8], , , ), , , llllllllllCCCWXl(, wLLX[|-3:1, =:.4], , )), , )~
+info:~
+HOW CREATED:
+Designed and evolved
+Physical and neural structure manually created,
+then evolved.
+SUBMITTED BY: A.S.Wigand, 1998-00-00~
+num:118
+popsiz:0
+
+org:
+name:Food finder
+genotype:~
+lllllfffMIX[|0:2.236, 3:-2.149, 1:-1][-1:1, 0:3.044, 0:-1](, , , LLLfffIX[S:1], ffMIX[|-2:1, -1:-10, 8:10]ffMMIX[|-1:1, -2:-10, 7:10]llfffMIX[|-1:1, -3:-10, 6:10]llfffMIX[|-1:1]lllfffMMIX[|-1:1]llfffMIX[|-1:1]llfffMIX[|-1:1]LfffMIX[|-1:1], LLLfffIX[S:1], , , )~
+info:~
+HOW CREATED:
+Designed and evolved
+SUBMITTED BY: Miron Sadziak, 1998-00-00
+Underwater food finder.~
+num:119
+popsiz:0
+
+org:
+name:Food finder 3D
+genotype:~
+RR(, , LLfffIX[S:1], lllllfffMIX[|0:2.236, 3:-2.149, 1:-1][-1:1, 0:3.044, 0:-1](, , , LLfffIX[S:1], ffMX[|-2:1, -1:-10, 10:10]RRffMX[|-1:1, -2:-10, 9:10]RRRRRRfflllMX[|-6:1, 9:-1]llfffMX[|-2:1, -4:-10, 7:10]RRllfffMX[|-1:1]RRRRRRfflllMX[|-9:1, 5:-1]lllfffMX[|-2:1]llfffMX[|-1:1]llfffMX[|-1:1]LfffMX[|-1:1], LLfffX[S:1], , , ), LLfffIX[S:1], , )~
+info:~
+HOW CREATED:
+Designed and evolved
+SUBMITTED BY: Miron Sadziak, 1998-00-00
+Underwater food finder.~
+num:120
+popsiz:0
+
+org:
+name:Long swimmer
+genotype:~
+MeX[@0:905.710]eX[|0:-2.773, 1:0.795]XMMMX[|0:-0.797, 1:0.837]MX[|0:0.837, 1:2.543, -1:0.832]X[|0:0.854, 1:0.837]MMMMEX[|0:0.977, 1:0.837]XMMMX[|0:0.854, 1:0.837]MX[|0:0.854, 1:1.282]X[|0:0.854, 1:0.837]MMMMX[|0:0.854, 1:0.837]MMMMXMMX[|0:0.854, 1:0.837]MX[|0:0.854, 1:2.478]X[|0:0.854, 1:0.837]MMMMX[|0:0.854, 1:0.837]MMMMXX[|0:0.854, 1:0.837]MMMMX[|1:0.837]MMMMX[|0:0.854, 1:0.837]MMX[|0:-1.047, 1:166.154]MX[|0:0.854, 1:2.946]X[|0:0.949, 1:0.837]X[@0:2.664, -1:-1.707]~
+info:~
+HOW CREATED:
+Evolved under various conditions
+Evolved for speed.
+SUBMITTED BY: Jean-Luc Herren, 1999-00-00~
+num:121
+popsiz:0
+
+org:
+name:Simple little swimmer
+genotype:~
+RRFFX[@G:0.662, *:-1.333]RFX[@G:0.802]MMMMX[|-1:-1.569][-1:2.367, 0:-0.294]rrSIXCXXrcfSI(RXX)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Greg Webb, 1999-00-00~
+num:122
+popsiz:0
+
+org:
+name:Swimming Snake
+genotype:~
+X[|1:1, 0:-0.5]X[|1:1, 0:-0.5]X[|1:1, 0:-0.5]X[|-3:-6]~
+info:~
+HOW CREATED:
+Designed
+First trial, needs more evolution!
+SUBMITTED BY: Unknown, 1998-00-00~
+num:123
+popsiz:0
+
+org:
+name:Esofyg Is
+genotype:~
+XX[|1:2.074, 0:-1.956]X[|1:-2.461]X[|-2:2.217]~
+info:~
+HOW CREATED:
+Designed and evolved
+Swimming snake's relative (after evolution).
+SUBMITTED BY: Unknown, 1999-00-00~
+num:124
+popsiz:0
+
+org:
+name:Freestyler
+genotype:~
+LLLXLLLXLLLX[@1:-1, 14:1.652, G:-1][0:0.186, =:0.000, -1:2][!:1.000, =:0.000, -2:2][!:0.700, =:0, -2:3.686][!:0.160, =:0.827, -2:-4.505][!:1.000, =:0.000, -2:-2.699][!:0.1, =:0.000, -2:2]LMX[@!:-1, 14:-0.790, G:-1][|!:1, =:0, /:5, 13:-299.627, 14:-10][!:0.032, =:0, -1:2][!:1.000, 0:-2.849, -2:2][!:0.028, -2:2][!:0.140, -2:2][!:0.1, =:0, -2:2][!:0.1, =:0.898, -2:2.862, -1:5.972][!:0.1, =:0, -2:2][!:0.1, =:0, -2:2, 1:16.528][!:1.000, =:0.000, -2:2][!:0.062, =:0, -2:3.887, 1:-2.716][!:0.175, =:0.000][!:1.000, =:0.892, -2:1.659][/:5, -2:-5][/:999.000, -2:5]~
+info:~
+HOW CREATED:
+Designed and evolved
+I wanted to evolve somthing other than a worm.
+From experiments with pairs of sticks, I noticed
+that I sometimes saw a pair that swum with large
+"strokes" like a human swimmer, or frog.
+I started with two long connected sticks, with a
+bending joint. By trial and error, I added a chain
+of neurons providing a time delay between
+"strokes". I limited mutations to neural only
+during the early stages, and gradually increased
+the level of morphological mutations. Initially,
+behaviour was very uncoordinated.
+Eventually, a form emerged that used one arm to
+swim, while using a long stick as a
+counterbalance. I selected for velocity, distance
+and lifespan (...). At one point I selected the
+fittest swimmer, put it into a fresh simulation,
+and allowed radiation to occur from that point.
+SUBMITTED BY: Tom Hartley (t.hartley@ucl.ac.uk), 2000-00-00
+PERFORMANCE:
+The counterbalance (tail) is rotated at the right
+moment, so that the arm is lifted out of the
+water.~
+num:125
+popsiz:0
+
+org:
+name:Trishark
+genotype:~
+MMMMMXlllMMMMMX[|1:2.951]lllMMMMMX[|1:2.721]lllMMMMMX[|1:2.303]lllMMMMMX[|1:2.482]lllMMMMMX[|1:2.684]lllMMMMMX[|1:0.887]lllMMMMMX[|1:1]lllMMMMMX[|1:1.394]lllMMMMMX[|3:1][0:1.387, 2:-3.051, 1:-1.827][-1:1.061, 0:2.351, 1:-0.562][-1:0.756, -2:2.003, 0:-3.094]RRMMMMMX[|3:-2.183, 4:-1.574, 5:2.803, 6:-1.685]RRMMMMMX[|2:1.202, 3:-0.749, 4:-1.672, 5:3.004](RCCCCfffffIIIIIX[S:-1.013], , , , rrlllllllllIIIIIX[-1:-2.552, 0:-1.012, 1:4.480, 2:1.608, 3:4.701, 4:0, 5:4.269][-2:-1.448, -1:-3.943, 0:88.291, 1:923.941, 2:-1.701, 3:3.719, 4:0.594][-3:-2.916, -2:2.039, -1:-2.848, 0:-674.984, 1:-1.608, 2:0, 3:2.888][-3:0.830, -2:2.784, -1:3.067, 0:-1.097, 1:1.613, 2:-2.429](llllllllffffffffIIIIIX, , , , , , LIIIIIX[S:-0.618]), , , , rccccfffffIIIIIX[S:-429.136])~
+info:~
+HOW CREATED:
+Designed and evolved
+I wanted to prove that a 3-D food finder (a deep
+water swimming foodfinder) could be made that had
+only three smell sensors. Trishark's morphology
+and neural topology were hand coded. Mutations
+were allowed to change only connection weights.
+Trishark was seleected for distance in an
+environment with progressively less food.
+SUBMITTED BY: Pete Mandik (mandikp@wpunj.edu), 2001-00-00
+PERFORMANCE:
+Test him out in world size of 50, with teleport,
+water depth 10, auto feed 2, ball energy 1000. His
+ability to orient toward the stimulus source is
+quite robust.~
+num:126
+popsiz:0
+
+org:
+name:Swimmer, f4
+genotype:~
+/*4*/rr<X>#6<l<X>CN|[G:0.5]>>X~
+info:~
+HOW CREATED:
+Designed and evolved
+Created manually and evolved a bit. Note the '#6'
+gene which grows six independent control muscles.
+SUBMITTED BY: Unknown, 2000-00-00
+Swimmer in f4 genetic encoding.~
+num:127
+popsiz:0
+
+org:
+name:Rowboat
+genotype:~
+ffwwX[*][Sin, -1:0.028,t:0.441,t:0.5](, wwlllfflX(, wwffX), wwwwwrrffX(wwrrllffX[@-1:1.605,s:0](cwwLLFFX[|-2:8.418,fo:0.04], , , CwwLLFFX[|-3:4.423,s:-0.038]), wwwwwrrffX(wwllllffX(wwffX, ), , wwffX, , wwllllffX(, wwffX)), wwwwwwffX), wwllllffX(wwffX, ), )~
+info:~
+HOW CREATED:
+Designed and evolved
+Designed the structure and neural net. Evolved
+only the weights and properties of the neurons.
+Was unsure if Ff modifiers applied to water.
+SUBMITTED BY: Brad Fletcher, 2003-12-11
+Boat that rows across the top of the water.
+PERFORMANCE:
+Rows like a kayaker across the surface of the
+water. Seems to be the top speed for this
+particular design. I plan on creating more 'boat'
+frams.
+This creature was awarded.~
+num:278
+popsiz:0
+
+org:
+name:Trisnake
+genotype:~
+MMMMMXlMMMXlllMMMMMX[|1:2.951]lllMMMMMX[|1:2.721]lllMMMMMMMX[|1:2.951]lllMMMMMX[|1:2.721]lllMMMlMMMMMX[|1:2.951]lllMMMMMX[|1:2.721,in:0.8]lllllMMMMMX[|1:0.887]lllMMMMMX[|1:0.4,fo:0.04]lllMMMMMX[|1:0.68]lllMMMMlMMMMMX[|1:3.132]lllMMMMMX[|1:2.303]lllMMMMMX[|1:2.482]lllMMMMMX[|1:2.684]lllMMMMMX[|1:0.887]llMMMMMX[|1:2.972]lllMMMMMX[|1:1.394]lllMMMMMX[|3:1][0:1.387, 2:-3.051, 1:-1.827]MMX[|1:0.887]lllMMMMMX[|1:1]lllMMMMMX[|1:1.394]lllMMMMlMMMMMX[|1:2.721]lllMMMMMX[|1:1.901]lllMMMMMMMX[|1:3.567]lllMMMMMX[|1:0.026]lllMMMMMX[|1:1]lllMMMMMX[|1:1.394]lllMMMMlMMMMllMMMMMX[|1:1]lllMMMMMMXMMMMMMMMX[|1:0.228]lllMMMMMX[|1:1.394]lllMMMMMX[|3:1][0:1.387, 2:-3.051, 1:-1.827][-1:1.061, 0:2.351, 1:-0.562][-1:0.756, -2:2.003, 0:-3.094]RRMMMMMX[|3:-2.183, 4:-1.574, 5:2.803, 6:-1.685,s:0]RRMMMMMX[|2:1.202, 3:0.334, 4:0.018, 5:3.481](RCCCCfffffIIIIIX[S:-1.099,in:0.8], , , , rrlllllllllIIIIIX[-1:-2.552, 0:-1.012, 1:4.480, 2:1.608, 3:4.701, 4:0, 5:4.269][-2:-1.448, -1:-3.943, 0:88.291, 1:923.941, 2:-1.701, 3:3.719, 4:0.594][-3:-2.916, -2:2.039, -1:-2.848, 0:-10, 1:-1.608, 2:0, 3:2.888][-3:0.830, -2:2.784, -1:3.067, 0:-1.097, 1:1.613, 2:-2.429](llllllllffffffffIIIIIX, , , , , , LIIIlllffffffffIIIIIX, , , , , , LIIIIIX[S:-0.618]), , , , rccccfffffIIIIIX[S:-10,in:0.8])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+I started with the swimming genotypes and evolved
+for maximum horizontal velocity.
+SUBMITTED BY: Anonymous, 2004-03-08
+Longer, curving up/down Trishark.
+PERFORMANCE:
+It swims around but curves up/down when it reaches
+the bottom/surface. It seems to work best starting
+at the surface.
+
+This creature was awarded.~
+num:285
+popsiz:0
+
+org:
+name:Primitive Jellyfish
+genotype:~
+//0
+p:y=-2
+p:m=5
+p:1, -1
+p:y=-1, 1
+p:-1, -1
+p:y=-1, -1
+j:0, 1
+j:1, 2
+j:1, 3
+j:1, 4
+j:1, 5
+n:j=1, d=|
+n:j=2, d=@:p=1
+n:j=3, d=|
+n:j=4, d=@
+n:d="N:in=0.89236, fo=0.808508, si=2, s=0"
+n:d="Sin:f0=0.061, t=0.117"
+n:d=*
+c:0, 4, -0.25
+c:1, 4, 0.25
+c:2, 4, 0.25
+c:3, 4, -0.25
+c:4, 5, 5.667
+c:4, 6, 2.124
+c:4, 4, 1.746
+~
+info:~
+HOW CREATED:
+Designed and evolved
+Designed by hand, then neural network further
+evolved (though only one connection was added).
+SUBMITTED BY: Sean Bartell, 2004-07-12
+A simple jellyfish-like creature
+PERFORMANCE:
+It acts like a horizontal jellyfish...sort of. Use
+in water!~
+num:311
+popsiz:0
+
+org:
+name:Jellyfish #4
+genotype:~
+//0
+p:x=0, y=0, z=0
+p:x=1, y=0, z=-1
+p:x=-1, y=0, z=-1
+p:x=0, y=1, z=-1
+p:x=0, y=-1, z=-1
+
+p:x=0.7, y=0.7, z=-1
+p:x=-0.7, y=0.7, z=-1
+p:x=0.7, y=-0.7, z=-1
+p:x=-0.7, y=-0.7, z=-1
+
+j:0, 1
+j:0,2
+j:0,3
+j:0,4
+j:0,5
+j:0,6
+j:0,7
+j:0,8
+
+j:1,5
+j:5,3
+j:3,6
+j:6,2
+j:2,8
+j:8,4
+j:4,7
+j:7,1
+
+p:x=1, y=0, z=-1
+p:x=-1, y=0, z=-1
+p:x=0, y=1, z=-1
+p:x=0, y=-1, z=-1
+
+p:x=0.7, y=0.7, z=-1
+p:x=-0.7, y=0.7, z=-1
+p:x=0.7, y=-0.7, z=-1
+p:x=-0.7, y=-0.7, z=-1
+
+j:1, 9, dx=0.25, dz=-1
+j:2, 10, dx=-0.25, dz=-1
+j:3, 11, dx=0.25, dz=-1
+j:4, 12, dx=-0.25, dz=-1
+j:5, 13, dx=0.25, dz=-1
+j:6, 14, dx=-0.25, dz=-1
+j:7, 15, dx=0.25, dz=-1
+j:8, 16, dx=-0.25, dz=-1
+
+p:x=1.25, y=0, z=-2
+p:x=-1.25, y=0, z=-2
+p:x=0.25, y=1, z=-2
+p:x=-0.25, y=-1, z=-2
+
+p:x=0.95, y=0.7, z=-2
+p:x=-0.95, y=0.7, z=-2
+p:x=0.95, y=-0.7, z=-2
+p:x=-0.95, y=-0.7, z=-2
+
+j:9, 17, dx=0, dy=0.2, dz=-0.5
+j:10, 18, dx=0, dy=-0.2, dz=-0.5
+j:11, 19, dx=0, dy=0.2, dz=-0.5
+j:12, 20, dx=0, dy=-0.2, dz=-0.5
+j:13, 21, dx=0, dy=0.2, dz=-0.5
+j:14, 22, dx=0, dy=-0.2, dz=-0.5
+j:15, 23, dx=0, dy=0.2, dz=-0.5
+j:16, 24, dx=0, dy=-0.2, dz=-0.5
+
+p:x=1.25, y=0.2, z=-2.5
+p:x=-1.25, y=-0.2, z=-2.5
+p:x=0.25, y=1.2, z=-2.5
+p:x=-0.25, y=-1.2, z=-2.5
+
+p:x=0.95, y=0.9, z=-2.5
+p:x=-0.95, y=0.5, z=-2.5
+p:x=0.95, y=-0.5, z=-2.5
+p:x=-0.95, y=-0.9, z=-2.5
+
+j:17, 25, dx=0.1, dy=0, dz=-0.25
+j:18, 26, dx=-0.1, dy=0, dz=-0.25
+j:19, 27, dx=0.1, dy=0, dz=-0.25
+j:20, 28, dx=-0.1, dy=0, dz=-0.25
+j:21, 29, dx=0.1, dy=0, dz=-0.25
+j:22, 30, dx=-0.1, dy=0, dz=-0.25
+j:23, 31, dx=0.1, dy=0, dz=-0.25
+j:24, 32, dx=-0.1, dy=0, dz=-0.25
+
+j:25, 29
+j:29,27
+j:27,30
+j:30,26
+j:26, 32
+j:32,28
+j:28,31
+j:31,25
+
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Jerzy Blaszczynski, 2004-10-20
+A jellyfish, at least I hope it looks like one :)
+PERFORMANCE:
+An example of a framstick that can swim, though I
+designed it considering more its look than
+behaviour.~
+num:314
+popsiz:0
+
+org:
+name:Jellyfish #5
+genotype:~
+//0
+p:x=0, y=0, z=0
+p:x=1, y=0, z=-1
+p:x=-1, y=0, z=-1
+p:x=0, y=1, z=-1
+p:x=0, y=-1, z=-1
+
+p:x=0.7, y=0.7, z=-1
+p:x=-0.7, y=0.7, z=-1
+p:x=0.7, y=-0.7, z=-1
+p:x=-0.7, y=-0.7, z=-1
+
+j:0, 1
+j:0,2
+j:0,3
+j:0,4
+j:0,5
+j:0,6
+j:0,7
+j:0,8
+
+j:1,5
+j:5,3
+j:3,6
+j:6,2
+j:2,8
+j:8,4
+j:4,7
+j:7,1
+
+p:x=1, y=0, z=-2
+p:x=-1, y=0, z=-2
+p:x=0, y=1, z=-2
+p:x=0, y=-1, z=-2
+
+
+p:x=0.7, y=0.7, z=-2
+p:x=-0.7, y=0.7, z=-2
+p:x=0.7, y=-0.7, z=-2
+p:x=-0.7, y=-0.7, z=-2
+
+j:1, 9
+j:2, 10
+j:3, 11
+j:4, 12
+j:5, 13
+j:6, 14
+j:7, 15
+j:8, 16
+
+j:9,13
+j:13, 11
+j:11, 14
+j:14, 10
+j:10, 16
+j:16, 12
+j:12, 15
+j:15,9
+
+p:x=0, y=0, z=-3
+
+j:17, 9
+j:17, 10
+j:17, 11
+j:17, 12
+j:17, 13
+j:17, 14
+j:17, 15
+j:17, 16
+
+p:x=0.1, y=0, z=-4
+p:x=-0.1, y=0, z=-4
+p:x=0, y=0.1, z=-4
+p:x=0, y=-0.1, z=-4
+
+p:x=0.07, y=0.07, z=-4
+p:x=-0.07, y=0.07, z=-4
+p:x=0.07, y=-0.07, z=-4
+p:x=-0.07, y=-0.07, z=-4
+
+j:17, 18
+j:17, 19
+j:17, 20
+j:17, 21
+j:17, 22
+j:17, 23
+j:17, 24
+j:17, 25
+
+j:18, 22
+j:22, 20
+j:20,23
+j:23,19
+j:19,25
+j:25,21
+j:21, 24
+j:24,18
+
+p:x=0.5, y=0, z=-5
+p:x=-0.5, y=0, z=-5
+p:x=0, y=0.5, z=-5
+p:x=0, y=-0.5, z=-5
+
+j:18, 26
+j:19,27
+j:20, 28
+j:21,29
+
+p:x=0.5, y=0, z=-5
+p:x=-0.5, y=0, z=-5
+p:x=0, y=0.5, z=-5
+p:x=0, y=-0.5, z=-5
+
+j:26,30, dx=-0.5, dz=-0.25
+j:27,31, dx=0.5, dz=-0.25
+j:28,32, dx=-0.5, dz=-0.25
+j:29,33, dx=0.5, dz=-0.25
+
+p:x=1y=0, z=-5.25
+p:x=-1 y=0, z=-5.25
+p:x=0.5, y=0.5,z=-5.25
+p:x=-0.5, y=-0.5,z=-5.25
+
+j:30, 34, dx=0.75, dz=-1
+j:31,35, dx=-0.75, dz=-1
+j:32,36, dx=0.75, dz=-1
+j:33,37, dx=-0.75, dz=-1
+
+
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Jerzy Blaszczynski, 2004-10-20
+Jellyfish #4 extended
+PERFORMANCE:
+An example of a framstick that can swim, though I
+designed it considering more its look than
+behaviour.~
+num:315
+popsiz:0
+
+org:
+name:Rowing yawl
+genotype:~
+LLwwwwwwX[*][Sin, f0:0.0, -1:0.1][-1:1.0][D, -2:1.0][-1:100.0] wwX( RRllllllwwwwX(,,RRRRwwwwllllX[@, p:1.0, -3:-0.3] (,,LX[|, p:1.0, -2:0.2 ]) ) ,, RRllllllwwwwX(,,rrrrwwwwllllX[@, p:1.0, -5:0.3 ] (,,LX[|, p:1.0, -4:0.2 ]))  )~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Beniamin Dziurdza, 2004-11-19
+Please adjust the water level :)
+PERFORMANCE:
+Velocity optimization is still possible!
+The D neuron is used to obtain the cycle shift for
+muscles.~
+num:316
+popsiz:0
+
+org:
+name:Four legs rowing
+genotype:~
+(wX[*][Sin, f0:0.02][D,-1:50][D,-1:50][D,-1:50]
+(
+wllllllllllllllllllllX[-4:1][-4:1][|, -2:1,p:1]
+wllllllllllllllllllllX[-02:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-06:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-10:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-14:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-18:100][*][-2:1,-1:1][|, -1:-1, p:1],
+wXwX(
+
+wllllllllllllllllllllX[-25:1][-25:1][|, -2:1,p:1]
+wllllllllllllllllllllX[-02:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-06:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-10:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-14:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-18:100][*][-2:1,-1:1][|, -1:-1, p:1]
+
+,X,
+
+wllllllllllllllllllllX[-48:1][-48:1][|, -2:-1,p:1]
+wllllllllllllllllllllX[-02:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-06:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-10:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-14:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-18:100][*][-2:1,-1:1][|, -1:1, p:1]
+
+),
+wllllllllllllllllllllX[-73:1][-73:1][|, -2:-1,p:1]
+wllllllllllllllllllllX[-02:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-06:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-10:100][*][-2:1,-1:1][|, -1:1, p:1]
+wllllllllllllllllllllX[-14:100][*][-2:1,-1:1][|, -1:-1, p:1]
+wllllllllllllllllllllX[-18:100][*][-2:1,-1:1][|, -1:1, p:1]))~
+info:~
+HOW CREATED:
+Designed
+The creature was created manually.
+SUBMITTED BY: Pawel Kedziora, 2004-11-19
+PERFORMANCE:
+I was going to create a creature which moves using
+legs. Each leg tries to grab water when it is
+open. After that, it folds up and conducts
+backward movement. It consists of 4 legs. 
+It looks interesting but is not fast. After
+optimization, it was very fast but the movement
+was no longer symmetrical.~
+num:320
+popsiz:0
+
+org:
+name:Memory Anemone
+genotype:~
+((WWWX, , WWWX), , lllllllllRRWWWX[*][*][Ch,-2:1,-1:1][ChMux,-1:1,3:.2]
+[N,1:.00005,0:1,s:.02][N,-1:1,1:.5][Thr, lo:0, hi:1, t:.31, 1:1][N,7:1,-3:-15,-4:1](WWWX, , rrXX[|, -2:1,p:.75](rrXrrX[|, 1:1][Delay, -4:1,t:200]llllrrX(lllX[|, -5:-.666], lllX[|, -6:.666]), lllllllllwwwwrrX[|, -7:1][S], rrXrrX[|, 1:1][Delay, -10:1,t:200]llllrrX(lllX[|, -11:-.666], lllX[|, -12:.666])), , WWWX))~
+info:~
+HOW CREATED:
+Designed
+Designed entirely.  
+SUBMITTED BY: Stephen Morrow, 2005-11-15
+A sea anemone with protective response and memory.
+PERFORMANCE:
+The anemone (always simulate underwater) features
+a protective collapse response that is activated
+when anemone's smell neuron reaches 0.5.  The
+response features a memory loop which gains value
+when the response is activated and slowly returns
+to baseline when the response is inactive.  The
+loop inhibits future responses (a trained anemone
+might require a smell of 0.8 or more) thus
+modeling the rudimentary memory function of
+classical conditioning with Framsticks.  
+Let it fall to the bottom and feed it with
+energy.
+This creature was awarded.~
+num:408
+popsiz:0
+
+org:
+name:Sweeper
+genotype:~
+LLLaammiiammiiiQwwWrLaaLLaammiiiQwwWrLaawWrLiwww(rLLLLaamiiiiiwwwww(,,iiwwwwww(Aw(I(LmmiQwww(m(, ( , rFwwww(m(,Rr((,, ,  rFiLrSM(, rmsIIwwwwwwXX[@, 8:3.619, p:0.784, p:1, p:1, p:1, p:1, p:1,p:1]X[*][@,p:1]XX[G][S][@]), , RCFX[S][|, 1:-3.801, p:0.01, p:0.982, r:1,r:1][G] , FX[@][|, 1:-3.047, p:0.336, p:0.94, r:1][G],,), ) ), ,L(aFX[|, 1:-6.823, p:0.132, p:0.98, r:1][G],))), ) ) ),aFwX[|, 1:-9.323, p:0.122, p:0.979, r:0.899][G]llAsIX)) ) )~
+info:~
+HOW CREATED:
+Evolved under various conditions
+Evolved naturally.
+SUBMITTED BY: Peter Schoffhauzer (scoofy@inf.elte.hu), 2006-01-24
+Really fast creature swimming on the surface.
+PERFORMANCE:
+One of the fastest swimming creatures in
+Framsticks. Velocity around 0.06. It moves its
+tentacles above the surface of the water, like
+swimmers do, thus reaching really good velocity
+performance.~
+num:423
+popsiz:0
+

@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Renderowanie Framsticks w stylu "Wookie"</title>
+</head>
+<body>
+
+<h1>Renderowanie Framsticks w stylu "Wookie"</h1>
+<h4>pliki Marka Lange dla POV-Ray'a, 2006</h4>
+
+
+<h2>Motywacja</h2>
+<p>Celem projektu bylo zbudowanie nowego modelu wizualizacji framstickow nawiazujacego do wlochatych stworzen -- Wookich z filmu gwiezdne wojny.
+<p>Tak zamodelowany styl charakteryzuje sie pokryta brazowa sierscia skora oraz owlosionymi elementami budowy.
+
+<h2>Wykonanie</h2>
+<p>Projekt zostal wykonany przy pomocy skryptu hairex. Skrypt sluzyl do pokrywania wlosami siatek znajdujacych sie w plikach pcm. Pliki pcm zawieraja obiekty trojwymiarowe -- kule i walce (wygenerowane w programie MeshWork) i skompresowane za pomoca skryptow mesh-compressora. Skrypt hairex pokrywa wlosami obiekty pcm z zadanymi parametrami np. dlugosc wlosow, kolor, grubosc, zagiecie itp.
+
+<p><a href="http://www.frams.alife.pl/common/slideWookie1.jpg" target="_blank">[KLIKNIJ]</a> aby obejrzeæ rysunek: przykladowy wyglad framsticka wygenerowany za pomoca framstick-wookie.inc.
+
+<h2>Konfiguracja (dla tych którzy chca grzebac w pliku stylu)</h2>
+
+<p>Za pomoca tych zmiennych mozna kontolowac ktore czesci framsticka maja zostac pokryte wlosami:
+<pre>
+#declare HairyStickEnd = 1;
+#declare HairyGreenBall = 1;
+#declare HairyReceptT = 1;
+#declare HairyMuscle = 1;
+#declare HairySpeedMuscle = 1;
+#declare HairyStick = 1;
+#declare HairySmallStick = 1;
+</pre>
+
+<p>Jesli chcemy pokryc wlosami dana czesc (tutaj przegub framsticka) nalezy zdefinowac obiekt (tutaj StickEnd) oraz podac parametry:
+
+<pre>
+#if (HairyStickEnd)
+/* ustawienia StickEND */
+#declare apply_hair_materials_to_mesh = true;
+#declare hair_pattern_pigment = pigment {bozo color_map {[0 SemiSweetChoc ] [1 MediumWood]}}
+#declare hair_length = 0.1;
+#declare hair_thickness = 0.005;
+#declare hair_patch_size = 0.01;
+#declare hair_objects_per_triangle = 10;
+//#declare air_patch_turb=0.9;
+#declare hair_rotate_to_surface = true;
+#declare hair_arc = 0.025 ;
+
+/* Deklaracja STICKEND */
+#declare StickEnd = object {read_mesh ("sfera2.pcm")};
+#end
+</pre>
+
+<p>Samo wstawienie owlosionego elementu polegalo na podmianie elementu oryginalnego:
+
+<pre>
+#if (HairyStickEnd)
+object { StickEnd translate <0,-0.145,0> scale <1,1,1> }
+#else
+sphere { <0,0,0>,0.15
+texture
+{
+pigment { color StickRGB }
+normal { bumps 1.5*field_p_fr scale 0.01 }
+finish { phong (1-field_p_fr) }
+}
+}
+#end
+</pre>
+
+</body>
+</html>

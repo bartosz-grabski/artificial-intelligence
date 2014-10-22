@@ -1,0 +1,86 @@
+show:
+name:Text writer
+info:Some creatures look just like letters...
+expdef:text_writer
+code:~
+
+function onLoad()
+{
+  ExpParams.collisions = 0;
+  ShowParams.font = 0;
+  ShowParams.text = 1;
+  ShowParams_text_set();
+  TrackingCam.setViewDir(270, 30);
+  GLDisplay.desiredsimspeed = 30;
+}
+
+function ShowParams_font_set()
+{
+  ShowParams_text_set();
+}
+
+function ShowParams_text_set()
+{
+  var f;
+  if (ShowParams.font == 0)
+    f = "<f0>";
+  else
+    f = "<f1>";
+  if (ShowParams.text == 0)
+  {
+    World.wrldsiz = 30;
+    ExpParams.text = f + "<h1>\n<vs1.3>\n<center>STAR WARS\n<left>\n";
+    ExpParams.text += "<justify>A LONG TIME AGO IN A GALAXY FAR FAR AWAY A BATTLE RAGED\n<left>\n";
+    ExpParams.text += "<justify>FOR EONS A FIERCE STRUGGLE HAD RAVAGED PLUMONIA\nAND WITHOUT INTERVENTION NO ONE WOULD LIVE TO SEE THE END\n<left>\n";
+    ExpParams.text += "<justify>THE INHABITANTS OF PLUMONIA WERE CREATURES OF VIRTUE AND PEACE\n<left>\n";
+    ExpParams.text += "<center>HOWEVER THERE WERE THOSE WHO HELD NOT THE HIGH REGARD FOR EQUALITY AND HONOR\n<left>\n";
+  }
+  else
+  {
+    World.wrldsiz = 50;
+    ExpParams.text = f + "<h1>\n<vs1.3>\n<center>ABOUT FRAMSTICKS\n<left>\n";
+    ExpParams.text += "<justify>THE FRAMSTICKS PROJECT WAS STARTED IN LATE 1996 BY MACIEJ KOMOSINSKI AND SZYMON ULATOWSKI\n";
+    ExpParams.text += "<left>\n";
+    ExpParams.text += "<justify>IT IS A THREE DIMENSIONAL LIFE SIMULATION WITH BOTH MECHANICAL STRUCTURES AND CONTROL SYSTEMS MODELED\n";
+    ExpParams.text += "<left>\n";
+    ExpParams.text += "<justify>VARIOUS KINDS OF EXPERIMENTS CAN BE DESIGNED INCLUDING\n";
+    ExpParams.text += "<center>SIMPLE OPTIMIZATION BY EVOLUTIONARY ALGORITHMS\n";
+    ExpParams.text += "<center>COEVOLUTION\n";
+    ExpParams.text += "<center>OPEN ENDED AND SPONTANEOUS EVOLUTION\n";
+    ExpParams.text += "<center>DISTINCT GENE POOLS AND POPULATIONS\n";
+    ExpParams.text += "<center>DIVERSE GENOTYPE TO PHENOTYPE MAPPINGS\n";
+    ExpParams.text += "<center>AND SPECIES AND ECOSYSTEMS MODELING\n";
+    ExpParams.text += "<left>\n";
+    ExpParams.text += "<hs1.5><justify>CURRENT FRAMSTICKS USERS WORK ON\n";
+    ExpParams.text += "<center>EVOLUTIONARY COMPUTATION\n";
+    ExpParams.text += "<center>ARTIFICIAL INTELLIGENCE\n";
+    ExpParams.text += "<center>NEURAL NETWORKS\n";
+    ExpParams.text += "<center>BIOLOGY\n";
+    ExpParams.text += "<center>ROBOTICS AND SIMULATION\n";
+    ExpParams.text += "<center>COGNITIVE SCIENCE\n";
+    ExpParams.text += "<center>NEUROSCIENCE\n";
+    ExpParams.text += "<center>MEDICINE\n";
+    ExpParams.text += "<center>PHILOSOPHY\n";
+    ExpParams.text += "<center>VIRTUAL REALITY\n";
+    ExpParams.text += "<center>GRAPHICS AND ART\n";
+    ExpParams.text += "<left>\n";
+    ExpParams.text += "<hs2><center>FRAMSTICKS MEANS\n";
+    ExpParams.text += "<left>RESEARCH\n";
+    ExpParams.text += "<center>EDUCATION\n";
+    ExpParams.text += "<right>ENTERTAINMENT\n";
+  }
+  Simulator.init();
+}
+
+~
+
+prop:
+id:font
+name:Font
+type:d 0 1 ~Accurate~Irregular
+
+prop:
+id:text
+name:Text to write
+type:d 0 1 ~"Star Wars"~"About Framsticks"
+

@@ -1,0 +1,12 @@
+# created Mon Nov 13 03:08:31 2006
+# by Framsticks 2.11
+org:
+name:Tester
+genotype:~
+(rrAAAAAX(lllAAAX, X), rrX(X[@][T], FFFFFFX[G]), rrX(llllllllllXX[|]MMMMMMffffffX[|][S], SSSSSSX), rrIIIX(LIIIIX, IIIIX))~
+info:~
+A testing creature for graphical styles. Includes a number of sensors and effectors, 
+and various properties of joints, parts, and muscles. These properties can be
+visualized graphically, as they are in "standard" Framsticks visual styles (OpenGL, POV-Ray).~
+num:1
+gnum:0

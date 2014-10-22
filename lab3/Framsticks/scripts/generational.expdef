@@ -1,0 +1,259 @@
+expdef:
+name:Generational evolutionary optimization experiment
+info:~
+A simple "genetic algorithm" experiment:
+
+- two gene pools (previous and current generation)
+- one population for individuals
+- generational replacement of genotypes
+- selection: roulette (fitness-proportional)
+- fitness formula entered directly into the group's field
+~
+code:~
+function onExpDefLoad()
+{
+  GenePools.clear();
+  Populations.clear();
+  GenePool.name = "Current generation";
+  GenePool.fitness = "return this.velocity;";
+  GenePools.addGroup("Previous generation");
+  GenePool.fitness = "return this.velocity;";
+  Population.name = "Creatures";
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 1;
+  ExpParams.initialgen = "X";
+  ExpParams.popsiz = 100;
+  ExpParams.creath = 0.1;
+  ExpParams.p_nop = 20;
+  ExpParams.p_mut = 64;
+  ExpParams.p_xov = 16;
+  ExpParams.evaltime = 1000;
+  ExpState.epoch = 0;
+  ExpState.current = 0;
+}
+
+function onExpInit()
+{
+  var i;
+  Populations.clearGroup(0);
+  GenePools.clearGroup(0);
+  GenePools.clearGroup(1);
+  GenePools.newGenotype(ExpParams.initialgen);
+  for (i = 0;i < ExpParams.popsiz;i++)
+    GenePools.copySelected(0);
+  ExpState.current = 0;
+  ExpState.epoch = 0;
+}
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  place_randomly(0,4);
+  Creature.energ0 = 100;
+  Creature.energy = Creature.energ0;
+  Creature.idleen = Creature.energ0 / ExpParams.evaltime;
+}
+
+function onStep()
+{
+  if (Population.size < 1)
+  {
+    GenePools.genotype = ExpState.current;
+    Populations.createFromGenotype();
+  }
+}
+
+function onDied()
+{
+  GenePools.group = 0;
+  GenePools.genotype = ExpState.current;
+  Genotype.popsiz = 0;
+  GenePools.addPerformanceFromCreature();
+
+  ExpState.current++;
+
+  if (ExpState.current >= GenePool.size)
+    prepareNewEpoch();
+}
+
+function prepareNewEpoch()
+{
+  var i;
+  GenePools.clearGroup(1);
+  GenePools.group = 0;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    GenePools.copySelected(1);
+  }
+  GenePools.clearGroup(0);
+  GenePools.group = 0;
+  while (GenePool.size < ExpParams.popsiz)
+  {
+    GenePools.group = 1;
+    selectGenotype();
+    if (Genotype.isValid)
+      GenePools.copySelected(0);
+    GenePools.group = 0;
+  }
+  ExpState.epoch++;
+  ExpState.current = 0;
+  Simulator.checkpoint();
+}
+
+function selectedForCreation()
+{
+  return GenePools.roulette();
+}
+
+function selectGenotype()
+{
+  var sel;
+  sel = (ExpParams.p_nop + ExpParams.p_mut + ExpParams.p_xov) * Math.rnd01;
+  if (sel < ExpParams.p_nop)
+    GenePools.genotype = selectedForCreation();
+  else
+  {
+    sel = sel - ExpParams.p_nop;
+    if (sel < ExpParams.p_mut)
+    {
+      GenePools.genotype = selectedForCreation();
+      GenePools.mutateSelected();
+    }
+    else
+    {
+      GenePools.genotype = selectedForCreation();
+      GenePools.crossoverSelected(selectedForCreation());
+    }
+  }
+}
+
+function ExpParams_reset_call()
+{
+  ExpState.current = 0;
+  Populations.clearGroup(0);
+}
+
+function onExpLoad()
+{
+  GenePools.group = 0;
+  Populations.group = 0;
+  GenePools.clearGroup(0);
+  GenePools.clearGroup(1);
+  Populations.clearGroup(0);
+  Loader.addClass(sim_params.*);
+  Loader.addClass(Population.*);
+  Loader.addClass(GenePool.*);
+  Loader.setBreakLabel (Loader.OnComment, "onExpLoad_Comment");
+  Loader.setBreakLabel (Loader.BeforeUnknown, "onExpLoad_Unknown");
+  Loader.run();
+  if (GenePool.size > 0)
+    Simulator.print("Experiment loaded (" + GenePool.size + " genotypes)");
+}
+
+function onExpLoad_Unknown()
+{
+  if (Loader.objectName != "org")
+    return ;
+  GenePools.genotype = -1;
+  Loader.currentObject = Genotype.*;
+  Interface.makeFrom(Genotype.*).Interface:setAllDefault();
+  Loader.loadObject();
+  GenePools.copySelected(0);
+}
+
+function onExpSave()
+{
+  var i = 0;
+  File.writeComment("'generational.expdef' data");
+  File.writeObject(sim_params.*);
+  GenePools.group = 0;
+  File.writeObject(GenePool.*);
+  Populations.group = 0;
+  File.writeObject(Population.*);
+  GenePools.group = 0;
+  while (i++ < GenePool.size)
+  {
+    GenePools.genotype = i;
+    File.writeNameObject("org", Genotype.*);
+  }
+  Simulator.print("Experiment saved (" + GenePool.size + " genotypes)");
+}
+
+~
+
+prop:
+id:initialgen
+name:Initial genotype
+type:s 1
+
+prop:
+id:popsiz
+name:Gene pool size
+type:d 1 2000
+
+prop:
+id:p_nop
+name:Unchanged
+type:f 0 100
+group:Selection
+
+prop:
+id:p_mut
+name:Mutated
+type:f 0 100
+group:Selection
+
+prop:
+id:p_xov
+name:Crossed over
+type:f 0 100
+group:Selection
+
+prop:
+id:evaltime
+name:Evaluation time
+type:d 100 100000
+
+prop:
+id:restart
+name:Restart epoch
+help:Re-evaluate all genotypes in the current generation
+type:p
+
+prop:
+id:creath
+name:Initial elevation
+type:f -1 50
+help:~
+Vertical position (above the surface) where newborn creatures are placed.
+Negative values are only used in the water area:
+  0   = at the surface
+-0.5 = half depth
+-1   = just above the bottom~
+
+state:
+id:notes
+name:Notes
+type:s 1
+help:~
+You can write anything here
+(it will be saved to the experiment file)
+~
+
+state:
+id:epoch
+name:Generation number
+type:d
+flags:16
+
+state:
+id:current
+name:Evaluating genotype
+type:d
+flags:16
+

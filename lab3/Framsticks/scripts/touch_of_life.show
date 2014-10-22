@@ -1,0 +1,233 @@
+show:
+name:A touch of life
+info:
+expdef:standard
+code:~
+
+//by MacKo, 2004
+
+//TODO: removing too slow creatures (just like too big ones are removed)
+
+global g_nointeraction; //simulation steps when a creature does not pass life back
+global g_status;
+global g_lasttime; //for auto popsize
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  Simulator.import("default.sim");
+  Simulator.import("show_noevol.sim");
+
+  Populations.group = 0;
+  Population.nnsim = 2; //anyway is controlled directly for each creature
+  Population.death = 0;
+  Population.energy = 0;
+  Population.colmask = 0; //ignore collisions
+  World.wrldbnd = 2;
+  World.wrldsiz = 30;
+
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_zoom = 1.2;
+
+  ShowParams.popsize = 0;
+  ShowParams_popsize_set();
+  ShowParams.rule = 1;
+
+  Simulator.import("walking.gen");
+  removeTooBig();
+  g_status = "";
+  g_nointeraction = 1000;
+  g_lasttime = Math.time;
+  GLDisplay.desiredsimspeed=200;
+}
+
+function inside(cr, x, y)
+{
+  if (cr.pos_x < x && (cr.pos_x + cr.size_x) > x &&
+      cr.pos_y < y && (cr.pos_y + cr.size_y) > y)
+    return 1;
+  else
+    return 0;
+}
+
+function freeze(c)
+{
+  c.user1 = null;
+  c.user2 = null;
+  c.user3 = null;
+}
+
+// user1 - life ticks left
+// user2 - who gave me life? (won't give life back to him)
+// user3 - how much time left to follow the user2 rule
+
+function collisions() //would be REALLY better to use the standard handler in expdef, but I preferred not to create a special expdef for this show only
+{
+  var i, j, c1, c2, alive = 0;
+  Populations.group = 0;
+  for (i = 0;i < Population.size;i++)
+  {
+    c1 = Population.get(i);
+    if (typeof(c1.user1) != typeof(null))
+    {
+      if (c1.user1 > 0)
+        c1.user1 = c1.user1 - 1;
+      if (c1.user3 > 0)
+        c1.user3 = c1.user3 - 1;
+      if (c1.user1 == 0)
+      {
+        freeze(c1);
+        g_status = c1.name + " frozen";
+      }
+    }
+    c1.nnenabled = typeof(c1.user1) != typeof(null);
+    if (ShowParams.rule != 0)
+      for (j = i + 1;j < Population.size;j++)
+      {
+        c2 = Population.get(j);
+        if (inside(c1, c2.pos_x, c2.pos_y) == 1 || inside(c1, c2.pos_x + c2.size_x, c2.pos_y) == 1 ||
+            inside(c1, c2.pos_x, c2.pos_y + c2.size_y) == 1 || inside(c1, c2.pos_x + c2.size_x, c2.pos_y + c2.size_y) == 1)
+        {
+          if (ShowParams.rule == 1)
+          {
+            //            Simulator.print("#" + i + " " + c1.user2 + " " + c2.user2);
+            if (c1.user1 && !c2.user1)
+            {
+              if (!(c1.user2 == c2.uid && c1.user3 > 0))
+              {
+                freeze(c1);
+                c2.user1 = 1000000;
+                c2.user2 = c1.uid;
+                c2.user3 = g_nointeraction;
+                g_status = c1.name + " passes life to " + c2.name;
+              }
+            }
+            else
+              if (c2.user1 && !c1.user1)
+              {
+                if (!(c2.user2 == c1.uid && c2.user3 > 0))
+                {
+                  freeze(c2);
+                  c1.user1 = 1000000;
+                  c1.user2 = c2.uid;
+                  c1.user3 = g_nointeraction;
+                  g_status = c2.name + " passes life to " + c1.name;
+                }
+              }
+          }
+          if (ShowParams.rule == 2)
+          {
+            if (!c1.user1)
+            {
+              c1.user1 = 500;
+              g_status = c1.name + " revived by " + c2.name;
+            }
+            else
+              if (!c2.user1)
+              {
+                c2.user1 = 500;
+                g_status = c2.name + " revived by " + c1.name;
+              }
+          }
+        }
+      }
+    if (typeof(c1.user1) != typeof(null))
+      alive++;
+  }
+  if (alive == 0 && ShowParams.rule != 0) //at least one should be alive
+  {
+    var cc = Population.get(0 + Math.rnd01 * Population.size);
+    if (ShowParams.rule == 1)
+      cc.user1 = 1000000;
+    if (ShowParams.rule == 2)
+      cc.user1 = 500;
+    g_status = cc.name + " auto-revived...";
+  }
+}
+
+function onSimStep()
+{
+  collisions();
+}
+
+function onShowStep()
+{
+  var i, d = ["Double-click to freeze or revive creatures.", "Life is passed with a touch.", "Life is propagated with a touch, for some time."];
+  GLDisplay.banner = d[ShowParams.rule] + "\n" + g_status;
+  if (ShowParams.popsize == 0)
+    autoPopsize();
+}
+
+function autoPopsize()
+{
+  if (Math.time - g_lasttime > 5.0)
+  {
+    g_lasttime = Math.time;
+    if ((GLDisplay.fps < (0.85*GLDisplay.maxfps)) && ExpParams.MaxCreated > 3)
+      ExpParams.MaxCreated--;
+    if ((GLDisplay.fps > (0.95*GLDisplay.maxfps)) && ExpParams.MaxCreated < 10)
+      ExpParams.MaxCreated++;
+  }
+}
+
+function removeTooBig()
+{
+  var i, m;
+  for (i = GenePool.size - 1;i >= 0;i--)
+  {
+    m = Model.newFromGeno(GenePool.get(i).geno);
+    if (m.size_x > World.wrldsiz / 5 || m.size_y > World.wrldsiz / 5)
+    {
+      Simulator.print("Removed " + GenePool.get(i).name + ", too big.");
+      GenePools.genotype = i;
+      GenePools.deleteSelected();
+    }
+  }
+}
+
+function onSelectionChange()
+{
+  if (CreatureSelection.count > 0)
+  {
+    var c = CreatureSelection.get(0), d = "";
+    if (ShowParams.rule != 0)
+      d = "You wished ";
+    if (typeof(c.user1) != typeof(null))
+    {
+      freeze(c);
+      g_status = d + c.name + " frozen";
+    }
+    else
+    {
+      c.user1 = 500;
+      g_status = d + c.name + " revived";
+    }
+    CreatureSelection.clear();
+  }
+}
+
+function ShowParams_popsize_set()
+{
+  ExpParams.MaxCreated = [5, 2, 3, 4, 9, 16][ShowParams.popsize];
+}
+
+function ShowParams_rule_set()
+{
+  Populations.group = 0;
+  var i;
+  for (i = 0;i < Population.size;i++)
+    freeze(Population.get(i));
+}
+
+~
+
+prop:
+id:popsize
+name:Number of creatures
+type:d 0 5 ~Auto~2~3~4~9~16
+help:"Auto" adjusts the number of performers to the speed of your computer.
+
+prop:
+id:rule
+name:Life is
+type:d 0 2 ~in your double-click~passed with a touch~propagated with a touch, for some time

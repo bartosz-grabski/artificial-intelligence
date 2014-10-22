@@ -1,0 +1,15 @@
+script:
+name:Neurons report
+help:Show all neuron classes and their names
+code:~
+function main()
+{
+  Simulator.print("Neuron classes report:");
+  var i;
+  for (i = 0;i < NeuroClassLibrary.count;i++)
+  {
+    NeuroClassLibrary.class = i;
+    Simulator.print("" + (1 + i) + ". " + NeuroClass.longname + " (" + NeuroClass.name + ")");
+  }
+}
+~

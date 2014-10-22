@@ -1,0 +1,101 @@
+script:
+name:Neuro inspection
+help:~
+Performs a given number of simulation steps, logs neural states of selected neurons, can also enforce states of selected neurons.
+The log file can be used for further analyses, or to draw plots in gnuplot (see neuro_insp_chart.gp) or another external program.
+See script source for details and settings.~
+code:~
+function main()
+{
+  @include "neuro_insp_default.inc" //settings of the experiment  
+  
+  if (neuronstolog.size!=statsteps.size)
+    Simulator.message("Length of the 'statsteps' vector different from 'neuronstolog'.",2);
+  
+  GenePools.clearGroup(0);
+  Populations.clearGroup(0);
+  
+  Populations.group = 0;
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 0; //don't let the creature die no matter how many steps
+  //sim_params.randinit = 0; //make NN simulation deterministic
+  
+  Simulator.import(genofile);
+  
+  var r,i,v=Vector.new();
+  for(i=0;i<statsteps.size;i++)
+		v.add(Vector.new());
+  
+  for(r=0;r<repeat;r++)
+  {  
+		Populations[0].createFromGeno(GenePools[0][genonr].geno);
+		
+		var f=File.createDirect(logtofile,"Neural states");
+		var s,cr=Populations[0][0];
+		f.writeString("# Creature '"+cr.name+"', neurons probed: "+neuronstolog+", forced: "+forced+"\n");
+		
+		for(s=0;s<simsteps;s++)
+		{
+			setForcedStates(cr,forced,s);
+			f.writeString(""+s+getStates(cr,neuronstolog,statsteps,s,v)+"\n");
+			Simulator.step();
+		}
+
+		f.close();
+		
+		Populations[0].delete(0);
+  }
+  for(i=0;i<statsteps.size;i++)
+  {
+    Simulator.print(""+neuronstolog[i]+" "+v[i].size+" "+v[i].avg+" "+v[i].stdev);
+    // dumping individual values
+    // for(r=0;r<v[i].size;r++) Simulator.print(" #"+r+": "+v[i][r]);
+  }
+}
+
+function getStates(cr,indexes,statsteps,stepnr,v)
+{
+  var j,t="";
+  for(j=0;j<indexes.size;j++)
+  {
+    var neu=indexes[j],state=0;
+    if (neu_nr_ok(cr,neu,"probe"))
+      state=cr.getNeuro(neu).state;
+      
+    if (stepnr==statsteps[j]) v[j].add(state);
+      
+    t=t+"\t"+state;
+  }
+  return t;
+}
+
+function setForcedStates(cr,forced,stepnr)
+{
+  var j;
+  for(j=0;j<forced.size;j+=4)
+  {
+    var neu=forced[j];
+    if (neu_nr_ok(cr,neu,"modify"))
+      cr.getNeuro(neu).hold=0; //by default, "free" all forced neurons
+  }
+  for(j=0;j<forced.size;j+=4)
+  {
+    var neu=forced[j];
+    if (stepnr>=forced[j+1] && stepnr<=forced[j+2])
+    {
+      cr.getNeuro(neu).hold=1; //this one needs to be "held" in this step
+      cr.getNeuro(neu).currState=forced[j+3];
+    }
+  }
+}
+
+function neu_nr_ok(cr,nr,oper)
+{
+  var ok=nr>=0 && nr<cr.numneurons;
+  if (ok==0)
+    Simulator.message("'"+cr.name+"' has only "+cr.numneurons+" neurons. You wanted to "+oper+" #"+nr+".",2);
+  return ok;
+}
+~
+

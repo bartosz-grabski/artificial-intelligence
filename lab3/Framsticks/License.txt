@@ -1,0 +1,29 @@
+                 FRAMSTICKS LICENSE AGREEMENT
+
+FRAMSTICKS  SOFTWARE IS PROVIDED "AS IS"  AND  WITHOUT  ANY
+WARRANTIES  EXPRESSED OR IMPLIED. THE USER  IS  RESPONSIBLE
+FOR  THE USE OF THIS SOFTWARE AND ANY DAMAGE RESULTING FROM
+IT.
+
+Framsticks Graphical User Interface for Windows (named FGUI
+in  this  agreement) is distributed as shareware.  You  are
+entitled to use it for a month for evaluation purposes.  If
+you  want  to continue to use it, or you want to  use  FGUI
+commercially, you should register it.
+
+However,  you are allowed to use FGUI for unlimited  period
+of  time  without registration, if you use it for education
+(learning, teaching) or research purposes. In this case you
+have  to  be  an  employee  or a  student  of  an  academic
+institution.  As such, you are entitled to obtain  and  use
+Framsticks "EDU"  (educational)  discounted  licenses. Your
+support is appreciated!
+
+You  may give copies of the unregistered shareware versions
+of  FGUI to other people as long as no file is changed  and
+no file is omitted.
+
+If  you are a registered user, you are entitled to use FGUI
+for  your  own  use. You must not give away  your  personal
+registration  code. Doing so will result in an infringement
+of copyright.

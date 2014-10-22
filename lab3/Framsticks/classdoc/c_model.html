@@ -1,0 +1,63 @@
+<HTML><HEAD><TITLE>Model</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Model class in <A HREF="x_globalcontext.html">Global context</A></H2>
+15 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="2"></A><IMG SRC="object-ns.gif" ALT="object" TITLE="object">&nbsp;geno
+<div class="typedescr"><A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">geno</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;numconnections
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of neuron connections</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;numjoints
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of joints</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;numneurons
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of neurons</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;numparts
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of parts</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;se
+<div class="typedescr">float</div></td><td>
+<p class="membername">startenergy</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;size_x
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box x size</p>
+<p class="help">(size_x,size_y,size_z) are dimensions of the axis-aligned bounding box of the creature, including imaginary Part sizes (Part.s, usually 1.0). A creature consisting of a single default part has the size of (2.0,2.0,2.0) - twice the Part.s value (like a sphere diameter is twice its radius).<BR/>
+See also: Creature.moveAbs</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;size_y
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box y size</p>
+<p class="help">See Model.size_x</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;size_z
+<div class="typedescr">float</div></td><td>
+<p class="membername">bounding box z size</p>
+<p class="help">See Model.size_x</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;Vstyle
+<div class="typedescr">string</div></td><td>
+<p class="membername">vis_style</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getJoint
+<div class="typedescr">returns <A HREF="c_joint.html">Joint</A></div></td><td>
+<p class="membername">getJoint (static model information)</p>
+<code>function getJoint(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getNeuroDef
+<div class="typedescr">returns <A HREF="c_neurodef.html">NeuroDef</A></div></td><td>
+<p class="membername">getNeuroDef</p>
+<code>function getNeuroDef(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;getPart
+<div class="typedescr">returns <A HREF="c_part.html">Part</A></div></td><td>
+<p class="membername">getPart (static model information)</p>
+<code>function getPart(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newFromGeno
+<div class="typedescr">returns <A HREF="c_model.html">Model</A></div></td><td>
+<p class="membername">create new object</p>
+<code>function newFromGeno(<A HREF="c_geno.html">Geno</A>)</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newFromString
+<div class="typedescr">returns <A HREF="c_model.html">Model</A></div></td><td>
+<p class="membername">create new object</p>
+<code>function newFromString(string genotype)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

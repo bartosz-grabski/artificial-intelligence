@@ -1,0 +1,1310 @@
+# Gene pool: "other"
+# "Other" exemplary creatures
+# Downloaded on 2009-11-24 from Framsticks Experimentation Center
+
+org:
+name:Bird
+genotype:~
+XXX(RRX(RRX(X, X), , ), RRX(, X(X, X)), RRX(RRX(X, X), , ))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Szymon Ulatowski, 1998-00-00
+looks like a bird~
+num:97
+popsiz:0
+
+org:
+name:Humanoid getting up
+genotype:~
+lX(lCCCCX[0:-0.991, T:540.170, T:1.740]X[|-1:-2.639, /:1.138][@9:0.728]CX[|-1:-0.854], XX[|0:0.041, *:1.097, *:-1.623][@-3:-2.750]X(lllCCCXLX[@-4:-1.074, 1:-0.415]LX[|1:-0.782], lllcccXLX[@-2:-1.202]LX[|-1:0.736]), lccccX[@1:0.760][|0:-1.034, T:-813.090]XcX[@0:-738.092, !:0.199, -1:4.595, -1:-1.860])~
+info:~
+HOW CREATED:
+Designed and evolved
+I designed the morphology and evolved brain.
+The simulation parameters used for the selection
+are 50 for vertical position and 50 for vertical
+velocity.
+SUBMITTED BY: Ricardo Ferrão (gilliam@student.dei.uc.pt), 2000-00-00
+It has a basic morphology without any specialized
+stick except the long and short sticks.
+
+PERFORMANCE:
+I still haven't got any genotype with vertical
+velocity. The first genotypes lift their legs. The
+next milestone was to the lift the neck. The next
+milestone was to try to lift the body using one of
+the arms.
+This creature was awarded.~
+num:98
+popsiz:0
+
+org:
+name:Spider
+genotype:~
+X(rrX(X, X), rrX(X, X), rrX(X, X), rrX(X, X), rrX(X, X))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Unknown, 1999-00-00~
+num:99
+popsiz:0
+
+org:
+name:Fractal
+genotype:~
+rLLLLLX(X(lX(lX(X, X), lX(X, X)), lX(lX(X, X), lX(X, X))), lX(lX(lX(X, X), lX(X, X)), lX(lX(X, X), lX(X, X))))~
+info:~
+HOW CREATED:
+Designed
+Manually created, sample structure
+SUBMITTED BY: Szymon Ulatowski, 1997-00-00~
+num:100
+popsiz:0
+
+org:
+name:Gyroscope and Pendulum
+genotype:~
+X(X, RRX(, XX(, RRX(X, X, X), XMMMX[|1:10, 2:-10](X[!:1, G:1], X[!:1, G:1])), XMMMX[|!:1, 1:10, 2:-10](X[!:1, G:1], X[!:1, G:1])), X)~
+info:~
+HOW CREATED:
+Designed
+Two examples of using neuro-mechanical gyroscope
+systems.
+SUBMITTED BY: Miron Sadziak, 1998-00-00~
+num:101
+popsiz:0
+
+org:
+name:Hungry
+genotype:~
+XX[|1:-3, 2:3](XX[S:1], XX[S:1])~
+info:~
+HOW CREATED:
+Designed
+Detects food. For testing the "S" receptor.
+SUBMITTED BY: Szymon Ulatowski, 1998-00-00~
+num:102
+popsiz:0
+
+org:
+name:Generator
+genotype:~
+XX[|1:10, 0:5, 2:1][-1:-0.5][0:0]~
+info:~
+HOW CREATED:
+Designed
+a sample generator controlled by the 3rd neuron
+[0:0]
+SUBMITTED BY: Szymon Ulatowski, 1998-00-00~
+num:103
+popsiz:0
+
+org:
+name:Sinusoidal Networks
+genotype:~
+X[1:-3][-1:2][4:-3][-1:2][-1:2][-1:2][-1:2][1:-2, 2:-2, 3:-2, 4:-2, 5:-2][-1:2, 0:-2][-1:2, 0:-2][-1:2, 0:-2][-1:2, 0:-2][-1:2, 0:-2]~
+info:~
+HOW CREATED:
+Designed
+Three neuron nets specialized in making a
+sinusoidal-like signal (test them in 'Brain'
+window).
+SUBMITTED BY: Miron Sadziak, 1998-00-00~
+num:104
+popsiz:0
+
+org:
+name:Table
+genotype:~
+//0
+p:
+p:1
+p:1,1
+p:0,1
+j:0,1
+j:1,2
+j:2,3
+j:0,3
+p:z=-1
+p:1,z=-1
+p:1,1,-1
+p:0,1,-1
+j:0,4
+j:1,5
+j:2,6
+j:3,7
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Szymon Ulatowski, 1999-00-00
+An example of a table - described by format #0
+(f0) genotype.~
+num:105
+popsiz:0
+
+org:
+name:Genworm
+genotype:~
+(XFXX[|0:0.651]X[1:-8.261][|0:-0.835]XX[-1:277.493][|*:480.842]X[|*:1.260, 1:-0.770]XXXX[|*:-548.645, 1:-7.979]X, XX[-1:1.332][|*:739.982][*:-0.835]XiXX[0:2.979]XX[|1:-1.054]FXX[|*:-0.835]XiXX[0:2.979]XX[|1:-1.054]FXXX[0:3.349][0:2.979]XX[|1:-1.054]FXXX[0:3.349][|*:1.403]X[|1:1.260, 1:0.918]SXLX[|*:-2.873, 0:-4.716]X, XFXX[|0:-1.212]X[1:810.895][|0:-0.835]XX[-1:277.493][0:0.361, 1:6.682]X[|1:1.260, 1:2.202]XXXX[0:3.349]X[|1:1.260, 1:-4.095][*:-548.645]X, XX[-1:1.332][|*:739.982][*:-0.835]XXX[0:2.979]XXFXXX[0:3.349][|*:-1.820]X[|1:1.260, 1:4.843]XSXLX, X, XX[-1:-0.857][|*:-650.960][*:-0.835]XXXX[0:2.979]XXFXXX[0:3.349][|*:0.895]X[|1:1.260, 1:-449.440]XSXLX[|*:-0.802, 0:3.197]X, XX, SXX[-1:277.493][|0:0.361, 1:6.682]X[|1:1.260, 1:2.202]XXXX[0:3.349]X[|1:1.260, 1:-4.095][*:-548.645]X, XX[-1:1.332][|*:739.982][*:-0.835]XXX[0:2.979]XXFXXX[0:3.349][|*:-1.820]X[|1:1.260, 1:4.843]XSXLX, X, XX[-1:-0.857][|*:-650.960][*:-0.835]XXXX[0:2.979]XXFXXX[0:3.349][|*:0.895]X[|1:1.260, 1:-449.440]XSXLX[|*:-0.802, 0:3.197]X, XX, SXLX[|*:-0.802, 0:-408.161]XX[-1:-2.764][|*:2.615])~
+info:~
+HOW CREATED:
+Designed and evolved
+Started with 5 bacteria and added one neuron a
+peice. Then I let them evolve all night. I allowed
+for 10 simulated and 10 genotypes in my list.
+
+SUBMITTED BY: Unknown, 2000-00-00
+PERFORMANCE:
+The damn thing is complicated as hell and for some
+reason it felt it needed to be huge.
+~
+num:106
+popsiz:0
+
+org:
+name:Archetypical spider
+genotype:~
+lllllXL(rrX(, X), rrX(, X, rrX(, X), rrX(, X), lllllIIIIIIrrX(, IIIIIIllX), lllllIIIIIrrX(, IIIIIllX), rrX(, X), rrX(, X), rrX(, X), rrX, X))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Shannon Gilbert, 1998-00-00
+PERFORMANCE:
+Looks like a spider. I did have several different
+permutations, including a fairly speedy shuffler,
+and an interesting creature that would grab nearby
+food with it's pedapalps. Sadly, these were lost.
+I hope to recreate a working model soon.
+This creature was awarded.~
+num:107
+popsiz:0
+
+org:
+name:Nervous Sting
+genotype:~
+llX[S:1][-1:300, !:0.1, *:-1, 2:-300]RRWWWWWWX(RRWWX[|-1:-1][S:1](X, X), wwLX[|-3:1, !:0.1]wwLX[|-4:0.5, !:0.1]wwSSSllX[|-5:0.25, !:0.1])~
+info:~
+HOW CREATED:
+Designed
+I first build the physical structure. Then i added
+the four bending muscles and a neuron to control
+them alltogether. (you can see it when taking a
+look at the NN). After that i made the first smell
+receptor. The next problem i had to face that, the
+creature should go back in it's beginning position
+after attacking. This was possible by changing
+some neural weights and adding a constant (*)
+impulse to the control neuron. Then i often tried
+how it attacks when i place food. It also
+attacked, when food was at the left, right, or
+back. That for i needed a second smell receptor.
+Somehow i managed it, that the Sting now only
+attacks when the food is in front of it.
+SUBMITTED BY: Wolfgang Fercher (wfercher@gmx.at), 2000-00-00
+PERFORMANCE:
+Attacks passing creatures by hiting them with it's
+sting. Can attack several times.
+This creature was awarded.~
+num:108
+popsiz:0
+
+org:
+name:Block #1
+genotype:~
+//0
+p:0,0,0
+p:0,4,0
+p:4,0,0
+p:4,4,0
+p:0,0,8
+p:0,4,8
+p:4,0,8
+p:4,4,8
+p:0,2,0
+p:2,0,0
+p:2,4,0
+p:4,2,0
+p:0,2,8
+p:2,0,8
+p:2,4,8
+p:4,2,8
+p:0,0,2
+p:0,4,2
+p:4,0,2
+p:4,4,2
+p:0,0,4
+p:0,4,4
+p:4,0,4
+p:4,4,4
+p:0,0,6
+p:0,4,6
+p:4,0,6
+p:4,4,6
+j:0,16
+j:16,20
+j:20,24
+j:24,4
+j:1,17
+j:17,21
+j:21,25
+j:25,5
+j:2,18
+j:18,22
+j:22,26
+j:26,6
+j:3,19
+j:19,23
+j:23,27
+j:27,7
+j:0,8
+j:8,1
+j:0,9
+j:9,2
+j:1,10
+j:10,3
+j:2,11
+j:11,3
+j:4,12
+j:12,5
+j:4,13
+j:13,6
+j:5,14
+j:14,7
+j:6,15
+j:15,7
+~
+info:~
+HOW CREATED:
+Designed
+Hand-designed structure. Height: 3.3
+SUBMITTED BY: Adam Rotaru, 2001-00-00~
+num:109
+popsiz:0
+
+org:
+name:Block #2
+genotype:~
+//0
+p:0,0,0
+p:0,4,0
+p:4,0,0
+p:4,4,0
+p:0,0,6
+p:0,4,6
+p:4,0,6
+p:4,4,6
+p:0,2,0
+p:2,0,0
+p:2,4,0
+p:4,2,0
+p:0,2,6
+p:2,0,6
+p:2,4,6
+p:4,2,6
+p:0,0,2
+p:0,4,2
+p:4,0,2
+p:4,4,2
+p:0,0,4
+p:0,4,4
+p:4,0,4
+p:4,4,4
+j:0,8
+j:8,1
+j:0,9
+j:9,2
+j:0,16
+j:16,20
+j:20,4
+j:1,10
+j:10,3
+j:1,17
+j:17,21
+j:21,5
+j:2,11
+j:11,3
+j:2,18
+j:18,22
+j:22,6
+j:3,19
+j:19,23
+j:23,7
+j:4,12
+j:12,5
+j:4,13
+j:13,6
+j:5,14
+j:14,7
+j:6,15
+j:15,7
+~
+info:~
+HOW CREATED:
+Designed
+Hand-designed structure. Height: 2.5
+SUBMITTED BY: Adam Rotaru, 2001-00-00~
+num:110
+popsiz:0
+
+org:
+name:Humanoid, f0
+genotype:~
+//0
+p:-.2,.4,0
+p:-.2,0,0
+p:.2,.4,0
+p:.2,0,0
+p:-.14,.16,.4
+p:.14,.16,.4
+p:0,.2,.8
+p:0,.3,1.2
+p:-.14,.14,.95
+p:.14,.14,.95
+p:-.2,.2,.7
+p:.2,.2,.7
+p:0,.36,1.3
+p:-.1,.37,1.35
+p:.1,.37,1.35
+p:0,.38,1.44
+j:0,1
+j:2,3
+j:1,4
+j:3,5
+j:4,6
+j:5,6
+j:6,7
+j:7,8
+j:7,9
+j:8,10
+j:9,11
+j:7,12
+j:12,13
+j:12,14
+j:13,15
+j:14,15~
+info:~
+HOW CREATED:
+Designed
+It is just a humanoid-like structure.
+SUBMITTED BY: Alan Tyler, 2000-00-00
+PERFORMANCE:
+Elastic (non-rigid) joints don't allow it to
+stand.~
+num:111
+popsiz:0
+
+org:
+name:Multioutput tester, f0
+genotype:~
+//0
+p:
+p:1
+j:0, 1, dx=1
+n:d="Sin:f0=0.1"
+n:d="Sin:f0=0.2"
+n:d="Ch"
+n:d="ChSel:ch=0"
+n:d="ChSel:ch=1"
+c:2, 1
+c:2, 0
+c:3, 2
+c:4, 2
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Szymon Ulatowski, 2002-00-00
+PERFORMANCE:
+This is a simple example of multi-channel neural
+outputs (an advanced Framsticks feature, not
+useful for most users). 
+You can see that the "Ch" (channelize) neuron gets
+two inputs from two sinus generators of different
+frequencies. The "Ch" neuron makes a single
+multi-channel output, which is split into two
+signals by two "ChSel" (channel select) neurons.~
+num:112
+popsiz:0
+
+org:
+name:Multioutput tester, f1
+genotype:~
+X[Sin, f0:0.1][Sin, f0:0.2][Ch, -1:1, -2:1][ChSel, ch:0, -1:1][ChSel, ch:1, -2:1]~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Szymon Ulatowski, 2002-00-00
+PERFORMANCE:
+see "Multioutput tester, f0" for description.~
+num:113
+popsiz:0
+
+org:
+name:Ball
+genotype:~
+//0
+p: -1.5, -0.5, -0.5
+p: -1.5, -0.5, 0.5
+p: -1.5, 0.5, 0.5
+p: -1.5, 0.5, -0.5
+p: 1.5, -0.5, -0.5
+p: 1.5, -0.5, 0.5
+p: 1.5, 0.5, 0.5
+p: 1.5, 0.5, -0.5
+p: -0.5, -1.5, -0.5
+p: -0.5, -1.5, 0.5
+p: 0.5, -1.5, 0.5
+p: 0.5, -1.5, -0.5
+p: -0.5, 1.5, -0.5
+p: -0.5, 1.5, 0.5
+p: 0.5, 1.5, 0.5
+p: 0.5, 1.5, -0.5
+p: -0.5, -0.5, -1.5
+p: -0.5, 0.5, -1.5
+p: 0.5, 0.5, -1.5
+p: 0.5, -0.5, -1.5
+p: -0.5, -0.5, 1.5
+p: -0.5, 0.5, 1.5
+p: 0.5, 0.5, 1.5
+p: 0.5, -0.5, 1.5
+j: 0, 1
+j: 1, 2
+j: 2, 3
+j: 3, 0
+j: 4, 5
+j: 5, 6
+j: 6, 7
+j: 7, 4
+j: 8, 9
+j: 9, 10
+j: 10, 11
+j: 11, 8
+j: 12, 13
+j: 13, 14
+j: 14, 15
+j: 15, 12
+j: 16, 17
+j: 17, 18
+j: 18, 19
+j: 19, 16
+j: 20, 21
+j: 21, 22
+j: 22, 23
+j: 23, 20
+j: 0, 8
+j: 1, 9
+j: 1, 20
+j: 2, 21
+j: 2, 13
+j: 3, 12
+j: 3, 17
+j: 0, 16
+j: 4, 11
+j: 5, 10
+j: 5, 23
+j: 6, 22
+j: 6, 14
+j: 7, 15
+j: 7, 18
+j: 4, 19
+j: 13, 21
+j: 14, 22
+j: 20, 9
+j: 23, 10
+j: 8, 16
+j: 11, 19
+j: 12, 17
+j: 15, 18~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2004-06-03
+Interesting shape.~
+num:291
+popsiz:0
+
+org:
+name:Ball Heavy
+genotype:~
+//0
+p: -1.5, -0.5, -0.5
+p: -1.5, -0.5, 0.5
+p: -1.5, 0.5, 0.5
+p: -1.5, 0.5, -0.5
+p: 1.5, -0.5, -0.5
+p: 1.5, -0.5, 0.5
+p: 1.5, 0.5, 0.5
+p: 1.5, 0.5, -0.5
+p: -0.5, -1.5, -0.5
+p: -0.5, -1.5, 0.5
+p: 0.5, -1.5, 0.5
+p: 0.5, -1.5, -0.5
+p: -0.5, 1.5, -0.5
+p: -0.5, 1.5, 0.5
+p: 0.5, 1.5, 0.5
+p: 0.5, 1.5, -0.5
+p: -0.5, -0.5, -1.5
+p: -0.5, 0.5, -1.5
+p: 0.5, 0.5, -1.5
+p: 0.5, -0.5, -1.5
+p: -0.5, -0.5, 1.5
+p: -0.5, 0.5, 1.5
+p: 0.5, 0.5, 1.5
+p: 0.5, -0.5, 1.5
+p: -0.5, -0.5, -0.5
+p: -0.5, -0.5, 0.5
+p: -0.5, 0.5, -0.5
+p: -0.5, 0.5, 0.5
+p: 0.5, -0.5, -0.5
+p: 0.5, -0.5, 0.5
+p: 0.5, 0.5, -0.5
+p: 0.5, 0.5, 0.5
+j: 0, 1
+j: 1, 2
+j: 2, 3
+j: 3, 0
+j: 4, 5
+j: 5, 6
+j: 6, 7
+j: 7, 4
+j: 8, 9
+j: 9, 10
+j: 10, 11
+j: 11, 8
+j: 12, 13
+j: 13, 14
+j: 14, 15
+j: 15, 12
+j: 16, 17
+j: 17, 18
+j: 18, 19
+j: 19, 16
+j: 20, 21
+j: 21, 22
+j: 22, 23
+j: 23, 20
+j: 0, 8
+j: 1, 9
+j: 1, 20
+j: 2, 21
+j: 2, 13
+j: 3, 12
+j: 3, 17
+j: 0, 16
+j: 4, 11
+j: 5, 10
+j: 5, 23
+j: 6, 22
+j: 6, 14
+j: 7, 15
+j: 7, 18
+j: 4, 19
+j: 13, 21
+j: 14, 22
+j: 20, 9
+j: 23, 10
+j: 8, 16
+j: 11, 19
+j: 12, 17
+j: 15, 18
+j: 30, 15
+j: 30, 31
+j: 30, 7
+j: 30, 18
+j: 30, 26
+j: 31, 14
+j: 31, 29
+j: 31, 22
+j: 31, 27
+j: 27, 26
+j: 27, 25
+j: 27, 2
+j: 27, 13
+j: 27, 21
+j: 25, 1
+j: 25, 20
+j: 25, 9
+j: 25, 29
+j: 25, 24
+j: 24, 26
+j: 24, 28
+j: 24, 16
+j: 24, 8
+j: 24, 0
+j: 28, 19
+j: 28, 4
+j: 28, 30
+j: 28, 11
+j: 28, 29
+j: 26, 3
+j: 26, 12
+j: 26, 17
+j: 31, 6
+j: 29, 23
+j: 29, 5
+j: 29, 10~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2004-06-03
+Interesting shape.~
+num:292
+popsiz:0
+
+org:
+name:Framsticks beacon
+genotype:~
+//0
+
+# first tetrahedron
+
+p:0,0,0
+p:1.5,0,0
+p:0.75,1.29,0
+p:2.25,1.29,0
+p:3,0,0
+p:1.5,2.58,0
+p:0.75,0.43,1.22
+p:2.25,0.43,1.22
+p:1.5,1.72,1.22
+p:1.5,0.86,2.44
+
+j:0,1	
+j:1,2	
+j:0,2	
+j:1,3	
+j:3,4	
+j:1,4	
+j:2,5	
+j:3,5	
+j:2,3	
+j:0,6	
+j:2,6	
+j:1,6	
+j:1,7	
+j:3,7	
+j:4,7	
+j:2,8	
+j:3,8	
+j:5,8	
+j:6,7	
+j:6,8	
+j:7,8	
+j:8,9	
+j:7,9	
+j:6,9	
+
+# second
+
+p:4.5,0,0
+p:3.75,1.29,0
+p:5.25,1.29,0
+p:6,0,0
+p:4.5,2.58,0
+p:3.75,0.43,1.22
+p:5.25,0.43,1.22
+p:4.5,1.72,1.22
+p:4.5,0.86,2.44
+
+j:4,10	
+j:10,11	
+j:4,11	
+j:10,12	
+j:12,13	
+j:10,13	
+j:11,14	
+j:12,14	
+j:11,12	
+j:4,15	
+j:11,15	
+j:10,15	
+j:10,16	
+j:12,16	
+j:13,16	
+j:11,17	
+j:12,17	
+j:14,17	
+j:15,16	
+j:15,17	
+j:16,17	
+j:17,18	
+j:16,18	
+j:15,18	
+
+# THIRD
+
+p:3,2.58,0
+p:2.25,3.87,0
+p:3.75,3.87,0
+p:4.5,2.58,0
+p:3,5.16,0
+p:2.25,3.01,1.22
+p:3.75,3.01,1.22
+p:3,4.3,1.22
+p:3,3.44,2.44
+
+j:5,19	
+j:19,20	
+j:5,20	
+j:19,21	
+j:21,22	
+j:19,22	
+j:20,23	
+j:21,23	
+j:20,21	
+j:5,24	
+j:20,24	
+j:19,24	
+j:19,25	
+j:21,25	
+j:22,25	
+j:20,26	
+j:21,26	
+j:23,26	
+j:24,25	
+j:24,26	
+j:25,26	
+j:26,27	
+j:25,27
+j:24,27	
+
+# topmost one.
+
+p:3,0.86,2.44
+p:2.25,2.15,2.44
+p:3.75,2.15,2.44
+p:2.25,1.29,3.66
+p:3.75,1.29,3.66
+p:3,2.58,3.66
+p:3,1.72,4.88
+
+j:9,28	
+j:28,29	
+j:9,29	
+j:28,30	
+j:30,18	
+j:28,18	
+j:29,27	
+j:30,27	
+j:29,30	
+j:9,31	
+j:29,31	
+j:28,31	
+j:28,32	
+j:30,32	
+j:18,32	
+j:29,33	
+j:30,33	
+j:27,33	
+j:31,32	
+j:31,33	
+j:32,33	
+j:33,34	
+j:32,34	
+j:31,34	
+
+# dangling thing.
+
+#35
+p:3,1.72,6.88
+p:3,1.72,7.68
+p:4.5,1.72,7.68
+p:4.2,1.72,6.88
+#39
+p:3,1.72,5.88
+
+j:34,39
+j:39,35
+j:35,36
+j:36,37
+j:35,38
+
+n:j=97, d=@
+n:d=*
+n:d="Sin"
+n:d=N
+
+c:3,2,0.5
+c:2,1,0.04
+c:0,3
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Dawid Weiss, 2004-06-15
+Tetrahedron with an F letter on top of it.
+PERFORMANCE:
+An example of a three-dimensional framstick with
+cycles, written in f0. Just a curiosity, but quite
+funny to watch.~
+num:298
+popsiz:0
+
+org:
+name:Two wheels
+genotype:~
+//0
+p:x=0.5,y=0,z=0
+p:x=0,y=1,z=0
+p:x=0,y=0.74,z=0.74
+p:x=0,y=0,z=1
+p:x=0,y=-0.74,z=0.74
+p:x=0,y=-1,z=0
+p:x=0,y=-0.74,z=-0.74
+p:x=0,y=0,z=-1
+p:x=0,y=0.74,z=-0.74
+j:0,1
+j:1,2
+j:2,0
+j:0,3
+j:3,4
+j:4,0
+j:0,5
+j:5,6
+j:6,0
+j:0,7
+j:7,8
+j:8,0
+j:2,3
+j:4,5
+j:6,7
+j:8,1
+
+p:1.5,0,0
+p:x=2,y=1,z=0
+p:x=2,y=0.74,z=0.74
+p:x=2,y=0,z=1
+p:x=2,y=-0.74,z=0.74
+p:x=2,y=-1,z=0
+p:x=2,y=-0.74,z=-0.74
+p:x=2,y=0,z=-1
+p:x=2,y=0.74,z=-0.74
+
+j:9,10
+j:10,11
+j:11,9
+
+j:9,12
+j:12,13
+j:13,9
+
+j:9,14
+j:14,15
+j:15,9
+
+j:9,16
+j:16,17
+j:17,9
+
+j:11,12
+j:13,14
+j:15,16
+j:17,10
+
+j:0,9
+~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Dawid Weiss, 2004-06-15
+Two stable wheels.
+PERFORMANCE:
+Two stable (standing) "wheels". Primarily meant to
+model a creature capable of rolling its body
+forward, but rigid connections are required to put
+it together.~
+num:300
+popsiz:0
+
+org:
+name:Table with five legs
+genotype:~
+(rrX(,,LLLLLLLLLLLLLLLLLLX(,XXX,XX,,)),,rrX(,,LLLLLLLLLLLLLLLLLLX(,XXX,XX,,)),,rrX(,,LLLLLLLLLLLLLLLLLLX(,XXX,XX,,)),,rrX(,,LLLLLLLLLLLLLLLLLLX(,XXX,XX,,)),,rrX(,,LLLLLLLLLLLLLLLLLLX(,XXX,XX,,)))~
+info:~
+HOW CREATED:
+Designed
+Designed manually and tested with standard
+experiment definition
+SUBMITTED BY: Marcin Szelag, 2004-12-16
+Construction designed to be stable and tall
+PERFORMANCE:
+vertical position after freeze = 1.2401~
+num:324
+popsiz:0
+
+org:
+name:Table with three legs
+genotype:~
+(XXrrX(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLX,LLLLLLLLLLLLLLLLLLX,)),,XXrrX(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLX,LLLLLLLLLLLLLLLLLLX,)),,XXrrX(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLX,LLLLLLLLLLLLLLLLLLX,)))~
+info:~
+HOW CREATED:
+Designed
+Designed manually and tested with standard
+experiment definition
+SUBMITTED BY: Marcin Szelag, 2004-12-16
+Construction designed to be stable and tall
+PERFORMANCE:
+vertical position after freeze = 1.7312~
+num:325
+popsiz:0
+
+org:
+name:Table with three legs and feelers
+genotype:~
+(rrX(LLLLLLLLLLLLLLLLLLX,X(XLLLLLX,X(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLRRX(,,X,,X,,),LLLLLLLLLLLLLLLLLLXX,)),),),,rrX(LLLLLLLLLLLLLLLLLLX,X(XLLLLLX,X(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLRRX(,,X,,X,,),LLLLLLLLLLLLLLLLLLXX,)),),),,rrX(LLLLLLLLLLLLLLLLLLX,X(XLLLLLX,X(,,LLLLLLLLLLLLLLLLLLX(,LLLLLLLLLLLLLLLLLLRRX(,,X,,X,,),LLLLLLLLLLLLLLLLLLXX,)),),))~
+info:~
+HOW CREATED:
+Designed
+Designed manually and tested with standard
+experiment definition
+SUBMITTED BY: Marcin Szelag, 2004-12-16
+Construction designed to be stable and very tall
+PERFORMANCE:
+vertical position after freeze = 2.18639~
+num:326
+popsiz:0
+
+org:
+name:Cyber dumb
+genotype:~
+//0
+p:m=999
+p:x=.5,m=999
+p:x=-.5,m=999
+p:x=.5,z=-1,fr=0,m=999
+p:x=-.5,z=-1,fr=0,m=999
+p:x=.5,z=-1,y=.7,fr=0,m=999
+p:x=.5,z=-1,y=-.7,fr=0,m=999
+p:x=-.5,z=-1,y=.7,fr=0,m=999
+p:x=-.5,z=-1,y=-.7,fr=0,m=999
+p:x=1,z=-1,fr=0,m=999
+p:x=-1,z=-1,fr=0,m=999
+p:x=-1,z=-.7,y=.8,fr=1,m=999
+p:x=1,z=-.7,y=.8,fr=1,m=999
+p:z=1,m=999
+p:z=1,x=.5,m=999
+p:z=1,x=-.5,m=999
+p:z=1.3,m=999
+p:x=1,m=999
+p:x=-1,m=999
+p:x=-.5,z=-.8,y=.5,fr=1,m=999
+p:x=.5,z=-.8,y=.5,fr=1,m=999
+p:z=2
+p:z=2
+p:z=1,y=.5
+
+j:0,1
+j:0,2
+j:1,3
+j:2,4
+j:3,5,rotstif=1
+j:3,6,rotstif=1
+j:4,7,rotstif=1
+j:4,8,rotstif=1
+j:3,9,rotstif=1
+j:4,10,rotstif=1
+j:4,11,rotstif=0
+j:3,12,rotstif=0
+j:0,13
+j:1,13
+j:2,13
+j:5,1
+j:6,1
+j:7,2
+j:8,2
+j:13,14
+j:13,15
+j:0,14
+j:0,15
+j:10,2
+j:9,1
+j:13,16
+j:14,17
+j:15,18
+j:4,19,rotstif=0
+j:3,20,rotstif=0
+j:10,7
+j:10,8
+j:9,6
+j:9,5
+j:10,1
+j:9,2
+j:0,21
+j:0,22
+j:13,23
+j:23,0
+j:23,14
+j:23,15
+
+n:p=16,d="Sin:f0=.05"
+n:p=16,d="Sin:f0=.05,t=3.1415926535898"
+n:j=28,d=@
+n:j=29,d=@
+n:p=11,d=T
+n:p=12,d=T
+n:j=26,d=@
+n:j=27,d=@
+n:p=2,d=Sf
+n:p=1,d=Sf
+n:p=16,d=N
+n:p=16,d=N
+n:p=16,d=Nu
+n:p=16,d=Nu
+n:p=16,d="Thr:t=-.00001,hi=0,lo=1"
+n:p=16,d=N
+n:p=16,d=N
+n:p=16,d=*
+n:p=16,d=N
+n:p=16,d=N
+n:p=16,d="Thr:t=.00001,hi=1,lo=0"
+n:p=16,d=N
+n:p=16,d=N
+n:p=16,d=N
+n:p=16,d=N
+n:j=28,d=|
+n:j=29,d=|
+n:j=38,d=G
+n:j=36,d=@
+n:j=37,d=@
+
+c:11,1
+c:6,1
+c:10,0
+c:7,0
+c:10,16
+c:11,15
+c:2,10
+c:3,11
+c:15,23
+c:16,22
+c:15,0
+c:16,1
+c:19,8
+c:22,17,w=-1
+c:22,20
+c:23,14
+c:23,17,w=-1
+c:18,9
+c:24,18,w=-1
+c:24,19,w=1
+c:14,24
+c:20,24
+c:12,4
+c:13,5
+c:25,12
+c:26,13
+c:28,21
+c:29,21,w=-1
+c:21,27~
+info:~
+HOW CREATED:
+Designed
+Entirely designed, no evolution was involved. I
+just thought it would be cool to make a cyber.
+SUBMITTED BY: Anton Kodochygov, 2005-02-21
+Should walk towards energy, avoid collision and
+stay erect. See also "Cyber upgraded" which is
+much better.
+PERFORMANCE:
+This creature is self sufficient enough to walk
+towards food, stay erect, and even avoid obstacles
+such as fences and steep terrain. This creature is
+interesting because you can make it do anything
+you can think of. For instance, some future
+developments for this creature I'm considering
+are: swimming, being energy efficient, pursuing
+other creatures, and dealing damage to and
+consuming other creatures.~
+num:403
+popsiz:0
+
+org:
+name:Samurai
+genotype:~
+//0
+p: 0.5, 0.3, -2.5
+p: -0.5, 0.3, -2.5
+p: 0.7, 0.5, -3.5
+p: -0.7, 0.5, -3.5
+p: 1.3, 0.0, -5.0
+p: -1.3, 0.0, -5.0
+p: 0.5, 0.5, -5.0
+p: -0.5, 0.5, -5.0
+p: 0.7, 0.0, -3.5
+p: -0.7, 0.0, -3.5
+p: 0.7, -0.5, -5.0
+p: -0.7, -0.5, -5.0
+p: 0.7, 1.2, -5.0
+p: -0.7, 1.2, -5.0
+p: 0.5, 0.3, -1.7
+p: -0.5, 0.3, -1.7
+p: 1.0, 0.3, -2.2
+p: -1.0, 0.3, -2.2
+p: 1.0, 0.5, -2.7
+p: -1.0, 0.5, -2.7
+p: 0.0, 0.3, -1.3
+j: 0, 1
+j: 2, 8
+j: 0, 8
+j: 0, 2
+j: 9, 3
+j: 1, 3
+j: 1, 9
+j: 1, 8
+j: 1, 2
+j: 0, 9
+j: 0, 3
+j: 2, 10
+j: 8, 10
+j: 2, 4
+j: 8, 4
+j: 2, 6
+j: 8, 6
+j: 2, 12
+j: 8, 12
+j: 4, 6
+j: 6, 10
+j: 10, 12
+j: 12, 4
+j: 6, 12
+j: 4, 10
+j: 3, 11
+j: 9, 11
+j: 3, 5
+j: 9, 5
+j: 3, 7
+j: 9, 7
+j: 3, 13
+j: 9, 13
+j: 5, 7
+j: 7, 11
+j: 11, 13
+j: 13, 5
+j: 7, 13
+j: 5, 11
+j: 0, 14
+j: 1, 15
+j: 14, 15
+j: 14, 16
+j: 15, 17
+j: 16, 18
+j: 17, 19
+j: 14, 20
+j: 15, 20
+~
+info:~
+HOW CREATED:
+Designed
+It was designed starting from legs which are a
+firm and stable construction. The upper part of
+the body makes this creature look humanoid.
+SUBMITTED BY: Pawel Nowacki, 2005-03-01
+Humanoid creature
+PERFORMANCE:
+It keeps vertical position.
+It would be nice to make it move forward.~
+num:405
+popsiz:0
+
+org:
+name:Square Dancer
+genotype:~
+(rrX[@,2:1](,,rrX[|,1:1][Sin](X,,X)),,rrX[@,2:1](,,rrX[|,1:1][Sin](X,,X)),,rrX[@,2:1](,,rrX[|,1:1][Sin](X,,X)),,rrX[@,2:1](,,rrX[|,1:1][Sin](X,,X)))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: Anonymous, 2005-11-23~
+num:410
+popsiz:0
+
+org:
+name:Breaker
+genotype:~
+s(qX[*], fX[@, -1:-6.55, p:1][*]fX[@, -1:-6.254, p:1][*]fX[@, -1:-6.55, p:1][*]fX[@, -1:-4.082,p:1][@, p:1, -4:-2.914, p:1][*]lfX[@, -1:-6.138, p:1][*](RfX[@, -1:-6.974, p:1][*]fX[@, -1:-4.082][@, p:1, -4:-3.338, p:1][*]fX[@, -1:-6.55, p:1][*]fX[@, -1:-4.082][@, p:1, -4:-2.44, p:1][*]fX[@, -1:-6.138, p:1][*]fQX[@, -1:-5.134,p:1]Rq(RqX, , ,,), ,), )~
+info:~
+HOW CREATED:
+Evolved under various conditions
+SUBMITTED BY: Peter Schoffhauzer (scoofy@inf.elte.hu), 2006-01-24
+Two legs 'dancing'.
+PERFORMANCE:
+Looks like two legs doing some kind of
+break-dance.~
+num:426
+popsiz:0
+
+org:
+name:Recursive Tower
+genotype:~
+lllllrrX(,,LLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),)),,))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),)),,)),,))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),)),,))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,,RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),))),,LLLLLLX(RRLLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),)),,)),,)),,)))~
+info:~
+HOW CREATED:
+Designed
+The following recursive algorithm generates such
+towers:
+
+tower(lev) {
+  return "lllllrrX(,," + body(lev) + ")";
+}
+body(lev) {
+  if (lev == 0)
+    return
+"LLLLLLX(LLLLLLX(,RRLLLLLLX(,LLLLLLX,LLLLLLX,)),,LLLLLLX(RRLLLLLLX(,LLLLLLX,LLLLLLX,),))";
+  else {
+    b = body(lev-1);
+    return "LLLLLLX(LLLLLLX(,,RR" + b +
+"),,LLLLLLX(RR" + b + ",,))";
+  }
+}
+SUBMITTED BY: Wojciech Jaskowski, 2006-01-25
+Recursive Tower, level 3
+PERFORMANCE:
+Recursive Tower is very tall, although its
+vertical position increases very little when its
+level is greater than 4.
+It is worth mentioning that Recursive Tower is
+very stable and springy on all its levels. 
+It even seems that Recursive Tower can be
+infinitelly tall (I have tested its stability up
+to level 10 of recursion).~
+num:427
+popsiz:0
+
+org:
+name:Diamond
+genotype:~
+//0
+p:-1.21, -0.5, 0
+p:-1.21, 0.5, 0
+p:-0.5, 1.21, 0
+p:0.5, 1.21, 0
+p:1.21, 0.5, 0
+p:1.21, -0.5, 0
+p:0.5, -1.21, 0
+p:-0.5, -1.21, 0
+p:0,0,1.5
+j:0,1
+j:1,2
+j:2,3
+j:3,4
+j:4,5
+j:5,6
+j:6,7
+j:7,0
+j:0,8
+j:1,8
+j:2,8
+j:3,8
+j:4,8
+j:5,8
+j:6,8
+j:7,8~
+info:~
+HOW CREATED:
+Designed
+Regular octagon base plus one "peak" point.
+SUBMITTED BY: Marek Rucinski, 2006-12-18~
+num:433
+popsiz:0
+

@@ -1,0 +1,158 @@
+show:
+name:Reproduction
+info:Reproduction
+expdef:reproduction
+code:~
+
+global g_step, g_step2;
+global g_chart, g_win;
+global g_neuro, g_neurowin;
+global g_chart2, g_win2;
+
+function onLoad()
+{
+  ShowManager.info = Simulator.expdef_info;
+  Math.seed = Math.time;
+  World.wrldtyp = 0;
+  World.wrldsiz = 40;
+  World.wrldwat = -1.0;
+  World.wrldbnd = 0;
+  Simulator.init();
+  ExpParams.autorestart = 0;
+  TrackingCam.setViewDir(30, 30);
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_trspeed = 1;
+  g_step = 0;
+  g_step2 = 0;
+
+  g_chart = DynaChart.new();
+  g_win = GLDisplay.createWindow(1 + 2 + 4 + 16, "Population size", g_chart);
+  g_win.backcolor = 0x80ddddff;
+  g_win.size_x = GLDisplay.size_x / 2;
+  g_win.size_y = GLDisplay.size_y / 3;
+
+  g_chart2 = DynaChart2D.new();
+  g_win2 = GLDisplay.createWindow(1 + 2 + 4 + 16, "Creatures vs. Food", g_chart2);
+  g_win2.backcolor = 0x80ffdddd;
+  g_win2.size_x = GLDisplay.size_x / 2;
+  g_win2.size_y = GLDisplay.size_y / 3;
+
+  GLDisplay.desiredsimspeed = 100;
+}
+
+function onShowStep()
+{
+  //g_step=g_step+1; Simulator.print("step: "+g_step);
+  TrackingCam.setViewDir(TrackingCam.cam_dir + 0.05, TrackingCam.cam_h);
+  g_step++;
+  if (GLDisplay.desiredsimspeed == 0)
+  {
+    GLDisplay.banner = "Extinction. Experiment restarted.";
+    ShowParams_restart_call();
+  }
+if ((g_step&31)==0)
+  g_chart2.add(Populations.get(0).size,Populations.get(1).size);
+
+  if (g_step > 100)
+  {
+//    onSelectionChange();
+
+    g_chart.add(Populations.get(0).size);
+    g_step = 1;
+    g_step2++;
+
+    if (g_step2 > 10)
+    {
+      g_step2 = 1;
+      if (CreatureSelection.count>0)
+        CreatureSelection.clear();
+      else
+      {
+        var g = Populations.get(0);
+        if (g.size > 0)
+        {
+          CreatureSelection.clear();
+          CreatureSelection.add(g.get(0));
+        }
+      }
+    }
+  }
+}
+
+function onSelectionChange()
+{
+  var t = "";
+  if (CreatureSelection.count > 0)
+  {
+    var c = CreatureSelection.get(0);
+    t += "\nCurrent creature: " + c.name + "\n";
+    t += "Current genotype: " + c.genotype + "\n";
+    if (c.numneurons > 0)
+      showNN(c);
+    else
+      hideNN();
+  }
+  else
+    hideNN();
+  GLDisplay.banner = t;
+}
+
+function showNN(c)
+{
+  if (g_neurowin == null)
+  {
+    g_neuro = NeuroDiagram.new();
+    g_neurowin = GLDisplay.createWindow(1 + 2 + 4 + 16, "Neurons", g_neuro);
+    g_neurowin.backcolor = 0x80ffdddd;
+    g_neurowin.size_x = GLDisplay.size_x / 3;
+    g_neurowin.size_y = GLDisplay.size_y / 3;
+    g_neurowin.pos_x = 0;
+    g_neurowin.pos_y = GLDisplay.size_y - g_win.size_y - 18;
+  }
+  g_neuro.showCreature(c);
+}
+
+function hideNN()
+{
+  if (g_neurowin)
+    GLDisplay.deleteWindow(g_neurowin);
+  g_neurowin = null;
+  g_neuro = null;
+}
+
+function onResize()
+{
+  g_win.size_x = GLDisplay.size_x / 3;
+  g_win.size_y = GLDisplay.size_y / 3;
+  g_win.pos_x = GLDisplay.size_x - g_win.size_x;
+  g_win.pos_y = GLDisplay.size_y - g_win.size_y - 18;
+
+  g_win2.size_x = g_win.size_x;
+  g_win2.size_y = g_win.size_y;
+  g_win2.pos_x = g_win.pos_x-g_win2.size_x;
+  g_win2.pos_y = g_win.pos_y;
+
+  if (!g_neurowin)
+    return ;
+  g_neurowin.size_x = GLDisplay.size_x / 3;
+  g_neurowin.size_y = GLDisplay.size_y / 3;
+  g_neurowin.pos_x = 0;
+  g_neurowin.pos_y = GLDisplay.size_y - g_win.size_y - 18;
+}
+
+function ShowParams_restart_call()
+{
+  Simulator.init();
+  GLDisplay.desiredsimspeed = 100;
+  Simulator.print("Restarting experiment...");
+  g_chart.clear();
+  g_chart2.clear();
+  g_step = 0;
+}
+
+~
+
+prop:
+id:restart
+name:Restart
+type:p

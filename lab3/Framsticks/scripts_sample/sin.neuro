@@ -1,0 +1,35 @@
+class:
+name:Sin_Test
+longname:Sinus Generator
+description:Sample custom neuron class. This one works just like the "Sin" neuron.
+prefinputs:1
+prefoutput:1
+icon:~
+46,3,12,75,50,71,37,62,28,50,25,37,28,28,37,25,50,28,62,37,71,50,75,62,71,71,62,75,50,1,75,50,100,50,5,35,50,40,35,45,35,55,65,60,65,65,50~
+code:~
+function init()
+{ Fields.t_priv=Fields.t; }
+
+function go()
+{ // "t_priv" is used because "t" is constrained to 0..2pi
+  Fields.t_priv = Fields.t_priv + Fields.f0 + Neuro.weightedInputSum;
+  Neuro.state = Math.sin(Fields.t_priv);
+}
+~
+
+prop:
+id:f0
+name:base frequency
+type:f -1.0 1.0 0.06283185307
+
+prop:
+id:t
+name:time
+type:f 0 6.283185307 0
+
+prop:
+id:t_priv
+name:time (private)
+type:f
+flags:32
+

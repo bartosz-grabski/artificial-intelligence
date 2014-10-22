@@ -1,0 +1,2286 @@
+# Gene pool: "fonts"
+# This gene pool contains creatures which resemble letters and digits. There
+# are 26 letters and 10 digits expressed as genotypes (in both f0 and f1
+# genetic encodings).
+# This gene pool is required by the "text writer" experiment definition which
+# writes formatted texts using "the Framsticks font".
+# Downloaded on 2006-05-25 from Framsticks Experimentation Center
+
+org:
+name:f0_0
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 4
+j: 3, 5
+j: 4, 6
+j: 5, 7
+j: 6, 7~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:327
+popsiz:0
+
+org:
+name:f0_1
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 0, 1~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:328
+popsiz:0
+
+org:
+name:f0_2
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 3, 4
+j: 4, 5
+j: 5, 6~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:329
+popsiz:0
+
+org:
+name:f0_3
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 3, 4
+j: 4, 6
+j: 5, 6
+j: 6, 7
+j: 7, 9
+j: 8, 10
+j: 9, 11
+j: 10, 11~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:330
+popsiz:0
+
+org:
+name:f0_4
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 3
+j: 2, 3
+j: 3, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:331
+popsiz:0
+
+org:
+name:f0_5
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 2, 3
+j: 3, 4
+j: 4, 6
+j: 5, 7
+j: 6, 8
+j: 7, 8~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:332
+popsiz:0
+
+org:
+name:f0_6
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+p: -0.50, 0.25
+p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 6
+j: 4, 5
+j: 4, 6
+j: 5, 7
+j: 6, 8
+j: 7, 9
+j: 8, 10
+j: 9, 11
+j: 10, 11~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:333
+popsiz:0
+
+org:
+name:f0_7
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 1, 2~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:334
+popsiz:0
+
+org:
+name:f0_8
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+p: -0.50, 0.25
+p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 6
+j: 5, 7
+j: 6, 7
+j: 6, 8
+j: 7, 9
+j: 8, 10
+j: 9, 11
+j: 10, 12
+j: 11, 13
+j: 12, 13~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:335
+popsiz:0
+
+org:
+name:f0_9
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 6
+j: 5, 7
+j: 5, 9
+j: 6, 7
+j: 8, 10
+j: 9, 11
+j: 10, 11~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:336
+popsiz:0
+
+org:
+name:f0_A
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 5
+j: 4, 6
+j: 5, 7~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:337
+popsiz:0
+
+org:
+name:f0_B
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+p: 0.50, 0.25
+#p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 4
+j: 1, 2
+j: 2, 3
+j: 3, 5
+j: 4, 5
+j: 4, 8
+j: 5, 6
+j: 6, 7
+j: 7, 9
+j: 8, 9~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:338
+popsiz:0
+
+org:
+name:f0_C
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 4, 6
+j: 5, 7
+j: 6, 7~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:339
+popsiz:0
+
+org:
+name:f0_D
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 4
+j: 1, 2
+j: 2, 3
+j: 3, 5
+j: 4, 5~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:340
+popsiz:0
+
+org:
+name:f0_E
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 2, 3
+j: 2, 4
+j: 4, 5~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:341
+popsiz:0
+
+org:
+name:f0_F
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 2, 3
+j: 2, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:342
+popsiz:0
+
+org:
+name:f0_G
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 6
+j: 4, 5
+j: 5, 7
+j: 6, 8
+j: 7, 9
+j: 8,9~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:343
+popsiz:0
+
+org:
+name:f0_H
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 3
+j: 2, 3
+j: 2, 4
+j: 3, 5~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:344
+popsiz:0
+
+org:
+name:f0_I
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+#p: -0.25, -0.75
+p: 0.00, -0.75
+#p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 1, 2~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:345
+popsiz:0
+
+org:
+name:f0_J
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:346
+popsiz:0
+
+org:
+name:f0_K
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 3
+j: 1, 2
+j: 2, 3
+j: 2, 5
+j: 3, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:347
+popsiz:0
+
+org:
+name:f0_L
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 1, 2~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:348
+popsiz:0
+
+org:
+name:f0_M
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 0, 3
+j: 1, 2
+j: 1, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:349
+popsiz:0
+
+org:
+name:f0_N
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 0, 3
+j: 1, 3~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:350
+popsiz:0
+
+org:
+name:f0_O
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 6
+j: 5, 7
+j: 6, 7~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:351
+popsiz:0
+
+org:
+name:f0_P
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 4
+j: 1, 2
+j: 2, 3
+j: 3, 5
+j: 4, 5
+j: 4, 6~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:352
+popsiz:0
+
+org:
+name:f0_Q
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+p: 0.60, 0.85
+p: 0.1, 0.6
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 6
+j: 5, 7
+j: 6, 7
+j:7,8
+j:7,9~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, MacKo, 2005-01-10~
+num:353
+popsiz:0
+
+org:
+name:f0_R
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+p: 0.50, -0.50
+#p: -0.50, -0.25
+p: 0.50, -0.25
+
+#middle line [9-13]
+p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 4
+j: 1, 2
+j: 2, 3
+j: 3, 5
+j: 4, 5
+j: 4, 7
+j: 5, 6
+j: 6, 8~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:354
+popsiz:0
+
+org:
+name:f0_S
+genotype:~
+//0
+
+# top line [1-4]
+#p: -0.50, -0.75
+p: -0.25, -0.75
+#p: 0.00, -0.75
+p: 0.25, -0.75
+#p: 0.50, -0.75
+
+#top-middle [5-8]
+p: -0.50, -0.50
+p: 0.50, -0.50
+p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+p: -0.25, -0.00
+#p: 0.00, -0.00
+p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 4, 5
+j: 5, 6
+j: 6, 7
+j: 7, 9
+j: 8, 10
+j: 9, 11
+j: 10, 11~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:355
+popsiz:0
+
+org:
+name:f0_T
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 1, 2
+j: 1, 3~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:356
+popsiz:0
+
+org:
+name:f0_U
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+p: -0.50, 0.50
+p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+p: -0.25, 0.75
+#p: 0.00, 0.75
+p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 3
+j: 2, 4
+j: 3, 5
+j: 4, 5~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:357
+popsiz:0
+
+org:
+name:f0_V
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+#p: -0.50, 0.75
+#p: -0.25, 0.75
+p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 2~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:358
+popsiz:0
+
+org:
+name:f0_W
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 3
+j: 1, 4
+j: 2, 3
+j: 2, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:359
+popsiz:0
+
+org:
+name:f0_X
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 2
+j: 2, 3
+j: 2, 4~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:360
+popsiz:0
+
+org:
+name:f0_Y
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+#p: 0.50, 0.75
+
+#joints
+j: 0, 2
+j: 1, 2
+j: 2, 3~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:361
+popsiz:0
+
+org:
+name:f0_Z
+genotype:~
+//0
+
+# top line [1-4]
+p: -0.50, -0.75
+#p: -0.25, -0.75
+#p: 0.00, -0.75
+#p: 0.25, -0.75
+p: 0.50, -0.75
+
+#top-middle [5-8]
+#p: -0.50, -0.50
+#p: 0.50, -0.50
+#p: -0.50, -0.25
+#p: 0.50, -0.25
+
+#middle line [9-13]
+#p: -0.50, -0.00
+#p: -0.25, -0.00
+#p: 0.00, -0.00
+#p: 0.25, -0.00
+#p: 0.50, -0.00
+
+#middle-bottom [14-17]
+#p: -0.50, 0.25
+#p: 0.50, 0.25
+#p: -0.50, 0.50
+#p: 0.50, 0.50
+
+#bottom line [18-22]
+p: -0.50, 0.75
+#p: -0.25, 0.75
+#p: 0.00, 0.75
+#p: 0.25, 0.75
+p: 0.50, 0.75
+
+#joints
+j: 0, 1
+j: 1, 2
+j: 2, 3~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:362
+popsiz:0
+
+org:
+name:f1_0
+genotype:~
+(X(,,X(,,X)),,X(X(X,,),,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:363
+popsiz:0
+
+org:
+name:f1_1
+genotype:~
+(X(X,,,,,,),,X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:364
+popsiz:0
+
+org:
+name:f1_2
+genotype:~
+(,X(X(X,,),,),X(X,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:365
+popsiz:0
+
+org:
+name:f1_3
+genotype:~
+lllX(X(X,,),,X(,,X))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:366
+popsiz:0
+
+org:
+name:f1_4
+genotype:~
+(X,X(X,,X),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:367
+popsiz:0
+
+org:
+name:f1_5
+genotype:~
+(X(,,X),X(,,X(,,X)),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:368
+popsiz:0
+
+org:
+name:f1_6
+genotype:~
+(X(,,X),X(,,X),X(X,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:369
+popsiz:0
+
+org:
+name:f1_7
+genotype:~
+X(,,XX)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:370
+popsiz:0
+
+org:
+name:f1_8
+genotype:~
+X(X(X(X,,),,),,X(,,X(,,X)))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:371
+popsiz:0
+
+org:
+name:f1_9
+genotype:~
+X(X(X(X,,),,),,X(,,X))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:372
+popsiz:0
+
+org:
+name:f1_A
+genotype:~
+(,,,X,,X(,X,,,,,,,X,,),,,X,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:373
+popsiz:0
+
+org:
+name:f1_B
+genotype:~
+(X(,,,lX(,,,,,,llX(,,,,X,),,)),,X(lX(,,llX(,X,,,,),,,,,,),,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:374
+popsiz:0
+
+org:
+name:f1_C
+genotype:~
+(X(,,X),,X(X,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:375
+popsiz:0
+
+org:
+name:f1_D
+genotype:~
+(X(,,,lX(,lX)), ,X(lX(lX,),,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:376
+popsiz:0
+
+org:
+name:f1_E
+genotype:~
+(X(,,X),lllX,X(X,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:377
+popsiz:0
+
+org:
+name:f1_F
+genotype:~
+(X(,,X),lllX,X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:378
+popsiz:0
+
+org:
+name:f1_G
+genotype:~
+(X(,,X),,X(X(X(llllX,,),,),,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:379
+popsiz:0
+
+org:
+name:f1_H
+genotype:~
+(X,X(X,,X),X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:380
+popsiz:0
+
+org:
+name:f1_I
+genotype:~
+(X,,X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:381
+popsiz:0
+
+org:
+name:f1_J
+genotype:~
+llX(,llllX(,LLLX,,),,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, MacKo, 2005-01-10~
+num:382
+popsiz:0
+
+org:
+name:f1_K
+genotype:~
+(,,X,X,,,,X,X,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:383
+popsiz:0
+
+org:
+name:f1_L
+genotype:~
+(X,,X(X,,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:384
+popsiz:0
+
+org:
+name:f1_M
+genotype:~
+(X(XX,,,,,,,,,,),X(,,,,,,,,,,XX),,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:385
+popsiz:0
+
+org:
+name:f1_N
+genotype:~
+(X(XX,,,,,,,,,,),,,X(XX,,,,,,,,,,),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:386
+popsiz:0
+
+org:
+name:f1_O
+genotype:~
+(X(,,X(,,X)),,X(X(X,,),,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:387
+popsiz:0
+
+org:
+name:f1_P
+genotype:~
+(X(,,X(,,X(,,X))),,X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:388
+popsiz:0
+
+org:
+name:f1_Q
+genotype:~
+(X(,,X(,,X)),,X(X(llllllX,X,,,llllllX,,),,))~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, MacKo, 2005-01-10~
+num:389
+popsiz:0
+
+org:
+name:f1_R
+genotype:~
+(X(,,,lX(,,,,,,llX(,,,,X,),,)),lX(,,X),X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:390
+popsiz:0
+
+org:
+name:f1_S
+genotype:~
+(X(,,X),X(,,X(,,X)),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:391
+popsiz:0
+
+org:
+name:f1_T
+genotype:~
+(X(lllX,,llllX),,X)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:392
+popsiz:0
+
+org:
+name:f1_U
+genotype:~
+(XX,X(XX,,),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:393
+popsiz:0
+
+org:
+name:f1_V
+genotype:~
+(,,,,XX,,XX,,,,,,,,,,,,,,,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:394
+popsiz:0
+
+org:
+name:f1_W
+genotype:~
+(,,XX,X(,,,,X(XX,,,,,,,,,,)),,,,,,,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:395
+popsiz:0
+
+org:
+name:f1_X
+genotype:~
+(,X,,X,,,,X,,X,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:396
+popsiz:0
+
+org:
+name:f1_Y
+genotype:~
+(,X,,X,,,,,,X,)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:397
+popsiz:0
+
+org:
+name:f1_Z
+genotype:~
+(,,,X(X,,,,),,,,,,X(X,,,,),)~
+info:~
+HOW CREATED:
+Designed
+SUBMITTED BY: MarCas, 2005-01-10~
+num:398
+popsiz:0
+

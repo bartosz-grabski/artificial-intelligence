@@ -1,0 +1,41 @@
+class:
+name:ChMux_Test
+longname:Channel multiplexer
+description:Sample custom neuron class. This one works just like the "ChMux" neuron.
+prefinputs:2
+prefoutput:1
+icon:52,7,4,25,0,25,100,75,70,75,30,25,0,1,75,50,100,50,1,70,50,55,50,3,50,55,55,50,50,45,50,55,3,30,67,45,67,45,50,50,50,1,35,70,39,64,2,30,33,53,33,53,48
+code:~
+function init()
+{}
+
+function go()
+{
+  var c = Neuro.getInputChannelCount(1);
+  if (c < 2)
+  {
+    Neuro.state = Neuro.getWeightedInputState(1);
+    return ;
+  }
+  var s = Neuro.getWeightedInputState(0);
+  if (s > 1.0)
+    s = 1.0;
+  else if (s < -1.0)
+    s = -1.0;
+  s = (s + 1.0) / 2.0;
+  var i1;
+  i1 = 0 + s * (c - 1);
+  if (i1 > (c - 2))
+    i1 = c - 2;
+  var sw = 1.0 / (c - 1);
+  var s1 = sw * i1;
+  var w1 = (s - s1) / sw;
+  if (w1 < 0)
+    w1 = -w1;
+  var w2 = 1.0 - w1;
+  var is1 = Neuro.getWeightedInputStateChannel(1, i1);
+  var is2 = Neuro.getWeightedInputStateChannel(1, i1 + 1);
+  Neuro.state = is1 * w2 + is2 * w1;
+}
+~
+

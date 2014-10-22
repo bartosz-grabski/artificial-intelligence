@@ -1,0 +1,276 @@
+<HTML><HEAD><TITLE>NeuronsSimEnabled</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>NeuronsSimEnabled class in <A HREF="x_globalcontext.html">Global context</A></H2>
+21 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_N
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Neuron (N)</p>
+<p class="help">Standard neuron<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Nu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Unipolar neuron [EXPERIMENTAL!] (Nu)</p>
+<p class="help">Works like standard neuron (N) but the output value is scaled to 0...+1 instead of -1...+1.<BR/>
+Having 0 as one of the saturation states should help in "gate circuits", where input signal is passed through or blocked depending on the other singal.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_G
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Gyroscope (G)</p>
+<p class="help">Equilibrium sensor.<BR/>
+0=the stick is horizontal<BR/>
++1/-1=the stick is vertical<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Joint<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_T
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Touch (T)</p>
+<p class="help">Touch sensor.<BR/>
+-1=no contact<BR/>
+0=just touching<BR/>
+&gt;0=pressing, value depends on the force applied<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_S
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Smell (S)</p>
+<p class="help">Smell sensor. Aggregated "smell of energy" experienced from all energy objects (creatures and food pieces).<BR/>
+Close objects have bigger influence than the distant ones: for each energy source, its partial feeling is proportional to its energy/(distance^2)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_*
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Constant (*)</p>
+<p class="help">Constant value<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_|
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Bend muscle (|)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1<BR/>
+   bending range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_@
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Rotation muscle (@)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_D
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Differentiate (D)</p>
+<p class="help">Calculate the difference between the current and previous input value. Multiple inputs are aggregated with respect to their weights<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Fuzzy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Fuzzy system [EXPERIMENTAL!] (Fuzzy)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of fuzzy sets (ns) integer<BR/>
+   number of rules (nr) integer<BR/>
+   fuzzy sets (fs) string<BR/>
+   fuzzy rules (fr) string</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_VEye
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Vector Eye [EXPERIMENTAL!] (VEye)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   target.x (tx) float<BR/>
+   target.y (ty) float<BR/>
+   target.z (tz) float<BR/>
+   target shape (ts) string<BR/>
+   perspective (p) float 0.1..10<BR/>
+   scale (s) float 0.1..100<BR/>
+   show hidden lines (h) integer 0..1<BR/>
+   output lines count (each line needs four channels) (o) integer 0..99<BR/>
+   debug (d) integer 0..1</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_VMotor
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Visual-Motor Cortex [EXPERIMENTAL!] (VMotor)</p>
+<p class="help">Must be connected to the VEye and properly set up. Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of basic features (noIF) integer<BR/>
+   number of degrees of freedom (noDim) integer<BR/>
+   parameters (params) string</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Sti
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sticky [EXPERIMENTAL!] (Sti)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_LMu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Linear muscle [EXPERIMENTAL!] (LMu)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Water
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Water detector (Water)</p>
+<p class="help">Output signal:<BR/>
+0=on or above water surface<BR/>
+1=under water (deeper than 1)<BR/>
+0..1=in the transient area just below water surface<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Energy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Energy level (Energy)</p>
+<p class="help">The current energy level divided by the initial energy level.<BR/>
+Usually falls from initial 1.0 down to 0.0 and then the creature dies. It can rise above 1.0 if enough food is ingested<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Ch
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channelize (Ch)</p>
+<p class="help">Combines all input signals into a single multichannel output; Note: ChSel and ChMux are the only neurons which support multiple channels. Other neurons discard everything except the first channel.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_ChMux
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel multiplexer (ChMux)</p>
+<p class="help">Outputs the selected channel from the second (multichannel) input. The first input is used as the selector value (-1=select first channel, .., 1=last channel)<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses 2 inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_ChSel
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel selector (ChSel)</p>
+<p class="help">Outputs a single channel (selected by the "ch" parameter) from multichannel input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   channel (ch) integer</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Rnd
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Random noise (Rnd)</p>
+<p class="help">Generates random noise (subsequent random values in the range of -1..+1)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Sin
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sinus generator (Sin)</p>
+<p class="help">Output frequency = f0+input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   base frequency (f0) float -1..1<BR/>
+   time (t) float 0..6.28319</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

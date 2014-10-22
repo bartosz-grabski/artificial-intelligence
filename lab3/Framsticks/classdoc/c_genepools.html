@@ -1,0 +1,147 @@
+<HTML><HEAD><TITLE>GenePools</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>GenePools class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Manages all genotypes in the experiment, organized in one or more groups. Some functions refer to the "selected genotype" i.e. the genotype number "GenePools.genotype" in the pool number "GenePools.group". For example to access the first genoype in the first group you could do:<BR/>
+GenePools.group=0; GenePools.genotype=0; var name=Genotype.name;<BR/>
+However, the preferred way doesn't refer to the static Genotype object:<BR/>
+ var name=GenePools[0][0].name;<BR/>
+<BR/>
+Apart from the Genotypes in the group, there is also one temporary Genotype object used by genetic operators and some functions from GenePools. Genotype points to that object when "GenePools.genotype"=-1. The following code accesses that object before adding it to the genotype group:<BR/>
+GenePools.newGenotype("X");<BR/>
+ //makes the temporary object from the "X" genotype, GenePools.genotype is now -1<BR/>
+GenePools.mutateSelected();<BR/>
+ //the temporary object is mutated<BR/>
+Genotype.info="my favorite genotype";<BR/>
+ //modify the temporary object<BR/>
+GenePools.copySelected(0);<BR/>
+ //copy the current, i.e. temporary genotype to the genotype group #0</DIV><BR>
+26 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genotype
+<div class="typedescr">integer</div></td><td>
+<p class="membername">selected genotype</p>
+<p class="help">Index of the currently selected genotype or -1 if no genotype is selected.</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;group
+<div class="typedescr">integer</div></td><td>
+<p class="membername">selected group</p>
+<p class="help">Index of the currently selected group (GenePool).</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of groups</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function addGroup(string name)</code><br>
+<p class="help">Adds a new gene pool.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addPerformanceFromCreature
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function addPerformanceFromCreature()</code><br>
+<p class="help">Updates the current Genotype's performance values merging them with the current Creture's performance. It assumes the Genotype.instances has a reasonable value and performs the proper weighting. Use your own function instead if these conditions are not met in your experiment.</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function clear()</code><br>
+<p class="help">Removes all gene pools except the first one.</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clearGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function clearGroup(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;copySelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function copySelected(integer groupindex)</code><br>
+<p class="help">Copies the selected genotype to another group.</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;crossoverSelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function crossoverSelected(integer other_index)</code><br>
+<p class="help">Crossovers the selected genotype with another one (from the genotype group). The resulting genotype is stored in the static Genotype object detached from the genotype group. After calling this function GenePools.genotype is -1 indicating that no genotype from the group is selected.</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function deleteGroup(integer index)</code><br>
+<p class="help">Removes a gene pool.</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteOne
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function deleteOne(integer genotype_index)</code><br>
+<p class="help">Deletes one individual from the gene pool = decreases 'instances' and deletes the genotype if the 'instances' goes to 0.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteSelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function deleteSelected()</code><br>
+<p class="help">Deletes selected genotype from the gene pool (uses the selected genotype object).</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findGenotype
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function findGenotype()</code><br>
+<p class="help">Finds a genotype matching the current genotype. It only makes sense when the current genotype is a result of the genetic operator.</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findGenotypeForCreature
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function findGenotypeForCreature()</code><br>
+<p class="help">Finds a genotype matching the selected creature.</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns <A HREF="c_genepool.html">GenePool</A></div></td><td>
+<p class="membername"></p>
+<code>function get(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getFromCreature
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function getFromCreature()</code><br>
+<p class="help">Copies a genotype from the selected creature. The resulting genotype is stored in the static Genotype object detached from the genotype group.</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getFromCreatureObject
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function getFromCreatureObject(<A HREF="c_creature.html">Creature</A>)</code><br>
+<p class="help">Copies a genotype from the creature object passed in argument. The resulting genotype is stored in the static Genotype object detached from the genotype group.</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;likeThisRoulette
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function likeThisRoulette(float minimum_similarity)</code><br>
+<p class="help">Gets a random genotype similar to the selected one, fitness-proportional.</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;mutateSelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function mutateSelected()</code><br>
+<p class="help">Mutates the selected genotype. The resulting genotype is stored in the static Genotype object detached from the genotype group. After calling this function GenePools.genotype is -1 indicating that no genotype from the group is selected.</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newGenotype
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function newGenotype(string genotype)</code><br>
+<p class="help">Makes a new genotype from the supplied string and select the genotype. The resulting genotype is stored in the static Genotype object detached from the genotype group. After calling this function GenePools.genotype is -1 indicating that no genotype from the group is selected. (call "copySelected" if you want to add this gentype to the genotype group).</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;random
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function random()</code><br>
+<p class="help">Gets random genotype.</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;randomLikeThis
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function randomLikeThis(float minimum_similarity)</code><br>
+<p class="help">Gets a random genotype similar to the selected one.</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;revroulette
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function revroulette()</code><br>
+<p class="help">Get reverse fitness-proportional genotype.</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;roulette
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function roulette()</code><br>
+<p class="help">Gets fitness-proportional genotype.</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;tournament
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function tournament(integer genotypes_in_tournament)</code><br>
+<p class="help">Gets tournament winner genotype.</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;worst
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function worst()</code><br>
+<p class="help">Gets worst genotype.</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

@@ -1,0 +1,11 @@
+script:
+name:Dump creatures
+help:Dumps coordinates and velocities of all Parts of all living Creatures from group #0
+code:~
+function main()
+{
+  dumpCreatures(0);
+}
+
+@include "dump_creatures.inc"
+~

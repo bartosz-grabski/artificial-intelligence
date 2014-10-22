@@ -1,0 +1,177 @@
+<HTML><HEAD><TITLE>Population</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Population class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">A set of Creature objects, sharing some high level simulation properties (performance calculation, NN simulation, collision detection, event handling). The groups usually have different roles in the experiment (Creatures groups and Food group in standard.expdef).</DIV><BR>
+28 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="14"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;bodysim
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Body simulation</p>
+<p class="help">Enable/disable physical body simulation. This is the initial value of Creature.bodysim for all objects created in this group. For details, see the documentation of Creature.bodysim.</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;colmask
+<div class="typedescr">integer, 0&nbsp;..&nbsp;65535<br>
+default=0</div></td><td>
+<p class="membername">Collision mask (deprecated)</p>
+<p class="help">DEPRECATED. You should use selfmask and othermask (these masks are also much easier to understand than the old colmask field).</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;death
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Death</p>
+<p class="help">Do creatures die when no energy?</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;em_dyn
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Muscle dynamic work</p>
+<p class="help">Energy requirements for a muscle<BR/>
+moving a stick</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;em_stat
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Muscle static work</p>
+<p class="help">Energy requirements for a muscle<BR/>
+resisting an external force</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;en_assim
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Assimilation productivity</p>
+<p class="help">Maximal energy gain produced by a vertical specialized stick.<BR/>
+Horizontal specialized sticks get half of this value.</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;enableperf
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Off<li>1 = Immediate (default)<li>2 = After stabilization</div></td><td>
+<p class="membername">Performance calculation</p>
+<p class="help">Stabilization means no significant movement during a specified period of time.</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;energy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Energy calculation</p>
+<p class="help">If turned off, creature's energy will be constant.</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;index
+<div class="typedescr">integer</div></td><td>
+<p class="membername">group index</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;killnostable
+<div class="typedescr">integer, 0&nbsp;..&nbsp;10000000<br>
+default=1000000</div></td><td>
+<p class="membername">Kill if no stabilization after</p>
+<p class="help">Creatures that fail to stabilize after the specified waiting period (e.g. because they are continuously rolling) will be killed. 0 disables this feature.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">Group name</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;nnsim
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Off<li>1 = Immediate (default)<li>2 = After stabilization</div></td><td>
+<p class="membername">Neural net simulation</p>
+<p class="help">Stabilization means no significant movement during a specified period of time.</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;othermask
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2147483647<br>
+default=0</div></td><td>
+<p class="membername">Collision mask (other)</p>
+<p class="help">See selfmask.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;perfperiod
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1000000<br>
+default=100</div></td><td>
+<p class="membername">Performance sampling period</p>
+<p class="help">Defines how often onUpdate() events are called. Also used to compute partial performance of creatures (distance, speed, etc.) and to determine stabilization.</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;selfcol
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=0</div></td><td>
+<p class="membername">Detect self-collisions</p>
+<p class="help">Detect collisions within creature bodies (only applicable for the ODE simulation engine). This is the initial value of Creature.selfcol for all objects created in this group. If enabled, creatures with self-colliding genotypes are not born, and others will have their sticks collide during lifespan.</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;selfmask
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2147483647<br>
+default=0</div></td><td>
+<p class="membername">Collision mask (self)</p>
+<p class="help">Collisions between objects can be handled in two ways:<BR/>
+ - standard 'mechanical' collision (simple 'rebound' effect)<BR/>
+ - special script handler (On[GROUPNAME]Collision function)<BR/>
+<BR/>
+In the script handler function, use the Collision object to access the two colliding parts of two creatures.<BR/>
+The first part in the Collision object (i.e. Collision.Creature1) always concerns the creature that belongs to [GROUPNAME].<BR/>
+The handler is called once for each creature that collides with the creature from [GROUPNAME].<BR/>
+<BR/>
+Collision masks determine which one will be used (none and both are also possible). On each collision, selfmask and othermask of the colliding objects are logically ANDed. 16 lower bits (0xffff) enable the standard handler. 16 higher bits (0xffff0000) enable the custom handler. <BR/>
+Examples:<BR/>
+<BR/>
+1.With one group, all possible combinations of the collision handlers are as follows:<BR/>
+  - ignore collisions (e.g. selfmask=othermask=0)<BR/>
+  - use standard handling (e.g. selfmask=othermask=1)<BR/>
+  - use custom handling (e.g. selfmask=othermask=0x10000)<BR/>
+  - use standard and custom handling (e.g. selfmask=othermask=0x10001)<BR/>
+<BR/>
+2.Two groups yield more interesting cases. Let us consider the 'standard.expdef' setting:<BR/>
+  Creatures: selfmask=0x10001, othermask=0x20001<BR/>
+  Food colmask = selfmask=0x20002, othermask=0x10002<BR/>
+There are three possible scenarios:<BR/>
+- creature and creature: collision value = 0x10001 & 0x20001 = 1 -&gt; Standard handling will be used (1 is one of the lower 16 bits)<BR/>
+- food and food: collision value = 0x20002 & 0x10002 = 2 -&gt; As above.<BR/>
+- creature and food: collision value = (0x10001 & 0x10002) or (0x20002 & 0x20001) = 0x10000 or 0x20000 -&gt; Custom handling will be used (higher 16 bits).<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of creatures</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;stabilperiod
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1000000<br>
+default=100</div></td><td>
+<p class="membername">Sampling period while waiting</p>
+<p class="help">"Performance sampling period" for the stabilization phase.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;stabledist
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.01</div></td><td>
+<p class="membername">Allowed distance to be stable</p>
+<p class="help">A creature is considered stabilized when its center of gravity stays within the specified distance after the "Sampling period while waiting" has elapsed.</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createFromGeno
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function createFromGeno(<A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">Uses the supplied Geno object</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createFromGenotype
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function createFromGenotype()</code><br>
+<p class="help">Uses the selected Genotype object</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createFromString
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function createFromString(string genotype)</code><br>
+<p class="help">Uses the supplied string argument</p>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;delete
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function delete(integer creature_index)</code><br>
+<p class="help">delete creature</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findCreatureAt
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function findCreatureAt(<A HREF="c_vector.html">Vector</A> point, <A HREF="c_vector.html">Vector</A> vector)</code><br>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findUID
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">find creature by UID</p>
+<code>function findUID(string uid)</code><br>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername">get creature object</p>
+<code>function get(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;kill
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function kill(integer creature_index)</code><br>
+<p class="help">kill creature</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;senseCreaturesProperty
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">senseCreaturesProperty</p>
+<code>function senseCreaturesProperty(float x, float y, float z, string propertyname, <A HREF="c_creature.html">Creature</A> exclude)</code><br>
+<p class="help">arguments:<BR/>
+ - x,y,z (sensor position)<BR/>
+ - property (name, name[index] or Class:id). name[index] can be used for Vector objects inside the user fields, eg "user2[10]"<BR/>
+ - exclude (creature object)<BR/>
+works like a smell sensor for a given property (for all creatures in this group except "exclude").<BR/>
+The following function reproduces the "classic" framsticks "S" sensor:<BR/>
+function smellReceptorValue(x,y,z,exclude)<BR/>
+{<BR/>
+var i,s=0; for(i=0;i&lt;Populations.size;i++)<BR/>
+	s+=Populations[0].senseCreaturesProperty(x,y,z,"energy",exclude);<BR/>
+return s;<BR/>
+}</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

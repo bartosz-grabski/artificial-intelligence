@@ -1,0 +1,73 @@
+<HTML><HEAD><TITLE>Populations</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Populations class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Manages all Creature objects in the experiment, organized in one or more groups. See also: Creature, Population.</DIV><BR>
+14 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;creature
+<div class="typedescr">integer</div></td><td>
+<p class="membername">selected creature</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;group
+<div class="typedescr">integer</div></td><td>
+<p class="membername">selected group</p>
+<p class="help">Index of the currently selected group (Population).</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of groups</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function addGroup(string name)</code><br>
+<p class="help">Adds a new population.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function clear()</code><br>
+<p class="help">Removes all populations except the first one.</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clearGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function clearGroup(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;creatBBCollisions
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername"></p>
+<code>function creatBBCollisions(integer mask)</code><br>
+<p class="help">Checks approximate collisions for the selected creature.<BR/>
+Returns the collision mask calculated as in the regular simulation. The argument is the collision mask substituted for the selected creature (defaults to group colmask for 0).</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createFromGenotype
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function createFromGenotype()</code><br>
+<p class="help">Uses the selected Genotype object.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createFromString
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function createFromString(string genotype)</code><br>
+<p class="help">Uses the supplied string argument.</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteGroup
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function deleteGroup(integer index)</code><br>
+<p class="help">Removes a population.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteSelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function deleteSelected()</code><br>
+<p class="help">Applies to the selected Creature.</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findCreatureAt
+<div class="typedescr">returns <A HREF="c_creature.html">Creature</A></div></td><td>
+<p class="membername"></p>
+<code>function findCreatureAt(<A HREF="c_vector.html">Vector</A> point, <A HREF="c_vector.html">Vector</A> vector)</code><br>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns <A HREF="c_population.html">Population</A></div></td><td>
+<p class="membername"></p>
+<code>function get(integer index)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;killSelected
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function killSelected()</code><br>
+<p class="help">Applies to the selected Creature.</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

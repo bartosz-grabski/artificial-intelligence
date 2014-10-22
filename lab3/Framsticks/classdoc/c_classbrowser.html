@@ -1,0 +1,45 @@
+<HTML><HEAD><TITLE>ClassBrowser</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>ClassBrowser class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+<DIV CLASS="classdesc">Object reference, can be used to provide online hints.</DIV><BR>
+6 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;resultCount
+<div class="typedescr">integer</div></td><td>
+<p class="membername">result count</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getLabel
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">get result label</p>
+<code>function getLabel(integer item)</code><br>
+<p class="help">Short texual label of the search result.</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getText
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">get result text</p>
+<code>function getText(integer item)</code><br>
+<p class="help">Complete result text.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getType
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">get result type</p>
+<code>function getType(integer item)</code><br>
+<p class="help">0 = Unknown<BR/>
+1 = Context<BR/>
+2 = Class<BR/>
+3 = Member<BR/>
+4 = Integer field<BR/>
+5 = Float field<BR/>
+6 = String field<BR/>
+7 = Object field<BR/>
+8 = Function</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getTypeName
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">get result type as string</p>
+<code>function getTypeName(integer item)</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;search
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">search</p>
+<code>function search(string Text)</code><br>
+<p class="help">Searches the class reference and returns the number of  hits (results). getXXX(item) function can be used to retrieve the results.</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

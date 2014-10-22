@@ -1,0 +1,40 @@
+<HTML><HEAD><TITLE>Ref</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Ref class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Reference objects. Useful for returning things from functions.<BR/>
+<BR/>
+Example:<BR/>
+var x=111;<BR/>
+square(&x);// '&' creates the Reference object<BR/>
+Simulator.print(x);//x is now 12321<BR/>
+<BR/>
+function square(r)<BR/>
+{r.value=r.value*r.value;}<BR/>
+//square receives the Reference objects and changes its 'value' field</DIV><BR>
+5 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="4"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;toString
+<div class="typedescr">string</div></td><td>
+<p class="membername">textual form</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="field-ns.gif" ALT="field" TITLE="field">&nbsp;value
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">value</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;copyFrom
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">copy the reference</p>
+<code>function copyFrom(<A HREF="c_ref.html">Ref</A>)</code><br>
+<p class="help">make the reference point to the same target,</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newO
+<div class="typedescr"></div></td><td>
+<p class="membername">create new reference</p>
+<code>function newO()</code><br>
+<p class="help">(for internal use only) use &variablename to create Ref objects.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newS
+<div class="typedescr"></div></td><td>
+<p class="membername">create new reference</p>
+<code>function newS()</code><br>
+<p class="help">(for internal use only) use &variablename to create Ref objects.</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

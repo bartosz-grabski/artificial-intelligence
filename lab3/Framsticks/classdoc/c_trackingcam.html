@@ -1,0 +1,68 @@
+<HTML><HEAD><TITLE>TrackingCam</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>TrackingCam class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+<DIV CLASS="classdesc">Camera object with the automatic target tracking ability.</DIV><BR>
+13 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;cam_change
+<div class="typedescr">integer, 0&nbsp;..&nbsp;5<li>0 = Off<li>1 = Cut<li>2 = Move<li>3 = Look+Move (default)<li>4 = Zoom+Move<li>5 = Zoom+Cut</div></td><td>
+<p class="membername">Target change</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;cam_chspeed
+<div class="typedescr">float, 0.1&nbsp;..&nbsp;10<br>
+default=1</div></td><td>
+<p class="membername">Change speed</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;cam_dir
+<div class="typedescr">float, 0&nbsp;..&nbsp;360<br>
+default=30</div></td><td>
+<p class="membername">Direction</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;cam_distrac
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=0</div></td><td>
+<p class="membername">Allow manual tracking</p>
+<p class="help">Suspend automatic tracking when the camera is moved manually</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;cam_h
+<div class="typedescr">float, 0&nbsp;..&nbsp;360<br>
+default=45</div></td><td>
+<p class="membername">Height</p>
+<p class="help">0=side view, 90=top view</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;cam_restrac
+<div class="typedescr">integer, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Time to restore</p>
+<p class="help">Restore automatic tracking after some period of time<BR/>
+(0 to never restore automatic tracking)</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;cam_tracking
+<div class="typedescr">integer, 0&nbsp;..&nbsp;3<li>0 = Off<li>1 = Position only (default)<li>2 = Chase<li>3 = Static camera</div></td><td>
+<p class="membername">Tracking mode</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;cam_trspeed
+<div class="typedescr">float, 0.1&nbsp;..&nbsp;10<br>
+default=5</div></td><td>
+<p class="membername">Tracking speed</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;cam_zoom
+<div class="typedescr">float, 0.2&nbsp;..&nbsp;3<br>
+default=0.8</div></td><td>
+<p class="membername">Zoom</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;cam_restore
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Restore automatic tracking now</p>
+<code>function cam_restore()</code><br>
+<p class="help">Update camera position and restore automatic tracking</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;moveTarget
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">moveTarget</p>
+<code>function moveTarget(float location_x, float location_y, float location_z, float target_size)</code><br>
+<p class="help">notify about the target location/size change</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;setTarget
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">setTarget</p>
+<code>function setTarget(float location_x, float location_y, float location_z, float target_size)</code><br>
+<p class="help">select a new target for the camera</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;setViewDir
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">setViewDir</p>
+<code>function setViewDir(float heading_angle, float height_angle)</code><br>
+<p class="help">heading: 0..360, height: -90..+90</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

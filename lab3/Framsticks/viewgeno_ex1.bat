@@ -1,0 +1,1 @@
+theater -g "XX(X,X[0:0])"

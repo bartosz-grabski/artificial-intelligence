@@ -1,0 +1,112 @@
+show:
+name:Dance
+info:Dance
+expdef:dance
+code:~
+
+global g_lasttime; //for auto popsize
+
+function onLoad()
+{
+  ShowManager.info = Simulator.expdef_info;
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_zoom = 1.2;
+  
+  GLDisplay.desiredsimspeed=30;
+  g_lasttime=Math.time;
+  ShowParams.dancers=0;
+  ShowParams_dancers_set();
+}
+
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(Math.sin(0.1 * Math.time) * 40, 20.0 + Math.sin(0.07 * Math.time) * 15);
+  if (ShowParams.dancers == 0)
+    autoPopsize();
+}
+
+function autoPopsize()
+{
+  if (Math.time - g_lasttime > 5.0)
+  {
+    //Simulator.print(""+GLDisplay.desiredsimspeed+" "+Simulator.simspeed+" "+GLDisplay.fps+" fps");
+    g_lasttime = Math.time;
+    if ((GLDisplay.fps < (0.85*GLDisplay.maxfps)) && ExpParams.MaxCreated > 2)
+    {
+      ExpParams.MaxCreated--;
+      g_arrangerequest = Simulator.time + 20;
+      //Simulator.print("-- ("+ExpParams.MaxCreated+")");
+    }
+    if (GLDisplay.fps > (0.95*GLDisplay.maxfps))
+    {
+      ExpParams.MaxCreated++;
+      g_arrangerequest = Simulator.time + 20;
+      //Simulator.print("++ ("+ExpParams.MaxCreated+")");
+    }
+  }
+}
+
+
+function ShowParams_restart_land_call()
+{
+  ExpParams_restart_land_call();
+}
+
+function ShowParams_restart_water_call()
+{
+  ExpParams_restart_water_call();
+}
+
+function ShowParams_arrangement_call()
+{
+  ExpParams_arrangement_call();
+}
+
+function ShowParams_dancers_set()
+{
+  ExpParams.MaxCreated = [9, 2, 3, 4, 9, 16][ShowParams.dancers];
+  g_arrangerequest = Simulator.time + 20;
+}
+
+function ShowParams_tempo_set()
+{
+  ExpParams.tempo=ShowParams.tempo;
+}
+
+function ShowParams_sound_set()
+{
+  ExpParams.sound=ShowParams.sound;
+}
+~
+
+prop:
+id:restart_land
+name:Land dance
+type:p
+
+prop:
+id:restart_water
+name:Water dance
+type:p
+
+prop:
+id:dancers
+name:Number of dancers
+type:d 0 5 ~Auto~2~3~4~9~16
+help:"Auto" adjusts the number of dancers to the speed of your computer.
+
+prop:
+id:tempo
+name:Dance tempo
+type:d 0 2 ~Slow~Medium~Fast
+
+prop:
+id:arrangement
+name:Change arrangement
+type:p
+
+prop:
+id:sound
+name:Beat
+type:d 0 1 1

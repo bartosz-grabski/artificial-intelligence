@@ -1,0 +1,40 @@
+show:
+name:Framsbots
+expdef:framsbots
+info:~
+You start in the middle. Run away from hostile creatures!
+Click somewhere to make your creature go there and try to make enemies hit each other.
+Eat apples to gain energy and lives.~
+code:~
+
+function onLoad()
+{
+  // set default values
+  ExpParams.level = 0;
+  GLDisplay.desiredsimspeed = 200;
+  // init game experiment
+  onExpInit();
+}
+
+function onShowStep()
+{
+  var b;
+
+  // display banner from expdef
+  b = banner + "\n";
+
+  // and additional info
+  if (ShowManager.userspeed>0)
+  {
+    b += "Enemies left: " + livingEnemies;
+    b += "\n";
+    b += "Lifes: " + lifes;
+  }
+  else
+  {
+    b += "Paused";
+  }
+  GLDisplay.banner = b;
+}
+
+~

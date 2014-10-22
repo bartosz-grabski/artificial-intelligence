@@ -1,0 +1,694 @@
+script:
+name:Make regular shapes
+help:Make regular shapes (truss, sponge, grid, net)
+code:~
+
+/**
+Author: Szymon Wojciechowski, MK 
+ 
+This scripts generates 4 kinds of regular shapes: a truss, a triangular or parallelogramic net, a sponge, and the Sierpinski's Pyramid.
+Each of these is parametrized so you can create a family of similar constructs - see the main() function.
+
+Each of these shapes is constructed from a basic module that is multiplied until the desired size is reached.
+Except from trusses, shapes are built using vectors of Parts and Joints and dictionaries of Parts and Joints.
+The dictionaries keep the index of each Joint or Part in the f0 genotype.
+This information is used to join proper Parts, and to check if a specific Joint already exists.
+
+//TODO: tetrahedral mesh
+*/
+
+function main()
+{
+  var stif = 1.0;    // axial stiffness, 0..1
+  var rotstif = 1.0; // rotational stiffness, 0..1
+  
+  var sideSticks = 1; // length of the edge of the cube - used only for truss
+  var diagonal = 1; // 0 or 1. Diagonals are actually diagonals only when sideSticks==1, otherwise they are only cantilevers (their length is always sqrt(2)). 
+  
+  // how many elements will the construction have in ...
+  var height = 3;
+  var depth = 3;
+  var width = 3;
+  
+  addSampleGenotype(createTruss(sideSticks, height, width, depth, diagonal, stif, rotstif));
+  addSampleGenotype(createTruss(sideSticks, 2, 2, 2, 0, stif, rotstif));
+  addSampleGenotype(createTruss(2, 0, 10, 10, 0, stif, rotstif));
+  addSampleGenotype(createTruss(4, 1, 1, 1, 1, stif, rotstif));
+  
+  addSampleGenotype(createSponge(height, width, depth, stif, rotstif)); 
+  addSampleGenotype(createSponge(1, 5, 5, stif, rotstif));
+  addSampleGenotype(createSponge(1, 1, 1, stif, rotstif));
+  
+  addSampleGenotype(createSierpinskiPyramid(height, stif, rotstif)); 
+  addSampleGenotype(createSierpinskiPyramid(4, stif, rotstif));
+  
+  var triangular = 0; // make triangular or parallelogramic net; 1 makes the net triangular, otherwise it will be parallelogramic
+  height = 10;
+  addSampleGenotype(createTriangularNet(height, triangular, stif, rotstif)); 
+  addSampleGenotype(createTriangularNet(height, 1, stif, rotstif));
+}
+
+/** adds a genotype */
+function addSampleGenotype(genotype_and_name)
+{
+  var geno = Geno.newFromString(genotype_and_name[0]);
+  geno.name = genotype_and_name[1];
+  geno.info = "A sample shape created by the 'regular_shapes.script' macro.\nSee this macro for more possibilities."; 
+  GenePool.addGeno(geno);
+}
+
+
+/** fills the array with XYZ points with coordinates from coordinatesVector */
+function fillArray(coordinatesVector, array)
+{
+  var i;
+  for ( i = 0 ; i < coordinatesVector.size ; i += 3 )
+    array.add( XYZ.new ( coordinatesVector[i] , coordinatesVector[i + 1] , coordinatesVector[i + 2] ) );
+}
+
+/** fills the array with joint indexes from indexesVector */
+function fillJointArray(indexesVector, array)
+{
+  var i;
+  for ( i = 0 ; i < indexesVector.size ; i += 2 )
+    array.add([indexesVector[i], indexesVector[i + 1]]);
+}
+
+/** describes (shortly!) stif and rotstif to be included in genotype name */
+function describeStifs(stif, rotstif)
+{
+  return " {" + stif + "," + rotstif + "}";
+}
+
+/** makes the base of the sponge shape */
+function createSponge(height, width, depth, stif, rotstif)
+{
+  var name = "createSponge(" + height + ", " + width + ", " + depth + ")" + describeStifs(stif, rotstif);
+  var points = Vector.new();
+  var joints = Vector.new();
+  var dict = Dictionary.new();
+  var jDict = Dictionary.new();
+  var i;
+
+  /** make the basic points */
+  var pointCoordinates = [0, 0, 0,
+                          0, 1, 0,
+                          1, 0, 0,
+                          0, 0, 1,
+                          1, 1, 0,
+                          1, 1, 1];
+
+  fillArray( pointCoordinates , points );
+
+  /** add points to the points dictionary */
+  for (i = 0 ; i < points.size ; i ++)
+    addPointToDict(dict, points[i], i + 1 );
+
+  /** make the basic joints */
+  var jointIndexes = [ 0, 1,
+                       1, 2,
+                       2, 3,
+                       3, 0,
+                       2, 0,
+                       1, 3,
+                       1, 4,
+                       2, 4,
+                       1, 5,
+                       2, 5,
+                       4, 5];
+
+  fillJointArray( jointIndexes , joints );
+
+  /** add joints to the joints dictionary */
+  for (i = 0 ; i < joints.size ; i ++)
+    addJointToDict(jDict, joints[i] );
+
+  /** make the bottom of the sponge shape */
+  makeBottomElement(points, joints, dict, jDict);
+
+  /** copy and rotate the basic element */
+  copyAndRotate(points, joints, dict, jDict, 90);
+  copyAndRotate(points, joints, dict, jDict, 180);
+
+  /** make regular shape by multiplying current element */
+  multiplyBase(height, width, depth, points, joints, dict, jDict);
+
+  /** make genotype from points and joints arrays */
+  return [makeGenoTypeFromArrays(points, joints, stif, rotstif), name];
+}
+
+/** multiplies basic sponge element */
+function multiplyBase(height, width, depth, points, joints, dict, jDict)
+{
+  var k, i;
+
+  /** for three dimensions */
+  for (k = 0 ; k < 3; k++)
+  {
+    var pBase = Vector.new();
+    var jBase = Vector.new();
+    var limit, movX, movY, movZ;
+
+    /** make copy for current dimensional multiplying base
+    at first dimension the base will be an element
+    at second level the base will be a line
+    at third level the base will be a surface
+    */
+    for (i = 0 ; i < points.size ; i++)
+      pBase.add( points[i].clone() );
+
+    for (i = 0 ; i < joints.size ; i++)
+      jBase.add( [joints[i][0], joints[i][1]] );
+
+    /** fill the current dimension variables */
+    switch (k)
+    {
+    case 0:
+      limit = width;
+      movX = 1;
+      movY = 0;
+      movZ = 0;
+      break;
+    case 1:
+      limit = depth;
+      movX = 0;
+      movY = 1;
+      movZ = 0;
+      break;
+    case 2:
+      limit = height;
+      movX = 0;
+      movY = 0;
+      movZ = 1;
+      break;
+    }
+
+
+    /** for current dimension size */
+    for (i = 1 ; i < limit ; i++)
+    {
+      var p = Vector.new();
+      var j;
+
+      var dX = movX * i * 2;
+      var dY = movY * i * 2;
+      var dZ = movZ * i;
+
+
+      /** copy current base points*/
+      for (j = 0 ; j < pBase.size ; j++)
+      {
+        p.add(addPoints( pBase[j].clone(), XYZ.new(dX, dY, dZ) ) );
+
+        if ( typeof(getPointIndex(dict, p[j])) == 0 )
+        {
+          points.add(p[j]);
+          addPointToDict(dict, p[j], points.size);
+        }
+      }
+
+      /** copy current base joints */
+      var size = jBase.size;
+      for ( j = 0 ; j < size ; j++)
+      {
+        var joi = [ getPointIndex(dict, p[ jBase[j][0] ] ) - 1, getPointIndex(dict, p[ jBase[j][1] ] ) - 1 ];
+        if ( typeof(ifJointExsits(jDict, joi)) == 0 )
+        {
+          joints.add( joi );
+          addJointToDict(jDict, joi);
+        }
+      }
+    }
+  }
+}
+
+/** copies, rotates and joins a shape (provided as points) */
+function copyAndRotate(points, joints, dict, jDict, angle)
+{
+  var newPoints = Vector.new();
+  var s = points.size;
+  var i;
+  var pSize = points.size;
+
+  /** rotates the points */
+  for (i = 0 ; i < pSize ; i++)
+  {
+    /** rotate given point */
+    newPoints.add( rotate90or180(points[i], angle) );
+
+    /** add it to a dictionary */
+    if ( typeof(getPointIndex(dict, newPoints[i])) == 0 )
+    {
+      points.add(newPoints[i]);
+      addPointToDict(dict, newPoints[i], points.size);
+    }
+  }
+
+  /** copy the joints for rotated points */
+  var size = joints.size;
+  for ( i = 0 ; i < size ; i++)
+  {
+    var j = [ getPointIndex(dict, newPoints[ joints[i][0] ] ) - 1, getPointIndex(dict, newPoints[ joints[i][1] ] ) - 1 ];
+    if ( typeof(ifJointExsits(jDict, j)) == 0 )
+    {
+      joints.add( j );
+      addJointToDict(jDict, j);
+    }
+  }
+}
+
+/** assures that -0.0 becomes 0.0, which is important because further comparisons (e.g. when used as a key in a dictionary) are made on the textual representation of floating point values */
+function fixSignedZero(v)
+{
+  if (v==0.0) return 0.0; else return v;
+}
+
+/** calculates point rotation; the angle parameter must be 90 or 180 only */
+function rotate90or180(point, angle)
+{
+  if (angle==90) return XYZ.new(fixSignedZero(-point.y),               point.x, point.z);
+            else return XYZ.new(fixSignedZero(-point.x),fixSignedZero(-point.y),point.z);
+}
+
+/** makes the sponge bottom element */
+function makeBottomElement(points, joints, dict, jDict)
+{
+  var p = XYZ.new(0, 1, -1);
+  points.add(p);
+  addPointToDict(dict, p, points.size );
+
+  p = XYZ.new(1, 0, -1);
+  points.add(p);
+  addPointToDict(dict, p, points.size );
+
+  var i, size = joints.size;
+
+  var jointIndexes = [1, 6,
+                      2, 7,
+                      6, 0,
+                      0, 4,
+                      6, 4,
+                      0, 7,
+                      7, 4];
+
+  fillJointArray( jointIndexes , joints);
+
+  for (i = size ; i < joints.size ; i++)
+    addJointToDict(jDict, joints[i] );
+}
+
+/** makes triangluar net */
+function createTriangularNet(height, triangular, stif, rotstif)
+{
+  var name = "createTriangularNet(" + height + ", " + triangular + ")" + describeStifs(stif, rotstif);
+  height++;
+  var points = Vector.new();
+  var joints = Vector.new();
+  var SQRT3 = Math.sqrt(3);
+  var left = XYZ.new(0, 0, 0);
+  points.add( left );
+
+  var pointsVectorLength = 0;
+  var i;
+
+  /** iteration on the net's height */
+  for (i = 2 ; i <= height ; i++)
+  {
+    var size = points.size;
+    var first = XYZ.new(left.x - 0.5, left.y - (SQRT3 / 2), 0);
+    points.add(first);
+    joints.add( [ size, size - (i - 1) ] );
+
+    left = first;
+
+    var j;
+    var pPrevious = left;
+
+    /** fills the curent level of the net */
+    for (j = 1; j < i ; j++)
+    {
+      var curr = XYZ.new( pPrevious.x + 1, pPrevious.y, 0);
+      points.add(curr);
+      joints.add( [ size + j, size + j - 1 ] );
+      joints.add( [ size + j, size + j - i ] );
+
+      if (triangular == 1 && j != i - 1)
+      {
+        joints.add( [ size + j, size + j - i + 1 ] );
+      }
+
+      pPrevious = curr;
+    }
+  }
+
+  return [makeGenoTypeFromArrays(points, joints, stif, rotstif), name];
+}
+
+function getKeyForJointPair(jointpair)
+{
+  var x = jointpair[0];
+  var y = jointpair[1];
+
+  if (x < y) //smaller first
+    return "" + x + ";" + y;
+  else
+	  return "" + y + ";" + x;
+}
+
+function addIfNotExists(dict, key, val)
+{
+  if ( typeof(dict[key]) == 0) //does not exist?
+    dict.set(key, val);
+}
+
+
+/** adds joint to joints dictionary */
+function addJointToDict(dict, joint)
+{
+  var key = getKeyForJointPair(joint);
+  addIfNotExists(dict, key, 1);
+}
+
+/** checks if the joint exists in the dictionary */
+function ifJointExsits(dict, joint)
+{
+  var key = getKeyForJointPair(joint);
+  return dict[key]; //null or value, if exists
+}
+
+/** adds the point to the dictionary with the given index number */
+function addPointToDict(dict, point, index)
+{
+  var key = "" + point.x + ";" + point.y +";" + point.z;
+  addIfNotExists(dict, key, index);
+}
+
+/** gets the given point index from the points dictionary; also checks if the point exists */
+function getPointIndex(dict, point)
+{
+  var key = "" + point.x + ";" + point.y +";" + point.z;
+  return dict[key]; //null or value, if exists
+}
+
+/** makes a next level of Sierpinski's Pyramid */
+function makeNextLevel(dictionary, points, joints)
+{
+  var newPoints = Vector.new();
+  newPoints.add(Vector.new());
+  newPoints.add(Vector.new());
+  newPoints.add(Vector.new());
+  var i, j;
+  var index = points.size + 1;
+  var size = points.size;
+
+  var keys = ["L", "R", "C" ];
+
+  /** copies the current pyramid and moves it 3 times on the bottom*/
+  for (j = 0 ; j < 3 ; j++)
+  {
+    var key = keys[j];
+
+    for ( i = 0 ; i < size ; i++)
+    {
+      var p1 = points[i].clone();
+
+      /** moves the copy of point to the right place on the bottom copy */
+      newPoints[j].add( addPoints(p1, dictionary[key]) );
+
+      /** adds an unexisting point */
+      if ( typeof(getPointIndex(dictionary, newPoints[j][i])) == 0 )
+      {
+        addPointToDict(dictionary, newPoints[j][i], index);
+        points.add(newPoints[j][i]);
+        index++;
+      }
+    }
+  }
+
+  var newJoints = Vector.new();
+  for (j = 0 ; j < 3 ; j++)
+  {
+    newJoints.add(Vector.new());
+  }
+
+  /** makes new joints */
+  for (j = 0 ; j < 3 ; j++)
+  {
+    for (i = 0; i < joints.size ; i++)
+    {
+      newJoints[j].add( [ getPointIndex(dictionary, newPoints[j][joints[i][0]] ) - 1 , getPointIndex(dictionary, newPoints[j][joints[i][1]] ) - 1 ] );
+    }
+  }
+
+  size = joints.size;
+
+  /** adds new joints */
+  for (j = 0 ; j < 3 ; j++)
+  {
+    for ( i = 0 ; i < size ; i++)
+    {
+      joints.add(newJoints[j][i]);
+    }
+  }
+
+  /** change the new movement vectors */
+  for (j = 0 ; j < 3 ; j++)
+  {
+    dictionary.set(keys[j], addPoints(dictionary[keys[j]].clone(), dictionary[keys[j]] ));
+  }
+
+}
+
+/** adds the second parameter point to the first parameter point */
+function addPoints(p1, p2)
+{
+  p1.x += p2.x;
+  p1.y += p2.y;
+  p1.z += p2.z;
+  return p1;
+}
+
+/** creates the base of Sierpinski's Pyramid */
+function createSierpinskiPyramid(height, stif, rotstif)
+{
+  var name = "createSierpinskiPyramid(" + height + ")" + describeStifs(stif, rotstif);
+  var SQRT2 = Math.sqrt(2);
+  var dict = Dictionary.new();
+  var points = Vector.new();
+  var joints = Vector.new();
+  var i, j;
+
+  /** base triangle coordinates */
+  var pointCoordinates = [0, 0, 0];
+  for (i = 0 ; i < 3 ; i++)
+    for (j = 0 ; j < 3 ; j++)
+      if (i == j)
+        pointCoordinates.add(0);
+      else
+        pointCoordinates.add(1);
+
+  fillArray( pointCoordinates , points );
+
+  /** add points to the points dictionary */
+  for (i = 0 ; i < points.size ; i ++)
+    addPointToDict(dict, points[i], i + 1 );
+
+  /** possible new element movement */
+  var tab = ["L", "R", "C"];
+  for (i = 0 ; i < 3 ; i++)
+    dict.set(tab[i], points[i + 1]);
+
+  /** base joints coordinates */
+  var jointIndexes = [1, 0,
+                      2, 3,
+                      2, 0,
+                      3, 1,
+                      2, 1,
+                      3, 0];
+
+  fillJointArray( jointIndexes , joints );
+
+  /** make additional levels */
+  for (i = 0 ; i < height ; i++)
+  {
+    makeNextLevel(dict, points, joints);
+  }
+
+  return [makeGenoTypeFromArrays(points, joints, stif, rotstif), name];
+}
+
+/** encodes property value as a string, ready to be added to the f0 genotype */
+function encodePropertyInF0(name, value, defaultvalue)
+{
+    if (value == defaultvalue) //is default value?
+      return ""; //then no need to specify.
+    else
+      return "," + name + "=" + value;
+}
+
+/** generates f0 gene that describes one joint */
+function makeJoint(index1, index2, stif, rotstif)
+{
+  return "j:" + index1 + "," + index2 + encodePropertyInF0("stif", stif, 1.0) + encodePropertyInF0("rotstif", rotstif, 1.0) + "\n";
+}
+
+/** converts points and joints arrays into a genotype; also adds stif and rotstif values */
+function makeGenoTypeFromArrays(points, joints, stif, rotstif)
+{
+  var pSize = points.size;
+  var jSize = joints.size;
+  var string = "//0\n";
+
+  var i, elem;
+  for (i = 0 ; i < pSize ; i++)
+  {
+    elem = points[i];
+    string += "p:" + elem.x + "," + elem.y + "," + elem.z + "\n";
+  }
+
+  for (i = 0 ; i < jSize ; i++)
+  {
+    elem = joints[i];
+    string += makeJoint(elem[0], elem[1], stif, rotstif);
+  }
+
+  return string;
+}
+
+/** makes the truss construction */
+function createTruss(sideSticks, height, width, depth, diagonal, stif, rotstif)
+{
+  var name = "createTruss(" + sideSticks + ", " + height + ", " + width + ", " + depth + ", " + diagonal + ")" + describeStifs(stif, rotstif);
+
+  var i = sideSticks * depth;
+  var j = sideSticks * width;
+  var k = sideSticks * height;
+
+  var ii, jj, kk;
+  var v3d = Vector.new();
+  var index = 1;
+  var string = "//0\n";
+
+
+  /** for height dimension */
+  for (kk = 0 ; kk <= k ; kk++)
+  {
+    var v2d = Vector.new();
+    /** for depth dimension */
+    for ( ii = 0; ii <= i ; ii++)
+    {
+      var v1d = Vector.new();
+      /** for width dimension */
+      for ( jj = 0; jj <= j ;jj++)
+      {
+        var temp = 0;
+
+        /** current point is a truss element */
+        if ( ((jj % sideSticks) == 0 && (ii % sideSticks) == 0) || ((kk % sideSticks) == 0 && (ii % sideSticks) == 0) || ((jj % sideSticks) == 0 && (kk % sideSticks) == 0) )
+        {
+          temp = index;
+          v1d.add(index);
+          index++;
+        }
+        else
+          v1d.add(0);
+
+        /** make current point connections */
+        if ( temp != 0)
+        {
+          string += "p:" + ii + "," + jj + "," + kk + "\n";
+
+          /** make side element connections */
+          var s;
+          for ( s = 0 ; s < 3 ; s++)
+          {
+            var neighbor = 0;
+            switch (s)
+            {
+            case 0:
+              if ( kk - 1 >= 0)
+                neighbor = v3d[kk - 1][ii][jj];
+              break;
+            case 1:
+              if ( ii - 1 >= 0)
+                neighbor = v2d[ii - 1][jj];
+              break;
+            case 2:
+              if ( jj - 1 >= 0)
+                neighbor = v1d[jj - 1];
+              break;
+            }
+            if (neighbor != 0)
+            {
+              string += makeJoint(temp - 1,neighbor - 1, stif, rotstif);                 
+            }
+          }
+
+          /** make diagonals */
+          if (diagonal == 1)
+          {
+            var s;
+            for (s = 0 ; s < 10 ; s++) // make cuboid diagonals
+            {
+              var neighbor = 0;
+              switch (s)
+              {
+              case 0:
+                if (jj - 1 >= 0 && ii - 1 >= 0 && kk - 1 >= 0) // 1st cube diagnal
+                  neighbor = v3d[kk - 1][ii - 1][jj - 1];
+                break;
+              case 1:
+                if (jj - 1 >= 0 && ii + 1 <= i && kk - 1 >= 0) // 2nd cube diagnal
+                  neighbor = v3d[kk - 1][ii + 1][jj - 1];
+                break;
+              case 2:
+                if (jj + 1 <= j && ii - 1 >= 0 && kk - 1 >= 0) // 3rd cube diagnal
+                  neighbor = v3d[kk - 1][ii - 1][jj + 1];
+                break;
+              case 3:
+                if (jj + 1 <= j && ii + 1 <= i && kk - 1 >= 0) // 4th cube diagnal
+                  neighbor = v3d[kk - 1][ii + 1][jj + 1];
+                break;
+              case 4:
+                if (jj - 1 >= 0 && ii - 1 >= 0) // 1st side diagonal
+                  neighbor = v2d[ii - 1][jj - 1];
+                break;
+              case 5:
+                if (kk - 1 >= 0 && ii - 1 >= 0) // 2nd side diagonal
+                  neighbor = v3d[kk - 1][ii - 1][jj];
+                break;
+              case 6:
+                if (jj - 1 >= 0 && kk - 1 >= 0) // 3rd side diagonal
+                  neighbor = v3d[kk - 1][ii][jj - 1];
+                break;
+              case 7:
+                if (jj + 1 <= j && ii - 1 >= 0) // 4th side diagonal
+                  neighbor = v2d[ii - 1][jj + 1];
+                break;
+              case 8:
+                if (kk - 1 >= 0 && ii + 1 <= i) // 5th side diagonal
+                  neighbor = v3d[kk - 1][ii + 1][jj];
+                break;
+              case 9:
+                if (jj + 1 <= j && kk - 1 >= 0) // 6th side diagonal
+                  neighbor = v3d[kk - 1][ii][jj + 1];
+                break;
+              }
+              if (neighbor != 0)
+              {
+                string += makeJoint(temp - 1,neighbor - 1, stif, rotstif);                                              
+              }
+            }
+          }
+        }
+
+      }
+      v2d.add(v1d);
+    }
+    v3d.add(v2d);
+  }
+
+  return [string, name];
+}
+~
+

@@ -1,0 +1,357 @@
+expdef:
+name:Asexual reproduction in the world
+info:~
+Spontaneous evolution. Each creature with a sufficient energy level produces a mutant offspring, which is then put close to its parent.
+Food is created at a constant rate and placed randomly.
+~
+code:~
+
+global foodenergywaiting;
+
+function onExpDefLoad()
+{
+  // define genotype and creature groups
+  GenePools.clear();
+  Populations.clear();
+  GenePool.name = "Unused";
+  Population.name = "Creatures";
+  Population.en_assim = 0;
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 4;
+  Populations.addGroup("Food");
+  Population.nnsim = 0;
+  Population.enableperf = 0;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 5;
+
+  ExpParams.initialgen = "ddGGGbblllfffX[0:2.420,2:-2,1 :-1][-1 :1,0:1,0:-1][-1:1](RRlllfffMMMX[|-1:-10]lllFFFMMMgggggX[|-2:-1],gggfffIXlllfffMMMsX[|6:10,3:-10](RRlllfffMMMIX[|-4:-10]lllFFFMMMIggggX[|-5:-1][Sf:1],,RRlllfffMMMIX[|-7:10]lllFFFMMMIgggX[|-8:-1][Sf:1]),RRlllfffMMMX[|-10:10]lllFFFMMMgggggX[|-11:-1.784])";
+  ExpParams.p_mut = 50;
+  ExpParams.Energy0 = 1000;
+  ExpParams.reprEnergy = 1001;
+  ExpParams.e_meta = 0.1;
+  ExpParams.feedrate = 0.4;
+  ExpParams.feede0 = 100;
+  ExpParams.feedtrans = 2;
+  ExpParams.creath = 0.1;
+  ExpParams.foodgen = "";
+  ExpParams.autorestart = 0;
+  ExpState.totaltestedcr = 0;
+  ExpState.food = "";
+  foodenergywaiting = ExpParams.feede0;
+  
+  World.wrldbnd=0;
+}
+
+@include "standard_placement.inc"
+
+function onExpInit()
+{
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  Populations.group = 0;
+  Populations.createFromString(ExpParams.initialgen);
+  Creature.name = "Initial creature";
+  place_randomly(0,4);
+  ExpState.totaltestedcr = 0;
+  foodenergywaiting = ExpParams.feede0;
+}
+
+
+function onCreaturesBorn()
+{
+  Creature.idleen = ExpParams.e_meta;
+  Creature.energ0 = ExpParams.Energy0;
+  Creature.energy = Creature.energ0;
+}
+
+function foodGenotype()
+{
+  if (ExpParams.foodgen == "")
+    return "//0\nm:Vstyle=food\np:";
+  else
+    return ExpParams.foodgen;
+}
+
+function addfood()
+{
+  Populations.group = 1;
+  Populations.createFromString(foodGenotype());
+
+// the 'style' parameter can be used to set a color of the food item (requires a compatible *.style file):
+// Populations.createFromString("//0\nm:Vstyle=food(color=0)\np:");
+
+  Creature.name = "Food";
+  Creature.idleen = 0;
+  Creature.energ0 = ExpParams.feede0;
+  Creature.energy = Creature.energ0;
+
+  var retry = 20; //try 20 times
+  while (retry--)
+  {
+    place_randomly(0,0);
+    if (!Populations.creatBBCollisions(0))
+      return ;
+  }
+  Simulator.message("addfood() could not avoid collisions.", 2);
+}
+
+function onStep()
+{
+  foodenergywaiting = foodenergywaiting + ExpParams.feedrate;
+  //Simulator.print("food energy waiting = "+foodenergywaiting);
+  if (foodenergywaiting > ExpParams.feede0)
+  {
+    addfood();
+    foodenergywaiting = 0.0;
+    Simulator.checkpoint();
+  }
+
+  if (Populations.get(0).size == 0)
+  {
+    if (ExpParams.autorestart)
+    {
+      Simulator.print("no more creatures, restarting...");
+      onExpInit();
+    }
+    else
+    {
+      Simulator.print("no more creatures, stopped.");
+      Simulator.stop();
+    }
+  }
+}
+
+function onCreaturesStep(cr)
+{
+  if (cr.energy >= ExpParams.reprEnergy)
+  {
+    var newcreature;
+    if (Math.rnd01*100.0 > ExpParams.p_mut)
+    { // exact copy
+      Simulator.print("creating " + cr.name + " clone...");
+      GenePools.getFromCreatureObject(cr);
+      newcreature = Populations.get(0).createFromGenotype();
+    }
+    else
+    { // mutation
+      GenePools.getFromCreatureObject(cr);
+      GenePools.mutateSelected();
+      if (Genotype.isValid)
+      {
+        Simulator.print("creating mutant... (" + Genotype.info + ")");
+        newcreature = Populations.get(0).createFromGenotype();
+      }
+    }
+    if (newcreature != null)
+    {
+      newcreature.energ0 = cr.energy / 2;
+      newcreature.energy = newcreature.energ0;
+      newcreature.moveAbs(cr.pos_x + (cr.size_x - newcreature.size_x) / 2, cr.pos_y + (cr.size_y - newcreature.size_y) / 2, cr.pos_z + (cr.size_z - newcreature.size_z) / 2);
+      newcreature.rotate(0,0,Math.rndUni(0,Math.twopi));
+      cr.energy = cr.energy / 2;
+    }
+  }
+}
+
+function onCreaturesDied(cr)
+{
+  Simulator.print("\"" + cr.name + "\" died...");
+  ExpState.totaltestedcr++;
+}
+
+function onFoodCollision()
+{
+  var e = Collision.Part2.ing * ExpParams.feedtrans;
+  //Simulator.print("transferring "+e+" from "+Collision.Creature1.name+" to "+Collision.Creature2.name+" ("+Collision.Creature2.energy+")");
+  Collision.Creature1.energy_m = Collision.Creature1.energy_m + e;
+  Collision.Creature2.energy_p = Collision.Creature2.energy_p + e;
+}
+
+function onExpLoad()
+{
+  var i;
+  for (i = 0;i < Populations.size;i++)
+    Populations.clearGroup(i);
+
+  Loader.addClass(sim_params.*);
+  Loader.setBreakLabel(Loader.BeforeUnknown, "onExpLoad_Unknown");
+  Loader.run();
+
+  if (typeof(ExpState.food)=="Vector")
+    for(i=0;i<ExpState.food.size;i++)
+        {
+	var f=ExpState.food[i];
+	if (f.size>=3)
+	   { //x,y,energy
+	   Populations.group = 1;
+	   var food_cr=Populations.createFromString(foodGenotype());
+	   food_cr.move(f[0]-food_cr.center_x,f[1]-food_cr.center_y,0);
+	   food_cr.energy=f[2];
+	   }
+	}
+
+Simulator.print("Loaded "+Populations[0].size+" creatures and "+Populations[1].size+" food objects");
+}
+
+function onExpLoad_Unknown()
+{
+if (Loader.objectName == "org")
+   {
+   GenePools.genotype = -1;
+   Loader.currentObject = Genotype.*;
+   Interface.makeFrom(Genotype.*).setAllDefault();
+   Loader.loadObject();
+   var cr = Populations.get(0).createFromGenotype();
+   if (cr != null)
+     {
+     cr.rotate(0,0,Math.rnd01*Math.twopi);
+     if ((typeof(Genotype.user1)=="Vector") && (Genotype.user1.size>=3))
+       { // [x,y,energy]
+       cr.move(Genotype.user1[0]-cr.center_x,Genotype.user1[1]-cr.center_y,0);
+       cr.energy=Genotype.user1[2];
+       }
+     else
+       {
+       cr.move(Math.rnd01*World.wrldsiz-cr.center_x,Math.rnd01*World.wrldsiz-cr.center_y,0);
+       }
+     }
+   }
+}
+
+function onExpSave()
+{
+File.writeComment("saved by 'reproduction.expdef'");
+
+var tmpvec=[],i;
+
+Populations.group=1;
+for (i=0;i<Population.size;i++)
+    {
+    var cr=Population[i];
+    tmpvec.add([cr.center_x,cr.center_y,cr.energy]);
+    }
+ExpState.food=tmpvec;
+File.writeObject(sim_params.*);
+ExpState.food=null;//vectors are only created for saving and then discarded
+			      
+Populations.group=0;
+for (i=0;i<Population.size;i++)
+    {	    
+    var cr=Population[i];
+    GenePools.getFromCreatureObject(cr);
+    Genotype.user1=[cr.center_x,cr.center_y,cr.energy];
+    File.writeNameObject("org", Genotype.*);
+    }
+}
+
+@include "standard_events.inc"
+
+~
+
+prop:
+id:initialgen
+name:Initial genotype
+type:s 1
+
+prop:
+id:creath
+name:Creation height
+type:f -1 50
+help:~
+Vertical position (above the surface) where new creatures are revived.
+Negative values are only used in the water area:
+  0   = at the surface
+-0.5 = half depth
+-1   = just above the bottom~
+
+prop:
+id:p_mut
+name:Mutations
+type:f 0 100
+
+prop:
+id:Energy0
+name:Starting energy
+type:f 0 10000
+group:Energy
+help:Initial energy for the first creature
+
+prop:
+id:reprEnergy
+name:Reproduction energy
+type:f 0 10000
+group:Energy
+help:Creature can produce offspring when its energy level reaches this threshold
+
+prop:
+id:e_meta
+name:Idle metabolism
+type:f 0 1
+group:Energy
+help:Each stick consumes this amount of energy in one time step
+
+prop:
+id:feedrate
+name:Feeding rate
+type:f 0 100
+group:Energy
+help:How fast energy is created in the world
+
+prop:
+id:feede0
+name:Food's energy
+group:Energy
+type:f 0 1000
+
+prop:
+id:foodgen
+name:Food's genotype
+group:Energy
+type:s 1
+help:~
+The default food model is a simple, single part object:
+  //0
+  m:Vstyle=food
+  p:
+(this genotype is used when you leave this field blank).
+You can specify another genotype to create "intelligent" or mobile food.~
+
+prop:
+id:feedtrans
+name:Ingestion multiplier
+group:Energy
+type:f 0 100
+
+prop:
+id:autorestart
+name:Restart after extinction
+group:
+help:Restart automatically this experiment after the last creature has died?
+type:d 0 1
+
+state:
+id:notes
+name:Notes
+type:s 1
+help:~
+You can write anything here
+(it will be saved to the experiment file)~
+
+state:
+id:totaltestedcr
+name:Evaluated creatures
+help:Total number of the creatures evaluated in the experiment
+type:d
+flags:16
+
+state:
+id:food
+name:Food locations
+help:vector of vectors [x,y,energy]
+type:x
+flags:32
+

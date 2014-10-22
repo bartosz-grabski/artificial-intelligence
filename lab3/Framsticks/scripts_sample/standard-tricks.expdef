@@ -1,0 +1,559 @@
+expdef:
+name:Framsticks Standard Experiment (with tricks)
+info:~
+standard.expdef with a few sample additions for advanced users:
+
+- random force can be applied to parts of a living creature during its life span
+- neuron property values can be used in the fitness function
+- statistical data can be acquired from coordinates of creature parts
+~
+code:~
+
+global randomforce_t;
+
+function onExpDefLoad()
+{
+  // define genotype and creature groups
+  GenePools.clear();
+  Populations.clear();
+  GenePool.name = "Genotypes";
+  update_fitformula();
+  Population.name = "Creatures";
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 13; //13=1+4+8
+  Populations.addGroup("Food");
+  Population.nnsim = 0;
+  Population.enableperf = 0;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 148; //148=4+16+128
+
+  ExpParams.initialgen = "X";
+  ExpParams.capacity = 200;
+  ExpParams.delrule = 0;
+  ExpParams.MaxCreated = 1;
+  ExpParams.p_nop = 20;
+  ExpParams.p_mut = 64;
+  ExpParams.p_xov = 16;
+  ExpParams.xov_mins = 0;
+  ExpParams.selrule = 2;
+  ExpParams.cr_c = 0;
+  ExpParams.cr_life = 0;
+  ExpParams.cr_v = 1;
+  ExpParams.cr_gl = 0;
+  ExpParams.cr_joints = 0;
+  ExpParams.cr_nnsiz = 0;
+  ExpParams.cr_nncon = 0;
+  ExpParams.cr_di = 0;
+  ExpParams.cr_vpos = 0;
+  ExpParams.cr_vvel = 0;
+  ExpParams.cr_norm = 0;
+  ExpParams.cr_simi = 0;
+  ExpParams.Energy0 = 1000;
+  ExpParams.e_meta = 1;
+  ExpParams.feed = 0;
+  ExpParams.feede0 = 200;
+  ExpParams.feedtrans = 1;
+  ExpParams.creath = 0.1;
+  ExpParams.foodgen = "";
+  ExpState.totaltestedcr = 0;
+
+  ExpParams.randomforce_period = 0;
+  ExpParams.randomforce_force = 0.1;
+  ExpParams.randomforce_part = -1;
+
+  randomforce_t = 0;
+}
+
+function onExpInit()
+{
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  GenePools.clearGroup(0);
+  GenePools.newGenotype(ExpParams.initialgen);
+  GenePools.copySelected(0);
+  ExpState.totaltestedcr = 0;
+}
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  var retry = 20; //retry 20 times
+  var placed_ok=0;
+  while (retry--)
+  {
+    place_randomly((ExpParams.placement == 1) && (retry == 19)); //try central only in the first iteration
+    if (!Populations.creatBBCollisions(0))
+      {placed_ok=1; break;}
+  }
+  if (!placed_ok)
+    Simulator.message("onBorn() could not avoid collisions.", 2);
+
+  if (Populations.group == 0)
+  { // creature
+    Creature.idleen = ExpParams.e_meta * Creature.numjoints;
+    Creature.energ0 = Creature.energ0 * ExpParams.Energy0 * Creature.numjoints;
+    Creature.energy = Creature.energ0;
+  }
+  else
+  { // food
+    Creature.name = "Food";
+    Creature.idleen = 0;
+    Creature.energ0 = ExpParams.feede0;
+    Creature.energy = Creature.energ0;
+  }
+}
+
+function onCreaturesUpdate(cr)
+{
+  //Simulator.print("update...");
+  if (!ExpParams.saveparts_enabled)
+    return ;
+
+  var i, vi, vec, p;
+  var v1, v2;
+
+  vec = cr.user1;
+  if ("Vector" != typeof vec)
+  {
+    vec = Vector.new();
+    vec.add(1); // number of samples
+    for (i = 0;i < cr.numparts;i++)
+    {
+      p = cr.getMechPart(i);
+      vec.add(p.x);
+      vec.add(p.y);
+      vec.add(p.z); //min
+      vec.add(p.x);
+      vec.add(p.y);
+      vec.add(p.z); //max
+      vec.add(p.x);
+      vec.add(p.y);
+      vec.add(p.z); //avg
+    }
+    cr.user1 = vec;
+    return ;
+  }
+
+  vi = 1;
+  v1 = (0.0 + vec[0]) / (1.0 + vec[0]);
+  v2 = 1.0 - v1; // for avg
+  vec.set(0, vec[0] + 1);
+  for (i = 0;i < cr.numparts;i++)
+  {
+    p = cr.getMechPart(i);
+    // min
+    if (p.x < vec[vi])
+      vec.set(vi, p.x);
+    if (p.y < vec[vi + 1])
+      vec.set(vi + 1, p.y);
+    if (p.z < vec[vi + 2])
+      vec.set(vi + 2, p.z);
+
+    // max
+    if (p.x > vec[vi])
+      vec.set(vi + 3, p.x);
+    if (p.y > vec[vi + 1])
+      vec.set(vi + 4, p.y);
+    if (p.z > vec[vi + 2])
+      vec.set(vi + 5, p.z);
+
+    // avg
+    vec.set(vi + 6, vec[6]*v1 + p.x*v2);
+    vec.set(vi + 7, vec[7]*v1 + p.y*v2);
+    vec.set(vi + 8, vec[8]*v1 + p.z*v2);
+
+    //Simulator.print("p"+i+": "+vecToStr(vec,vi,vi+8));
+
+    vi += 9;
+  }
+}
+
+function vecToStr(v, i1, i2)
+{
+  var t = "", i;
+  for (i = i1;i <= i2;i++)
+  {
+    if (t != "")
+      t += ",";
+    t += v[i];
+  }
+  return t;
+}
+
+function addfood()
+{
+  Populations.group = 1;
+  if (ExpParams.foodgen == "")
+    Populations.createFromString("//0\nm:Vstyle=food\np:");
+  else
+    Populations.createFromString(ExpParams.foodgen);
+}
+
+function onStep()
+{
+  Populations.group = 0; // creatures
+  if (Population.size < ExpParams.MaxCreated)
+  {
+    selectGenotype();
+    if (Genotype.isValid)
+      Populations.createFromGenotype();
+    else
+      Simulator.print("invalid genotype - ignored: " + Genotype.info);
+  }
+
+  if (ExpParams.aging > 0)
+  {
+    var i = 0;
+    while (i < Population.size)
+    {
+      Populations.creature = i;
+      Creature.idleen = ExpParams.e_meta * Creature.numjoints
+                        * Math.exp((0.6931471806 * Creature.lifespan) / ExpParams.aging);
+      i++;
+    }
+  }
+
+  Populations.group = 1; // food
+  if (Population.size < ExpParams.feed)
+    addfood();
+
+  if (ExpParams.randomforce_period > 0)
+  {
+    randomforce_t = randomforce_t + 1;
+    if (randomforce_t >= ExpParams.randomforce_period)
+    {
+      randomforce_t = 0;
+      applyRandomForce();
+    }
+  }
+}
+
+function applyRandomForce()
+{
+  Populations.group = 0;
+  var i;
+  for (i = 0;i < Population.size;i++)
+  {
+    Populations.creature = i;
+    var p = ExpParams.randomforce_part;
+    if (p >= Creature.numparts)
+      continue;
+    if (p < 0)
+      p = Math.rnd01 * Creature.numparts;
+    var part = Creature.getMechPart(p);
+    part.vx = part.vx + ((Math.rnd01 - 0.5) * ExpParams.randomforce_force) / part.m;
+    part.vy = part.vy + ((Math.rnd01 - 0.5) * ExpParams.randomforce_force) / part.m;
+    part.vz = part.vz + ((Math.rnd01 - 0.5) * ExpParams.randomforce_force) / part.m;
+  }
+}
+
+function updatePerformanceWithPopSize()
+{
+  GenePools.genotype = GenePools.findGenotypeForCreature();
+  if (GenePools.genotype < 0) // not found in gene pool
+  {
+    GenePools.getFromCreature();
+    Genotype.num = 0; // 0 = it will be filled automatically
+    GenePools.copySelected(0);
+    Genotype.popsiz = 0;
+  }
+  if (Genotype.popsiz == 0)
+    Genotype.user1 = Creature.user1;
+  else
+    Genotype.user1 = ((Genotype.user1 * Genotype.popsiz) + Creature.user1 + 0.0) / (Genotype.popsiz + 1.0); //average
+  GenePools.addPerformanceFromCreature();
+}
+
+function onDied()
+{
+  if (Populations.group != 0)
+    return ; // ignore food
+  ExpState.totaltestedcr++;
+  updatePerformanceWithPopSize();
+  LimitGenePool();
+  Simulator.checkpoint();
+}
+
+@include "standard_select.inc"
+
+function selectGenotype()
+{
+  var sel;
+  sel = (ExpParams.p_nop + ExpParams.p_mut + ExpParams.p_xov) * Math.rnd01;
+  if (sel < ExpParams.p_nop)
+    GenePools.genotype = selectedForCreation();
+  else
+  {
+    sel = sel - ExpParams.p_nop;
+    if (sel < ExpParams.p_mut)
+    {
+      GenePools.genotype = selectedForCreation();
+      GenePools.mutateSelected();
+    }
+    else
+    {
+      var other;
+      GenePools.genotype = selectedForCreation();
+      if (ExpParams.xov_mins > 0.0)
+        other = selectedSimilar();
+      else
+        other = selectedForCreation();
+      if (other >= 0)
+        GenePools.crossoverSelected(other);
+      else
+        Simulator.print("crossover - second genotype not found?");
+    }
+  }
+}
+
+function onFoodCollision()
+{
+  var e = Collision.Part2.ing * ExpParams.feedtrans;
+  //Simulator.print("transferring "+e+" from "+Collision.Creature1.name+" to "+Collision.Creature2.name);
+  Collision.Creature1.energy_m = Collision.Creature1.energy_m + e;
+  Collision.Creature2.energy_p = Collision.Creature2.energy_p + e;
+}
+
+function ExpParams_cleardata_call()
+{
+  var i;
+  GenePools.group = 0;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    Genotype.popsiz = 0;
+  }
+  Simulator.print("Performance data reset.");
+}
+
+function LimitGenePool()
+{
+  if (GenePool.totalpop > (ExpParams.capacity + 1))
+    Simulator.print("Removing " + (GenePool.totalpop - ExpParams.capacity) + " genotypes");
+  while (GenePool.totalpop > ExpParams.capacity)
+    GenePools.deleteOne(selectedForDeletion());
+}
+
+function ExpParams_capacity_set()
+{
+  LimitGenePool();
+}
+
+function
+ExpParams_cr_c_set, ExpParams_cr_life_set, ExpParams_cr_v_set, ExpParams_cr_gl_set,
+ExpParams_cr_joints_set, ExpParams_cr_nnsiz_set, ExpParams_cr_nncon_set, ExpParams_cr_di_set,
+ExpParams_cr_vpos_set, ExpParams_cr_vvel_set, ExpParams_cr_norm_set, ExpParams_cr_simi_set,
+ExpParams_cr_neuroprop_set, ExpParams_cr_neuroclass_set, ExpParams_cr_neuroweight_set,
+ExpParams_saveparts_showpart_set, ExpParams_saveparts_showwhat_set,
+update_fitformula()
+{
+  var formula = "" + ExpParams.cr_c;
+  formula += singlecrit("cr_life", "lifespan");
+  formula += singlecrit("cr_v", "velocity");
+  formula += singlecrit("cr_gl", "strsiz");
+  formula += singlecrit("cr_joints", "strjoints");
+  formula += singlecrit("cr_nnsiz", "nnsiz");
+  formula += singlecrit("cr_nncon", "nncon");
+  formula += singlecrit("cr_di", "distance");
+  formula += singlecrit("cr_vpos", "vertpos");
+  formula += singlecrit("cr_vvel", "vertvel");
+  if (ExpParams.cr_simi)
+    formula = "(" + formula + ")*this.simi";
+  if ((ExpParams.cr_neuroclass != "") && (ExpParams.cr_neuroprop != "") && (ExpParams.cr_neuroweight != 0.0))
+    formula = "var m=Model.newFromGeno(this.geno);\nreturn String.parseFloat(getNeuroPropValue(m,\"" + ExpParams.cr_neuroclass + "\",\"" + ExpParams.cr_neuroprop + "\"))*" + ExpParams.cr_neuroweight + "+" + formula + ";";
+  else
+    formula = "return " + formula + ";";
+
+  if (ExpParams.saveparts_showwhat)
+  {
+    var i = 1 + 9 * ExpParams.saveparts_showpart + 3 * (ExpParams.saveparts_showwhat - 1);
+    formula = "Simulator.print(\"using part#" + ExpParams.saveparts_showpart + " " + ["min", "max", "avg"][ExpParams.saveparts_showwhat - 1] + " statistics in fitness formula for \"+this.name+\": (\"+this.user1[" + i + "]+\",\"+this.user1[" + (i + 1) + "]+\",\"+this.user1[" + (i + 2) + "]+\")\");\n// this is only to show how the data could be used in fitness formula\n\n" + formula;
+  }
+
+  GenePool.fitness = formula;
+}
+
+function singlecrit(crname, fieldname)
+{
+  var weight = ExpParams.[crname];
+  if (weight == 0.0)
+    return "";
+  if (ExpParams.cr_norm)
+    return "+this.getNormalized(Genotype:" + fieldname + ")*" + weight;
+  else
+    return "+this." + fieldname + "*" + weight;
+}
+
+function getNeuroPropValue(model, classname, propname)
+{
+  var i, n, v;
+  for (i = 0;i < model.numneurons;i++)
+  {
+    n = model.getNeuroDef(i);
+    if (neuroClassFromD(n.d) == classname)
+    {
+      return getPropertyValue(n.d, propname);
+    }
+  }
+  return 0.0;
+}
+
+function neuroClassFromD(desc)
+{
+  var i = String.indexOf(desc, ":");
+  if (i < 0)
+    return desc;
+  return String.substr(desc, 0, i);
+}
+
+function getPropertyValue(desc, name)
+{
+  var t0, t, n, v0, ve, v;
+  t = String.indexOf(desc, ":");
+  if (t < 0)
+    return null;
+  while (1)
+  {
+    t0 = t + 1;
+    t = String.indexOfStart(desc, "=", t0);
+    if (t < 0)
+      return null;
+    while (String.substr(desc, t0, 1) == " ")
+      t0++;
+    n = String.substr(desc, t0, t - t0);
+    if (String.substr(desc, t + 1, 1) == "\"")
+    {
+      v0 = t + 2;
+      t = String.indexOfStart(desc, "\"", v0);
+      if (t < 0)
+        return null;
+      ve = t;
+    }
+    else
+    {
+      v0 = t + 1;
+      t = String.indexOfStart(desc, ",", v0);
+      if (t < 0)
+        t = String.len(desc);
+      ve = t;
+    }
+    if (n == name)
+      return String.substr(desc, v0, ve - v0);
+    t = String.indexOfStart(desc, ",", ve);
+    if (t < 0)
+      return null;
+  }
+  return null;
+}
+
+@include "standard_events.inc"
+@include "standard_loadsave.inc"
+
+~
+
+#include "standard_props.inc"
+
+
+prop:
+id:cr_neuroclass
+name:Neuron class name
+type:s
+help:~
+If you want to include a property value of some neuron in the fitness of creatures, use these settings.
+A property of a neuron of this class will be available in the fitness function.~
+group:Fitness
+
+prop:
+id:cr_neuroprop
+name:Neuron property name
+type:s
+help:The neural property that is to be available in the fitness function
+group:Fitness
+
+prop:
+id:cr_neuroweight
+name:Property value weight
+type:f -10000 10000
+help:The value of the selected neuron property will be multiplied by this weight
+group:Fitness
+
+prop:
+id:cleardata
+name:Clear performance info
+type:p
+help:~
+Sets the number of instances of each genotype to zero (as if it has never been evaluated).
+Genotype performance values stay intact, yet they are meaningless if a genotype has no instances.~
+
+prop:
+group:Random force
+id:randomforce_period
+name:Period
+type:d 0 1000
+help:~
+You can periodically apply random force to some part of a creature during its life span, to displace (shake) it.
+Zero disables shaking.~
+
+prop:
+group:Random force
+id:randomforce_force
+name:Force
+type:f 0.0 1.0
+help:Displacement force
+
+prop:
+group:Random force
+id:randomforce_part
+name:Part
+type:d
+help:~
+Part number to be displaced.
+-1 means a random part.~
+
+prop:
+group:Part statistics
+id:saveparts_enabled
+name:Collect data
+type:d 0 1
+help:Allows you to use some statistic values of a creature's part position during its life span
+
+prop:
+group:Part statistics
+id:saveparts_showwhat
+name:Show in fitness formula
+type:d 0 3 ~disabled~min~max~average
+help:Choose statistics for the collected data to be included (as a usage sample) in the fitness function formula
+
+prop:
+group:Part statistics
+id:saveparts_showpart
+name:Part # to be shown
+type:d
+help:A number of the part selected for measurements
+
+
+state:
+id:notes
+name:Notes
+type:s 1
+help:~
+You can write anything here
+(it will be saved to the experiment file)~
+
+state:
+id:totaltestedcr
+name:Evaluated creatures
+help:Total number of the creatures evaluated in the experiment
+type:d
+flags:16
+
+state:
+id:creaturesgrouploaded
+name:creaturesgrouploaded
+type:d
+flags:34

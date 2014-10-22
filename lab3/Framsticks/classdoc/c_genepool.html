@@ -1,0 +1,70 @@
+<HTML><HEAD><TITLE>GenePool</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>GenePool class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">The static GenePool object refers to the "selected group" as described in GenePools.</DIV><BR>
+13 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="5"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;fitfun
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=0</div></td><td>
+<p class="membername">Scale fitness?</p>
+<p class="help">Enables fitness scaling.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;fitm
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=2</div></td><td>
+<p class="membername">Shift coefficient</p>
+<p class="help">Lower threshold: how many standard deviations below average?<BR/>
+(avg - n * stddev) - used for fitness shifting</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;fitma
+<div class="typedescr">float, 1&nbsp;..&nbsp;10<br>
+default=2</div></td><td>
+<p class="membername">Scaling coefficient</p>
+<p class="help">The best genotype is as many times<BR/>
+better than the average one.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;fitness
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Fitness formula</p>
+<p class="help">(intended for advanced users)</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;index
+<div class="typedescr">integer</div></td><td>
+<p class="membername">group index</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;name
+<div class="typedescr">string</div></td><td>
+<p class="membername">Group name</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of items in the group</p>
+<p class="help">In standard.expdef, this is equivalent to the number of unique genotypes. Standard experiment definition uses the Genotype.instances field to indicate that some genotypes exist in multiple instances despite having only one item in the group. Other experiment definitions may create multiple copies of the same genotype.</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;totalpop
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Number of genotype instances</p>
+<p class="help">Takes into account the Genotype.instances field (which may give the total number of instances depending on the experiment definition).</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addGeno
+<div class="typedescr">returns <A HREF="c_genotype.html">Genotype</A></div></td><td>
+<p class="membername">make Genotype from Geno</p>
+<code>function addGeno(<A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">Creates a new Genotype from the supplied Geno object.<BR/>
+Returns the created Genotype.</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;delete
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername"></p>
+<code>function delete(integer genotype_index)</code><br>
+<p class="help">Deletes a genotype.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findGeno
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">find Genotype index</p>
+<code>function findGeno(<A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">Finds the Genotype matching the supplied Geno object.<BR/>
+returns genotype index or -1 if not found.</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;findUID
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">find Genotype by UID</p>
+<code>function findUID(string uid)</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns <A HREF="c_genotype.html">Genotype</A></div></td><td>
+<p class="membername">get Genotype object</p>
+<code>function get(integer index)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

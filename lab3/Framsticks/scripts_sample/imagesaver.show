@@ -1,0 +1,73 @@
+show:
+name:Image Exporter
+info:Generate creature pictures using the ImageExport class
+expdef:standard
+code:~
+
+global g_genotype_index;
+global g_exportframe; //1 only when the frame is to be (or has just been) exported
+
+function onLoad()
+{
+	Simulator.import("default.sim");
+	Simulator.import("walking.gen");
+	GLDisplay.simsteps = 1;
+
+	TrackingCam.cam_tracking = 0; //tracking:off
+	TrackingCam.cam_change = 1; //target change:cut
+	TrackingCam.cam_zoom = 1;
+	TrackingCam.cam_dir = 30;
+	TrackingCam.cam_h = 45;
+	ImageExport.imgex_outdir = "img-exported";
+	ImageExport.imgex_outfiles = "image%03d.ppm"; //set later anyway
+	ImageExport.imgex_format = 0; //0=ppm (lossless), 1=jpg (lossy)
+	ImageExport.imgex_skip = 0;
+
+	ExpParams.MaxCreated = 0;
+	ExpParams.placement = 1; //place in the center of the world
+	g_genotype_index = 0;
+	g_exportframe = 1;
+}
+
+function setBanner() //adjust to your liking
+{
+	ShowManager.dispinfo = 0;
+	//GLDisplay.banner=Populations[0][0].name;
+}
+
+function onShowStep()
+{
+	if (g_genotype_index >= GenePools[0].size)
+	{
+		ImageExport.imgex_disable();
+		GLDisplay.quit();
+	}
+	else
+	{
+		if (g_exportframe) //frame has just been exported
+		{
+			g_exportframe = 0;
+			ImageExport.imgex_disable();
+			if (Populations[0].size > 0)
+				Populations[0].delete(0);
+			GenePools.genotype = g_genotype_index;
+			g_genotype_index++;
+			Populations.group = 0;
+			Populations.createFromGenotype();
+			CreatureSelection.clear();
+			if (Populations[0].size > 0)
+				CreatureSelection.add(Populations[0][0]);
+		}
+		if (Populations[0][0].nnenabled) //stabilized -> time to export! remove this condition if you want to export creatures immediately after revival
+		{
+			if (!ImageExport.imgex_enabled)
+				ImageExport.imgex_enable();
+			ImageExport.imgex_outfiles = "image_" + String.format("%03d",g_genotype_index) + ".ppm";
+			setBanner();
+			g_exportframe = 1;
+		}
+	}
+}
+
+~
+

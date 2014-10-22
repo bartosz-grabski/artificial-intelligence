@@ -1,0 +1,42 @@
+<HTML><HEAD><TITLE>CreatureSettings</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>CreatureSettings class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Creature building parameters</DIV><BR>
+7 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="5"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;bnoise_struct
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0</div></td><td>
+<p class="membername">Body disturbance</p>
+<p class="help">When &gt;0, body constructs of creatures (position of Parts) will be randomly disturbed when they are created.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;bnoise_vel
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0</div></td><td>
+<p class="membername">Initial movement</p>
+<p class="help">Random velocities will be applied to all body Parts (in MechaStick) or rigid segments (in ODE) of newly created creatures.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;maxjoint
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=2</div></td><td>
+<p class="membername">Maximal joint length</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;minjoint
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0</div></td><td>
+<p class="membername">Minimal joint length</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;nnoise
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Noise</p>
+<p class="help">Gaussian neural noise: a random value is added to each neural output in each simulation step. Set standard deviation here to add random noise, or 0 for deterministic simulation.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;randinit
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0.01</div></td><td>
+<p class="membername">Random initialization</p>
+<p class="help">Allowed range for initializing all neuron states with uniform distribution random numbers and zero mean. Set to 0 for deterministic initialization.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;touchrange
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=1</div></td><td>
+<p class="membername">T receptor range</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

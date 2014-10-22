@@ -1,0 +1,81 @@
+class:
+name:Pulse
+longname:Impulse generator
+description:Generates Dirac pulse train. Supports randomness ("rand" parameter) and frequency controlled by input.
+prefinputs:1
+prefoutput:1
+icon:~
+35,6,3,25,0,25,100,75,50,25,0,1,75,50,100,50,1,30,60,60,60,1,35,60,35,40,1,45,60,45,40,1,55,60,55,40~
+code:~
+
+//Note 1: this neuron is discrete (integer). If you want fractional values of parameters working properly,
+//a continuous version should be developed.
+//Note 2: negative values of Fields.period mean Poissonian process; if used, Fields.rand is ignored and "frequency" controlled by input is not supported.
+
+function setNextRand()
+{
+  Fields.nextrand = Math.random(Fields.rand+1)-Fields.rand/2; 
+   //Math.rndGauss(0,Fields.rand);
+  //or (continuous, to do) Math.rndUni(-Fields.rand/2,Fields.rand/2); 
+}
+
+function init()
+{ 
+  if (Fields.period>=0)
+  {
+    Fields.counter=Math.random(Fields.period);
+    if (Fields.rand%2>0 && Fields.rand>0) Fields.rand++; //make even for symmetry when dividing by two
+    setNextRand();
+  }
+}
+
+function go()
+{
+  if (Fields.period>=0) //random time of next pulse
+  {
+    var dt=1.0+Neuro.weightedInputSum; //inputs=-1 stop generator
+    if (dt<0) dt=0; //going "back" forbidden
+    Fields.counter+=dt;
+    if (Fields.counter>=Fields.period+Fields.nextrand)
+    {
+      Neuro.state = Fields.ampl;
+      Fields.counter=0;
+      setNextRand();
+    } else 
+      Neuro.state = 0;
+  } else //negative? poisson distribution
+  {
+    Neuro.state = Fields.ampl * (Math.random(-Fields.period)==0); //in each step, state==amplitude with probability 1/n, n=-Fields.period
+  }
+}
+~
+
+prop:
+id:period
+name:Period
+help:Use a negative value to set ratio for Poissonian process
+type:d -100000 1000000 50
+
+prop:
+id:rand
+name:Randomness
+type:d 0 1000000 0
+
+prop:
+id:ampl
+name:Amplitude
+help:Amplitude of pulses
+type:f 0 100 1
+
+prop:
+id:counter
+name:Counter (private)
+type:d
+flags:32
+
+prop:
+id:nextrand
+name:Next event (private)
+type:d
+flags:32
+

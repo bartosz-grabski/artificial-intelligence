@@ -1,0 +1,44 @@
+expdef:
+name:Dump creatures
+info:~
+In each simulation step, it dumps coordinates and velocities of all Parts of all living Creatures from group #0.
+See the "dump.txt" file in the "scripts_output" subdirectory.
+~
+code:~
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  var retry = 20; //try 20 times
+  var placed_ok=0;
+  while (retry--)
+  {
+    place_randomly(0, 0); //random place, no rotation
+    if (!Populations.creatBBCollisions(0))
+      {placed_ok=1;break;}
+  }
+  if (!placed_ok)
+    Simulator.message("onBorn() could not avoid collisions.", 2);
+}
+
+
+@include "dump_creatures.inc"
+
+function onStep()
+{
+  dumpCreatures(1);
+}
+~
+
+prop:
+id:creath
+name:Initial elevation
+type:f -1 50 0.1
+help:~
+Vertical position (above the surface) where newborn creatures are placed.
+Negative values are only used in the water area:
+  0   = at the surface
+-0.5 = half depth
+-1   = just above the bottom~
+

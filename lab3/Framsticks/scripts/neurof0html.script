@@ -1,0 +1,63 @@
+script:
+name:Make neuros.html describing all neuron classes
+code:~
+function main()
+{
+  var f = File.create("neurons.html", "All registered neuron classes, including script-defined neurons.");
+  f.writeString("<html><body>\n<h2>All neuron types: summary</h2>\n\n<table border=1 cellpadding=5>");
+  var i;
+  for (i = 0;i < NeuroClassLibrary.count;i++) //first, non-experimental neurons
+  {
+    NeuroClassLibrary.class = i;
+    if (String.indexOf(NeuroClass.longname, "EXPERIMENTAL") < 0)
+      neuro(i, f);
+  }
+  f.writeString("</table><h2 class=\"nagztlem\">Experimental neurons</h2><p>Do not use unless you know what you are doing. ");
+  f.writeString("Some of these neurons may be unstable, many are used for special purposes.\n<p><table border=1 cellpadding=5>\n");
+  for (i = 0;i < NeuroClassLibrary.count;i++) //then, experimental ones
+  {
+    NeuroClassLibrary.class = i;
+    if (String.indexOf(NeuroClass.longname, "EXPERIMENTAL") >= 0)
+      neuro(i, f);
+  }
+  f.writeString("</table></body></html>");
+  f.close();
+}
+
+function neuro(i, f)
+{
+  f.writeString("<tr><td width=\"30%\">");
+  if (String.indexOf(NeuroClass.longname, "EXPERIMENTAL") >= 0)
+    f.writeString("<font color=gray>");
+  else
+    f.writeString("<font color=black>");
+
+  f.writeString("<p><span style=\"font-size:180%\">" + html(NeuroClass.name) + "</span> &nbsp; (" + html(NeuroClass.longname) + ")\n");
+  if (String.len(NeuroClass.description) > 0)
+    f.writeString("<p>" + html(NeuroClass.description) + "</p>\n");
+  f.writeString("</td>\n");
+
+  var sum = NeuroClass.summary;
+  var pos = String.indexOf(sum, "Characteristics:");
+  if (pos >= 0)
+    sum = String.substr(sum, pos + 17, String.len(sum) - pos - 17);
+  f.writeString("<td><pre>" + rtrim(sum) + "</pre></td></tr>\n\n");
+}
+
+function rtrim(name)
+{
+  while (String.right(name, 1) == "\n")
+    name = String.left(name, String.len(name) - 1);
+  name = String.replace(name, "\n\n", "\n");
+  return name;
+}
+
+function html(name)
+{
+  name = String.replace(name, "<", "&lt;");
+  name = String.replace(name, ">", "&gt;");
+  name = String.replace(name, "\n", "<br>");
+  name = String.replace(name, "-", "&ndash;");
+  return name;
+}
+~

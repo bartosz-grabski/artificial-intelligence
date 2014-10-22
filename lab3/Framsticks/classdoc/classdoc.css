@@ -1,0 +1,72 @@
+BODY
+{
+background:#eeeeee url(tlo_artlife.jpg);
+font-family:Verdana,sans-serif,tahoma;
+font-size:80%;
+line-height:160%;
+}
+
+TABLE {
+        margin-top:1em;
+	empty-cells: show;
+}
+TD.head
+{
+        border-top: solid 1px white;
+        border-left: solid 1px white;
+        border-right: solid 1px gray;
+        border-bottom: solid 1px gray;
+        text-align:center;
+        font-size:110%;
+}
+TD.fields
+{
+        font-size:80%;
+}
+
+P.index
+{
+text-align:right
+font-size:80%
+}
+
+P.footer
+{
+text-align:center
+font-size:80%
+}
+
+P.childrenctx
+{
+font-size:80%
+}
+
+DIV.clsdescr
+{
+font-size:70%
+}
+
+DIV.typedescr
+{
+font-size:70%
+}
+
+P.membername
+{
+font-weight:bold;
+}
+
+P.help
+{
+font-size:70%;
+}
+
+
+/* This should make the pre and code fonts the same size as your regular text, while keeping IE at 100%. */
+pre, code 
+{
+font:115% monospace;*font-size:100%; /* czarodziejska linijka ktora naprawia male fonty w FF!! */
+background-color:white; 
+opacity:0.7;
+} 
+

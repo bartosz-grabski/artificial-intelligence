@@ -1,0 +1,14 @@
+# vertical position criterion
+sim_params:
+cr_c:0
+cr_life:0
+cr_v:0
+cr_gl:0
+cr_joints:0
+cr_nnsiz:0
+cr_nncon:0
+cr_di:0
+cr_vpos:1
+cr_vvel:0
+cr_norm:0
+cr_simi:0

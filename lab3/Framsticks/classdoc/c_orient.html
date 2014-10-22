@@ -1,0 +1,113 @@
+<HTML><HEAD><TITLE>Orient</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Orient class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">3D orientation, stored as 3x3 matrix.</DIV><BR>
+25 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="9"></A><IMG SRC="object-ns.gif" ALT="object" TITLE="object">&nbsp;x
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">x vector</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;xx
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.x.x</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;xy
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.x.y</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;xz
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.x.z</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="object-ns.gif" ALT="object" TITLE="object">&nbsp;y
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">y vector</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;yx
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.y.x</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;yy
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.y.y</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;yz
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.y.z</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="object-ns.gif" ALT="object" TITLE="object">&nbsp;z
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">z vector</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;zx
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.z.x</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;zy
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.z.y</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;zz
+<div class="typedescr">float</div></td><td>
+<p class="membername">orientation.z.z</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;between2
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">interpolate orientation</p>
+<code>function between2(<A HREF="c_orient.html">Orient</A>, <A HREF="c_orient.html">Orient</A>, float amount)</code><br>
+<p class="help">The calling Orient receives the orientation interpolated from 2 input orientations.<BR/>
+Example:<BR/>
+var o1=Orient.new(), o2=Orient.new(), o3=Orient.new();<BR/>
+o2.rotate3(0,Math.pi/2,0);<BR/>
+o3.between2(o1,o2,0); // o3 equals o2<BR/>
+o3.between2(o1,o2,1); // o3 equals o1<BR/>
+o3.between2(o1,o2,0.5); // o3 is halfway between o1 and o2<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;betweenOV
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">interpolate orientation</p>
+<code>function betweenOV(<A HREF="c_orient.html">Orient</A>, <A HREF="c_xyz.html">XYZ</A>, float amount)</code><br>
+<p class="help">Like between2(), but the second Orient is composed of the supplied XYZ vector (X component) and Y Z vectors from the calling object.<BR/>
+Example:<BR/>
+var o=Orient.new();<BR/>
+o.betweenOV(o,(0,1,0),1); //no change, o remains 100 010 001<BR/>
+o.betweenOV(o,(0,1,0),0.9); //o is slightly rotated towards (0,1,0)<BR/>
+o.betweenOV(o,(0,1,0),0); //o is completely transformed, o.x=(0,1,0)<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;clone
+<div class="typedescr">returns <A HREF="c_orient.html">Orient</A></div></td><td>
+<p class="membername">create new Orient object</p>
+<code>function clone()</code><br>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;localToWorld
+<div class="typedescr">returns member</div></td><td>
+<p class="membername">transform coordinates</p>
+<code>function localToWorld(<A HREF="c_xyz.html">XYZ</A> point, <A HREF="c_xyz.html">XYZ</A> center)</code><br>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;lookAt
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">calculate rotation from 2 vectors</p>
+<code>function lookAt(<A HREF="c_xyz.html">XYZ</A> direction, <A HREF="c_xyz.html">XYZ</A> up)</code><br>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_orient.html">Orient</A></div></td><td>
+<p class="membername">create new Orient object</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;normalize
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">normalize</p>
+<code>function normalize()</code><br>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;reset
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set identity matrix</p>
+<code>function reset()</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;revRotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">reverse rotate using Orient object</p>
+<code>function revRotate(<A HREF="c_orient.html">Orient</A>)</code><br>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;rotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate using Orient object</p>
+<code>function rotate(<A HREF="c_orient.html">Orient</A>)</code><br>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;rotate3
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate around 3 axes</p>
+<code>function rotate3(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">copy from another Orient object</p>
+<code>function set(<A HREF="c_orient.html">Orient</A>)</code><br>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;worldToLocal
+<div class="typedescr">returns member</div></td><td>
+<p class="membername">transform coordinates</p>
+<code>function worldToLocal(<A HREF="c_xyz.html">XYZ</A> point, <A HREF="c_xyz.html">XYZ</A> center)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

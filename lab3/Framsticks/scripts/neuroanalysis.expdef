@@ -1,0 +1,189 @@
+expdef:
+name:Neuroanalysis
+info:~
+This experiment evaluates all genotypes in the gene pool.
+During simulation, the output signal of each neuron is
+analyzed, and its average and standard deviation
+are computed. These data are then saved in the 'Info'
+field of the genotype.
+~
+code:~
+function onExpDefLoad()
+{
+  GenePools.clear();
+  GenePool.name = "Genotypes";
+  Populations.clear();
+  Populations.clearGroup(0);
+  Population.name = "Creatures";
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 1;
+  ExpState.current = 0;
+  ExpParams.creath = 0.1;
+  ExpParams.evaltime = 1000;
+}
+
+function onExpInit()
+{
+  var i;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    Genotype.user1 = null;
+  }
+  ExpState.current = 0;
+}
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  var i, vec;
+  vec = Vector.new();
+  for (i = 0;i < Creature.numneurons;i++)
+  {
+    vec.add(0); // num.samples
+    vec.add(0.0); // sum(x)
+    vec.add(0.0); // sum(x^2)
+  }
+  Creature.user1 = vec;
+  Creature.energ0 = 100;
+  Creature.energy = Creature.energ0;
+  Creature.idleen = Creature.energ0 / ExpParams.evaltime;
+  place_randomly(0,4);
+}
+
+function onStep()
+{
+  var i, j, k, vec, s;
+  for (i = 0;i < Population.size;i++)
+  {
+    Populations.creature = i;
+    vec = Creature.user1;
+    k = 0;
+    for (j = 0;j < Creature.numneurons;j++)
+    {
+      s = Creature.getNeuro(j).state;
+      vec.set(k, vec.get(k) + 1);
+      k++;
+      vec.set(k, vec.get(k) + s);
+      k++;
+      vec.set(k, vec.get(k) + s*s);
+      k++;
+    }
+  }
+  if (Population.size < 1)
+  {
+    GenePools.group = 0;
+    if (ExpState.current >= GenePool.size)
+    {
+      Simulator.print("All genotypes analyzed.");
+      Simulator.stop();
+    }
+    else
+    {
+      GenePools.genotype = ExpState.current;
+      if (Genotype.nnsiz < 1)
+        ExpState.current++;
+      else
+        Populations.createFromGenotype();
+    }
+  }
+}
+
+function onDied()
+{
+  var j, k = 0, vec, n, s2, s, sq;
+  var result = "";
+  vec = Creature.user1;
+  for (j = 0;j < Creature.numneurons;j++)
+  {
+    n = vec.get(k);
+    s = vec.get(k + 1);
+    s2 = vec.get(k + 2);
+    result += j;
+    result += "\t";
+    result += s / n;
+    result += "\t";
+    
+    sq = s2 * n - s * s;
+    if (sq<0) sq=0.0; //protection against floating point inaccuracy, e.g. 1000.0*1000.0-1000.0*1000.0 gives a small negative number
+    result += Math.sqrt(sq / (n * (n - 1)));
+
+    result += "\n";
+    k += 3;
+  }
+  GenePools.genotype = ExpState.current;
+  Genotype.info = "Neuroanalysis results (" + n + " samples):\nneuron\taverage\tstd.dev.\n" + result;
+  ExpState.current++;
+}
+
+
+function onExpLoad()
+{
+  GenePools.clearGroup(0);
+  Populations.clearGroup(0);
+  Loader.setBreakLabel(Loader.BeforeUnknown, "onExpLoad_Unknown");
+  Loader.run();
+  if (GenePool.size > 0)
+    Simulator.print("Loaded " + GenePool.size + " genotypes");
+}
+
+function onExpLoad_Unknown()
+{
+  if (Loader.objectName != "org")
+    return ;
+  GenePools.genotype = -1;
+  Loader.currentObject = Genotype.*;
+  Interface.makeFrom(Genotype.*).setAllDefault();
+  Loader.loadObject();
+  GenePools.copySelected(0);
+}
+
+function onExpSave()
+{
+  File.writeComment("Neuroanalysis results");
+  var i;
+  for(i = 0; i < GenePool.size; i++)
+  {
+    GenePools.genotype = i;
+    File.writeNameObject("org", Genotype.*);
+  }
+  Simulator.print("Neuroanalysis results saved (" + GenePool.size + " genotypes)");
+}
+
+function ExpParams_restart_call()
+{
+  onExpInit();
+}
+
+~
+
+prop:
+id:evaltime
+name:Evaluation time
+type:d 100 100000
+
+prop:
+id:restart
+name:Restart from the first genotype
+type:p
+
+state:
+id:current
+name:Evaluating genotype
+type:d
+flags:16
+
+prop:
+id:creath
+name:Initial elevation
+type:f -1 50
+help:~
+Vertical position (above the surface) where newborn creatures are placed.
+Negative values are only used in the water area:
+  0   = at the surface
+-0.5 = half depth
+-1   = just above the bottom~

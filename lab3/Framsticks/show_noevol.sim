@@ -1,0 +1,6 @@
+# disable mutation/xover
+sim_params:
+p_nop:100
+p_mut:0
+p_xov:0
+

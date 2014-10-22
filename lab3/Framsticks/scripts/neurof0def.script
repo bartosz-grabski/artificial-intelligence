@@ -1,0 +1,53 @@
+script:
+name:Make f0.def describing all neuron classes
+code:~
+function main()
+{
+  var f = File.create("neurof0.def", "Neuron classes definition file (compatible with f0.def).\nContains all registered neuron classes, including script-defined neurons. Can be used to generate 'model.def' file for FRED, or an XML file, or source files used by the NeuroLibrary in GDK.");
+  var i, j, props;
+  for (i = 0;i < NeuroClassLibrary.count;i++)
+  {
+    NeuroClassLibrary.class = i;
+    f.writeString("NEUROCLASS(" + goodname(NeuroClass.longname) + "," + NeuroClass.name + "," + NeuroClass.longname + ",`"
+                  + NeuroClass.description + "'," + NeuroClass.prefinputs + "," + NeuroClass.prefoutput + ","
+                  + NeuroClass.preflocation + ")\n");
+    if (NeuroClass.visualhints != 0)
+      f.writeString("VISUALHINTS(" + NeuroClass.visualhints + ")\n");
+    if (NeuroClass.glyph != "")
+    {
+      var comma = String.indexOf(NeuroClass.glyph, ",");
+      if (comma > 0)
+        f.writeString("SYMBOL(`" + String.substr(NeuroClass.glyph, comma + 1) + "')\n");
+    }
+    props = NeuroClass.properties;
+    for (j = 0;j < props.properties;j++)
+    {
+      var t = props.getType(j);
+      var v = String.split2(t, " ");
+      f.writeString("NEUROPROP(" + props.getId(j) + ",0,0," + props.getName(j) + ","
+                    + EIF(v.get(0)) + "," + EIF(v.get(1)) + "," + EIF(v.get(2)) + "," + EIF(v.get(3)) + ",unknownfield)\n");
+    }
+    f.writeString("ENDNEUROCLASS\n\n");
+  }
+  f.close();
+}
+
+function EIF(t)
+{
+  if (t == null)
+    return "";
+  else
+    return t;
+}
+
+function goodname(name)
+{
+  name = String.replace(name, " ", "");
+  name = String.replace(name, "[", "");
+  name = String.replace(name, "]", "");
+  name = String.replace(name, "!", "");
+  name = String.replace(name, "-", "");
+  return name;
+}
+~
+

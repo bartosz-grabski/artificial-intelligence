@@ -1,0 +1,45 @@
+script:
+name:Food circle
+help:Arranges food pieces in a circle
+code:~
+function main()
+{
+  if (!findFoodGroup())
+  {
+    Simulator.message("Food group not defined in your experiment.", 2);
+    return ;
+  }
+
+  Simulator.print("Making food circle...");
+
+  var siz = World.wrldsiz / 2.0;
+  var full = Math.twopi;
+  var step = 13.0 / (full*siz) + 0.001;
+  var a, x, y;
+  for (a = step;a < full;a += step)
+  {
+    addfood();
+    x = siz * (1.0 + Math.sin(a)) - 1.0;
+    y = siz * (1.0 + Math.cos(a)) - 1.0;
+    Creature.moveAbs(x, y, WorldMap.getHeight(x, y));
+  }
+}
+
+function addfood()
+{
+  Populations.createFromString("//0\nm:Vstyle=food\np:");
+}
+
+function findFoodGroup()
+{
+  var i;
+  for (i = 0;i < Populations.size;i++)
+  {
+    Populations.group = i;
+    if (Population.name == "Food")
+      return 1;
+  }
+  return 0;
+}
+~
+

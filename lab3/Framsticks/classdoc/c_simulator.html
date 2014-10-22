@@ -1,0 +1,208 @@
+<HTML><HEAD><TITLE>Simulator</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Simulator class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">The Framsticks simulator.</DIV><BR>
+40 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="23"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;autosaveperiod
+<div class="typedescr">integer, 0&nbsp;..&nbsp;100000</div></td><td>
+<p class="membername">Save backup</p>
+<p class="help">Save simulation state once every n-th event<BR/>
+(events are defined by the script. For 'standard.expdef' it is after each death).<BR/>
+Save EXPT file first to initialize name for autosave files.</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;createrr
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Ignore<li>1 = Show summary (default)<li>2 = Show details</div></td><td>
+<p class="membername">Object creation errors</p>
+</TD></TR><TR><TD><A NAME="28"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;creatwarnfail
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Fail on warnings</p>
+<p class="help">Creatures grown with warnings will not be simulated.</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef
+<div class="typedescr">string</div></td><td>
+<p class="membername">Experiment definition</p>
+<p class="help">Choose the experiment framework<BR/>
+(in Windows GUI, confirm by pressing 'Apply')<BR/>
+<BR/>
+Stop the simulation before selecting another experiment definition.<BR/>
+It is a good practice to initialize the experiment before running the simulation.</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef_info
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Description</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef_title
+<div class="typedescr">string</div></td><td>
+<p class="membername">Title</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;filecomm
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Show file comments</p>
+<p class="help">Display comments encountered in opened files</p>
+</TD></TR><TR><TD><A NAME="38"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;genolib
+<div class="typedescr"><A HREF="c_genepools.html">GenePools</A></div></td><td>
+<p class="membername">gene pools object</p>
+</TD></TR><TR><TD><A NAME="31"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;groupchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check genotypes added to groups</p>
+</TD></TR><TR><TD><A NAME="29"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;importchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check imported genotypes</p>
+</TD></TR><TR><TD><A NAME="37"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;livelib
+<div class="typedescr"><A HREF="c_populations.html">Populations</A></div></td><td>
+<p class="membername">populations object</p>
+</TD></TR><TR><TD><A NAME="30"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;loadchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check genotypes loaded from experiment</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;overwrite
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Overwrite</p>
+<p class="help">Overwite existing files or create their backups</p>
+</TD></TR><TR><TD><A NAME="34"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;resetonexpdef
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Reset before changing experiment definition</p>
+<p class="help">If turned on: when a new experiment definition is selected, default values are loaded for most of the simulator parameters, and gene pools and populations are cleared.<BR/>
+When turned off: parameters from previous experiment definition will remain.</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;running
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">is the simulation running?</p>
+<p class="help">for synchronizing the user interface state</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simspeed
+<div class="typedescr">integer</div></td><td>
+<p class="membername">simulation speed</p>
+<p class="help">steps/second</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;time
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of steps</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;usercode
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">User script</p>
+<p class="help">This script overrides the experiment definition</p>
+</TD></TR><TR><TD><A NAME="32"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;vmdebug
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">VM debug</p>
+</TD></TR><TR><TD><A NAME="36"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;world
+<div class="typedescr"><A HREF="c_world.html">World</A></div></td><td>
+<p class="membername">world object</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;beep
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">beep</p>
+<code>function beep()</code><br>
+<p class="help">Plays a default system sound</p>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;checkpoint
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Notify that the experiment state was significantly updated.</p>
+<code>function checkpoint()</code><br>
+<p class="help">This function was previously called "autosave".</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;eval
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">evaluate expression</p>
+<code>function eval(string script_expression)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;export
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">export</p>
+<code>function export(string filename, integer options, integer genepool, integer population)</code><br>
+<p class="help">Save some data to file. arguments:<BR/>
+- filename<BR/>
+- flags: composed of the following bit values:<BR/>
+   1 - experiment (works like "save" and all other bits are ignored)<BR/>
+   2 - genotypes<BR/>
+   4 - simulator parameters<BR/>
+   8 - simulator stats<BR/>
+   16 - genepool settings<BR/>
+   32 - population settings<BR/>
+   64 - do autosave<BR/>
+- selected genepool<BR/>
+- selected population</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;import
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">import</p>
+<code>function import(string filename, integer options)</code><br>
+<p class="help">Load some data from file. The second optional argument selects what section(s) will be imported:<BR/>
+ 1 - experiment (works like "load" and can reset the simulator state!)<BR/>
+ 2 - genotypes<BR/>
+ 4 - simulator parameters<BR/>
+ 8 - genepool settings<BR/>
+ 16 - population settings<BR/>
+ 32 - new groups will be created for imported genepools and populations<BR/>
+64 - allow switching to a different expdef while importing parameters (4)<BR/>
+<BR/>
+The standard behavior (without the second argument) is to import genotypes, parameters, and genepool and population settings (2+4+8+16). Note that "64" is not included by default, because the expdef change resets all simulator parameters, which contradicts the usual meaning of "import" in Framsticks ("add data", as opposed to "load" meaning "replace data"). Moreover, using the "64" option in scripts can be dengerous, especially all expdef and show scripts should always declare the proper expdef name in their header rather than change the expdef directly. Without the "64" option, it is always safe to "import" any file in a script regardless of the current simulator state.</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;import
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">import</p>
+<code>function import(string filename)</code><br>
+<p class="help">Equivalent to import(filename,2+4+8+6) - imports genotypes, parameters, genepool and population settings</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;init
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Initialize experiment</p>
+<code>function init()</code><br>
+<p class="help">Performs initialization procedures, like resetting counters, states, gene pools, etc.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;load
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">load</p>
+<code>function load(string filename)</code><br>
+<p class="help">Load experiment file (calls onExpLoad() in the current experiment definition). This function is intended to replace the simulator state; the old state is cleared by automatically calling "resetToDefaults()" (only if "resetonexpdef" is enabled). Use "import" if you don't want to loose the old simulator state.</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;loadexpdef
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Reload experiment definition</p>
+<code>function loadexpdef()</code><br>
+</TD></TR><TR><TD><A NAME="39"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;loadNeurons
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">(re)load neuron definitions</p>
+<code>function loadNeurons(string directory_path)</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;message
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">print message</p>
+<code>function message(string text, integer level)</code><br>
+<p class="help">The second argument can be:<BR/>
+ -1 = debugging message<BR/>
+ 0 = information<BR/>
+ 1 = warning<BR/>
+ 2 = error<BR/>
+ 3 = critical error</p>
+</TD></TR><TR><TD><A NAME="35"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_simulator.html">Simulator</A></div></td><td>
+<p class="membername">create new Simulator</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;print
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">print information message</p>
+<code>function print(string text)</code><br>
+<p class="help">One argument: message to be printed</p>
+</TD></TR><TR><TD><A NAME="33"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;resetToDefaults
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Reset the simulator state</p>
+<code>function resetToDefaults()</code><br>
+<p class="help">Clears groups and loads default values for simulator parameters, then calls onExpDefLoad() of the current experiment definition.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;save
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">save</p>
+<code>function save(string filename)</code><br>
+<p class="help">Save experiment file (calls onExpSave() in the current experiment definition)</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;sleep
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">sleep</p>
+<code>function sleep(integer milliseconds)</code><br>
+<p class="help">Suspends the execution for a specified interval</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;sound
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">sound</p>
+<code>function sound(integer freqency_in_Hz, integer length_in_milliseconds)</code><br>
+<p class="help">Generates a simple tone on the speaker</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;start
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">start simulation</p>
+<code>function start()</code><br>
+<p class="help">called by the user interface</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;step
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">do single simulation step</p>
+<code>function step()</code><br>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;stop
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">stop simulation</p>
+<code>function stop()</code><br>
+<p class="help">the expdef script calls this to stop simulation</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

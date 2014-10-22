@@ -1,0 +1,32 @@
+script:
+name:Gallery
+help:Arranges creatures from the first gene pool in a grid
+code:~
+function main()
+{
+  var n = GenePools[0].size;
+  if (n == 0)
+  {
+    Simulator.print("This script needs some genotypes in the first gene pool.");
+    return ;
+  }
+  var side = 0 + (Math.sqrt(n) + 0.999);
+  Simulator.print("There are " + n + " genotype(s), it will be " + side + " by " + side + " grid");
+
+  var spacing = World.wrldsiz/(side+1); // grid spacing
+  var i, j, g = 0, x, y, z;
+  for (i = 1;i <= side;i++)
+    for (j = 1;j <= side;j++)
+    {
+      if (g >= GenePools[0].size)
+        return ;
+      Populations[0].createFromGeno(GenePools[0][g].geno);
+      x = spacing * i;
+      y = spacing * j;
+      z = WorldMap.getHeight(x, y);
+      Creature.moveAbs(x - Creature.size_x / 2, y - Creature.size_y / 2, z);
+      g++;
+    }
+
+}
+~

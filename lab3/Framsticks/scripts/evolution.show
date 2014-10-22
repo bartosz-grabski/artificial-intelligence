@@ -1,0 +1,246 @@
+show:
+name:Evolution
+info:~
+Evolutionary optimization with user-selected criteria.
+50 genotypes in the gene pool, tournament selection.
+~
+expdef:standard
+code:~
+
+global g_step;
+global g_crcharts, g_simcharts;
+global g_win1, g_win2;
+global g_critIds, g_critIds2, g_dispNames, g_critNames, g_critFiles;
+global g_next_hidden_check, g_backgroundspeed, g_originaldesiredsimspeed;
+global g_visibletime, g_hiddentime;
+
+function onLoad()
+{
+  g_step = 1;
+  TrackingCam.cam_chspeed = 0.1;
+  ShowParams.criterion = 0;
+  ShowParams.hiddencalc = 2;
+  ShowParams.convergence = 0;
+  g_next_hidden_check = 0;
+  g_visibletime = [18, 10, 3];
+  g_hiddentime = [2, 10, 27];
+  g_backgroundspeed = 99999; //set for "background simulation" mode
+  GLDisplay.desiredsimspeed = 50;
+  g_originaldesiredsimspeed = GLDisplay.desiredsimspeed; //to be able to restore original value
+
+  GenePools.newGenotype("X");
+
+  g_dispNames = ["Velocity", "Vertical velocity", "Height"];
+  g_critNames = ["Velocity", "Vertical velocity", "Vertical position"];
+  g_critFiles = ["vel", "vertvel", "vertpos"];
+  g_critIds = ["c_velocity", "c_vertvelocity", "c_vertpos"];
+  g_critIds2 = ["velocity", "vertvel", "vertpos"];
+
+  g_crcharts = GLDisplay.newCreatureCharts();
+  g_simcharts = GLDisplay.newSimStatsCharts();
+
+  updateBanner();
+  loadEvolParams();
+  createWindows();
+  ShowParams_convergence_set();
+  //ShowParams_restartempty_call();
+  ShowParams_restartsimple_call();
+}
+
+function loadEvolParams()
+{
+  var filename = "show_evol_" + g_critFiles[ShowParams.criterion] + ".sim";
+  Simulator.print("Loading simulator parameters from " + filename);
+  Simulator.import("show_evol.sim");
+  Simulator.import(filename);
+}
+
+function createWindows()
+{
+  var IF, i, c = ShowParams.criterion;
+
+  // window with creature performane chart
+  IF = Interface.makeFrom(Creature.*);
+  i = IF.findId(g_critIds[c]);
+  if (i < 0)
+    Simulator.print("creature property not found!");
+  else
+    g_win1 = g_crcharts.add(i);
+  //Simulator.print("crcharts created:"+win);
+  //Simulator.print("client=" + g_win1.client);
+  g_win1.client.xscale = 20;
+  g_win1.backcolor = 0x80ffdddd;
+  g_win1.style = 1 + 2 + 4 + 16;
+  g_win1.title = "Current creature";
+  g_win1.size_x = GLDisplay.size_x / 4;
+  g_win1.size_y = GLDisplay.size_y / 3;
+  //Simulator.print("disp size " + GLDisplay.size_x + " x " + GLDisplay.size_y);
+
+  // window with simulator statistics chart
+  IF = Interface.makeFrom(stats.*);
+  var t = "Genotypes: " + g_critNames[c];
+  Simulator.print(t);
+  i = IF.findIdInGroup("st_avg_" + g_critIds2[c], t);
+  //i=IF.findIdInGroup("st_avg_velocity","Genotypes: Velocity");
+  Simulator.print("st_avg_" + g_critIds[c]);
+  if (i < 0)
+    Simulator.print("simulator stats entry not found!");
+  else
+    g_win2 = g_simcharts.add(i);
+  g_win2.style = 1 + 2 + 4 + 16;
+  g_win2.backcolor = 0x80ddddff;
+  g_win2.title = "Gene pool average";
+  g_win2.size_x = GLDisplay.size_x / 4;
+  g_win2.size_y = GLDisplay.size_y / 3;
+}
+
+function updateBanner()
+{
+  var t = "";
+  if (GLDisplay.desiredsimspeed == g_backgroundspeed)
+    t += "[Background simulation]\n\n";
+  t += "Current criterion: " + g_dispNames[ShowParams.criterion];
+  if (CreatureSelection.count > 0)
+  {
+    var c = CreatureSelection.get(0);
+    t += "\nCurrent creature: " + c.name + "\n" + c.info + "\n";
+    t += "\nGenotype: " + c.genotype + "\n";
+    g_crcharts.creature = c;
+  }
+  GLDisplay.banner = t;
+}
+
+function onResize()
+{
+  g_win1.size_x = GLDisplay.size_x / 4;
+  g_win1.size_y = GLDisplay.size_y / 3;
+  g_win2.size_x = GLDisplay.size_x / 4;
+  g_win2.size_y = GLDisplay.size_y / 3;
+  g_win2.pos_x = GLDisplay.size_x - g_win2.size_x;
+  g_win2.pos_y = GLDisplay.size_y - g_win2.size_y - 18;
+  g_win1.pos_y = GLDisplay.size_y - g_win1.size_y - 18;
+  g_win1.pos_x = 0;
+}
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(TrackingCam.cam_dir + 0.01, TrackingCam.cam_h);
+  g_step++;
+  if (g_step > 100)
+  {
+    g_step = 1;
+    if (CreatureSelection.count == 0)
+      if (GLDisplay.simsteps < 100)
+      {
+        var g = Populations.get(0);
+        if (g.size > 0)
+        {
+          CreatureSelection.clear();
+          CreatureSelection.add(g.get(0));
+        }
+      }
+  }
+  if (Math.time > g_next_hidden_check)
+    if (GLDisplay.desiredsimspeed == g_backgroundspeed) // was "hidden"
+    { 
+      GLDisplay.desiredsimspeed = g_originaldesiredsimspeed;
+      if (ShowParams.hiddencalc > 0)
+        g_next_hidden_check = Math.time + g_visibletime[ShowParams.hiddencalc - 1];
+      updateBanner();
+    }
+    else
+    {
+      if (ShowParams.hiddencalc > 0) //becomes "hidden"
+      {
+        g_next_hidden_check = Math.time + g_hiddentime[ShowParams.hiddencalc - 1];
+        GLDisplay.desiredsimspeed = g_backgroundspeed;
+        updateBanner();
+      }
+    }
+}
+
+function onSelectionChange()
+{
+  updateBanner();
+}
+
+function deleteWindows()
+{
+  g_crcharts.removeAll();
+  g_simcharts.removeAll();
+}
+
+function ShowParams_criterion_set()
+{
+  Simulator.print("changing criterion to " + g_dispNames[ShowParams.criterion]);
+  loadEvolParams();
+  ExpParams.cleardata();
+  deleteWindows();
+  createWindows();
+  onResize();
+  updateBanner();
+}
+
+function ShowParams_convergence_set()
+{
+  if (ShowParams.convergence == 0)
+    ExpParams.delrule = 0; //random deletion
+  else
+    ExpParams.delrule = 1; //inv-fitness
+  if (ExpParams.delrule == 0)
+    Simulator.print("Genotype deletion: random");
+  if (ExpParams.delrule == 1)
+    Simulator.print("Genotype deletion: inversely proportional to fitness");
+}
+
+function ShowParams_restartempty_call()
+{
+  Simulator.print("Restarting with predefined simple genotypes");
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  GenePools.clearGroup(0);
+  GenePools.newGenotype("X");
+  Genotype.name = "Initial";
+  deleteWindows();
+  createWindows();
+  onResize();
+}
+
+function ShowParams_restartsimple_call()
+{
+  Simulator.print("Restarting with single X genotype");
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  GenePools.clearGroup(0);
+  Simulator.import("show_evol_simple.gen");
+  deleteWindows();
+  createWindows();
+  onResize();
+}
+
+~
+
+prop:
+id:criterion
+name:Optimization criterion
+type:d 0 2 ~Velocity~Vertical velocity~Height
+
+prop:
+id:hiddencalc
+name:Background simulation time
+type:d 0 3 ~Never~10%~50%~90%
+
+prop:
+id:convergence
+name:Fast convergence (remove unfit)
+type:d 0 1
+
+prop:
+id:restartempty
+name:Restart evolution (empty gene pool)
+type:p
+
+prop:
+id:restartsimple
+name:Restart evolution (simple genotypes)
+type:p

@@ -1,0 +1,10 @@
+VMNeuronManager::autoload - Neuro classes added: Delay Light Nn PIDP PIDV SeeLight SeeLight2 Sf Thr 
+UserScripts::autoload - 16 user scripts added.
+Simulator::load - Loading from default.sim
+Loader::load - Comments read from file follow:
+Loader::load -  created Thu May 25 15:57:54 2006
+Loader::load -  by Framsticks 2.11
+Simulator::load - Settings loaded (default.sim)
+  Warning: Framsticks::Shareware - Unregistered version - please register.
+MainProgram::Start - Application initialized
+MainProgram::Finish - Application ends

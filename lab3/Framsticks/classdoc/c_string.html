@@ -1,0 +1,110 @@
+<HTML><HEAD><TITLE>String</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>String class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">String functions library.</DIV><BR>
+17 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;char
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">character from ASCII</p>
+<code>function char(integer)</code><br>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;code
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">ASCII code of the character</p>
+<code>function code(string)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;format
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">formatted string conversion</p>
+<code>function format(string format, untyped value)</code><br>
+<p class="help">Works like the standard C library "sprintf()" but only one %-argument is accepted.<BR/>
+Format string: %[-][+][0][width[.precision]]type<BR/>
+ -: left adjust (default is right adjust)<BR/>
+ +: place a sign (+ or -) before a number<BR/>
+ 0: the value should be zero padded<BR/>
+ width: minimum field width<BR/>
+ precision: minimum number of decimal digits<BR/>
+ type: d=decimal integer, x/X=hexadecimal integer, f/g=floating point number, e="scientific" style floating point, t=time<BR/>
+Examples:<BR/>
+ String.format("|%07.2f|",Math.pi) -&gt; ="|0003.14|"<BR/>
+ String.format("|%04x|",255) -&gt; ="|00ff|"<BR/>
+ String.format("|%7s|","text") -&gt; ="|   text|"<BR/>
+ String.format("|%-7d|",12345) -&gt; ="|12345  |"<BR/>
+ String.format("%t",Math.time) -&gt; ="Sun Apr 29 19:22:02 2007"<BR/>
+ String.format("%T",Math.time) -&gt; ="2007-05-29 19:22:02"<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;indexOf
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">search for substring</p>
+<code>function indexOf(string, string substring)</code><br>
+<p class="help">String.indexOf("abcdef","cd") -&gt; 2<BR/>
+String.indexOf("abcdef","dc") -&gt; -1<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;indexOfStart
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">search for substring</p>
+<code>function indexOfStart(string, string substring, integer start_index)</code><br>
+<p class="help">String.indexOfStart("abcdef","cd",1) -&gt; 2<BR/>
+String.indexOfStart("abcdef","cd",3) -&gt; -1<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;left
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">left substring</p>
+<code>function left(string, integer number_of_characters)</code><br>
+<p class="help">String.left("abcdef",3) -&gt; ="abc"</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;len
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">string length</p>
+<code>function len(string)</code><br>
+<p class="help">String.len("abcdef") -&gt; 6</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;parseFloat
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">parse floating point</p>
+<code>function parseFloat(string)</code><br>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;parseInt
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">parse integer</p>
+<code>function parseInt(string)</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;replace
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">replace</p>
+<code>function replace(string input_string, string search, string substitute)</code><br>
+<p class="help">String.replace("abcdef","cd","X") -&gt; "abXef"</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;right
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">right substring</p>
+<code>function right(string, integer number_of_characters)</code><br>
+<p class="help">String.right("abcdef",3) -&gt; ="def"</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;split
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">split</p>
+<code>function split(string, string word_separator)</code><br>
+<p class="help">return the vector of substrings, cut at separator positions.<BR/>
+subsequent separators give empty words: split("word1---word2-word3","-") -&gt; ["word1","","","word2","word3"]</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;split2
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">split2</p>
+<code>function split2(string, string word_separator)</code><br>
+<p class="help">return the vector of substrings, cut at separator positions.<BR/>
+subsequent separators are treated as one: split2("word1---word2-word3","-") -&gt; ["word1","word2","word3"]</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;substr
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">substring</p>
+<code>function substr(string, integer first_character, integer number_of_characters)</code><br>
+<p class="help">String.substr("abcdef",3,2) -&gt; ="de"</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;substr
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">substring</p>
+<code>function substr(string, integer first_character)</code><br>
+<p class="help">String.substr("abcdef",3) -&gt; ="def"</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;toLower
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">make lowercase version</p>
+<code>function toLower(string)</code><br>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;toUpper
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">make uppercase version</p>
+<code>function toUpper(string)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

@@ -1,0 +1,135 @@
+<HTML><HEAD><TITLE>GeomBuilder</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>GeomBuilder class in <A HREF="x_visualstyledefinition.html">Visual style definition</A></H2>
+<DIV CLASS="classdesc">Scene graph access (build and manipulate the 3d object tree)</DIV><BR>
+35 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;code
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Script</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;currentNode
+<div class="typedescr">integer</div></td><td>
+<p class="membername">currently selected node</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;defaultStyle
+<div class="typedescr">string</div></td><td>
+<p class="membername">default style</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix00
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[0,0]</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix01
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[1,0]</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix02
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[0,2]</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix03
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[0,3]</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix10
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[1,0]</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix11
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[1,1]</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix12
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[1,2]</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix13
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[1,3]</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix20
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[2,0]</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix21
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[2,1]</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix22
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[2,2]</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix23
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[2,3]</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix30
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[3,0]</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix31
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[3,1]</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix32
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[3,2]</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;matrix33
+<div class="typedescr">float</div></td><td>
+<p class="membername">matrix[3,3]</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;rootNode
+<div class="typedescr">integer</div></td><td>
+<p class="membername">object's root node</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;updatingNode
+<div class="typedescr">integer</div></td><td>
+<p class="membername">geometry node to be associated with current creature's element</p>
+</TD></TR><TR><TD><A NAME="23"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">add</p>
+<code>function add(integer node)</code><br>
+<p class="help">add a child node to the current node</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addBranch
+<div class="typedescr"></div></td><td>
+<p class="membername">addBranch</p>
+<code>function addBranch()</code><br>
+<p class="help">create the branch node as a child of the current node and make it the new current node</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addTransform
+<div class="typedescr"></div></td><td>
+<p class="membername">addTransform</p>
+<code>function addTransform()</code><br>
+<p class="help">create the transform node as a child of the current node and make it the new current node.</p>
+</TD></TR><TR><TD><A NAME="34"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;dump
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">dump object hierarchy</p>
+<code>function dump(integer node, integer level)</code><br>
+</TD></TR><TR><TD><A NAME="33"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getBranch
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">getBranch</p>
+<code>function getBranch(integer branch_node, integer branch_index)</code><br>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixMove
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">translate matrix</p>
+<code>function matrixMove(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="30"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixMove1
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">translate matrix</p>
+<code>function matrixMove1(integer xyz)</code><br>
+<p class="help">MechPart.pos can be used here</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixOrient
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set matrix orientation</p>
+<code>function matrixOrient(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="31"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixOrient1
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set matrix orientation</p>
+<code>function matrixOrient1(integer xyz)</code><br>
+<p class="help">MechPart.orient can be used here</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixReset
+<div class="typedescr"></div></td><td>
+<p class="membername">load identity matrix</p>
+<code>function matrixReset()</code><br>
+</TD></TR><TR><TD><A NAME="28"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixRotate
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate matrix</p>
+<code>function matrixRotate(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="29"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixRotate1
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">rotate matrix</p>
+<code>function matrixRotate1(integer xyz)</code><br>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;matrixScale
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">scale matrix</p>
+<code>function matrixScale(float x, float y, float z)</code><br>
+</TD></TR><TR><TD><A NAME="32"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;setMatrix
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set matrix</p>
+<code>function setMatrix(integer transform_node)</code><br>
+<p class="help">copy current matrix into specified node</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Visual style definition</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

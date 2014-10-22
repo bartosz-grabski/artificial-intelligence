@@ -1,0 +1,65 @@
+show:
+info:~
+Dear Framsticks Theater Spectator,
+
+We hope you enjoy this piece of software. It is provided free and fully functional. However, it required a lot of effort to create. Please support development of the Framsticks software by registering this program.
+
+~
+expdef:standard
+code:~
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  Simulator.import("default.sim");
+  World.wrldsiz = 20;
+  World.wrldwat = -10.0;
+  VisualStyle.style = "theater";
+
+  switch (ShowManager.mode)
+  {
+  case 0:
+    ShowManager.info = ShowManager.info +
+                       "Click \"Menu\" -> \"Select a show...\" to choose a show and its options.\nWithin most shows, you can also drag the mouse with the left button pressed to adjust the camera, and double click on objects to select them. Use the mouse wheel to zoom. Press the control key and click to grab a creature. Press Shift and right mouse click for additional actions.";
+    break;
+
+  case 1:
+    ShowManager.info = ShowManager.info +
+                       "Click the left mouse button to continue...";
+    break;
+  }
+
+  ShowManager.info = ShowManager.info +
+                     "\n\nThe Framsticks Theater is a part of the Framsticks project. Please visit the web site for more details and software.";
+
+  //var txt=["txt 1","txt 2","txt 3"];
+  //ShowManager.info=txt[Math.rnd01*txt.size];
+
+  TrackingCam.setViewDir(90, 20);
+  TrackingCam.cam_zoom = 0.6;
+
+  ExpParams.feed = 0;
+  ExpParams.MaxCreated = 1;
+  CreatureSelection.clear();
+  Populations.clearGroup(0);
+  Populations.group = 0;
+  Population.death = 0;
+  GenePools.clearGroup(0);
+  Simulator.import("theaterwelcome.gen", 2);
+  //var cr=Population.createFromString("rrlllllX(,,LLXX,,XX(XX,XlX,),)");
+  var cr = Population.createFromGeno(GenePool.get(0).geno);
+  GenePools.clearGroup(0);
+  cr.nnenabled = 1;
+  cr.moveAbs((World.wrldsiz - cr.size_x) / 2, (World.wrldsiz - cr.size_y) / 2, -0.5);
+
+  GLDisplay.desiredsimspeed=100;
+}
+
+function onShowStep()
+{
+  var anim=Math.time;
+  TrackingCam.setViewDir(90.0 + 10.0*Math.sin(anim*0.5), 20.0 + 10.0*Math.cos(anim*0.5));
+  //TrackingCam.cam_zoom=0.6*(2.5+Math.sin(anim*0.15))/2.5;
+}
+
+~

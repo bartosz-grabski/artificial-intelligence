@@ -1,0 +1,675 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="history.xsl"?>
+<history>
+
+<release ver="4.0" date="">
+<changes in="General">
+<change>Support for multi-threading; a few experiments have multi-threaded versions</change>
+</changes>
+<changes in="FramScript">
+<change>Python partially supported in scripts</change>
+<change>New functions that make old-style functions using "static gene pool/population index" obsolete</change>
+<change><a href="http://www.framsticks.com/common/formatspec.html">Serialization</a> of Vector, Dictionary, and a few other classes</change>
+<change>Support for multi-threading (multiple Simulator objects can be created)</change>
+</changes>
+</release>
+
+
+<release ver="3.2" date="25 July 2013">
+<changes in="General">
+<change>muscles encoded in a "new" way in <b>f1</b> genotypes now behave as in "old" <b>f1</b> (this concerns their default "power" and "range" properties)</change>
+<change>warnings are displayed when properties are assigned values out of allowed range</change>
+<change>minor improvement in the "add neuron" mutation in <b>f1</b> (only affects the "N" neuron)</change>
+<change>added options to control determinism in ODE simulation</change>
+<change>a number of other improvements</change>
+</changes>
+<changes in="WinGUI">
+<change>the "Mutate" button in the Genotype window works again</change>
+<change>continuous rotate works in the OpenGL body view (just like in the wireframe view)</change>
+<change>fixed an extremely rare problem with the "FPS" choice listbox</change>
+</changes>
+<changes in="FramScript">
+<change>floating point notation with positive exponent now handles the "+" sign (you can write 1e5 or 1e+5)</change>
+<change>fixed <code>break</code> and <code>continue</code> that would not work in nested loops in some situations</change>
+<change>fixed <code>Genotype.mutate()</code> that did not work (regression caused by <a href="http://www.framsticks.com/node/874#comment-712" target="_blank">this change</a>)</change>
+<change>fixed a bug in the Genotype-to-Model relationship</change>
+<change>the behavior of <code>String.split</code> and <code>String.split2</code> is now consistent with the documentation</change>
+<change>three neurons with specific short names (*, |, @) can be accessed as <code>neuadd_Constant</code>, <code>neuadd_Bend_muscle</code>, and <code>neuadd_Rotation_muscle</code></change>
+<change>constants in scripts have much higher precision when used in calculations</change>
+<change>files can be saved in subdirectories of the <code>scripts_output</code> directory</change>
+<change><code>goto</code> no longer supported; it was dangerous in some cases</change>
+<change>added <code>deepVectorCopy.script</code> in the <code>scripts_sample</code> directory - an example code of vector "deep copy"</change>  
+<change>fixed parsing <code>"\\"</code></change>
+</changes>
+<changes in="Server">
+<change>extensions, fixes and improvements in the <a href="http://www.framsticks.com/common/server.html">networking protocol</a></change>
+</changes>
+</release>
+
+
+<release ver="3.1" date="19 February 2011">
+<changes in="General">
+<change>fixed order of neural inputs in the <strong>f1</strong> genetic encoding</change>
+<change>fixed a <a href="http://www.framsticks.com/node/843#comment-628" target="_blank">rare hang-up</a> in the "Inverse-proportionally to fitness" deletion method</change>
+<change>mutated connection weights are unlimited (previously the range was -10..10) <a href="http://www.framsticks.com/trac/framsticks/changeset/31" target="_blank">[source]</a></change>
+<change>another approach to allowed ranges of mutated values (was: absorb, now: reflect) <a href="http://www.framsticks.com/trac/framsticks/changeset/31" target="_blank">[source]</a></change>
+<change>added new script: neuro_inspection.script, useful for analyses of selected neural states and NN dynamics in a creature</change>
+<change>added new script: regular_shapes.script, generates sample shapes: truss, sponge, tower, grids and meshes</change>
+<change>the Delay and Threshold neurons now accept any number of inputs</change>
+<change>fixed extremely rare 'invalid write access' exception when a neural probe window was closed</change>
+<change>in NN diagrams, non-default values of neural properties are displayed in tooltips</change>
+<change>improved layout of NN diagrams</change>
+<change>higher resolution panoramas in OpenGL views</change>
+<change><code>Pulse</code> neuron (impulse generator that supports randomness) added in the <code>scripts_sample</code> subdirectory</change>
+<change>most neurons have dedicated symbols now (added symbols for <code>Delay</code>, <code>Threshold</code> and others)</change>
+<change>new option to add Gaussian random noise to neural outputs</change>
+<change>in settings files, GenotypeGroup and CreaturesGroup are now changed to GenePool and Population</change>
+<change>'boids.expdef' and the corresponding theater show now feature obstacle avoidance</change>
+<change>a number of other improvements</change>
+</changes>
+<changes in="WinGUI">
+<change>Signals view settings are now accessible from the context menu in the World window</change>
+<change>fixed exporting to POV-Ray: it would crash when the "robot arm" was in use</change>
+<change>when seeding population, names of genetic encodings are displayed</change>
+<change>the FPS set in the "Artificial world" window is adjusted more accurately</change>
+</changes>
+<changes in="FramsTheater">
+<change>no longer displays unnecessary warning when a neuron is selected</change>
+</changes>
+<changes in="FramScript">
+<change>in *.script files (a.k.a. macros), function main() should be used as an entry point. Free (outside of functions) code should be avoided to ensure compatibility with <a href="http://www.framsticks.com/wiki/Framclipse" target="_blank">Framclipse</a></change>
+<change>new UserScripts class allows to call any of the *.script macros</change>
+<change>new classes: <code>CreatureSettings</code> and <code>NeuronsSimEnabled</code></change>
+<change>it is now possible to iterate all <code>Dictionary</code> keys and/or values. This feature was previously documented but not implemented</change>
+<change>three new ways of accessing NeuroClass: NeuroClassLibrary.getClass(name), Neuro.classObject, NeuroDef.classObject</change>
+<change>onKill() event names changed to onDied()</change>
+<change>checking the genotype for errors in Geno and Genotype objects is now more consistent</change>
+<change>occasionally, memory addresses of some variables were incorrectly displayed as 00000000 (it was rare and harmless)</change>
+<change>improved detection of some types of errors in scripts</change>
+<change><code>standard_loadsave.inc</code> now much more versatile, can handle any number of gene pools and populations</change>
+<change>users can now easily <a href="http://www.framsticks.com/files/dev/files/inkscape-to-icon.html" target="_blank">create custom icons</a> for script neurons</change>
+</changes>
+</release>
+
+
+<release ver="3.0" date="21 July 2009">
+<changes in="General">
+<change>added another simulation engine - ODE - for accurate mechanical simulation</change>
+<change>physical simulation can be disabled/enabled on a per-object basis (<code>Population.bodysim</code> and <code>Creature.bodysim</code>)</change>
+<change>simple single-Part agents are now easier to handle using enhanced script Creature object: moveLocal and rotateLocal (manage agent movement in its local coordinates), and drive and localDrive (enforce constant speed bypassing physical simulation). Creature.orient, Creature.localToWorld, Creature.worldToLocal are available for more sophisticated uses</change>
+<change>touch receptor (T) can now act as a proximity sensor in the Block world environment (previously it only handled the flat world). The detection range is adjustable. The change only affects the proximity aspect, touch detection works regardless of the environment. Custom sensors similar to T can be created using the enhanced WorldMap.intersect function (now it also returns the intersection distance)</change>
+<change>self-collisions (within a creature body) can occur when using the ODE simulation engine. If enabled, creatures with self-colliding genotypes are not born, and others will have their sticks collide during lifespan</change>
+<change>substantial extensions in the 'standard.expdef' - new options include multiple evaluation, logs with average and best fitness, stagnation detection with automatic stopping and saving best genotypes</change>
+<change>added 'boids.expdef', a classic simulation of 3D flocking behavior</change>
+<change>added 'learn_food.expdef', an experiment definition that illustrates lifetime knowledge sharing and its influence on finding resources and exploration/exploitation of the environment</change>
+<change>added '<a href="http://www.framsticks.com/wiki/FramsBots" target="_blank">framsbots.expdef</a>'</change>
+<change>added brainSimplifier.script (a macro that removes all neurons that do not influence effectors in brains)</change>
+<change>added new genotypes (<code>models3d.gen</code> file) <a href="http://www.framsticks.com/wiki/SolidsConverter" target="_blank">converted from existing 3D objects</a></change>
+<change>added 'Extended mutation info' parameter in Genetics: allows to store information about used mutation method (method ID or name) for each mutated genotype</change>
+<change>fixed standard placement: creatures were shifted</change>
+<change>new OpenGL style, <a href="http://www.framsticks.com/wiki/Spooksticks" target="_blank">spooksticks</a></change>
+<change>new OpenGL style, <a href="http://www.framsticks.com/varia/frams_stress_indicators.png" target="_blank">standard-stress</a>: shows stress on joints in MechaStick</change>
+<change>in the 'standard' OpenGL style, creature names can be displayed near creatures ("Show names" option)</change>
+<change>in the 'whitevoid' OpenGL style, options added to hide neurons, to adjust stick width and to show a plane of body symmetry</change>
+<change>added <em>Body disturbance</em> and <em>Initial movement</em> parameters that can add random noise to creatures built (see Simulation parameters. Creature: Imperfection)</change>
+<change>added <em>Minimal joint length</em> and <em>Maximal joint length</em> parameters (see Simulation parameters. Creature: Body constraints)</change>
+<change>advanced mechanical simulation parameters added at <em>World: ODE Parameters</em></change>
+<change>in ODE, sticks can be boxes, not only cylinders</change>
+<change>added countermeasures against "never steady" creatures: "Kill if no stabilization after" option and adjustable distance threshold in population settings</change>
+<change>validation of <code>f0</code> genetic encoding can fix too long joints</change>
+<change>fixed genetic <code>f0</code>--><code>f0</code> conversion (last line of the source genotype was lost)</change>
+<change>fixed revroulette method (influences Delete genotypes:Inverse-proportionally to fitness). Results were bogus in some situations and the program could hang up</change>
+<change>adjustable neural network simulation speed (number of NN simulation steps per one mechanical simulation step)</change>
+<change>separate "sampling period" setting for the stabilization phase</change>
+<change>items found in the class browser search are now sorted alphabetically</change>
+<change>high resolution timers used in all applications</change>
+<change>lots of other improvements and fixes</change>
+</changes>
+<changes in="WinGUI">
+<change>the manipulator in the wireframe view is drawn as a well-known "robot hand" again</change>
+<change>better visualization of food items ("balls") and single-Part creatures (<code>/*0*/p:</code>) that were previously invisible</change>
+<change>you can save all vector images (NN schema view, body view) as a vector SVG file</change>
+<change>in the "Simulation Parameters" window, settings for similarity and neurons are moved to a new "Creature" group</change>
+<change>fixed centering of all windows so that Windows task bar location and size is considered</change>
+<change>fixed size of the tiny "up/down" controls in all parameter windows (could be too large if a specific font size was selected in Windows)</change>
+<change>errors in <code>f0</code> genotypes are no longer reported multiple times</change>
+<change>handles any number of groups (gene pools, populations) properly</change>
+<change>supports deleting any group (earlier: only the last group)</change>
+<change>fixed crash when using manipulator and exporting frames to POV-Ray</change>
+<change>new  POV-Ray graphics style: '<a href="http://www.framsticks.com/files/common/slide9.jpg" target="_blank">ghost</a>'</change>
+<change>improved the '<a href="http://www.framsticks.com/files/common/slide8.jpg" target="_blank">autumn</a>' POV-Ray graphics style</change>
+<change>improved the '<a href="http://www.framsticks.com/varia/frams_wookie_test.jpg" target="_blank">wookie</a>' POV-Ray graphics style</change>
+<change>updated and added sample files to the distribution povray\ subdirectory</change>
+<change>fixed POV-Ray export: joints (sticks) of specific orientation would disappear for some creatures</change>
+</changes>
+<changes in="FramScript">
+<change><code>Signal</code> object facilitates inter-creature communication. Can be used in NN control (see the fireflies.show and custom neurons: light.neuro and seelight.neuro) and in more sophisticated scripting (boids.expdef)</change>
+<change>new classes for simplified 3D manipulation: <code>XYZ</code> (3D vector) and <code>Orient</code> (3D orientation matrix), see boids.expdef for a sample code</change>
+<change>reference operator (<code>&amp;</code>) enables passing variables "by reference". See <code>Ref</code> object for a sample code</change>
+<change><code>onMouseClick/Move/Unclick</code> handlers in the .show and .expdef scripts. See playwithfood.show for a sample code and explanation.</change>
+<change>fixed a bug in small constant numbers - e.g. <code>Simulator.print(0.000003)</code> would output 3</change>
+<change>new: estimation of bilateral symmetry of Models and Creatures - see the <code>Symmetry</code> class and <code>calcSymmetry.script</code> in the <code>scripts</code> subdirectory)</change>
+<change>new class: <code>Shapes</code>, to define objects appearance in the "wireframe" view (see also <code>springSticks.script</code> in the <code>scripts</code> subdirectory)</change>
+<change>new sample script that prints coordinates of Parts for all creatures (see the <code>printCoords.script</code> in the <code>scripts</code> subdirectory)</change>
+<change>fixed bug in Neuro.fields for custom neurons (the most recently created instance of the neuron object could only be accessed)</change>
+<change>added Simulator.eval(src) function which evaluates in runtime simple FramScript source code</change>
+<change>added toString fields in Vector and Dictionary. You will see contents of these arrays when converting them to string</change>
+<change>added Neuro.def, Neuro.joint, Neuro.part, MechJoint.part1, MechJoint.part2 fields (references to NeuroDef, MechJoint, MechPart)</change>
+<change>added MechPart.vz</change>
+<change>added Creature.index</change>
+<change>added LiveLibrary.findCreatureAt(point,vector)</change>
+<change>added GenMan.getSimplest(format), returns the simplest Geno for a given genetic encoding</change>
+<change>added Simulator.beep(), Simulator.sleep(millis), Simulator.sound(Hz,millis)</change>
+<change>new, more comprehensible collision masks (see <code>Population.selfmask</code> and <code>Population.othermask</code>)</change>
+<change>collision masks can be changed during simulation</change>
+<change>new on[GroupName]CrCollision event (called only once per creatures pair) - can be used instead of the old event (called for each pair of colliding sticks) to improve performance</change>
+<change>added "neurons:" field in .expdef script files. This field specifies neurons to be loaded together with the experiment definition. This feature can be used for developing neurons relying on a specific experiment definition. The default value for the "neurons:" field (assumed when the field is not specified in expdef) is "std,*.neuro", which loads all standard neurons and all custom neurons from *.neuro files (as did all previous versions of Framsticks).</change>
+<change>default values defined in expdef's properties (<code>prop:...</code>) and state variables (<code>state:...</code>) are no longer ignored</change>
+<change>estimating (dis)similarity of Models moved from the <code>GenMan</code> class to the new <code>Similarity</code> class</change>
+<change>added new formats for time (%t and %T) in class String. <code>String.format("%t",Math.time)</code> returns current time formatted like "Sun Apr 29 19:22:02 2007", while "%T" gives "2007-04-29 19:22:02"</change>
+<change>added functions: <code>Math.atan2(y,x)</code>, <code>Math.pow(a,b)</code>, <code>Math.min(x,y)</code>, <code>Math.max(x,y)</code> and <code>Math.sign(value)</code></change>
+<change>LiveLibrary, GenotypeLibrary, CreaturesGroup, GenotypeGroup have been renamed to Populations, GenePools, Population, and GenePool. Many other functions have also been renamed for consistency. See the 'rename.sh' script in the scripts_sample subdirectory if you need detailed information.</change>
+</changes>
+<changes in="FramsTheater">
+<change>new menu and window system - no longer based on a context menu</change>
+<change>'Demo mode' - switch between shows at predefined intervals (usage: theater "ShowManager.switchmode=2;", see <code>switchmode, switchtime, switchshows</code> in the <code>ShowManager</code> class)</change>
+<change>Framsticks Viewer is now included in the Framsticks Theater (see the <code>-g</code> switch). There is no separate "viewer" application</change>
+<change>double right mouse click and shift+right mouse click can be used to access additional user actions</change>
+<change>new, automatic control of simulation speed</change>
+<change>added 'boids.show', a classic simulation of 3D flocking behavior</change>
+<change>added 'fireflies.show', a simple example of inter-creature communication using custom neurons</change>
+<change>added 'learn_food.show', a show that illustrates lifetime knowledge sharing and its influence on finding resources and exploration/exploitation of the environment</change>
+<change>added '<a href="http://www.framsticks.com/wiki/FramsBots" target="_blank">framsbots.show</a>'</change>
+<change>added beat (sound) to the 'dance.show'</change>
+</changes>
+<changes in="FramServer">
+<change>Framsticks Server is no longer a separate application. The CLI (Command-line Interface) can act as a server, see the <code>-n</code> option</change>
+<change>added hierarchical and combined queries with the "+" sign, like<br/><code>get /simulator({expdef,running},/populations/groups/+/creatures/+({name,energy},/(parts{x,y,z},joints{p1,p2})))</code></change>
+<change>introduced version 4 of the server protocol and a new "request_id" command</change>
+<change>no longer breaks large data chunks on Windows</change>
+<change>other improvements and fixes</change>
+</changes>
+<changes in="Web site">
+<change>New server, CMS-based site and forum</change>
+<change>New <a href="http://www.framsticks.com/files/common/demo_autumn.avi">movie</a>: autumn style and rigid body simulation</change>
+</changes>
+</release>
+
+
+<release ver="2.11" date="25 May 2006">
+<changes in="General">
+<change>gravity can be adjusted (World parameters)</change>
+<change>new option to prevent building a creature if its genotype is not entirely correct (Error reporting/Fail on warnings)</change>
+<change>in all experiment definitions, new option to control initial orientation of newborn creatures</change>
+<change>three new OpenGL styles (<a href="http://www.framsticks.com/files/common/gl_style4.jpg" target="_blank">football</a>, <a href="http://www.framsticks.com/files/common/gl_style5.jpg" target="_blank">space</a> and <a href="http://www.framsticks.com/files/common/gl_style6.jpg" target="_blank">laboratory</a>)</change>
+<change>fixed an old problem with 3D objects disappearing occasionally in the OpenGL view</change>
+<change>fixed (for compatibility) the neuroanalysis.expdef</change>
+<change>fixed rare problem in neuroanalysis.expdef: square_root(small_negative_number)</change>
+<change>fixed behavior of experiment definitions loaded one after another</change>
+<change>added the "mazes" experiment definition to evaluate (and evolve) creatures moving between two specified points in a maze</change>
+<change>added the "evolution demo" experiment definition that visually shows the mechanisms of evolution (selection, mutation, crossing over, fitness, optimization)</change>
+<change>added the "text writer" experiment definition (as well as the fonts.gen file) to display moving texts built of letter-like creatures</change>
+<change>defined default values for the most important simulator parameters</change>
+<change>the simulator is now reset to its default state before changing or reloading experiment definitions and before loading experiments. A parameter in the Files section can be used to restore the old behavior. The simulator can also be reset to default on demand (from the GUI or script)</change>
+<change>OpenGL standard.style sets brightness of creatures according to their energy level</change>
+<change>OpenGL matrix.style assigns random colors to food pieces (depicted as computers)</change>
+<change>fixed occasional "Invalid FP operation" bug when displaying creature models in OpenGL</change>
+<change>fixed 'f0' mutation bug for "change part position" operation (it returned only -1..1 absolute coordinates)</change>
+<change>fixed 'f0' rare mutation bug which caused an invalid memory access when the Joint was deleted from the Part-Joint-Part genotype</change>
+<change>fixed 'f0' rare bug which might cause an invalid memory access when removing a neural connection</change>
+<change>fixed 'f1' mutation parameters (probabilities for neural weights and neural properties were mixed)</change>
+<change>neurons can now provide 2D drawings to illustrate how they work. This new 2D probe accompanies the standard signal-versus-time probe</change>
+<change>forced (from genotype) initialization of neural state 's' for N and Nu neurons is now immediate (previously, the state has been initialized only after the neuron started working)</change>
+<change>fixed bug in the Delay neuron (scripts/delay.neuro file)</change>
+<change>fixed bugs in the experimental VEye neuron, and enhanced its capabilities</change>
+<change>added an experimental visual-motor cortex ("VMotor") neuron for VEye</change>
+<change>new, general-purpose "i" property in neural connection (available in f0)</change>
+<change>mutation in 'f0' can respect the "delete inhibit" and "modify inhibit" tags in neural connections</change>
+<change>command-line simulator fixed so that it stops when the experiment is finished (as in neuroanalysis.expdef and standard-eval.expdef)</change>
+<change>performance sampling period is now strictly obeyed (previously, sampling periods could be shorter when the performance calculation was suspended and re-enabled during simulation)</change>
+<change>random heightfield map now uses the whole available area (previously, it was clipped)</change>
+<change>sample elevation maps added: heightfield_Europe.sim, heightfield_NAmerica.sim, heightfield_Moon.sim</change>
+<change>new genotypes available in the *.gen files</change>
+<change>this file (history) is now an XML file</change>
+<change>type definition syntax for properties slightly changed: "type[subtype] min max default ~enum~..." instead of "type min max [subtype] ~enum~..."</change>
+<change>internal windows (used by probes and charts) can no longer get lost outside of the visible area when the parent window shrinks</change>
+<change>other improvements and fixes</change>
+</changes>
+<changes in="FramScript">
+<change>nested functions are reported as errors</change>
+<change>variable scope for declarations inside if/else/for/while is properly limited, which helps in detecting bugs like this: <code>if (1) var x; x=3;</code> (undefined variable 'x')</change>
+<change><code>Simulator.load</code> now resets the simulator state to default</change>
+<change><code>Simulator.import</code> does not switch the experiment definition unless the new flag (64) is used</change>
+<change><code>Simulator.save</code> and <code>Simulator.export</code> can be used in any context in the script, but are restricted to the "scripts_output" directory</change>
+<change><code>Simulator.import</code>'s "flag" argument is now optional</change>
+<change>Creature and Genotype event functions are no longer required to preserve values of LiveLibrary.creature and GenotypeLibrary.genotype; they are maintained automatically</change>
+<change>fixed bug in <code>object.[expression]=expression;</code></change>
+<change>fixed usage of <code>(object_expression)</code> instead of <code>(object_expression!=null)</code> - which also fixes the Sf neuron</change>
+<change>fixed bug in <code>expression.member+=...</code>, <code>expression.member*=...</code> etc.</change>
+<change>added <code>Neuro.fields</code> which provides access to custom neuron fields in Creatures</change>
+<change>scripting neurons have their default public fields set according to their extended "prop: type" value</change>
+<change>new <code>Model.numconnections</code> field (analogous to <code>Genotype.nncon</code>)</change>
+<change>neuron connection information and weights can be retrieved from <code>NeuroDef</code> objects (i.e. from the <code>Model</code>), see <code>NeuroDef.getInput...</code> methods</change>
+<change><code>MechPart</code> orientation available for scripting</change>
+<change><code>String.split</code> returns null for the null argument</change>
+<change>scientific notation (<code>1e23</code>) is now supported in scripts and string-to-number conversions</change>
+<change>hexadecimal notation (<code>0x...</code>) is recognized during string->integer conversion, as in <code>x=1+"0xA"</code></change>
+<change><code>Creature.rotate(rx,ry,rz)</code> function added</change>
+<change><code>Creature.buildproblems</code> field added</change>
+<change>"style" object renamed to "VisualStyle"</change>
+<change>new <code>*_model_update</code> functions for *.style files</change>
+<change>new field, <code>VisualModel.color</code>, can be used to paint the whole model</change>
+<change>new fields: <code>VisualModel.style</code>, <code>VisualModel.args</code>, <code>VisualModel.getArg</code> can be used in *.style scripts</change>
+<change>new field, <code>VertexBuilder.twosided</code>, to create two-sided polygons easier than with <code>Material.disable(GL.CULL_FACE)</code></change>
+<change>new functions in the Math object</change>
+<change>new "creaturescircle.script" macro, which arranges living creatures in a circle, and puts the tallest in the middle</change>
+<change>fixed problems with <code>@include</code> used in visual style subdirectories</change>
+<change>fix: in script-defined neuron files, public and private fields can be declared in any order</change>
+</changes>
+<changes in="WinGUI">
+<change>added an option to reduce the number of genotypes by identifying the best subset of representatives</change>
+<change>the Body &amp; Brain animations are no longer stopped when the simulation is running but stopped by some modal window</change>
+<change>fixed occasional "Division by 0" bug when displaying hints for neurons in big neural networks</change>
+<change>Each "Export current scene" for POV-Ray regenerates the world.inc file</change>
+<change>added the 'povray' subdirectory with sample *.pov files and various rendering styles (standard, robot, planet, matrix, etc.)</change>
+<change>new POV-Ray rendering styles: <a href="http://www.framsticks.com/files/common/slide8.jpg" target="_blank">autumn</a> (chestnuts and matches) and <a href="http://www.framsticks.com/files/common/slideWookie1.jpg" target="_blank">wookie</a> (from Star Wars)</change>
+<change>a message is displayed when trying to probe a non-living neuron (genotype-based instead of creature-based)</change>
+<change>the 'scripts_output' subdirectory is automatically created during installation</change>
+</changes>
+<changes in="FramsTheater">
+<change>added new "evolution demonstration" and "text writer" shows</change>
+<change>the simulator state is reset to default before a new show is loaded</change>
+<change>the new <code>DynaChart2D</code> class is available (for X/Y charts). See the reproduction.show for an example</change>
+<change>all show definitions have been adjusted to use the new and safe <code>Simulator.import</code> instead of <code>Simulator.load</code></change>
+<change>the "Quit" menu item is automatically added if a show doesn't supply its own "quit" property</change>
+</changes>
+<changes in="Documentation">
+<change>added the official <a href="http://www.framsticks.com/common/tutorial/index.html" target="_blank">Framsticks tutorial</a></change>
+<change>added summary of all experiment definitions and their settings</change>
+<change>enhanced FramScript classes documentation</change>
+</changes>
+<changes in="Web site">
+<change>FramScript syntax highlighting configurations available for some editors</change>
+<change>FramScript beautifier available</change>
+</changes>
+</release>
+
+<release ver="2.10" date="16 August 2004">
+<changes in="General">
+<change>muscles obey forced (neuroprobe) stimulation</change>
+<change>OpenGL height field ground is now rendered properly (was shifted by one unit)</change>
+<change>in 'standard.expdef', superfluous creatures/food items are removed following the population capacity value that has been set</change>
+<change>added 'standard-eval.expdef', an experiment definition which accurately evaluates all loaded genotypes one by one</change>
+<change>charts can be drawn in the 'reproduction.expdef' (added Simulator.checkpoint() call)</change>
+<change>mutation in f0 can respect the new "delete inhibit" and "modify inhibit" tags which can be set individually for each Part, Joint and Neuro</change>
+<change>crossing over in f0 preserves bodies when parent bodies are identical</change>
+<change>camera rotation using mouse click fixed (would sometimes ignore mouse control)</change>
+<change>"NN random initialization" parameter now really influences the initialization</change>
+<change>added an experimental vector eye ("VEye") receptor</change>
+<change>world size limit increased to 1000 units</change>
+<change>other improvements and fixes</change>
+</changes>
+<changes in="FramScript">
+<change>operators ++, --, +=, -=, *=, etc. work in all cases: with variables, object members and globals</change>
+<change>more detailed runtime error reporting (null objects, field/function mistakes)</change>
+<change>Vector.clear() and Dictionary.clear() bugs fixed</change>
+<change>Dictionary.find(), Vector.find(), Vector.avg() and Vector.stdev() added</change>
+<change>division by zero errors are handled by the Framsticks Virtual Machine now</change>
+<change>renamed "cam" to "TrackingCam" (only affects the *.show files)</change>
+<change>Simulator.autosave() name changed to Simulator.checkpoint() - used for performance sampling for charts, and for autosave</change>
+<change>matrix.style rewritten using FramScript (FVM assembler was earlier used)</change>
+</changes>
+<changes in="WinGUI">
+<change>fixed a bug when using manipulator intensively, which would sometimes cause an exception</change>
+<change>teleportation is blocked while using manipulator on a creature</change>
+</changes>
+<changes in="FramsTheater">
+<change>fixed a problem of retaining old show settings when a new show is selected</change>
+<change>fixed a problem of disappearing "Visual style" submenu</change>
+<change>more OpenGL visual styles</change>
+<change>manipulator can be used to grab creatures</change>
+<change>added the "dance", "race" and "touch of life" shows</change>
+<change>"presentation" show instead of "walking" and "swimming" shows</change>
+<change>"F" key can be used to display/hide the current frames per second rate</change>
+<change>show improvements</change>
+</changes>
+<changes in="Documentation">
+<change>attributes and functions are sorted alphabetically</change>
+</changes>
+</release>
+
+<release ver="2.9" date="1 July 2004">
+<changes in="General">
+<change>'creation placement' option added in "standard.expdef" (possible values are 'Random' and 'Central')</change>
+<change>"standard-tricks.expdef" file added as an example of advanced fitness customizations and forced creature movement</change>
+<change>"standard-log.expdef": similarity reports and gene pool dump added</change>
+<change>"standard-maze.expdef" file added as a sample of simple maze experiment</change>
+<change>all *.gen files with genotypes are based on the Framsticks Experimentation Center checkout</change>
+<change>connection weight for muscles is now effective, which may affect compatibility of some genotypes</change>
+<change>muscle input signal is now reduced to the [-1,+1] interval (affects only rare input neurons with weight>1.0)</change>
+<change>Genotype's "Copies" changed to "Instances" (better name)</change>
+<change>statistics averages take into account the number of genotype instances now</change>
+<change>OpenGL 3D large worlds are no longer clipped</change>
+<change>OpenGL ground plane is rendered lower so that creatures are more visible</change>
+<change>in OpenGL styles with dedicated subdirectories, the style file name must be "this.style"</change>
+<change>improved generic mutation procedure for integer and floating point properties</change>
+<change>fixed a bug in mutation of integer neuron properties (which caused "Invalid FP operation" message)</change>
+<change>f0 mutation will not add parallel neuron connections now</change>
+<change>f1 proportional crossover redesigned: preserves the number of parent neurons in children</change>
+<change>f4 mutation probabilities are now more clear and user-friendly</change>
+<change>new, general-purpose "i" property in Part, Joint and Neuro objects (available in f0 and scripting)</change>
+<change>"M"-type map allows for more flexible world heights definition</change>
+<change>bug fixed (genetic operations referring to the scripting neurons)</change>
+<change>Vstyle can be changed after the creature is built (but before it is displayed)</change>
+<change>#include "filename" can be used in any framsticks format files (gen, sim, expt, expdef, etc.)</change>
+<change>genotype user1/2/3 fields are no longer skipped when reading files</change>
+<change>NN layout function improved</change>
+<change>Class Browser provides more detailed information about functions and object fields</change>
+<change>beautified all FramScript source files</change>
+<change>other improvements and fixes</change>
+</changes>
+<changes in="FramScript">
+<change>@include "filename" available</change>
+<change>new operators: % (modulo), &lt;&lt; (shift left), &gt;&gt; (shift right)</change>
+<change>do...while loop available</change>
+<change>fixed the "return inside switch" bug</change>
+<change>(object_expression) can be used instead of (object_expression!=null)</change>
+<change>ClassName.* notation introduced for static object references</change>
+<change>added function references ("call" and "function" operators)</change>
+<change>pointers to functions available</change>
+<change>access to Simulator.time added</change>
+<change>neuron definitions can be reloaded</change>
+<change>files can appear immediately, without closing the File object (File.createDirect/appendDirect/flush)</change>
+<change>numerous extensions of classes (Creature, Geno, Model, File, String, and many others)</change>
+<change>File.createDirect(...) allows to save directly to a file within the "scripts_output" subdirectory</change>
+<change>advanced random generators available in the Math object</change>
+<change>Dictionary object fixed</change>
+<change>functions can have multiple names ("function a,b,c()")</change>
+<change>UserEvents are now in FramScript - no VM assembler (see scripts/standard_events.inc)</change>
+<change>senseCreaturesProperty can be used for Vectors (eg. "user1[7]")</change>
+<change>Genotype 'user' field values handled properly when operating on Genotype</change>
+<change>new "onUpdate" events (analogous to onKill and onBorn events)</change>
+<change>better protection against some programming errors</change>
+</changes>
+<changes in="WinGUI">
+<change>improved program behavior when it is invoked from another directory</change>
+<change>performances of individuals are now refreshed for all populations</change>
+<change>performances of individuals can be sorted</change>
+<change>the number of genotype instances is now reported in the caption of the gene pools window</change>
+<change>when resizing columns, all groups (gene pools/populations) are affected now</change>
+<change>added the "Console" window for entering FramScript commands directly</change>
+<change>keyboard shortcuts can now be used to show/hide windows</change>
+<change>simulator statistics charts added</change>
+<change>simulation speed can be limited by the frames-per-second setting in the World window</change>
+<change>added "Save" button for "memory files" generated by Framsticks in runtime</change>
+<change>performance charts can be cleared</change>
+<change>selecting individual Parts is now supported in Body&amp;Brain windows, and mapping to corresponding genes is handled</change>
+</changes>
+<changes in="FramsView">
+<change>more command-line arguments, including many visual style options</change>
+</changes>
+<changes in="FramsTheater">
+<change>first official release!</change>
+</changes>
+<changes in="Documentation">
+<change>numerous updates</change>
+<change>introduced argument names and types for procedure calls</change>
+</changes>
+<changes in="Web site">
+<change>numerous updates</change>
+<change>new "blocks-style" movie</change>
+</changes>
+</release>
+
+<release ver="2.8" date="19 October 2003">
+<changes>
+<change>the Messages window is cleared every 500 messages</change>
+<change>fixed exporting of the World window OpenGL images</change>
+<change>when any of the world scene exports is enabled, "[exporting]" appears in the title bar</change>
+<change>improved f0 crossing over for f0 genotypes with relative ("delta") joints</change>
+<change>f0 crossing over now tries to repair offspring with exceeded maximal joint length</change>
+<change>beautified all genotypes in .gen files</change>
+<change>added "Validate" GUI command for genotypes (forces genotype validation; should not be generally needed)</change>
+<change>mouse wheel and middle-button drag control zoom in FramsView</change>
+<change>Ctrl-C and Ctrl-Break are handled in scripts (onBreak) and command-line ("simulate until interrupt")</change>
+<change>fixed the \" problem in the FramScript compiler</change>
+<change>improved handling of global variables in FramScript</change>
+<change>added unary minus operator in FramScript</change>
+<change>added String.format function in FramScript (works like sprintf())</change>
+<change>fixed bug in Math.time under MS Windows (was going in reverse direction)</change>
+<change>fixed "save file" ("sa") bug in command-line</change>
+<change>new version of Framsticks Experimentation Center (FEC) site available</change>
+<change>Framsticks_Manual.pdf available, containing the most important HTML reference pages</change>
+<change>new movie available on the web site (fuzzy control)</change>
+<change>web site and documentation updates</change>
+<change>many other improvements</change>
+</changes>
+</release>
+
+
+<release ver="2.7" date="16 July 2003">
+<changes>
+<change>fixed displaying "user fields" in genotypes</change>
+<change>ChMux (channel multiplexer) neuron fix</change>
+<change>ChMux_Test source added as an example ("chmux.neuro" file)</change>
+<change>neural network drawing can be configured in Body windows (none/neurons only/full)</change>
+<change>"standard-log.expdef" file added as an example (logs all genetic operations)</change>
+<change>fixed different green OpenGL textures for different stick assimilation levels</change>
+<change>added toHTMLshort action in GenMan (returns a shortened genotype as colored HTML)</change>
+<change>added more detailed descriptions for neurons</change>
+<change>other improvements and fixes</change>
+</changes>
+</release>
+
+
+<release ver="2.6" date="25 May 2003">
+<changes>
+<change>fixed syntax problem with unknown ID while rendering some *.pov files</change>
+<change>fixed invalid memory access when enabling POV-Ray export</change>
+<change>fixed "matrix" OpenGL style</change>
+<change>added FramScript documentation (contexts, classes, ...)</change>
+<change>"arena" and "matrix" OpenGL style source files translated from FVM assembler to FramScript</change>
+<change>improved refreshing gene pool data in some cases</change>
+<change>other improvements and fixes</change>
+</changes>
+</release>
+
+
+<release ver="2.5" date="30 April 2003">
+<changes>
+<change>improved handling of minimum/maximum/default values for properties</change>
+<change>neuron state computation protected against huge values (>10^10)</change>
+<change>fixed problems with GUI list sorting (which might have caused program instability)</change>
+<change>new, better algorithm for estimating similarity; old method also improved</change>
+<change>improved "Compare/Cluster" window</change>
+<change>added option to save dissimilarity matrix in a text file</change>
+<change>fixed bug in generational.expdef (regarding default fitness formula)</change>
+<change>added reproduction.expdef, a simple spontaneous evolution demo experiment</change>
+<change>shadows under apples in OpenGL view are properly cast</change>
+<change>added toHTML action in GenMan, which prints a HTML-colored genotype</change>
+<change>optimized f4 genetic operations</change>
+<change>added quiet mode (-Q) in command-line</change>
+<change>added switch statement (switch/case/default keywords) in FramScript</change>
+<change>added vectors (arrays) and [] operator in FramScript</change>
+<change>rewritten 3dobj\*.style files from FVM assembler to FramScript</change>
+<change>added "Smell food" neuron (Sf) and "Noisy" neuron (Nn) - defined in scripts\*.neuro files</change>
+<change>"Water detector" and "Energy level" neurons are no longer experimental</change>
+<change>added "cliutils.ini" file for command-line frams. It provides samples of frams batch usage</change>
+<change>other improvements and bug fixes (fitness/similarity, "Threshold" neuron)</change>
+</changes>
+</release>
+
+
+<release ver="2.4" date="31 January 2003">
+<changes>
+<change>neural network drawing can be configured in World windows (none/neurons only/full)</change>
+<change>updated similarity measure</change>
+<change>improved stability in water of sticks with high volume</change>
+<change>Part's volume (vol) property replaced by density (dn)</change>
+<change>fixed "Invalid FP operation" for Sinus and Water neurons</change>
+<change>updated 'standard.expdef' (caused program hang-up when removing worst genotypes)</change>
+<change>optimized drawing of UPGMA clustering</change>
+<change>line comments in command-line interface can now be written //like this</change>
+</changes>
+</release>
+
+
+<release ver="2.3" date="20 December 2002">
+<changes>
+<change>fixed autosave bug</change>
+<change>fixed problem with exceeding gene pool capacity in some situations</change>
+<change>standard experiment definition: added "creation height" parameter</change>
+<change>standard experiment definition: added "food's genotype" parameter</change>
+<change>optimized normalization of performance values</change>
+<change>energy income and energy balance values support ingesting energy balls</change>
+<change>added two methods: Math.seed and Math.time</change>
+<change>better discrimination between sources in FVM assembler and FramScript</change>
+<change>number of parameters is checked in FVM calls</change>
+<change>fixed problem with refreshing Groups window when groups are removed</change>
+<change>Performance Charts: only reasonable properties can be selected and visualised</change>
+<change>command line interface: improved command-line parameters</change>
+<change>other improvements</change>
+</changes>
+</release>
+
+
+<release ver="2.2" date="3 December 2002">
+<changes>
+<change>POV-Ray export feature added</change>
+<change>OpenGL image export feature added</change>
+<change>high-level programming language (FramScript) translator for FVM (Framsticks Virtual Machine)</change>
+<change>class browser to browse available FVM classes, functions, variables, etc.</change>
+<change>new experiment definitions: generational.expdef and neuroanalysis.expdef</change>
+<change>added "Aging time" parameter responsible for increasing idle metabolism</change>
+<change>energy balance considers assimilation, muscle static work, and muscle dynamic work</change>
+<change>change in standard.expdef: 'idle metabolism' parameter concerns single step (no longer 100 steps)</change>
+<change>'data' subdirectory renamed to 'scripts'; 'data\*' no longer used</change>
+<change>genetic operators (mutation, crossover) for f0 genotype format</change>
+<change>minor change in f0 genotype format: names of some properties must be explicitly specified</change>
+<change>improvements and changes in f1 format</change>
+<change>support for any (new) neurons in f1, as well as their properties</change>
+<change>old-style f1 genotypes still recognized</change>
+<change>rewritten f1 genetic operators: better properties, better validation and checking</change>
+<change>f0 and f1 mutation uses the same procedures and has the same characteristics now</change>
+<change>improvements in syntax highlighting of f0 and f1 genotypes</change>
+<change>improvements in reporting and showing error position in genotypes</change>
+<change>f4 developmental encoding converter to f0 updated to follow new GDK standards (no more neuroitems, etc.)</change>
+<change>no more old GDK standard (neuroitems) in all Framsticks code</change>
+<change>GenMan behavior improved (checking, validating, mutating, crossing over) to follow new Geno_fx standards</change>
+<change>multiple genetic operators allowed for single genetic format (one of them must be active)</change>
+<change>better information about genetic operations count: valid, validated, invalid, failed</change>
+<change>generation counter added for each genotype</change>
+<change>support for multichannel neuron outputs</change>
+<change>many new neuron types added</change>
+<change>turning on/off simulation of particular neurons</change>
+<change>turning on/off mutation add of particular neurons (concerns f0 and f1 formats)</change>
+<change>removed display of normalized criteria and similarity values for genotypes</change>
+<change>improved performance when dealing with large gene pools: normalization and similarity computed on demand</change>
+<change>fix: neural probe did not appear instantly under some conditions</change>
+<change>water level is visible in world view</change>
+<change>"Build problems", if present, can be reviewed in Body&amp;Brain windows' context menus</change>
+<change>better interface for multiple gene pools and populations</change>
+<change>drag and drop possible between gene pools and between populations</change>
+<change>added "Unsort" action in gene pools, and nicer sort column icons</change>
+<change>creatures' icons in populations lists depict their actual look (no longer size only)</change>
+<change>user actions are disabled when they are impossible to perform</change>
+<change>added "Mutate" action in genotype edit window</change>
+<change>"Flatten" option to improve exported scene files</change>
+<change>added error reporting level setting (details, summary, ignore)</change>
+<change>support for files generated by Framsticks on-the-fly (like neurons report)</change>
+<change>textures can be disabled now (simplifies OpenGL rendering)</change>
+<change>smooth shading can be disabled now (simplifies OpenGL rendering)</change>
+<change>other improvements and fixes, not visible but important</change>
+</changes>
+</release>
+
+
+<release ver="2.0" date="19 May 2002">
+<changes>
+<change>rewritten and re-organized source. Only major changes mentioned below:</change>
+<change>added scripting assembler language and Framsticks Virtual Machine (FVM)</change>
+<change>experiment definitions and system behavior are now script-controlled!</change>
+<change>Most of v1.xx behaviors are now defined by a script file (standard experiment definition)</change>
+<change>OpenGL visualization is script-controlled!</change>
+<change>support for genotype grouping (in gene pools) and simulated objects grouping (in populations)</change>
+<change>f0 format announced; physical simulation engine uses f0 now</change>
+<change>GDK released which allows users/developers to cooperate with Framsticks genetics engine</change>
+<change>added phylogenetic analysis feature</change>
+<change>added similarity estimation/UPGMA clustering tree feature</change>
+<change>added trace of all genetic operations</change>
+<change>added genetics statistics</change>
+<change>added initial population seed</change>
+<change>added better control over all genetic format operators</change>
+<change>a few improvements in f1 genetic operators</change>
+<change>f1 only incompatibility: minor change (fix) in interpretation of 'L' modifier</change>
+<change>S (smell) receptor neural weight is no longer ignored</change>
+<change>improved and extended f4 developmental genetic format</change>
+<change>removed limitation of genotype length to 10000 characters</change>
+<change>fixed bug in sigma-truncation and linear scaling</change>
+<change>'waiting4stabilization' period is now separated from performance measurement period</change>
+<change>measurement periods are now independent for each living individual</change>
+<change>"experiment state" support added: *.expt files contain state (snapshot) of experiment process</change>
+<change>all functions use 32-bit random number generator now</change>
+<change>simulation steps counter is now 64-bit</change>
+<change>fixed exception caused by very small performance values</change>
+<change>removed exception when running Framsticks.exe with no registry write rights</change>
+<change>added drag &amp; drop of genotypes to individuals list and artificial world window</change>
+<change>added copy vector graphics (metafile) to clipboard for all applicable windows</change>
+<change>fixed interface bug "Division by zero" when setting update rate to "Ever"</change>
+<change>new engine for management of structural graphical objects employed</change>
+<change>visualization colors/look and user control are now platform-independent</change>
+<change>all simple views can be rotated - added 3D projection support</change>
+<change>optimized OpenGL texturing</change>
+<change>added structure view in OpenGL</change>
+<change>in NN view, connections' colors correspond to output signals, and inputs' colors correspond to weighted signals</change>
+<change>improved NN view, more options available</change>
+<change>improved camera</change>
+<change>support for multiple body&amp;brain windows, as well as multiple world ("spy") windows</change>
+<change>support for many script events (world windows: shift + right mouse button)</change>
+<change>much improved body and brain windows; mutual connections between body and brain are visualized (selection)</change>
+<change>genotype window shows genes responsible for selected phenes (fragments of body and brain)</change>
+<change>much faster syntax highlighting (coloring genes)</change>
+<change>added 'hint' messages (little helpful infos) for many displayed objects</change>
+<change>sketch animation oscillates when the simulation is paused due to some reason</change>
+<change>layout now adjusts to work area size (observes taskbar location)</change>
+<change>added drag&amp;drop of *.gen, *.sim, and *.expt files to the main window</change>
+<change>list windows are smarter</change>
+<change>improved generic parameters window</change>
+<change>added support for color selection and actions (buttons)</change>
+<change>colors for simple views can be adjusted</change>
+<change>added "unseen messages" count</change>
+<change>much nicer OpenGL visualization</change>
+<change>scene export in a range of file formats</change>
+<change>overall aesthetic improvements</change>
+<change>updated program documentation in English and Polish</change>
+<change>added program documentation in French</change>
+</changes>
+</release>
+
+
+<release ver="1.78" date="30 Aug 2000" />
+<release ver="1.76" date="14 Jul 2000" />
+<release ver="1.74" date="29 Jun 2000" />
+<release ver="1.72" date="27 Jun 2000" />
+<release ver="1.70" date="2 Jun 2000" />
+<release ver="1.60" date="20 Dec 1999" />
+<release ver="1.54" date="27 Oct 1999" />
+<release ver="1.53" date="14 Oct 1999" />
+<release ver="1.52" date="20 Sep 1999" />
+<release ver="1.51" date="26 Jul 1999" />
+<release ver="1.50 beta" date="08 Jul 1999" />
+<release ver="1.05" date="25 Feb 1999" />
+<release ver="1.04" date="22 Dec 1998" />
+<release ver="1.03" date="3 Dec 1998" />
+<release ver="1.02" date="18 Nov 1998" />
+<release ver="1.01" date="3 Sep 1998" />
+<release ver="1.00" date="7 Jul 1998" />
+<release ver="0.99" date="28 May 1998" />
+<release ver="0.96 beta" date="8 Jan 1998" />
+<release ver="0.95 beta" date="18 Dec 1997" />
+<release ver="0.94 beta" date="23 Oct 1997" />
+<release ver="0.93 beta" date="24 Sep 1997" />
+<release ver="0.91 beta" date="22 Aug 1997" />
+<release ver="0.9 beta" date="26 Jun 1997" />
+
+</history>

@@ -1,0 +1,215 @@
+show:
+name:Mutation chain
+info:Presents a chain of subsequent mutants.
+expdef:standard
+code:~
+
+global g_maxcreatures;
+global g_showcreatures;
+global g_lasttime;
+global g_lastdif;
+global g_circle;
+
+function onLoad()
+{
+  Simulator.import("default.sim");
+  GenePools.clearGroup(0);
+  Populations.clearGroup(1);
+  Populations.clearGroup(0);
+  Math.seed = Math.time;
+  g_lasttime = Math.time;
+  g_circle = 0.0;
+  TrackingCam.cam_zoom = 0.4;
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_change = 2;
+  g_maxcreatures = 5;
+  g_showcreatures = 2;
+  ShowParams_restart_f1_call();
+  ShowParams.differ = 1;
+  World.wrldtyp = 0;
+  World.wrldsiz = 40;
+  World.wrldwat = -1.0;
+  World.wrldbnd = 0;
+  ExpParams.feed = 0;
+  ExpParams.MaxCreated = 1;
+  GLDisplay.desiredsimspeed = 30;
+}
+
+function restartWith(gen)
+{
+  g_lasttime = Math.time;
+  g_circle = 0.0;
+  Populations.clearGroup(0);
+  Populations.group = 0;
+  Population.createFromString(gen);
+  Population.death = 0;
+  Population.energy = 0;
+  Population.colmask = 12;
+  makeSelection();
+  updateBanner();
+}
+
+function updateBanner()
+{
+  if (CreatureSelection.count > 1)
+  {
+    var curr = CreatureSelection.get(0); //in the selection, current is #0, previous is #1; see function makeSelection()
+    var prev = CreatureSelection.get(1);
+    GLDisplay.banner = "Previous genotype:\n" + prev.genotype + "\nNew mutant created (phenetic difference = " + g_lastdif + "):\n" + curr.genotype;
+  }
+  else if (CreatureSelection.count > 0)
+  {
+    var initial = CreatureSelection.get(0);
+    GLDisplay.banner = "This is the initial genotype:\n" + initial.genotype;
+  }
+  else
+    GLDisplay.banner = "?!";
+}
+
+function createMutant(threshold)
+{
+  Populations.group = 0;
+  Populations.creature = Population.size - 1;
+  var retry = 20;
+  var distance;
+  var g = Creature.geno;
+  GenePools.getFromCreature();
+  var parentx = Creature.pos_x + (Creature.size_x / 2.0), parenty = Creature.pos_y + (Creature.size_y / 2.0);
+  while (retry-- >= 0)
+  {
+    GenePools.mutateSelected();
+    if (!Genotype.isValid)
+    {
+      GenePools.getFromCreature();
+      continue;
+    }
+    //	CLI.println(g.genotype+" ... "+Genotype.geno.genotype);
+    if (threshold < 0.001)
+      break; // no threshold
+    distance = Similarity.evaluateDistance(g, Genotype.geno);
+    //	CLI.println("distance="+distance);
+    if (distance >= threshold)
+      break;
+  }
+  if (!Genotype.isValid)
+  {
+    CLI.println("invalid mutant!");
+  }
+  else
+  {
+    g_lastdif = distance;
+    var cr = Population.createFromGenotype();
+    g_circle = g_circle + 0.3;
+    var dst = (cr.size_x + cr.size_y) / 2.0 + 1.0;
+    var px = (parentx + Math.sin(g_circle) * dst) * 0.9 + 0.1 * (World.wrldsiz / 2);
+    var py = (parenty + Math.cos(g_circle) * dst) * 0.9 + 0.1 * (World.wrldsiz / 2);
+    cr.moveAbs(px - cr.size_x / 2, py - cr.size_y / 2, -0.99);
+    makeSelection();
+    updateBanner();
+  }
+}
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(TrackingCam.cam_dir + 0.01, TrackingCam.cam_h);
+  if ((Math.time - g_lasttime) > (2.0/GLDisplay.userspeed))
+  {
+    createMutant([0, 0.5, 2.0, 10.0][ShowParams.differ]);
+    g_lasttime = Math.time;
+    if (Population.size > g_maxcreatures)
+    {
+      Populations.creature = 0;
+      Populations.deleteSelected();
+    }
+  }
+}
+
+global itsmyselection;
+
+function makeSelection()
+{
+  Populations.group = 0;
+  CreatureSelection.clear();
+  var n = Population.size;
+  if (n > 0)
+  {
+    itsmyselection = 1;
+    CreatureSelection.add(Population.get(n - 1));
+  }
+  if (n > 1)
+  {
+    itsmyselection = 1;
+    CreatureSelection.add(Population.get(n - 2));
+  }
+}
+
+function onSelectionChange()
+{
+  if (CreatureSelection.count > 0)
+  {
+    if (itsmyselection)
+    {
+      itsmyselection = 0;
+      return ;
+    }
+    makeSelection();
+  }
+}
+
+function ShowParams_restart_f1_call()
+{
+  restartWith("X");
+}
+
+function ShowParams_restart_f9_call()
+{
+  restartWith("/*9*/R");
+}
+
+function ShowParams_restart_f4_call()
+{
+  restartWith("/*4*/X>");
+}
+
+function ShowParams_restart_f0_call()
+{
+  restartWith("//0\np:\np:\nj:0,1,dx=1\n");
+}
+
+function ShowParams_restartquadruped_call()
+{
+  restartWith("MX[@*:-.4,2:-2.890,1 :-1.808](RX(FX,),MX[@-1 :1.849,0:3.094,0:-1.387][|-1 :1.287,0:.5](rX(,X),,RX(X,)),rX(,FX))");
+}
+
+~
+
+prop:
+id:differ
+name:Mutant variation
+type:d 0 3 ~Default~Small~Medium~Big
+
+prop:
+id:restartquadruped
+name:Restart with a quadruped creature
+type:p
+
+prop:
+id:restart_f1
+name:Restart with simple f1 genotype (recurrent encoding)
+type:p
+
+prop:
+id:restart_f9
+name:Restart with simple f9 genotype (perpendicular encoding)
+type:p
+
+prop:
+id:restart_f4
+name:Restart with simple f4 genotype (developmental encoding)
+type:p
+
+prop:
+id:restart_f0
+name:Restart with simple f0 genotype (low-level encoding)
+type:p
+

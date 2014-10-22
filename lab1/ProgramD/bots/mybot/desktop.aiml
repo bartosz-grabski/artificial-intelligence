@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+
+<topic name="MOBILE">
+<category>
+	<pattern>* Phones</pattern>
+	<template>
+		<random>
+			<li>We offer '<get name="mobile-size"/>'' phone software distrubtions</li>
+			<li>'<get name="mobile-size"/>'' phone distributions! That's how a variety of products for '<get name="name"/>'</li>
+			<li>We offer '<get name="mobile-size"/>'< mobile solutions!</li>
+	</template>
+</category>
+</topic>
+
+</aiml>

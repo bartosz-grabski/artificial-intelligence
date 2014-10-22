@@ -1,0 +1,404 @@
+# Gene pool: "encoding_f1_best"
+# This gene pool summarizes best f1-encoded individuals from a very
+# large-scale experiment on comparison of genetic encodings, performed in
+# 2001. Its results were published in the Artificial Life Journal 7:4. Three
+# tasks were: 
+# - maximize height without brain working (hp), 
+# - with brain working (h), 
+# - maximize speed (s).
+# Note that for correct behavior the setup should be just like it was while
+# optimization. Minimal differences may cause some creatures to behave
+# differently, because they were extremely adapted to the experimental setup
+# (distance from ground when revived = 0.1).
+# Downloaded on 2004-06-21 from Framsticks Experimentation Center
+
+org:
+name:hp_0*.gen
+genotype:~
+LLLLLLm(, rLLcX[@1:-0.513]rLLLF(rcccmXLLX[|1:0.846]rLLLLLccMXrLLLXrLX[-2:4.160], rXrLLLLLLLLL(LCXrcX[|T:0.695], X[@0:-247.802, G:-1.466, 1:-1.707]RLLLcXRLQX[|0:2.105]rrLLLcccFmX, FX), rLX), )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.01665    gen=100~
+num:218
+popsiz:0
+
+org:
+name:hp_1*.gen
+genotype:~
+LX[|3:-4.567]LLLL(FXRLcccFFQXLFX[|0:-4.270, 1:2.115, 1:-1.996]LMQX[!:0.030]LccmQXRLcFmXRLfX[@-1:-2.513][|=:0.980]Cf(rrqX[0:-3.894]), rLLLfmmXRRRmQ(RLLLLFqXrLLLFmqXRLfX, rLX))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.35624    gen=96~
+num:219
+popsiz:0
+
+org:
+name:hp_2*.gen
+genotype:~
+lllF(, , XLLLLff(, LLLLLLLLLffff(, LLLLLLLLLf(LLLLLLLLf(LfX[|*:1.017][@0:-1.419], RRLmQXRLLLLLLLLL(RLLLLLLLLLffX[@1:-3.219, -1:1.353, =:0.000], RRLfmX[@0:-688.176, 1:4.439]LLLLLLLLLFFqqqXLLLLLLLFFFFqqqqXLLFX[G:-0.922][|*:-1.368]), ))), ))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.32472    gen=100~
+num:220
+popsiz:0
+
+org:
+name:hp_3*.gen
+genotype:~
+LLLLF((rrFFmmXrrrrrrrrrLLLLLLLLLFFrrrrrLLLLLLLLLFFFFLLFFrrrrrLLLLLLLLLFFFFFmQ(rrrrrLLLLLLFFmXrrrrrrrrrLLLLLLLLLFFFFrrrrrrrLLLLLLLLLFrrrrrLLLLLrrrrLLLLLLLLLFFrrrrrLLLLLLLLLFFFFFmQrrrrrLLLLLLFFmXrrrrrrrrrLLLLLLLLLFFFFrrrrrrrLLLLLLLLLFrrrrrrrrrLLLLLLLLLFFFFFmQrrrrrrrrrrrLLLLLLLLLFFFFFmQrrrrLLLLFFFFFmrrrrLLLLLLrrrrrrrLLLLLLLLLFFFFFmrrrrLLLLLLFFmXrrrrrrrrrLLLLLLLLLFFLLLLLrrrmQrrrrLLLLFFFFFmrrrrLLLLLLrrrrFLLLCFX, LX), LX[@0:4.306]), , LCX)~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.48248    gen=64~
+num:221
+popsiz:0
+
+org:
+name:hp_4*.gen
+genotype:~
+(XRLLLcF(LLCQQQXLMXLLLLLcFMMQ(LLLXLCFX, LLLLLLLFX[|1:3.933]LLL(LqqX[|-1:616.764]rMX[@1:2.113]MMQX, RLLLFX[|1:3.322]LLLLLLLFqqX)), LLLX[/:-999.000]))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.93327    gen=98~
+num:222
+popsiz:0
+
+org:
+name:hp_5*.gen
+genotype:~
+(rrLLLLQXLLLLLL(LLLLfXLLLLLLffQ(FX(LXLFXRRLLq(X, LX[0:-1.699]), rrLLLLLLLLLffQXLLLLLLLLQXLLLLLLLLLX), XLLmXLLLfX[0:115.307]), FX[|0:3.410]))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.08201    gen=100~
+num:223
+popsiz:0
+
+org:
+name:hp_6*.gen
+genotype:~
+LLLLLLLLMXRRLLLLLLLFFFF(rFX, LMXRRLLLLLLLLLFFFFFFFFF(LLX, LXLLLLX[@0:1.296]LLLCCCXLcX))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.27457    gen=91~
+num:224
+popsiz:0
+
+org:
+name:hp_7*.gen
+genotype:~
+//not here - too big genotype~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.74232    gen=74~
+num:225
+popsiz:0
+
+org:
+name:hp_8*.gen
+genotype:~
+(LXLLLLLL(, FmX, RRLmmX[|*:3.815]LLLLLLLLmmm(, llFX, RLLLLLLLLLLLLLLLLLLLmXRLLLLLLLLLLLqrLLLLLLLrLLLLLLLqX[|T:-112.160][1:1.389]LLLLLLLLLqLLLLLLLLLLqrLLLLLLLrLLLLLLLqX[|T:-112.160][1:1.389]LLLLLLLLLqLLLLLLqX[|T:-112.160])), qLrLLLLLLLLLqX)~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.98327    gen=98~
+num:226
+popsiz:0
+
+org:
+name:hp_9*.gen
+genotype:~
+(, LLLLFM(L(CfX[@0:0.365, T:-3.000, 1:1.434]), , , (LQX, ), rrLLXLLLLLLLLLLLLLLLFM(LLLLmXLLLLrLLLLLLLLLLLLmXLLLLLLLLLLLLLLLLLLmXLLLLLLLLLFmmX[|/:-886.918], cX)))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.48168    gen=100~
+num:227
+popsiz:0
+
+org:
+name:h_0*.gen
+genotype:~
+LLLLLLL(LFqX, LLX[3:2.073]LLX[|G:-1.033], rrcFMQXLLLLLLLLLCFMMQ(rrLcQQXLLLLLLCfQQQXLLLLXLfmQQX[@1:3.350][|-2:1.395], rrLX))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.09908    gen=100~
+num:228
+popsiz:0
+
+org:
+name:h_1*.gen
+genotype:~
+LLLLLLLLL(LmXLLcQX, rrLLMqqXRLLLLLq(RRLLLLLLLLLmmmmqqXLLLLLLLLLXrLLLLLLLLLCMqqqXRLLLLLLLLLCCCCCfffffmX, rcFFX), )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.356    gen=100~
+num:229
+popsiz:0
+
+org:
+name:h_2*.gen
+genotype:~
+LXLFmqq(LLm(LLLLLLLLLLLFFmmmmmmmFMLLLmmmmqqXLLLLLLLLLFM(LLLLLLLLLFFFmmmmmmmmmqqmmmmqqqLLLLLmmmmmmqXLLLLLLLLLFMLLLLLLLLLMLLLLLLLLLLLLLFmqqqLLLmmmmmmqXLLLLLLLLLFMLLLLLLLLLFFmmmmmmmFMLLLLLLLLLLmLLLFFqqLLLLLLLLLLLLFmmmmmmmqX[|0:0.149, 2:-0.137], QX[|1:0.743][*:1.827, 0:2.553, /:0.627])), X)~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.12457    gen=100~
+num:230
+popsiz:0
+
+org:
+name:h_3*.gen
+genotype:~
+LLMMqXrLLLLLLLLF(, XLLL(RLF(XRLfX[@=:0.000, T:-1.083]LLLLLLLCQQX, X)), FX[|G:-2.241]rLLLLLLM(LLLLLLLLCfffMXRLLLLLLLFX[@-1:-428.344, -1:1.620]rLLLcX[|0:-3.039]RLMX, mX, ))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.28169    gen=100~
+num:231
+popsiz:0
+
+org:
+name:h_4*.gen
+genotype:~
+rLLLLLLLFMq(ccQQX[|=:-1.878, 1:-759.250], LXLLLMXL(RLLX[@T:-2.682, !:1.000, 0:-1.018]LLLX, CCFXX), QXrrLLLLLLLLL(LLLLLLFmXLX[@-1:2.340][1:2.809]LLLLLFQXX[-3:-235.578, -1:0.919], RLX), lX)~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.12318    gen=100~
+num:232
+popsiz:0
+
+org:
+name:h_5*.gen
+genotype:~
+(, LfqXLLLLfq(, LFXXLLL(QXLLXLLX, RMX), LcmXXm(RLXLLCfMQXCqXLX[T:-3.381], lMX), LLLcmXLLLmXrrL(LfXLLCQXLXRRLcMqX, ), LLLcmXLLXL(rLLXRRLLLCQXXRRLcqX, ), ))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.92462    gen=100~
+num:233
+popsiz:0
+
+org:
+name:h_6*.gen
+genotype:~
+rrCfX[|2:1.496, *:0.634]LLLLLCMM(LcfqX[0:-2.870]RcFQXFQXrrLLCMMX, rrLLLCCMXLCMXLCFFMXLCX[|T:-3.741]rrLLLCCfMX[@0:-1.914]XXLCCfX, )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.46628    gen=99~
+num:234
+popsiz:0
+
+org:
+name:h_7*.gen
+genotype:~
+LLLF(LLLM(LLLLLLLLLFFM(LLq(rcMX, rXLLLLQQXLLLf(XLX[@G:-276.241][|0:-1.182, 0:-4.727, 1:-594.678]rX[@0:-4.715], rLLf(rrrrLLLfqqX[@0:999.000, G:131.696]rLLLLLLLLLFqqX, ), LcFX), X[/:9.959]))), )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=1.89524    gen=100~
+num:235
+popsiz:0
+
+org:
+name:h_8*.gen
+genotype:~
+LLLLLLLLLXLf(CffQX[/:0.519, 0:0.933, 0:-2.833, 1:1.916], rrFqXLLLL(LX[@1:1.936, -1:0.818][2:4.738]rrrLX[@0:1.033][G:4.012, -2:-968.028]LLLXrLLLmX, RRCX[@0:-1.085]))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.15289    gen=100~
+num:236
+popsiz:0
+
+org:
+name:h_9*.gen
+genotype:~
+FM(, LL(LLM(, LLX[@G:73.769, 0:4.970]LLf(cfX, rrLXRLLLLFq(LLLLLLfMXLLLLLLCCX(X, X[|1:-8.872]), LX[@1:-1.781, -2:-355.100][@-3:-1.332][|0:-3.739, -4:-1.968, 0:1.684])))))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+vertpos=2.18958    gen=100~
+num:237
+popsiz:0
+
+org:
+name:s_0*.gen
+genotype:~
+rfXLfMMMQ(rrrrrrrrffffffffmmmmQQQX[@2:4.949, 0:-2.990], cfXLLLQQXrCFMMMMMMQX[@1:4.982, 1:4.938][|G:-1.738])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0468126    gen=99~
+num:238
+popsiz:0
+
+org:
+name:s_1*.gen
+genotype:~
+LLLLLLfffMM(LLM(rLLLLLLLLfffffffMX[0:-3.883]FFMX[|T:-1.254, 0:1.303], RlcqX[|-1:1.670], ), MX[-2:-1.350, 0:850.766, -1:-17.681])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0438151    gen=98~
+num:239
+popsiz:0
+
+org:
+name:s_2*.gen
+genotype:~
+LLLLLLFFMMX[0:289.731][|0:0.350][@2:2.543, !:1.000, 2:-0.711]X[1:0.628][0:-2.267, 3:-1.828]X[@1:0.955][@1:1.964][@1:1.193][@1:1.193][1:1.788]LLLLLLLLLFFFFMMMMMMX[@1:0.643][|=:3.615, 0:2.818]~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.024385    gen=96~
+num:240
+popsiz:0
+
+org:
+name:s_3*.gen
+genotype:~
+(, LLLCFFMMMMQQ(, cX[|1:2.533, 0:0.901], LCMqX[@T:4.852][@0:-676.863, 1:-2.167][@/:-1.981, 0:-54.120, 1:0.569]LXCX[@*:2.685]))~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0314297    gen=96~
+num:241
+popsiz:0
+
+org:
+name:s_4*.gen
+genotype:~
+QQ(, cFFFQQXX[1:-1.295][@1:-4.380, 0:-2.041][|0:-4.164, 0:4.593, 1:2.639], X[@G:40.696, 1:-1.682][@G:1.867][@T:2.692][@G:59.205][@G:-3.709][@G:-1.038, 1:131.972]X[@0:-1.134])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0142755    gen=97~
+num:242
+popsiz:0
+
+org:
+name:s_5*.gen
+genotype:~
+RXLLXMXX[0:-953.340, 0:0.536, 0:591.989]rLLLLLfffffffffMMMMMMMMMX[|T:-647.105, 0:2.007](RcFX[|1:0.968][|T:2.411][*:1.223], )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0157796    gen=100~
+num:243
+popsiz:0
+
+org:
+name:s_6*.gen
+genotype:~
+LFMXLLLLLLLLLMMMMX[@1:6.165][@=:1.617, 0:3.460]MMMMMMqqX[|-1:1.446, 1:-0.508]X[@-1:-1.486][|!:1.000, -1:1.692][@0:-1.508][|!:1.000, -1:0.686][|!:0.178, *:-0.981]~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0491264    gen=76~
+num:244
+popsiz:0
+
+org:
+name:s_7*.gen
+genotype:~
+LLLLLLLLLccccFMM(, rllcccfmmqqX[|G:4.480, 1:-1.673, 0:2.229], rlcMX[|G:-429.431, 1:3.365]lllcccffmmqXcqX[@1:2.968][|0:-0.785, *:2.886])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0371863    gen=98~
+num:245
+popsiz:0
+
+org:
+name:s_8*.gen
+genotype:~
+MMqq(cfX[@/:999.000]FX[@1:-2.149][|!:0.165, G:-67.893][|T:-2.554, 1:4.769][|G:794.756][|-1:-2.762, 0:1.783, 1:-2.932][|!:0.046, G:571.934, 1:-0.933][|0:-598.230][|!:0.820, 0:-67.893][@1:-2.048][|!:0.176, G:-67.893][|T:-2.686][0:753.029][|-1:766.074, 0:-2.663][|0:-363.850, G:-2.162][|T:-439.651, 0:-2.625])~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0100681    gen=95~
+num:246
+popsiz:0
+
+org:
+name:s_9*.gen
+genotype:~
+rrLLLF(X[@2:0.886, 1:0.525]LLLLLLLLLLFFFFFFFFFFmLLLLLLFFFFX[@1:1.323], LLLLLLFFFFFFFFMMLLLLFFFFFFFFFMMMMMLLLLLLLLFFFFFFLLLLLLLLFFFFFFMMMMMMFMMLLLLFFFFFFFFFMMMMMMMMMFFFFLMMMMMLLFFFFFFMMLLLLLLMMLLLLLLFFMMMFFMFFFMMMMMMMMMFFFFLLLLLFFFFFFFFMMLLLLLLFFMMFFFFFFMMLLLLLLFFMMMFFMMMMMFFFFLLLLLFFFFFFFFMMLLLLLLFFMMMFFMMMMMMMMMFFFFFFMMLLLLLLFFMMMFFMMMMMMMMMLLFFFFFFMMLLLFFFFMMLLLLLLLFFFFFFMMMMMMMMMMFFFLLLLLLFFFFFFMMMMMMMMMMFFFFLLLLLFFMMLFFFFFFFFFMMLLFFMMMFFMMMMMMMMMLLLLLFFMMMLFMMX[@T:-119.968][|T:-1.481, 1:-0.286][@-1:-2.701], )~
+info:~
+HOW CREATED:
+Evolved using single, constant setup
+SUBMITTED BY: Maciej Komosinski, 2001-05-11
+PERFORMANCE:
+velocity=0.0291276    gen=91~
+num:247
+popsiz:0
+

@@ -1,0 +1,29 @@
+org:
+name:S0 (Scents user0 field)
+genotype:~
+//0
+p:
+p:1
+j:0, 1, dx=1
+n:p=1, d=Scent:x=0
+~
+
+org:
+name:S1 (Scents user1 field)
+genotype:~
+//0
+p:
+p:1
+j:0, 1, dx=1
+n:p=1, d=Scent:x=1
+~
+
+org:
+name:S2 (Scents user2 field)
+genotype:~
+//0
+p:
+p:1
+j:0, 1, dx=1
+n:p=1, d=Scent:x=2
+~

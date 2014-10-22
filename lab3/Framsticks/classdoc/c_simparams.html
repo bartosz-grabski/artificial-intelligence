@@ -1,0 +1,1354 @@
+<HTML><HEAD><TITLE>sim_params</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>sim_params class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">This object groups all simulator parameters so they can be loaded or saved with a single call (see scripts/standard_loadsave.inc). For other purposes please use specific objects, like Simulator, World, Populations, etc.</DIV><BR>
+221 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="23"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;autosaveperiod
+<div class="typedescr">integer, 0&nbsp;..&nbsp;100000</div></td><td>
+<p class="membername">Save backup</p>
+<p class="help">Save simulation state once every n-th event<BR/>
+(events are defined by the script. For 'standard.expdef' it is after each death).<BR/>
+Save EXPT file first to initialize name for autosave files.</p>
+</TD></TR><TR><TD><A NAME="195"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;bnoise_struct
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0</div></td><td>
+<p class="membername">Body disturbance</p>
+<p class="help">When &gt;0, body constructs of creatures (position of Parts) will be randomly disturbed when they are created.</p>
+</TD></TR><TR><TD><A NAME="196"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;bnoise_vel
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0</div></td><td>
+<p class="membername">Initial movement</p>
+<p class="help">Random velocities will be applied to all body Parts (in MechaStick) or rigid segments (in ODE) of newly created creatures.</p>
+</TD></TR><TR><TD><A NAME="45"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;changedProperty
+<div class="typedescr">integer</div></td><td>
+<p class="membername">last changed property #</p>
+</TD></TR><TR><TD><A NAME="46"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;changedPropertyId
+<div class="typedescr">string</div></td><td>
+<p class="membername">last changed property id</p>
+</TD></TR><TR><TD><A NAME="27"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;createrr
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Ignore<li>1 = Show summary (default)<li>2 = Show details</div></td><td>
+<p class="membername">Object creation errors</p>
+</TD></TR><TR><TD><A NAME="28"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;creatwarnfail
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Fail on warnings</p>
+<p class="help">Creatures grown with warnings will not be simulated.</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef
+<div class="typedescr">string</div></td><td>
+<p class="membername">Experiment definition</p>
+<p class="help">Choose the experiment framework<BR/>
+(in Windows GUI, confirm by pressing 'Apply')<BR/>
+<BR/>
+Stop the simulation before selecting another experiment definition.<BR/>
+It is a good practice to initialize the experiment before running the simulation.</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef_info
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Description</p>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;expdef_title
+<div class="typedescr">string</div></td><td>
+<p class="membername">Title</p>
+</TD></TR><TR><TD><A NAME="151"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_c_del
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">Delete connection</p>
+</TD></TR><TR><TD><A NAME="150"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_c_new
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">New connection</p>
+</TD></TR><TR><TD><A NAME="152"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_c_wei
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Change weight</p>
+</TD></TR><TR><TD><A NAME="143"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_j_del
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">Delete joint</p>
+</TD></TR><TR><TD><A NAME="142"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_j_new
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">New joint</p>
+</TD></TR><TR><TD><A NAME="146"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_j_rsf
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Rotational stiffness</p>
+</TD></TR><TR><TD><A NAME="145"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_j_stf
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Stiffness</p>
+</TD></TR><TR><TD><A NAME="144"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_j_stm
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Stamina</p>
+</TD></TR><TR><TD><A NAME="148"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_n_del
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">Delete neuron</p>
+</TD></TR><TR><TD><A NAME="147"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_n_new
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">New neuron</p>
+</TD></TR><TR><TD><A NAME="149"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_n_prp
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Change properties</p>
+</TD></TR><TR><TD><A NAME="132"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;f0_nodel_tag
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Respect the 'delete inhibit' tag</p>
+<p class="help">You can tag elements using their 'i' field and the i="mi=d" tag.<BR/>
+Mutations will not delete such elements.<BR/>
+The i="mi=dm" combination is allowed.</p>
+</TD></TR><TR><TD><A NAME="133"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;f0_nomod_tag
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Respect the 'modify inhibit' tag</p>
+<p class="help">You can tag elements using their 'i' field and the i="mi=m" tag.<BR/>
+Mutations will not modify properties of such elements.<BR/>
+The i="mi=md" combination is allowed.</p>
+</TD></TR><TR><TD><A NAME="141"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_asm
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Assimilation</p>
+</TD></TR><TR><TD><A NAME="135"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_del
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">Delete part</p>
+</TD></TR><TR><TD><A NAME="139"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_frc
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Friction</p>
+</TD></TR><TR><TD><A NAME="140"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_ing
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Ingest</p>
+</TD></TR><TR><TD><A NAME="138"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_mas
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Mass</p>
+</TD></TR><TR><TD><A NAME="134"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_new
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">New part</p>
+</TD></TR><TR><TD><A NAME="137"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_pos
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Position</p>
+</TD></TR><TR><TD><A NAME="136"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f0_p_swp
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Swap parts</p>
+</TD></TR><TR><TD><A NAME="158"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;f1_mut_exmod
+<div class="typedescr">string</div></td><td>
+<p class="membername">Excluded modifiers</p>
+<p class="help">Modifiers that will not be added nor deleted during mutation<BR/>
+(all: RrLlAaCcFfMmSsIiQqWwEe)</p>
+</TD></TR><TR><TD><A NAME="160"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_nmConn
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.1</div></td><td>
+<p class="membername">Add/remove neural connection</p>
+</TD></TR><TR><TD><A NAME="159"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_nmNeu
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.05</div></td><td>
+<p class="membername">Add/remove a neuron</p>
+<p class="help">Adds a (connected) neuron or removes a neuron</p>
+</TD></TR><TR><TD><A NAME="161"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_nmProp
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.1</div></td><td>
+<p class="membername">Add/remove neuron property setting</p>
+</TD></TR><TR><TD><A NAME="163"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_nmVal
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.05</div></td><td>
+<p class="membername">Change property value</p>
+</TD></TR><TR><TD><A NAME="162"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_nmWei
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=1</div></td><td>
+<p class="membername">Change connection weight</p>
+</TD></TR><TR><TD><A NAME="156"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_smComma
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.02</div></td><td>
+<p class="membername">Add/remove a comma ,</p>
+</TD></TR><TR><TD><A NAME="155"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_smJunct
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.02</div></td><td>
+<p class="membername">Add/remove a branch ( )</p>
+</TD></TR><TR><TD><A NAME="157"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_smModif
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.1</div></td><td>
+<p class="membername">Add/remove a modifier</p>
+<p class="help">Modifiers: RrLlAaCcFfMmSsIiQqWwEe</p>
+</TD></TR><TR><TD><A NAME="154"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f1_smX
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.05</div></td><td>
+<p class="membername">Add/remove a stick X</p>
+</TD></TR><TR><TD><A NAME="153"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;f1_xo_propor
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Proportional crossover</p>
+<p class="help">Cross over (exchange) corresponding segments of the two parent genotypes?<BR/>
+<BR/>
+f1 uses a two-point crossing over.<BR/>
+If this option is turned on, cut points will be selected proportionally to neural genes.<BR/>
+Thus, if both parents have the same number of neurons, then this will be preserved in their children.</p>
+</TD></TR><TR><TD><A NAME="164"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutAddOper
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.4</div></td><td>
+<p class="membername">Add element</p>
+</TD></TR><TR><TD><A NAME="167"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutConnElem
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.33</div></td><td>
+<p class="membername">- add connection</p>
+</TD></TR><TR><TD><A NAME="168"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutDelOper
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.1</div></td><td>
+<p class="membername">Delete element</p>
+</TD></TR><TR><TD><A NAME="169"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutHandleOper
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.3</div></td><td>
+<p class="membername">Change handle</p>
+</TD></TR><TR><TD><A NAME="165"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutJointElem
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.33</div></td><td>
+<p class="membername">- add joint</p>
+</TD></TR><TR><TD><A NAME="166"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutNeuroElem
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.33</div></td><td>
+<p class="membername">- add neuron</p>
+</TD></TR><TR><TD><A NAME="170"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f2_mutPropOper
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.2</div></td><td>
+<p class="membername">Change properties</p>
+</TD></TR><TR><TD><A NAME="173"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutDelIns
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.1</div></td><td>
+<p class="membername">Deletion/insertion</p>
+</TD></TR><TR><TD><A NAME="175"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;f3_mutDelInsLength
+<div class="typedescr">integer, 1&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">- length of changed sequence</p>
+</TD></TR><TR><TD><A NAME="174"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutDelInsPerChar
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.05</div></td><td>
+<p class="membername">- probability per char</p>
+</TD></TR><TR><TD><A NAME="176"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutDuplication
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.05</div></td><td>
+<p class="membername">Gene duplication</p>
+</TD></TR><TR><TD><A NAME="171"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutSubstitution
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.6</div></td><td>
+<p class="membername">Substitution</p>
+</TD></TR><TR><TD><A NAME="172"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutSubstPerChar
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.1</div></td><td>
+<p class="membername">- probability per char</p>
+</TD></TR><TR><TD><A NAME="177"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_mutTranslocation
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.15</div></td><td>
+<p class="membername">Translocation</p>
+</TD></TR><TR><TD><A NAME="179"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_xovCrossingOver
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.2</div></td><td>
+<p class="membername">Crossing over</p>
+</TD></TR><TR><TD><A NAME="178"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f3_xovGeneTransfer
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.8</div></td><td>
+<p class="membername">Horizontal gene transfer</p>
+</TD></TR><TR><TD><A NAME="180"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=50</div></td><td>
+<p class="membername">Add node</p>
+<p class="help">mutation: probability of adding a node</p>
+</TD></TR><TR><TD><A NAME="182"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add_conn
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=15</div></td><td>
+<p class="membername">- add connection</p>
+<p class="help">add node mutation: probability of adding a neural connection</p>
+</TD></TR><TR><TD><A NAME="181"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add_div
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=20</div></td><td>
+<p class="membername">- add division</p>
+<p class="help">add node mutation: probability of adding a division</p>
+</TD></TR><TR><TD><A NAME="183"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add_neupar
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">- add neuron property</p>
+<p class="help">add node mutation: probability of adding a neuron property/modifier</p>
+</TD></TR><TR><TD><A NAME="184"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add_rep
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">- add repetition</p>
+<p class="help">add node mutation: probability of adding a repetition</p>
+</TD></TR><TR><TD><A NAME="185"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_add_simp
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=50</div></td><td>
+<p class="membername">- add simple node</p>
+<p class="help">add node mutation: probability of adding a random, simple gene</p>
+</TD></TR><TR><TD><A NAME="186"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_del
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=20</div></td><td>
+<p class="membername">Delete node</p>
+<p class="help">mutation: probability of deleting a node</p>
+</TD></TR><TR><TD><A NAME="187"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;f4_mut_mod
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=30</div></td><td>
+<p class="membername">Modify node</p>
+<p class="help">mutation: probability of changing a node</p>
+</TD></TR><TR><TD><A NAME="25"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;filecomm
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Show file comments</p>
+<p class="help">Display comments encountered in opened files</p>
+</TD></TR><TR><TD><A NAME="91"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;gen_extmutinfo
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Off (default)<li>1 = Method ID<li>2 = Method description</div></td><td>
+<p class="membername">Extended mutation info</p>
+<p class="help">If active, information about employed mutation method will be stored in the 'info' field of each mutated genotype.</p>
+</TD></TR><TR><TD><A NAME="90"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;gen_hilite
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Use syntax highlighting</p>
+<p class="help">Use colors for genes?<BR/>
+(slows down viewing/editing of huge genotypes)</p>
+</TD></TR><TR><TD><A NAME="89"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;gen_hist
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=0</div></td><td>
+<p class="membername">Remember history of genetic operations</p>
+<p class="help">Required for phylogenetic analysis</p>
+</TD></TR><TR><TD><A NAME="188"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genkonw0
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">f1 -> f0 : Recursive encoding</p>
+</TD></TR><TR><TD><A NAME="189"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genkonw1
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">f2 -> f0 : Similarity encoding</p>
+</TD></TR><TR><TD><A NAME="190"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genkonw2
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">f3 -> f2 : Biological encoding</p>
+</TD></TR><TR><TD><A NAME="191"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genkonw3
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">f4 -> f0 : Developmental encoding</p>
+</TD></TR><TR><TD><A NAME="38"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;genolib
+<div class="typedescr"><A HREF="c_genepools.html">GenePools</A></div></td><td>
+<p class="membername">gene pools object</p>
+</TD></TR><TR><TD><A NAME="106"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genoper_f0
+<div class="typedescr">integer, 0&nbsp;..&nbsp;0<li>0 = Default</div></td><td>
+<p class="membername">Operators for f0</p>
+</TD></TR><TR><TD><A NAME="107"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genoper_f1
+<div class="typedescr">integer, 0&nbsp;..&nbsp;0<li>0 = Default</div></td><td>
+<p class="membername">Operators for f1</p>
+</TD></TR><TR><TD><A NAME="108"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genoper_f2
+<div class="typedescr">integer, 0&nbsp;..&nbsp;0<li>0 = Default</div></td><td>
+<p class="membername">Operators for f2</p>
+</TD></TR><TR><TD><A NAME="109"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genoper_f3
+<div class="typedescr">integer, 0&nbsp;..&nbsp;0<li>0 = Default</div></td><td>
+<p class="membername">Operators for f3</p>
+</TD></TR><TR><TD><A NAME="110"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;genoper_f4
+<div class="typedescr">integer, 0&nbsp;..&nbsp;0<li>0 = Default</div></td><td>
+<p class="membername">Operators for f4</p>
+</TD></TR><TR><TD><A NAME="31"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;groupchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check genotypes added to groups</p>
+</TD></TR><TR><TD><A NAME="29"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;importchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check imported genotypes</p>
+</TD></TR><TR><TD><A NAME="37"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;livelib
+<div class="typedescr"><A HREF="c_populations.html">Populations</A></div></td><td>
+<p class="membername">populations object</p>
+</TD></TR><TR><TD><A NAME="30"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;loadchk
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Check genotypes loaded from experiment</p>
+</TD></TR><TR><TD><A NAME="234"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;maxjoint
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=2</div></td><td>
+<p class="membername">Maximal joint length</p>
+</TD></TR><TR><TD><A NAME="233"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;minjoint
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0</div></td><td>
+<p class="membername">Minimal joint length</p>
+</TD></TR><TR><TD><A NAME="111"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_N
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Neuron (N)</p>
+<p class="help">Standard neuron<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="112"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Nu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Unipolar neuron [EXPERIMENTAL!] (Nu)</p>
+<p class="help">Works like standard neuron (N) but the output value is scaled to 0...+1 instead of -1...+1.<BR/>
+Having 0 as one of the saturation states should help in "gate circuits", where input signal is passed through or blocked depending on the other singal.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="113"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_G
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Gyroscope (G)</p>
+<p class="help">Equilibrium sensor.<BR/>
+0=the stick is horizontal<BR/>
++1/-1=the stick is vertical<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Joint<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="114"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_T
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Touch (T)</p>
+<p class="help">Touch sensor.<BR/>
+-1=no contact<BR/>
+0=just touching<BR/>
+&gt;0=pressing, value depends on the force applied<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="115"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_S
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Smell (S)</p>
+<p class="help">Smell sensor. Aggregated "smell of energy" experienced from all energy objects (creatures and food pieces).<BR/>
+Close objects have bigger influence than the distant ones: for each energy source, its partial feeling is proportional to its energy/(distance^2)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="116"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_*
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Constant (*)</p>
+<p class="help">Constant value<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="117"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_|
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Bend muscle (|)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1<BR/>
+   bending range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="118"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_@
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Rotation muscle (@)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="119"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_D
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Differentiate (D)</p>
+<p class="help">Calculate the difference between the current and previous input value. Multiple inputs are aggregated with respect to their weights<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="120"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Fuzzy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Fuzzy system [EXPERIMENTAL!] (Fuzzy)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of fuzzy sets (ns) integer<BR/>
+   number of rules (nr) integer<BR/>
+   fuzzy sets (fs) string<BR/>
+   fuzzy rules (fr) string</p>
+</TD></TR><TR><TD><A NAME="121"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_VEye
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Vector Eye [EXPERIMENTAL!] (VEye)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   target.x (tx) float<BR/>
+   target.y (ty) float<BR/>
+   target.z (tz) float<BR/>
+   target shape (ts) string<BR/>
+   perspective (p) float 0.1..10<BR/>
+   scale (s) float 0.1..100<BR/>
+   show hidden lines (h) integer 0..1<BR/>
+   output lines count (each line needs four channels) (o) integer 0..99<BR/>
+   debug (d) integer 0..1</p>
+</TD></TR><TR><TD><A NAME="122"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_VMotor
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Visual-Motor Cortex [EXPERIMENTAL!] (VMotor)</p>
+<p class="help">Must be connected to the VEye and properly set up. Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of basic features (noIF) integer<BR/>
+   number of degrees of freedom (noDim) integer<BR/>
+   parameters (params) string</p>
+</TD></TR><TR><TD><A NAME="123"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Sti
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sticky [EXPERIMENTAL!] (Sti)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="124"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_LMu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Linear muscle [EXPERIMENTAL!] (LMu)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="125"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Water
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Water detector (Water)</p>
+<p class="help">Output signal:<BR/>
+0=on or above water surface<BR/>
+1=under water (deeper than 1)<BR/>
+0..1=in the transient area just below water surface<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="126"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Energy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Energy level (Energy)</p>
+<p class="help">The current energy level divided by the initial energy level.<BR/>
+Usually falls from initial 1.0 down to 0.0 and then the creature dies. It can rise above 1.0 if enough food is ingested<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="127"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Ch
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channelize (Ch)</p>
+<p class="help">Combines all input signals into a single multichannel output; Note: ChSel and ChMux are the only neurons which support multiple channels. Other neurons discard everything except the first channel.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="128"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_ChMux
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel multiplexer (ChMux)</p>
+<p class="help">Outputs the selected channel from the second (multichannel) input. The first input is used as the selector value (-1=select first channel, .., 1=last channel)<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses 2 inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="129"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_ChSel
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel selector (ChSel)</p>
+<p class="help">Outputs a single channel (selected by the "ch" parameter) from multichannel input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   channel (ch) integer</p>
+</TD></TR><TR><TD><A NAME="130"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Rnd
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Random noise (Rnd)</p>
+<p class="help">Generates random noise (subsequent random values in the range of -1..+1)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="131"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;neuadd_Sin
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sinus generator (Sin)</p>
+<p class="help">Output frequency = f0+input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   base frequency (f0) float -1..1<BR/>
+   time (t) float 0..6.28319</p>
+</TD></TR><TR><TD><A NAME="197"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_N
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Neuron (N)</p>
+<p class="help">Standard neuron<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="198"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Nu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Unipolar neuron [EXPERIMENTAL!] (Nu)</p>
+<p class="help">Works like standard neuron (N) but the output value is scaled to 0...+1 instead of -1...+1.<BR/>
+Having 0 as one of the saturation states should help in "gate circuits", where input signal is passed through or blocked depending on the other singal.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Inertia (in) float 0..1<BR/>
+   Force (fo) float 0..999<BR/>
+   Sigmoid (si) float -99999..99999<BR/>
+   State (s) float -1..1</p>
+</TD></TR><TR><TD><A NAME="199"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_G
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Gyroscope (G)</p>
+<p class="help">Equilibrium sensor.<BR/>
+0=the stick is horizontal<BR/>
++1/-1=the stick is vertical<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Joint<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="200"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_T
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Touch (T)</p>
+<p class="help">Touch sensor.<BR/>
+-1=no contact<BR/>
+0=just touching<BR/>
+&gt;0=pressing, value depends on the force applied<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   Range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="201"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_S
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Smell (S)</p>
+<p class="help">Smell sensor. Aggregated "smell of energy" experienced from all energy objects (creatures and food pieces).<BR/>
+Close objects have bigger influence than the distant ones: for each energy source, its partial feeling is proportional to its energy/(distance^2)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="202"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_*
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Constant (*)</p>
+<p class="help">Constant value<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="203"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_|
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Bend muscle (|)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1<BR/>
+   bending range (r) float 0..1</p>
+</TD></TR><TR><TD><A NAME="204"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_@
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Rotation muscle (@)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="205"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_D
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Differentiate (D)</p>
+<p class="help">Calculate the difference between the current and previous input value. Multiple inputs are aggregated with respect to their weights<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="206"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Fuzzy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Fuzzy system [EXPERIMENTAL!] (Fuzzy)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of fuzzy sets (ns) integer<BR/>
+   number of rules (nr) integer<BR/>
+   fuzzy sets (fs) string<BR/>
+   fuzzy rules (fr) string</p>
+</TD></TR><TR><TD><A NAME="207"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_VEye
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Vector Eye [EXPERIMENTAL!] (VEye)</p>
+<p class="help">Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   target.x (tx) float<BR/>
+   target.y (ty) float<BR/>
+   target.z (tz) float<BR/>
+   target shape (ts) string<BR/>
+   perspective (p) float 0.1..10<BR/>
+   scale (s) float 0.1..100<BR/>
+   show hidden lines (h) integer 0..1<BR/>
+   output lines count (each line needs four channels) (o) integer 0..99<BR/>
+   debug (d) integer 0..1</p>
+</TD></TR><TR><TD><A NAME="208"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_VMotor
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Visual-Motor Cortex [EXPERIMENTAL!] (VMotor)</p>
+<p class="help">Must be connected to the VEye and properly set up. Refer to publications to learn more about this neuron.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   number of basic features (noIF) integer<BR/>
+   number of degrees of freedom (noDim) integer<BR/>
+   parameters (params) string</p>
+</TD></TR><TR><TD><A NAME="209"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Sti
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sticky [EXPERIMENTAL!] (Sti)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="210"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_LMu
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Linear muscle [EXPERIMENTAL!] (LMu)</p>
+<p class="help">Characteristics:<BR/>
+   uses single input<BR/>
+   does not provide output value<BR/>
+   should be located on a Joint<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   power (p) float 0.01..1</p>
+</TD></TR><TR><TD><A NAME="211"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Water
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Water detector (Water)</p>
+<p class="help">Output signal:<BR/>
+0=on or above water surface<BR/>
+1=under water (deeper than 1)<BR/>
+0..1=in the transient area just below water surface<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   should be located on a Part<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="212"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Energy
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Energy level (Energy)</p>
+<p class="help">The current energy level divided by the initial energy level.<BR/>
+Usually falls from initial 1.0 down to 0.0 and then the creature dies. It can rise above 1.0 if enough food is ingested<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="213"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Ch
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channelize (Ch)</p>
+<p class="help">Combines all input signals into a single multichannel output; Note: ChSel and ChMux are the only neurons which support multiple channels. Other neurons discard everything except the first channel.<BR/>
+<BR/>
+Characteristics:<BR/>
+   supports any number of inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="214"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_ChMux
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel multiplexer (ChMux)</p>
+<p class="help">Outputs the selected channel from the second (multichannel) input. The first input is used as the selector value (-1=select first channel, .., 1=last channel)<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses 2 inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="215"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_ChSel
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Channel selector (ChSel)</p>
+<p class="help">Outputs a single channel (selected by the "ch" parameter) from multichannel input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   channel (ch) integer</p>
+</TD></TR><TR><TD><A NAME="216"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Rnd
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Random noise (Rnd)</p>
+<p class="help">Generates random noise (subsequent random values in the range of -1..+1)<BR/>
+<BR/>
+Characteristics:<BR/>
+   does not use inputs<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="217"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;ncl_Sin
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Sinus generator (Sin)</p>
+<p class="help">Output frequency = f0+input<BR/>
+<BR/>
+Characteristics:<BR/>
+   uses single input<BR/>
+   provides output value<BR/>
+   does not require location in body<BR/>
+<BR/>
+<BR/>
+Properties:<BR/>
+   base frequency (f0) float -1..1<BR/>
+   time (t) float 0..6.28319</p>
+</TD></TR><TR><TD><A NAME="193"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;nnoise
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Noise</p>
+<p class="help">Gaussian neural noise: a random value is added to each neural output in each simulation step. Set standard deviation here to add random noise, or 0 for deterministic simulation.</p>
+</TD></TR><TR><TD><A NAME="62"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;nnspeed
+<div class="typedescr">float, 0&nbsp;..&nbsp;1000<br>
+default=1</div></td><td>
+<p class="membername">NN speed</p>
+<p class="help">Number of neural network simulation steps in each physics simulation step</p>
+</TD></TR><TR><TD><A NAME="69"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odeairdrag
+<div class="typedescr">float, 0&nbsp;..&nbsp;0.5<br>
+default=0.01</div></td><td>
+<p class="membername">Drag</p>
+<p class="help">A drag force ("air drag") proportional to the velocity of mass centers of moving parts</p>
+</TD></TR><TR><TD><A NAME="84"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2bounce
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.1</div></td><td>
+<p class="membername">Bounce</p>
+</TD></TR><TR><TD><A NAME="85"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2bouncevel
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.01</div></td><td>
+<p class="membername">Bounce velocity</p>
+</TD></TR><TR><TD><A NAME="83"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2mumax
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=1</div></td><td>
+<p class="membername">Max. friction</p>
+<p class="help">Mu coefficient for Parts with maximal friction (i.e. "FFFFF" in f1)</p>
+</TD></TR><TR><TD><A NAME="82"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2mumin
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0.1</div></td><td>
+<p class="membername">Min. friction</p>
+<p class="help">Mu coefficient for Parts with minimal friction (i.e. "fffff" in f1)</p>
+</TD></TR><TR><TD><A NAME="86"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2softcfm
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Soft CFM</p>
+</TD></TR><TR><TD><A NAME="87"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecol2softerp
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Soft ERP</p>
+</TD></TR><TR><TD><A NAME="78"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolbounce
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.1</div></td><td>
+<p class="membername">Bounce</p>
+</TD></TR><TR><TD><A NAME="79"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolbouncevel
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.01</div></td><td>
+<p class="membername">Bounce velocity</p>
+</TD></TR><TR><TD><A NAME="77"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolmumax
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=5</div></td><td>
+<p class="membername">Max. friction</p>
+<p class="help">Mu coefficient for Parts with maximal friction (i.e. "FFFFF" in f1)</p>
+</TD></TR><TR><TD><A NAME="76"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolmumin
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0.1</div></td><td>
+<p class="membername">Min. friction</p>
+<p class="help">Mu coefficient for Parts with minimal friction (i.e. "fffff" in f1)</p>
+</TD></TR><TR><TD><A NAME="80"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolsoftcfm
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Soft CFM</p>
+</TD></TR><TR><TD><A NAME="81"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odecolsofterp
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0</div></td><td>
+<p class="membername">Soft ERP</p>
+</TD></TR><TR><TD><A NAME="67"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odemusclemax
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=10</div></td><td>
+<p class="membername">Muscle max power</p>
+<p class="help">i.e. "MMMMM" if f1</p>
+</TD></TR><TR><TD><A NAME="66"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odemusclemin
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0</div></td><td>
+<p class="membername">Muscle min power</p>
+<p class="help">i.e. "mmmmm" in f1</p>
+</TD></TR><TR><TD><A NAME="68"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odemusclespeed
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=1</div></td><td>
+<p class="membername">Muscle speed limit</p>
+<p class="help">Muscle state cannot change faster than the supplied value</p>
+</TD></TR><TR><TD><A NAME="72"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;odeseed
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Truly random<li>1 = Deterministic<li>2 = Fixed</div></td><td>
+<p class="membername">Randomness</p>
+<p class="help">Affects collisions.<BR/>
+- 'Truly random' is closest to the standard ODE operation. Use Math.seed to influence randomness in ODE collisions<BR/>
+- 'Deterministic' automatically calculates random seed in each step based on the current simulation (world) state, which makes the simulation repeatable but more random than 'Fixed'<BR/>
+- 'Fixed' is completely deterministic and does not depend on Math.seed. This might negatively affect ODE accuracy<BR/>
+</p>
+</TD></TR><TR><TD><A NAME="73"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;odesepsticks
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=0</div></td><td>
+<p class="membername">Separate sticks</p>
+<p class="help">Each stick gets a separate ODE body (like in MechaStick)</p>
+</TD></TR><TR><TD><A NAME="64"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;odeshape
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1<li>0 = Cylinder<li>1 = Box</div></td><td>
+<p class="membername">Stick shape</p>
+</TD></TR><TR><TD><A NAME="65"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odestep
+<div class="typedescr">float, 0.001&nbsp;..&nbsp;1<br>
+default=0.05</div></td><td>
+<p class="membername">Simulation step</p>
+</TD></TR><TR><TD><A NAME="71"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odewaterbuoy
+<div class="typedescr">float, 0&nbsp;..&nbsp;2<br>
+default=1</div></td><td>
+<p class="membername">Water buoyancy</p>
+</TD></TR><TR><TD><A NAME="70"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odewaterdrag
+<div class="typedescr">float, 0.001&nbsp;..&nbsp;1<br>
+default=0.5</div></td><td>
+<p class="membername">Water drag</p>
+</TD></TR><TR><TD><A NAME="75"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odeworldcfm
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=1e-05</div></td><td>
+<p class="membername">CFM</p>
+<p class="help">World CFM (constraint force mixing)</p>
+</TD></TR><TR><TD><A NAME="74"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;odeworlderp
+<div class="typedescr">float, 0&nbsp;..&nbsp;1<br>
+default=0.2</div></td><td>
+<p class="membername">ERP</p>
+<p class="help">World ERP (error reduction parameter)</p>
+</TD></TR><TR><TD><A NAME="24"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;overwrite
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Overwrite</p>
+<p class="help">Overwite existing files or create their backups</p>
+</TD></TR><TR><TD><A NAME="192"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;randinit
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=0.01</div></td><td>
+<p class="membername">Random initialization</p>
+<p class="help">Allowed range for initializing all neuron states with uniform distribution random numbers and zero mean. Set to 0 for deterministic initialization.</p>
+</TD></TR><TR><TD><A NAME="34"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;resetonexpdef
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)<br>
+default=1</div></td><td>
+<p class="membername">Reset before changing experiment definition</p>
+<p class="help">If turned on: when a new experiment definition is selected, default values are loaded for most of the simulator parameters, and gene pools and populations are cleared.<BR/>
+When turned off: parameters from previous experiment definition will remain.</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;running
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">is the simulation running?</p>
+<p class="help">for synchronizing the user interface state</p>
+</TD></TR><TR><TD><A NAME="63"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;signals
+<div class="typedescr"><A HREF="c_worldsignals.html">WorldSignals</A></div></td><td>
+<p class="membername">Signal sources</p>
+</TD></TR><TR><TD><A NAME="218"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simil_method
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1<li>0 = New (default)<li>1 = Old</div></td><td>
+<p class="membername">Matching method</p>
+</TD></TR><TR><TD><A NAME="221"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;simil_neuro
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0.5</div></td><td>
+<p class="membername">Weight of neurons count</p>
+</TD></TR><TR><TD><A NAME="220"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;simil_partdeg
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=1</div></td><td>
+<p class="membername">Weight of parts' degree</p>
+</TD></TR><TR><TD><A NAME="219"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;simil_parts
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=0</div></td><td>
+<p class="membername">Weight of parts count</p>
+<p class="help">Differing number of parts is also handled by the 'part degree' similarity component.</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simspeed
+<div class="typedescr">integer</div></td><td>
+<p class="membername">simulation speed</p>
+<p class="help">steps/second</p>
+</TD></TR><TR><TD><A NAME="61"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simtype
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1<li>0 = MechaStick (default)<li>1 = ODE</div></td><td>
+<p class="membername">Simulation engine</p>
+<p class="help">MechaStick is a fast and simple primary Framsticks simulation engine.<BR/>
+ODE is Open Dynamics Engine by Russel Smith et al.<BR/>
+<BR/>
+NOTE: switching between simulation engines causes removal of all objects in the world (e.g. creatures).</p>
+</TD></TR><TR><TD><A NAME="227"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;symAlphaSteps
+<div class="typedescr">integer, 2&nbsp;..&nbsp;50<br>
+default=20</div></td><td>
+<p class="membername">Angular sampling (1)</p>
+<p class="help">Default number of samples per full angle (#1)</p>
+</TD></TR><TR><TD><A NAME="228"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;symBetaSteps
+<div class="typedescr">integer, 2&nbsp;..&nbsp;50<br>
+default=20</div></td><td>
+<p class="membername">Angular sampling (2)</p>
+<p class="help">Default number of samples per full angle (#2)</p>
+</TD></TR><TR><TD><A NAME="226"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;symPosSteps
+<div class="typedescr">integer, 2&nbsp;..&nbsp;50<br>
+default=10</div></td><td>
+<p class="membername">Position sampling</p>
+<p class="help">Default number of samples per stick length</p>
+</TD></TR><TR><TD><A NAME="229"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;symResultA
+<div class="typedescr">float</div></td><td>
+<p class="membername">resulting symmetry plane, coeff. A (set by calculateSymmetry)</p>
+</TD></TR><TR><TD><A NAME="230"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;symResultB
+<div class="typedescr">float</div></td><td>
+<p class="membername">resulting symmetry plane, coeff. B (set by calculateSymmetry)</p>
+</TD></TR><TR><TD><A NAME="231"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;symResultC
+<div class="typedescr">float</div></td><td>
+<p class="membername">resulting symmetry plane, coeff. C (set by calculateSymmetry)</p>
+</TD></TR><TR><TD><A NAME="232"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;symResultD
+<div class="typedescr">float</div></td><td>
+<p class="membername">resulting symmetry plane, coeff. D (set by calculateSymmetry)</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;time
+<div class="typedescr">integer</div></td><td>
+<p class="membername">number of steps</p>
+</TD></TR><TR><TD><A NAME="194"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;touchrange
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=1</div></td><td>
+<p class="membername">T receptor range</p>
+</TD></TR><TR><TD><A NAME="22"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;usercode
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">User script</p>
+<p class="help">This script overrides the experiment definition</p>
+</TD></TR><TR><TD><A NAME="32"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;vmdebug
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">VM debug</p>
+</TD></TR><TR><TD><A NAME="36"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;world
+<div class="typedescr"><A HREF="c_world.html">World</A></div></td><td>
+<p class="membername">world object</p>
+</TD></TR><TR><TD><A NAME="58"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;wrldbnd
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = None<li>1 = Fence (default)<li>2 = Teleport</div></td><td>
+<p class="membername">Boundaries</p>
+</TD></TR><TR><TD><A NAME="59"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldg
+<div class="typedescr">float, 0&nbsp;..&nbsp;10<br>
+default=1</div></td><td>
+<p class="membername">Gravity</p>
+<p class="help">You can adjust gravity for your experiments.<BR/>
+The "official" setting used to evaluate and compare creatures is 1.</p>
+</TD></TR><TR><TD><A NAME="56"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;wrldmap
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">Map</p>
+<p class="help">Description of the world (Type: Blocks or Heighfield). Enter<BR/>
+   r &lt;sizex&gt; &lt;sizey&gt; [seed]<BR/>
+to generate a random landscape, or<BR/>
+   m &lt;sizex&gt; &lt;sizey&gt; digits<BR/>
+   M &lt;sizex&gt; &lt;sizey&gt; numbers<BR/>
+to provide height values.<BR/>
+<BR/>
+See also the WorldMap object.</p>
+</TD></TR><TR><TD><A NAME="55"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldsiz
+<div class="typedescr">float, 10&nbsp;..&nbsp;1000<br>
+default=20</div></td><td>
+<p class="membername">Size</p>
+<p class="help">Side length of the world</p>
+</TD></TR><TR><TD><A NAME="54"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;wrldtyp
+<div class="typedescr">integer, 0&nbsp;..&nbsp;2<li>0 = Flat surface (default)<li>1 = Blocks<li>2 = Height field</div></td><td>
+<p class="membername">Type</p>
+</TD></TR><TR><TD><A NAME="57"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;wrldwat
+<div class="typedescr">float, -20&nbsp;..&nbsp;50<br>
+default=-1</div></td><td>
+<p class="membername">Water level</p>
+</TD></TR><TR><TD><A NAME="41"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr"></div></td><td>
+<p class="membername">add property (id,type,name,help)</p>
+<code>function add()</code><br>
+</TD></TR><TR><TD><A NAME="43"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addGroup
+<div class="typedescr"></div></td><td>
+<p class="membername">add group (name)</p>
+<code>function addGroup()</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;beep
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">beep</p>
+<code>function beep()</code><br>
+<p class="help">Plays a default system sound</p>
+</TD></TR><TR><TD><A NAME="223"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;calculateSymmetry
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Calculate symmetry</p>
+<code>function calculateSymmetry(<A HREF="c_model.html">Model</A> model)</code><br>
+<p class="help">Returns bilateral symmetry (0.0 .. 1.0) for a given Model using default precision parameters (symPosSteps,symAlphaSteps,symBetaSteps). Returns the symmetry plane, too (sets symResultA,B,C,D).<BR/>
+Note: may take a long time for large creatures.</p>
+</TD></TR><TR><TD><A NAME="224"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;calculateSymmetry2
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Calculate symmetry</p>
+<code>function calculateSymmetry2(<A HREF="c_model.html">Model</A> model, integer posSteps, integer alphaSteps, integer betaSteps)</code><br>
+<p class="help">Returns bilateral symmetry (0.0 .. 1.0) for a given Model using specified precision parameters. Returns the symmetry plane, too (sets symResultA,B,C,D).<BR/>
+Note: may take a long time for large creatures.</p>
+</TD></TR><TR><TD><A NAME="225"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;calculateSymmetryForPlane
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">Calculate symmetry</p>
+<code>function calculateSymmetryForPlane(<A HREF="c_model.html">Model</A> model, float A, float B, float C, float D)</code><br>
+<p class="help">Returns bilateral symmetry (0.0 .. 1.0) for a given Model and given a specific plane defined by coefficients A, B, C, D.</p>
+</TD></TR><TR><TD><A NAME="26"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;checkpoint
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Notify that the experiment state was significantly updated.</p>
+<code>function checkpoint()</code><br>
+<p class="help">This function was previously called "autosave".</p>
+</TD></TR><TR><TD><A NAME="40"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr"></div></td><td>
+<p class="membername">remove all properties</p>
+<code>function clear()</code><br>
+</TD></TR><TR><TD><A NAME="97"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;crossOver
+<div class="typedescr">returns <A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">Crossover</p>
+<code>function crossOver(<A HREF="c_geno.html">Geno</A>, <A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">returns crossed over genotype</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;eval
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">evaluate expression</p>
+<code>function eval(string script_expression)</code><br>
+</TD></TR><TR><TD><A NAME="222"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;evaluateDistance
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">evaluate model dissimilarity</p>
+<code>function evaluateDistance(<A HREF="c_geno.html">Geno</A>, <A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">calculate dissimilarity between two models created from Geno objects</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;export
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">export</p>
+<code>function export(string filename, integer options, integer genepool, integer population)</code><br>
+<p class="help">Save some data to file. arguments:<BR/>
+- filename<BR/>
+- flags: composed of the following bit values:<BR/>
+   1 - experiment (works like "save" and all other bits are ignored)<BR/>
+   2 - genotypes<BR/>
+   4 - simulator parameters<BR/>
+   8 - simulator stats<BR/>
+   16 - genepool settings<BR/>
+   32 - population settings<BR/>
+   64 - do autosave<BR/>
+- selected genepool<BR/>
+- selected population</p>
+</TD></TR><TR><TD><A NAME="98"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;getSimplest
+<div class="typedescr">returns <A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">Get simplest genotype</p>
+<code>function getSimplest(integer format)</code><br>
+<p class="help">returns the simplest genotype for a given encoding (format). 0 means f0, 4 means f4, etc.</p>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;import
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">import</p>
+<code>function import(string filename, integer options)</code><br>
+<p class="help">Load some data from file. The second optional argument selects what section(s) will be imported:<BR/>
+ 1 - experiment (works like "load" and can reset the simulator state!)<BR/>
+ 2 - genotypes<BR/>
+ 4 - simulator parameters<BR/>
+ 8 - genepool settings<BR/>
+ 16 - population settings<BR/>
+ 32 - new groups will be created for imported genepools and populations<BR/>
+64 - allow switching to a different expdef while importing parameters (4)<BR/>
+<BR/>
+The standard behavior (without the second argument) is to import genotypes, parameters, and genepool and population settings (2+4+8+16). Note that "64" is not included by default, because the expdef change resets all simulator parameters, which contradicts the usual meaning of "import" in Framsticks ("add data", as opposed to "load" meaning "replace data"). Moreover, using the "64" option in scripts can be dengerous, especially all expdef and show scripts should always declare the proper expdef name in their header rather than change the expdef directly. Without the "64" option, it is always safe to "import" any file in a script regardless of the current simulator state.</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;import
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">import</p>
+<code>function import(string filename)</code><br>
+<p class="help">Equivalent to import(filename,2+4+8+6) - imports genotypes, parameters, genepool and population settings</p>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;init
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Initialize experiment</p>
+<code>function init()</code><br>
+<p class="help">Performs initialization procedures, like resetting counters, states, gene pools, etc.</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;load
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">load</p>
+<code>function load(string filename)</code><br>
+<p class="help">Load experiment file (calls onExpLoad() in the current experiment definition). This function is intended to replace the simulator state; the old state is cleared by automatically calling "resetToDefaults()" (only if "resetonexpdef" is enabled). Use "import" if you don't want to loose the old simulator state.</p>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;loadexpdef
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Reload experiment definition</p>
+<code>function loadexpdef()</code><br>
+</TD></TR><TR><TD><A NAME="39"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;loadNeurons
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">(re)load neuron definitions</p>
+<code>function loadNeurons(string directory_path)</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;message
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">print message</p>
+<code>function message(string text, integer level)</code><br>
+<p class="help">The second argument can be:<BR/>
+ -1 = debugging message<BR/>
+ 0 = information<BR/>
+ 1 = warning<BR/>
+ 2 = error<BR/>
+ 3 = critical error</p>
+</TD></TR><TR><TD><A NAME="96"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;mutate
+<div class="typedescr">returns <A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">Mutate</p>
+<code>function mutate(<A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">returns mutated Geno object from supplied Geno</p>
+</TD></TR><TR><TD><A NAME="35"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_simulator.html">Simulator</A></div></td><td>
+<p class="membername">create new Simulator</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="92"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;operReport
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Operators report</p>
+<code>function operReport()</code><br>
+<p class="help">Show available genetic operators</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;print
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">print information message</p>
+<code>function print(string text)</code><br>
+<p class="help">One argument: message to be printed</p>
+</TD></TR><TR><TD><A NAME="88"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;rayIntersection
+<div class="typedescr">returns float</div></td><td>
+<p class="membername">ray intersection</p>
+<code>function rayIntersection(float position_x, float position_y, float position_z, float direction_x, float direction_y, float direction_z, float max_distance)</code><br>
+</TD></TR><TR><TD><A NAME="42"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;remove
+<div class="typedescr"></div></td><td>
+<p class="membername">remove property (index)</p>
+<code>function remove()</code><br>
+</TD></TR><TR><TD><A NAME="44"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;removeGroup
+<div class="typedescr"></div></td><td>
+<p class="membername">remove group (index)</p>
+<code>function removeGroup()</code><br>
+</TD></TR><TR><TD><A NAME="33"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;resetToDefaults
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Reset the simulator state</p>
+<code>function resetToDefaults()</code><br>
+<p class="help">Clears groups and loads default values for simulator parameters, then calls onExpDefLoad() of the current experiment definition.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;save
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">save</p>
+<code>function save(string filename)</code><br>
+<p class="help">Save experiment file (calls onExpSave() in the current experiment definition)</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;sleep
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">sleep</p>
+<code>function sleep(integer milliseconds)</code><br>
+<p class="help">Suspends the execution for a specified interval</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;sound
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">sound</p>
+<code>function sound(integer freqency_in_Hz, integer length_in_milliseconds)</code><br>
+<p class="help">Generates a simple tone on the speaker</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;start
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">start simulation</p>
+<code>function start()</code><br>
+<p class="help">called by the user interface</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;step
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">do single simulation step</p>
+<code>function step()</code><br>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;stop
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">stop simulation</p>
+<code>function stop()</code><br>
+<p class="help">the expdef script calls this to stop simulation</p>
+</TD></TR><TR><TD><A NAME="93"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;toHTML
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">HTMLize a genotype</p>
+<code>function toHTML(string)</code><br>
+<p class="help">returns genotype expressed as colored HTML</p>
+</TD></TR><TR><TD><A NAME="94"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;toHTMLshort
+<div class="typedescr">returns string</div></td><td>
+<p class="membername">HTMLize a genotype, shorten if needed</p>
+<code>function toHTMLshort(string)</code><br>
+<p class="help">returns genotype (abbreviated if needed) expressed as colored HTML</p>
+</TD></TR><TR><TD><A NAME="95"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;validate
+<div class="typedescr">returns <A HREF="c_geno.html">Geno</A></div></td><td>
+<p class="membername">Validate</p>
+<code>function validate(<A HREF="c_geno.html">Geno</A>)</code><br>
+<p class="help">returns validated (if possible) Geno object from supplied Geno</p>
+</TD></TR><TR><TD><A NAME="60"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;wrldchg
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Trigger world update</p>
+<code>function wrldchg()</code><br>
+</TD></TR></TABLE>
+<P CLASS="footer">(21 duplicated members hidden)</P>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

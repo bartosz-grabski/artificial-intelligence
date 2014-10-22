@@ -1,0 +1,55 @@
+<HTML><HEAD><TITLE>Vector</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Vector class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Vector is 1-dimensional array, indexed by integer value (starting from 0). Multidimensional arrays can be simulated by putting other Vector objects into the Vector.<BR/>
+Example:<BR/>
+var v=Vector.new();<BR/>
+v.add(123); v.add("string");</DIV><BR>
+11 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="7"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;avg
+<div class="typedescr">float</div></td><td>
+<p class="membername">average</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="integer-ns.gif" ALT="integer" TITLE="integer">&nbsp;size
+<div class="typedescr">integer</div></td><td>
+<p class="membername">element count</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;stdev
+<div class="typedescr">float</div></td><td>
+<p class="membername">standard deviation</p>
+<p class="help">=sqrt(sum((element[i]-avg)^2)/(size-1)) which is estimated population std.dev. from sample std.dev.</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;toString
+<div class="typedescr">string</div></td><td>
+<p class="membername">textual form</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;add
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">append at the end</p>
+<code>function add(untyped value)</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">clear data</p>
+<code>function clear()</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;find
+<div class="typedescr">returns integer</div></td><td>
+<p class="membername">find</p>
+<code>function find(untyped value)</code><br>
+<p class="help">returns the element index or -1 if not found</p>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;get
+<div class="typedescr">returns untyped</div></td><td>
+<p class="membername">get value at position</p>
+<code>function get(integer position)</code><br>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;new
+<div class="typedescr">returns <A HREF="c_vector.html">Vector</A></div></td><td>
+<p class="membername">create new Vector</p>
+<code>function new()</code><br>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;remove
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">remove at position</p>
+<code>function remove(integer position)</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">set value at position</p>
+<code>function set(integer position, untyped value)</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

@@ -1,0 +1,42 @@
+<HTML><HEAD><TITLE>Signal</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Signal class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">Signals broadcast information in a channel (being an abstract communication medium that could be imagined as sound, smell, vision or anything else). There are no sender-receiver associations, although the receiving party can filter out signals (two standard filtering methods are: physical neighborhood and one-dimensional attribute called flavor). Signals attached to neurons and creatures (created in Creature.signals and Neuro.signals) automatically follow the owner's location. Environmental signals (in World.signals) are stationary.<BR/>
+<BR/>
+Receiving: <BR/>
+There are 2 kinds of data you can receive:<BR/>
+1. aggregating functions (receive and receiveFilter) calculate the overall power of the received signal (based on the distance and the source power).<BR/>
+2. receiveSet and receiveSingle fetch the individual Signal object(s) so it is possible to transmit something else than just a single number (by using Signal.value) and do more sophisticated processing.<BR/>
+<BR/>
+Creating: Use "add" in Creature.signals, Neuro.signals, or World.signals.</DIV><BR>
+6 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="3"></A><IMG SRC="string-ns.gif" ALT="string" TITLE="string">&nbsp;channel
+<div class="typedescr">string</div></td><td>
+<p class="membername">Channel name</p>
+<p class="help">Channel name, read-only.</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;flavor
+<div class="typedescr">float</div></td><td>
+<p class="membername">Flavor</p>
+<p class="help">Signal flavor can be used to differentiate between signals in a single channel.</p>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="object-ns.gif" ALT="object" TITLE="object">&nbsp;pos
+<div class="typedescr"><A HREF="c_xyz.html">XYZ</A></div></td><td>
+<p class="membername">Position</p>
+<p class="help">Signal position, read-only.</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float-ns.gif" ALT="float" TITLE="float">&nbsp;power
+<div class="typedescr">float</div></td><td>
+<p class="membername">Power</p>
+<p class="help">Signal power affects the aggregated signal value returned from receive() and receiveFilter().</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="field-ns.gif" ALT="field" TITLE="field">&nbsp;value
+<div class="typedescr">untyped</div></td><td>
+<p class="membername">Value</p>
+<p class="help">Signal value can be any type. On the receiver side it is only available by accessing the individual Signal objects, i.e. after calling receiveSet() or receiveSingle(). The aggregating functions receive() and receiveFilter() ignore this attribute.</p>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function-ns.gif" ALT="function" TITLE="function">&nbsp;remove
+<div class="typedescr"></div></td><td>
+<p class="membername">Remove</p>
+<code>function remove()</code><br>
+<p class="help">Deletes the signal.</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

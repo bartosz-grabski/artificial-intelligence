@@ -1,0 +1,96 @@
+<HTML><HEAD><TITLE>GLDisplay</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>GLDisplay class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+<DIV CLASS="classdesc">OpenGL display for the Framsticks Theater application.</DIV><BR>
+22 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="7"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;active
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">graphics display is active</p>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;banner
+<div class="typedescr">string</div></td><td>
+<p class="membername">Banner</p>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;desiredsimspeed
+<div class="typedescr">float, 0&nbsp;..&nbsp;999999<br>
+default=0</div></td><td>
+<p class="membername">Desired simulation speed</p>
+<p class="help">Desired simulation speed in steps/second. 0 = simulation is disabled.</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;fps
+<div class="typedescr">float</div></td><td>
+<p class="membername">FPS</p>
+<p class="help">Frames Per Second (measured)</p>
+</TD></TR><TR><TD><A NAME="12"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;fpsvisible
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Display the FPS meter?</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;maxfps
+<div class="typedescr">integer, 1&nbsp;..&nbsp;100<br>
+default=30</div></td><td>
+<p class="membername">Maximum fps</p>
+</TD></TR><TR><TD><A NAME="13"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;messagesVisible
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1 (false/true)</div></td><td>
+<p class="membername">Show log</p>
+</TD></TR><TR><TD><A NAME="15"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;messagesWindow
+<div class="typedescr">object</div></td><td>
+<p class="membername">Get the log window</p>
+<p class="help">get window object (class Window)</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;minfps
+<div class="typedescr">integer, 1&nbsp;..&nbsp;100<br>
+default=5</div></td><td>
+<p class="membername">Mininmum fps</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;simsteps
+<div class="typedescr">integer, 0&nbsp;..&nbsp;999999<br>
+default=0</div></td><td>
+<p class="membername">Simulation steps per frame</p>
+<p class="help">0 = simulation is disabled. In most cases you should use desiredsimspeed as it ensures automatic throttle control.</p>
+</TD></TR><TR><TD><A NAME="16"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size_x
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Display width</p>
+</TD></TR><TR><TD><A NAME="17"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;size_y
+<div class="typedescr">integer</div></td><td>
+<p class="membername">Display height</p>
+</TD></TR><TR><TD><A NAME="2"></A><IMG SRC="float.gif" ALT="float" TITLE="float">&nbsp;userspeed
+<div class="typedescr">float, 0&nbsp;..&nbsp;100<br>
+default=1</div></td><td>
+<p class="membername">simspeed user adjustment</p>
+<p class="help">User interface sets this property to adjust simulation speed.</p>
+</TD></TR><TR><TD><A NAME="14"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clearMessages
+<div class="typedescr"></div></td><td>
+<p class="membername">Clear the log window</p>
+<code>function clearMessages()</code><br>
+</TD></TR><TR><TD><A NAME="18"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;createWindow
+<div class="typedescr">returns <A HREF="c_window.html">Window</A></div></td><td>
+<p class="membername">Create a Window</p>
+<code>function createWindow(integer style, string title, object client)</code><br>
+<p class="help">create and return the new window object.</p>
+</TD></TR><TR><TD><A NAME="19"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;deleteWindow
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Delete a Window</p>
+<code>function deleteWindow(<A HREF="c_window.html">Window</A>)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;draw
+<div class="typedescr"></div></td><td>
+<p class="membername">draw</p>
+<code>function draw()</code><br>
+</TD></TR><TR><TD><A NAME="20"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newCreatureCharts
+<div class="typedescr"></div></td><td>
+<p class="membername">Create CreatureChartsManager</p>
+<code>function newCreatureCharts()</code><br>
+</TD></TR><TR><TD><A NAME="21"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;newSimStatsCharts
+<div class="typedescr"></div></td><td>
+<p class="membername">Create SimStatsChartsManager</p>
+<code>function newSimStatsCharts()</code><br>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;quit
+<div class="typedescr"></div></td><td>
+<p class="membername">quit</p>
+<code>function quit()</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;resume
+<div class="typedescr"></div></td><td>
+<p class="membername">resume</p>
+<code>function resume()</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;stop
+<div class="typedescr"></div></td><td>
+<p class="membername">stop</p>
+<code>function stop()</code><br>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

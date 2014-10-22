@@ -1,0 +1,11 @@
+# the '~' in file name is only used as a trick to make this script load first and appear on top of other script buttons in GUI
+script:
+name:Reload neuron definitions
+help:Reloads scripts/*.neuro files
+group:
+code:~
+function main()
+{
+  Simulator.loadNeurons("scripts");
+}
+~

@@ -1,0 +1,471 @@
+expdef:
+name:Framsticks Standard Experiment (with logging)
+info:~
+This is a variant of the standard.expdef
+- modified to enable evolution logging feature.
+
+The simulator will emit special evol.log messages:
+a [newid] ... - added a new genotype with [newid]
+a [newid] c [id] [fitness] - which was cloned from [id]
+a [newid] m [id] [fitness] - was a mutation of [id]
+a [newid] x [id1] [id2] [fitness] - xover of [id1] and [id2]
+a [newid] i [fitness] - (NEW!) to the initial population (the event is possible only before event "f")
+d [id] [popsize] - genotype [id] deleted (and completely removed if popsize=1)
+u [id] [popsize] [fitness] - (UPDATED!) updated performance for genotype [id]
+s [id] [id1:distance1] [id2:distance2] ... - similarity report generated after each gene pool change (after add and delete)
+f - (NEW!) generation of the initial population finished; evolution begins (events "a i" and "a r" are not
+possible now)
+
+This expdef also includes similarity reports and gene pool data dump.
+
+~
+code:~
+
+global selectioninfo;
+
+function onExpDefLoad()
+{
+  // define genotype and creature groups
+  GenePools.clear();
+  Populations.clear();
+  GenePool.name = "Genotypes";
+  update_fitformula();
+  Population.name = "Creatures";
+  Population.nnsim = 1;
+  Population.enableperf = 1;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 13; //13=1+4+8
+  Populations.addGroup("Food");
+  Population.nnsim = 0;
+  Population.enableperf = 0;
+  Population.death = 1;
+  Population.energy = 1; 
+  Population.colmask = 148; //148=4+16+128
+
+  ExpParams.initialgen = "X";
+  ExpParams.capacity = 200;
+  ExpParams.delrule = 0;
+  ExpParams.MaxCreated = 1;
+  ExpParams.p_nop = 20;
+  ExpParams.p_mut = 64;
+  ExpParams.p_xov = 16;
+  ExpParams.xov_mins = 0;
+  ExpParams.selrule = 2;
+  ExpParams.cr_c = 0;
+  ExpParams.cr_life = 0;
+  ExpParams.cr_v = 1;
+  ExpParams.cr_gl = 0;
+  ExpParams.cr_joints = 0;
+  ExpParams.cr_nnsiz = 0;
+  ExpParams.cr_nncon = 0;
+  ExpParams.cr_di = 0;
+  ExpParams.cr_vpos = 0;
+  ExpParams.cr_vvel = 0;
+  ExpParams.cr_norm = 0;
+  ExpParams.cr_simi = 0;
+  ExpParams.Energy0 = 1000;
+  ExpParams.e_meta = 1;
+  ExpParams.feed = 0;
+  ExpParams.feede0 = 200;
+  ExpParams.feedtrans = 1;
+  ExpParams.creath = 0.1;
+  ExpParams.foodgen = "";
+  ExpState.totaltestedcr = 0;
+}
+
+function evolLog(txt)
+{
+  Simulator.print("evol.log:" + txt);
+}
+
+function onExpInit()
+{
+  Populations.clearGroup(0);
+  Populations.clearGroup(1);
+  if (ExpParams.initialgen != "")
+  {
+    GenePools.clearGroup(0);
+    GenePools.newGenotype(ExpParams.initialgen);
+    GenePools.copySelected(0);
+  }
+  GenePools.group = 0;
+  var i;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    evolLog("a " + Genotype.num + " i " + Genotype.fit);
+    makeSimilarityReport(i);
+  }
+  evolLog("f");
+
+  ExpState.totaltestedcr = 0;
+}
+
+@include "standard_placement.inc"
+
+function onBorn()
+{
+  var retry = 20; //retry 20 times
+  var placed_ok=0;
+  while (retry--)
+  {
+    place_randomly((ExpParams.placement == 1) && (retry == 19)); //try central only in the first iteration
+    if (!Populations.creatBBCollisions(0))
+        {placed_ok=1;break;}
+  }
+  if (!placed_ok)
+    Simulator.message("onBorn() could not avoid collisions.", 2);
+
+  if (Populations.group == 0)
+  { // creature
+    Creature.idleen = ExpParams.e_meta * Creature.numjoints;
+    Creature.energ0 = Creature.energ0 * ExpParams.Energy0 * Creature.numjoints;
+    Creature.energy = Creature.energ0;
+    Creature.user1 = selectioninfo;
+  }
+  else
+  { // food
+    Creature.name = "Food";
+    Creature.idleen = 0;
+    Creature.energ0 = ExpParams.feede0;
+    Creature.energy = Creature.energ0;
+  }
+}
+
+function addfood()
+{
+  Populations.group = 1;
+  if (ExpParams.foodgen == "")
+    Populations.createFromString("//0\nm:Vstyle=food\np:");
+  else
+    Populations.createFromString(ExpParams.foodgen);
+}
+
+function onStep()
+{
+  Populations.group = 0; // creatures
+  GenePools.group = 0;
+  if (Population.size < ExpParams.MaxCreated)
+  {
+    selectGenotype();
+    if (Genotype.isValid)
+      Populations.createFromGenotype();
+    else
+      Simulator.print("invalid genotype - ignored: " + Genotype.info);
+    selectioninfo = "";
+  }
+
+  if (ExpParams.aging > 0)
+  {
+    var i = 0;
+    while (i < Population.size)
+    {
+      Populations.creature = i;
+      Creature.idleen = ExpParams.e_meta * Creature.numjoints
+                        * Math.exp((0.6931471806 * Creature.lifespan) / ExpParams.aging);
+      i++;
+    }
+  }
+
+  Populations.group = 1; // food
+  if (Population.size < ExpParams.feed)
+    addfood();
+}
+
+function makeSimilarityReport(maxg)
+{
+  if (!ExpParams.reportsim)
+    return ;
+  var result = "";
+  var i, g;
+  GenePools.group = 0;
+  if (maxg < 0)
+    maxg = GenePool.size - 1;
+  for (i = 0;i <= maxg;i++)
+  {
+    if (i == GenePools.genotype)
+      continue;
+    g = GenePool.get(i);
+    result += " " + g.num + ":" + Similarity.evaluateDistance(g.geno, Genotype.geno);
+  }
+  evolLog("s " + Genotype.num + result);
+}
+
+function updatePerformanceWithPopSize()
+{
+  GenePools.genotype = GenePools.findGenotypeForCreature();
+  if (GenePools.genotype < 0) // not found in gene pool
+  {
+    GenePools.getFromCreature();
+    Genotype.num = 0; // 0 = it will be filled automatically
+    GenePools.copySelected(0);
+    Genotype.popsiz = 0;
+    GenePools.addPerformanceFromCreature();
+    evolLog("a " + Genotype.num + " " + Creature.user1 + " " + Genotype.fit);
+    makeSimilarityReport( -1);
+  }
+  else
+  {
+    GenePools.addPerformanceFromCreature();
+    evolLog("u " + Genotype.num + " " + Genotype.popsiz + " " + Genotype.fit);
+  }
+}
+
+function onDied()
+{
+  if (Populations.group != 0)
+    return ; // ignore food
+  GenePools.group = 0;
+  ExpState.totaltestedcr++;
+  updatePerformanceWithPopSize();
+  LimitGenePool();
+  Simulator.checkpoint();
+}
+
+@include "standard_select.inc"
+
+function selectGenotype()
+{
+  var sel;
+  sel = (ExpParams.p_nop + ExpParams.p_mut + ExpParams.p_xov) * Math.rnd01;
+  if (sel < ExpParams.p_nop)
+  {
+    GenePools.genotype = selectedForCreation();
+    selectioninfo = "c " + Genotype.num;
+  }
+  else
+  {
+    sel = sel - ExpParams.p_nop;
+    if (sel < ExpParams.p_mut)
+    {
+      GenePools.genotype = selectedForCreation();
+      selectioninfo = "m " + Genotype.num;
+      GenePools.mutateSelected();
+    }
+    else
+    {
+      var other;
+      GenePools.genotype = selectedForCreation();
+      selectioninfo = "x " + Genotype.num;
+      if (ExpParams.xov_mins > 0.0)
+        other = selectedSimilar();
+      else
+        other = selectedForCreation();
+      if (other >= 0)
+      {
+        GenePools.crossoverSelected(other);
+        selectioninfo = selectioninfo + " " + GenePool.get(other).num;
+      }
+      else
+        Simulator.print("crossover - second genotype not found?");
+    }
+  }
+}
+
+function onFoodCollision()
+{
+  var e = Collision.Part2.ing * ExpParams.feedtrans;
+  //Simulator.print("transferring "+e+" from "+Collision.Creature1.name+" to "+Collision.Creature2.name);
+  Collision.Creature1.energy_m = Collision.Creature1.energy_m + e;
+  Collision.Creature2.energy_p = Collision.Creature2.energy_p + e;
+}
+
+function ExpParams_cleardata_call()
+{
+  var i;
+  GenePools.group = 0;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    GenePools.genotype = i;
+    Genotype.popsiz = 0;
+  }
+  Simulator.print("Performance data reset.");
+}
+
+function LimitGenePool()
+{
+  GenePools.group = 0;
+  if (GenePool.totalpop > (ExpParams.capacity + 1))
+    Simulator.print("Removing " + (GenePool.totalpop - ExpParams.capacity) + " genotypes");
+  while (GenePool.totalpop > ExpParams.capacity)
+  {
+    GenePools.genotype = selectedForDeletion();
+    evolLog("d " + Genotype.num + " " + Genotype.popsiz);
+    makeSimilarityReport( -1);
+    if (ExpParams.backup == 1)
+      if (Genotype.popsiz == 1)
+        GenePools.copySelected(1);
+    GenePools.deleteOne(GenePools.genotype);
+  }
+}
+
+function ExpParams_backup_set()
+{
+  if (ExpParams.backup == 1)
+  {
+    if (GenePools.size < 2)
+    {
+      GenePools.addGroup("Genotypes backup"); //side effect: sets GenePools.group==1;
+    }
+    GenePools.get(1).fitness = GenePools.get(0).fitness;
+  }
+}
+
+function ExpParams_capacity_set()
+{
+  LimitGenePool();
+}
+
+function
+ExpParams_cr_c_set, ExpParams_cr_life_set, ExpParams_cr_v_set, ExpParams_cr_gl_set,
+ExpParams_cr_joints_set, ExpParams_cr_nnsiz_set, ExpParams_cr_nncon_set, ExpParams_cr_di_set,
+ExpParams_cr_vpos_set, ExpParams_cr_vvel_set, ExpParams_cr_norm_set, ExpParams_cr_simi_set,
+update_fitformula()
+{
+  var formula = "" + ExpParams.cr_c;
+  formula += singlecrit("cr_life", "lifespan");
+  formula += singlecrit("cr_v", "velocity");
+  formula += singlecrit("cr_gl", "strsiz");
+  formula += singlecrit("cr_joints", "strjoints");
+  formula += singlecrit("cr_nnsiz", "nnsiz");
+  formula += singlecrit("cr_nncon", "nncon");
+  formula += singlecrit("cr_di", "distance");
+  formula += singlecrit("cr_vpos", "vertpos");
+  formula += singlecrit("cr_vvel", "vertvel");
+  if (ExpParams.cr_simi)
+    formula = "(" + formula + ")*this.simi";
+  GenePool.fitness = "return " + formula + ";";
+}
+
+function singlecrit(crname, fieldname)
+{
+  var weight = ExpParams.[crname];
+  if (weight == 0.0)
+    return "";
+  if (ExpParams.cr_norm)
+    return "+this.getNormalized(Genotype:" + fieldname + ")*" + weight;
+  else
+    return "+this." + fieldname + "*" + weight;
+}
+
+function ExpParams_dumpgens_call()
+{
+  //save all available properties of genotypes, including some Model
+  //properties (like x/y/z size)
+
+  var t, p, m, v = ["strsiz", "strjoints", "nnsiz", "nncon", "num", "gnum", "popsiz",
+                    "lifespan", "velocity", "distance", "vertvel", "vertpos", "fit", "fit2"];
+  var mv = ["size_x", "size_y", "size_z"];
+  GenePools.group = 1;
+  var f = File.create("genosDump_" + GenePool.size + ".txt",
+                      "Dumped genotypes from the '" + GenePool.name + "' gene pool.");
+
+  t = "geno_len";
+  for (p = 0;p < v.size;p++)
+    t += "\t" + v[p];
+  for (p = 0;p < mv.size;p++)
+    t += "\t" + mv[p];
+  f.writeString(t + "\n");
+
+  var i;
+  for (i = 0;i < GenePool.size;i++)
+  {
+    t = "" + String.len(GenePool.get(i).genotype);
+    for (p = 0;p < v.size;p++)
+      t += "\t" + GenePool.get(i).[v[p]];
+
+    m = Model.newFromGeno(GenePool.get(i).geno);
+    for (p = 0;p < mv.size;p++)
+      t += "\t" + m.[mv[p]];
+
+    f.writeString(t + "\n");
+  }
+  f.close();
+  GenePools.group = 0;
+}
+
+function ExpParams_calcsim_call()
+{
+  var i, j;
+
+  GenePools.group = 1;
+  var f = File.create("dissimMatrix_" + GenePool.size + ".txt",
+                      "Dissimilarity matrix for the '" + GenePool.name + "' gene pool.");
+
+  f.writeString("Dissimilarity matrix (TAB-delimited). The two last columns are: name and final fitness.\n" +
+                "Weights used for computation: " + Similarity.simil_parts + ", " + Similarity.simil_partdeg + ", " + Similarity.simil_neuro +
+                "\nThe next line is matrix size (the number of individuals).\n" +
+                GenePool.size + "\n");
+
+  for (i = 0;i < GenePool.size;i++)
+  {
+    for (j = 0;j < GenePool.size;j++)
+      f.writeString("" + Similarity.evaluateDistance(GenePool.get(i).geno, GenePool.get(j).geno) + "\t");
+    f.writeString(GenePool.get(i).name + "\t" + GenePool.get(i).fit2 + "\n");
+  }
+  f.close();
+  GenePools.group = 0;
+}
+
+
+@include "standard_events.inc"
+@include "standard_loadsave.inc"
+
+~
+
+#include "standard_props.inc"
+
+
+prop:
+id:cleardata
+name:Clear performance info
+type:p
+help:~
+Sets the number of instances of each genotype to zero (as if it has never been evaluated).
+Genotype performance values stay intact, yet they are meaningless if a genotype has no instances.~
+
+prop:
+id:reportsim
+name:Report similarity
+help:Generate similarity reports in evol.log ("s" lines)
+type:d 0 1
+
+prop:
+id:backup
+name:Genotypes backup
+help:Save all deleted genotypes into a separate gene pool
+type:d 0 1
+
+prop:
+id:dumpgens
+name:Dump backed up genotypes
+help:Save all available data for the whole "Genotypes backup" gene pool
+type:p
+
+prop:
+id:calcsim
+name:Calculate similarity of backed up genotypes
+help:Generate and save similarity report for the whole "Genotypes backup" gene pool
+type:p
+
+state:
+id:notes
+name:Notes
+type:s 1
+help:~
+You can write anything here
+(it will be saved to the experiment file)~
+
+state:
+id:totaltestedcr
+name:Evaluated creatures
+help:Total number of the creatures evaluated in the experiment
+type:d
+flags:16
+
+state:
+id:creaturesgrouploaded
+name:creaturesgrouploaded
+type:d
+flags:34

@@ -1,0 +1,131 @@
+show:
+name:Presentation of creatures
+info:~
+Various walking and swimming methods of creatures evolved or constructed by Framsticks users.
+Double click on creatures for details.~
+expdef:standard
+code:~
+
+global g_bannerlastupdated;
+//todo: onselectionchange should be called after each change in population,
+//but this cannot be easily detected from the .show script.
+
+global g_step;
+
+function onLoad()
+{
+  Simulator.import("default.sim");
+  Simulator.import("show_noevol.sim");
+  ExpParams.MaxCreated = 3;
+  ExpParams.feed = 2;
+  World.wrldbnd = 2;
+  World.wrldsiz = 30;
+  g_step = 1;
+  ShowParams_walk_call();
+  GLDisplay.desiredsimspeed = 50;
+  g_bannerlastupdated=Math.time;
+}
+
+function ShowParams_swim_call()
+{
+  Populations.get(0).nnsim = 1;
+  Populations.get(0).enableperf = 1;
+  TrackingCam.cam_chspeed = 1;
+  TrackingCam.cam_trspeed = 5;
+  World.wrldwat = 10;
+  World.wrldbnd = 0;
+  Populations.clearGroup(0);
+  GenePools.clearGroup(0);
+  Simulator.import("swimming.gen");
+}
+
+function ShowParams_walk_call()
+{
+  Populations.get(0).nnsim = 2;
+  Populations.get(0).enableperf = 2;
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_trspeed = 1;
+  World.wrldwat = -1;
+  World.wrldbnd = 2;
+  Populations.clearGroup(0);
+  GenePools.clearGroup(0);
+  Simulator.import("walking.gen");
+}
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(TrackingCam.cam_dir + 0.02, TrackingCam.cam_h);
+  g_step++;
+  if (g_step > 1111)
+  {
+    g_step = 1;
+    if (CreatureSelection.count > 0)
+      CreatureSelection.clear();
+    else
+    {
+      var g = Populations.get(0);
+      if (g.size > 0)
+      {
+        CreatureSelection.clear();
+        CreatureSelection.add(g.get(0));
+      }
+    }
+  }
+  if (Math.time-g_bannerlastupdated>2.0) //2 sec.
+    onSelectionChange(); 
+}
+
+function noun(number, word)
+{
+  var w;
+  if (number < 6)
+    w = ["no", "one", "two", "three", "four", "five"][number];
+  else
+    w = "" + number;
+  w += " " + word;
+  if (number != 1)
+    w += "s";
+  return w;
+}
+
+function onSelectionChange()
+{
+  var t;
+  if (CreatureSelection.count > 0)
+  {
+    var c = CreatureSelection.get(0);
+    t = "This is '" + c.name + "'.\n";
+    t += "It has " + noun(c.numparts, "part") + ", " + noun(c.numjoints, "joint") + ", and " + noun(c.numneurons, "neuron") + " in the brain.";
+    t += " And " + (0 + c.energy) + " energy units left.";
+    t += "\n" + c.info;
+  }
+  else
+  {
+    t = "Shown creatures: ";
+    Populations.group = 0;
+    if (Population.size > 0)
+    {
+      var i;
+      t += "'" + Population.get(0).name + "'";
+      for (i = 1;i < Population.size;i++)
+        t += ", '" + Population.get(i).name + "'";
+    }
+    else
+      t += "none";
+  }
+  GLDisplay.banner = t;
+  g_bannerlastupdated=Math.time;
+}
+
+
+~
+
+prop:
+id:walk
+name:Show walking creatures
+type:p
+
+prop:
+id:swim
+name:Show swimming creatures
+type:p

@@ -1,0 +1,253 @@
+style:
+name:Arena
+info:A round arena
+code:~
+
+@include "stdneurons.inc"
+
+function default_model_build()
+{
+Element.useCreature();
+if (Creature.numjoints>0)
+	VisualModel.jointshadow = 1;
+else
+	VisualModel.partshadow = 0.2;
+}
+
+function food_model_build()
+{
+default_model_build();
+if (Creature.numjoints==0)
+	VisualModel.partshadow = 1;
+}
+
+function default_part_build()
+{
+Element.useCreature();
+if (Creature.numjoints>0)
+	{
+	GeomBuilder.addTransform(GeomBuilder.rootNode);
+	Element.node = GeomBuilder.currentNode;
+	}
+else
+	{
+	loadAndAddAsTransformNode("greenball.ac");
+	}
+}
+
+function loadAndAddAsTransformNode(filename)
+{
+  Loader.load(filename);
+  if (Loader.loaded)
+  {
+    GeomBuilder.addTransform(GeomBuilder.rootNode);
+    Element.node = GeomBuilder.currentNode;
+    GeomBuilder.add(Loader.loaded);
+  }
+}
+
+function manipulator_part_build()
+{
+  loadAndAddAsTransformNode("manip-close.ac");
+}
+
+function default_joint_build()
+{
+  Element.useJointPart1();
+  loadAndAddAsTransformNode("greenstick" + (1 + 4.999*p.as) + ".ac");
+}
+
+function default_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function food_part_build()
+{
+  loadAndAddAsTransformNode("apple.ac");
+}
+
+function food_part_update()
+{
+  Element.useMechPart();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixMove(0,0,-0.2);
+  GeomBuilder.matrixOrient1(MechPart.orient);
+  Element.useCreature();
+  var e;
+  if (Creature.energ0>0)
+    e = Creature.energy / Creature.energ0;
+  else
+    e=1.0;
+  if (e > 1.0)
+    e = 1.0;
+  else if (e < 0.05)
+    e = 0.05;
+  var zscale = Math.sin(e * 12.57) / 12.0 + e;
+  e = Math.sin(e * 12.57 + 1.57) / 12.0 + e;
+  GeomBuilder.matrixScale(e, e, zscale);
+  GeomBuilder.setMatrix(Element.node);
+  VisualModel.partshadow = e;
+}
+
+function default_joint_update()
+{
+  Element.useMechJointPart1();
+  Element.useMechJoint();
+  GeomBuilder.matrixReset();
+  GeomBuilder.matrixMove1(MechPart.pos);
+  GeomBuilder.matrixOrient1(MechJoint.calcorient);
+  GeomBuilder.matrixScale(MechJoint.length, 1, 1);
+  GeomBuilder.setMatrix(Element.node);
+}
+
+function modelviewer_build_empty()
+{
+  Scene.backcolor = 0xffcc88;
+  Scene.worldtexture = "";
+}
+
+function modelviewer_build()
+{
+  Scene.backcolor = 0xffcc88;
+  Scene.worldtexture = "";
+}
+
+function world_build()
+{
+  Scene.backcolor = 0x999999;
+  Scene.worldtexture = "field_.png";
+  switch (World.wrldtyp)
+  {
+  case 0:
+    buildFlatWorld();
+    break;
+
+  case 1:
+    if (World.wrldbnd == 0)
+      buildFlatBoundary();
+    buildBlockWorld();
+    break;
+
+  case 2:
+    if (World.wrldbnd == 0)
+      buildFlatBoundary();
+    buildSmoothWorld();
+  }
+}
+
+function buildFlatWorld()
+{
+  Loader.load("arenaworld.ac");
+  if (!Loader.loaded)
+    return ;
+  GeomBuilder.addTransform(GeomBuilder.rootNode);
+  GeomBuilder.matrixReset();
+  var scale = World.wrldsiz / 20.0;
+  GeomBuilder.matrixScale(scale, scale, scale);
+  GeomBuilder.matrixMove(0, 0, -0.2);
+  GeomBuilder.setMatrix(GeomBuilder.currentNode);
+  GeomBuilder.add(Loader.loaded);
+  buildWorldBoundary();
+  if (World.wrldwat > 0.0)
+    buildWorldWater();
+}
+
+function buildWorldWater()
+{
+  if (World.wrldwat < -5.0)
+    return ;
+  var mi = 0.0, ma = World.wrldsiz;
+  if (World.wrldbnd == 0)
+  {
+    mi -= ma;
+    ma += ma;
+  }
+  else
+  {
+    var z = World.wrldwat;
+    if (z > 0.0)
+    {
+      z += 1.0;
+      GeomBuilder.addBranch(GeomBuilder.rootNode);
+      VertexBuilder.newLines();
+      VertexBuilder.addVertex([mi, mi, z, ma, mi, z, ma, mi, z, ma, ma, z,
+                               ma, ma, z, mi, ma, z, mi, ma, z, mi, mi, z,
+                               mi, mi, z, mi, mi, mi, mi, ma, z, mi, ma, mi,
+                               ma, ma, z, ma, ma, mi, ma, mi, z, ma, mi, mi]);
+      VertexBuilder.addColor(0xff000000);
+      Material.new();
+      Material.setFlat();
+      Material.disable(GL.TEXTURE_2D);
+      Material.disable(GL.LIGHTING);
+      Material.colormat = GL.AMBIENT_AND_DIFFUSE;
+      VertexBuilder.material = Material.object;
+      GeomBuilder.add(VertexBuilder.node);
+    }
+  }
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([mi, mi, World.wrldwat, ma, mi, World.wrldwat, ma, ma, World.wrldwat, mi, ma, World.wrldwat]);
+  VertexBuilder.addNormal(0.0, 0.0, 1.0);
+  VertexBuilder.addColor(0x80ff8833);
+  VertexBuilder.genTexCoordsXY(0.17, 0.17);
+  VertexBuilder.twosided=1;
+  Material.new();
+  Material.setFlat();
+  Material.enable(GL.TEXTURE_2D);
+  Material.enable(GL.BLEND);
+  Material.enable(GL.COLOR_MATERIAL);
+  Material.disable(GL.LIGHTING);
+  Material.translucent = 1;
+  Material.texture = "waves.png";
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+@include "stdblocks.inc"
+@include "stdsmooth.inc"
+@include "stdboundary.inc"
+
+function buildFlatBoundary()
+{
+  var ma = World.wrldsiz * 2;
+  var mi = 0.0 - World.wrldsiz;
+  var si = World.wrldsiz;
+  var z = -0.2;
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, 0.0, z, ma, 0.0, z, ma, si, z, si, si, z,
+                           0.0, si, z, si, si, z, si, ma, z, 0.0, ma, z,
+                           mi, 0.0, z, 0.0, 0.0, z, 0.0, si, z, mi, si, z,
+                           0.0, mi, z, si, mi, z, si, 0.0, z, 0.0, 0.0, z]);
+  VertexBuilder.addColor(0.80, 0.70, 0.50);
+  VertexBuilder.addNormal(0, 0, 1);
+  Material.new();
+  Material.setFlat();
+  Material.specular = 0;
+  Material.disable(GL.TEXTURE_2D);
+  VertexBuilder.material = Material.object;
+
+  GeomBuilder.add(VertexBuilder.node);
+  GeomBuilder.addBranch(GeomBuilder.rootNode);
+  VertexBuilder.newQuads();
+  VertexBuilder.addVertex([si, si, z, ma, si, z, ma, ma, z, si, ma, z,
+                           si, mi, z, ma, mi, z, ma, 0.0, z, si, 0.0, z,
+                           mi, si, z, 0.0, si, z, 0.0, ma, z, mi, ma, z,
+                           mi, mi, z, 0.0, mi, z, 0.0, 0.0, z, mi, 0.0, z]);
+  VertexBuilder.addColor(0.85, 0.75, 0.55);
+  VertexBuilder.addNormal(0, 0, 1);
+  Material.new();
+  Material.setFlat();
+  Material.disable(GL.TEXTURE_2D);
+  Material.specular = 0;
+  VertexBuilder.material = Material.object;
+  GeomBuilder.add(VertexBuilder.node);
+}
+
+~

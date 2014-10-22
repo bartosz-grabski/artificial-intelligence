@@ -1,0 +1,24 @@
+script:
+name:Print creatures coordinates
+help:Print coordinates of Parts for all creatures from group #0.
+code:~
+function main()
+{
+  Populations.group = 0;
+  if (Population.size <= 0)
+  {
+    Simulator.message("No creatures in group 0.", 2);
+    return ;
+  }
+
+  var i,j;
+  for (i = 0; i < Population.size; i++)
+  {
+    var cr=Populations.get(0).get(i);
+    var parts=cr.numparts;
+    Simulator.print(cr.name + " has "+parts+" Parts.");
+    for (j = 0; j < parts; j++)
+      Simulator.print("  Part #"+j+" = ["+cr.getMechPart(j).x+", "+cr.getMechPart(j).y+", "+cr.getMechPart(j).z+"]");
+  }
+}
+~

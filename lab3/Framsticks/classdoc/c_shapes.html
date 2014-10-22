@@ -1,0 +1,34 @@
+<HTML><HEAD><TITLE>Shapes</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Shapes class in <A HREF="x_globalcontext.html">Global context</A></H2>
+<DIV CLASS="classdesc">This object defines appearance of the elements of creatures (applies to the 'wireframe' display mode). Default shape definitions make food's "p:" look like a sphere, and manipulator's "p:" look like a robot hand. The model's Vstyle property is the name of the shape. Developers of experiment definitions can introduce new Vstyle(s) for their expdef and provide appropriate shape definitions by calling Shapes.set(...) in the onExpDefLoad() function.</DIV><BR>
+2 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;clear
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Clear</p>
+<code>function clear()</code><br>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;set
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">Id</p>
+<code>function set(string id, string definition, integer color)</code><br>
+<p class="help">Arguments:<BR/>
+<BR/>
+- "id" - can be<BR/>
+  "1p_STYLENAME": affects a single-Part creature (without Joints)<BR/>
+  "p_STYLENAME": affects all normal Parts<BR/>
+  "j_STYLENAME": affects Joints<BR/>
+     (STYLENAME corresponds to the Model.Vstyle value, and it can be empty).<BR/>
+<BR/>
+- "definition" is a genotype describing the object shape<BR/>
+<BR/>
+- "color" can be 0xRRGGBB or one of the special values: -3 = default creature color, -4 = default food color, -5 = default manipulator color<BR/>
+<BR/>
+Examples:<BR/>
+Shapes.set("j_predator","X",0xff0000);//make all predators (i.e. creatures with Vstyle=predator) red<BR/>
+Shapes.set("1p_food","...some...genotype...",-4);//change food appearance<BR/>
+Shapes.set("p_","//0\np:0,0,0\np:-0.1,0,0\np:0.1,0,0\np:0,-0.1,0\np:0,0.1,0\np:0,0,-0.1\np:0,0,0.1\nj:0,1\nj:0,2\nj:0,3\nj:0,4\nj:0,5\nj:0,6\n",0);//make Parts' orientation axes visible</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><B>Global context</B><BR><BR><DIV CLASS="childrenctx"><A HREF="x_experimentdefinition.html">Experiment definition</A> <A HREF="x_neurondefinitions.html">Neuron definitions</A> <A HREF="x_fitnessformula.html">Fitness formula</A> <A HREF="x_visualstyledefinition.html">Visual style definition</A> <A HREF="x_signallabelformula.html">Signal label formula</A> <A HREF="x_commandlineinterface.html">Command line interface</A> </DIV></TD></TR></TABLE>
+</BODY></HTML>

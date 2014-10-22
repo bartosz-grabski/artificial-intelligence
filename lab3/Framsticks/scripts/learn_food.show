@@ -1,0 +1,110 @@
+show:
+name:Learn food
+info:Learn where food is, explore and exploit
+expdef:learn_food
+code:~
+
+global g_step,g_chart,g_win;
+
+function onLoad()
+{
+  Simulator.init();
+  ShowParams.shareknowledge=ExpParams.shareknowledge;
+  ShowParams.foodplacement=ExpParams.foodplacement;
+  Math.seed = Math.time;
+  ShowManager.info = "When a creature encounters food, it eats a bit of it and remembers its location. It also gets \"refreshed\" (i.e. gets a full amount of energy). Energy of each creature provides information on how recent (current) is the food location information that the creature stores. It is visualized as brightness of creatures (light green ones have recently found food). When creatures collide, they learn from each other where food is (by averaging their knowledge). A newborn creature moves randomly and receives (duplicates) knowledge from the first knowledge-rich creature that it collides with. A creature that cannot find food for a long period of time dies, and a newborn one is created.\n\nSee the description of experiment definition for more details on this experiment and on what processes and phenomena can be observed here.";
+  GLDisplay.desiredsimspeed = 50;
+  TrackingCam.setViewDir(30, 30);
+  TrackingCam.cam_chspeed = 0.1;
+  TrackingCam.cam_trspeed = 1;
+  g_step = 0;
+
+  g_chart = DynaChart.new();
+  g_win = GLDisplay.createWindow(1 + 2 + 4 + 16, "Global information recency", g_chart);
+  g_win.backcolor = 0x80ddddff;
+  g_win.size_x = GLDisplay.size_x / 2;
+  g_win.size_y = GLDisplay.size_y / 3;
+}
+
+function onShowStep()
+{
+  TrackingCam.setViewDir(TrackingCam.cam_dir + 0.05, TrackingCam.cam_h);
+  g_step++;
+  if (g_step > 30)
+  {
+    var i,inf=0;
+    for(i=0;i<Populations.get(0).size;i++) 
+      if (typeof(Populations.get(0).get(i).user1)!=typeof(null)) //knows some location of food
+        inf+=Populations.get(0).get(i).energy;
+    g_chart.add(0+inf/10);
+    g_step = 0;
+  }
+}
+
+function onSelectionChange()
+{
+  var t = "";
+  if (CreatureSelection.count > 0)
+  {
+    var c = CreatureSelection.get(0);
+    if (c.user1==null) t+="\nThis agent has no idea where food is.\n"; else
+      t += "\nThis agent thinks that food is at ("+(0+c.user1)+","+(0+c.user2)+"), last seen "+(0+c.energ0-c.energy)+" steps ago.\n";
+  }
+  GLDisplay.banner = t;
+}
+
+function onResize()
+{
+  g_win.size_x = GLDisplay.size_x / 3;
+  g_win.size_y = GLDisplay.size_y / 3;
+  g_win.pos_x = GLDisplay.size_x - g_win.size_x;
+  g_win.pos_y = GLDisplay.size_y - g_win.size_y - 18;
+}
+
+function ShowParams_quit_call()
+{
+  GLDisplay.quit();
+}
+
+function ShowParams_restart_call()
+{
+  Simulator.init();
+  Simulator.print("Restarting experiment...");
+  g_chart.clear();
+  g_step = 0;
+}
+
+function ShowParams_shareknowledge_set()
+{
+  ExpParams.shareknowledge=ShowParams.shareknowledge;
+}
+
+function ShowParams_foodplacement_set()
+{
+  ExpParams.foodplacement=ShowParams.foodplacement;
+}
+
+~
+
+prop:
+id:restart
+name:Restart
+type:p
+
+prop:
+id:quit
+name:Quit
+type:p
+
+prop:
+id:shareknowledge
+name:Share knowledge
+type:d 0 1
+help:Share knowledge about food position when two creatures collide?
+
+prop:
+id:foodplacement
+name:Food placement
+group:Energy
+type:d 0 1 ~Neighboring~Random
+help:Random placement contradicts 'learning food location' and therefore constitutes a test/benchmark for this experiment definition.

@@ -1,0 +1,38 @@
+script:
+name:Calculate symmetry
+help:~
+Calculate symmetry value and symmetry plane for all genotypes
+(note: may take a long time for complex bodies)~
+code:~
+function main()
+{
+  Simulator.print("Calculating symmetry...");
+
+  if (GenePool.size == 0)
+  {  
+    Simulator.message("This script needs some genotypes.", 2);
+    return ;
+  }
+
+  var i, j;
+  for (i=0; i<GenePools.size; i++)
+  {
+    GenePools.group = i;
+    for (j=0; j<GenePool.size; j++)
+    {
+      var m = Model.newFromGeno(GenePool.get(j).geno);
+      //Simulator.message("...Calculating symmetry of "+GenePool.get(j).name,0);
+      var s = Symmetry.calculateSymmetry(m); //default parameters
+      Simulator.message("Symmetry of '"+GenePool.get(j).name+"' is "+s+", plane: ["+
+        Symmetry.symResultA+", "+Symmetry.symResultB+", "+Symmetry.symResultC+"], "+Symmetry.symResultD 
+        ,0);
+    }
+  }
+}
+
+/*
+fitness function that is a symmetry of a genotype for a given plane:
+var m=Model.newFromGeno(this.geno);
+return Symmetry.calculateSymmetryForPlane(m,-0.305212, -0.939347, -0.156434, 0.0798513);
+*/
+~

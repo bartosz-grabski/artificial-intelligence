@@ -1,0 +1,30 @@
+ja> Hello!
+>Hello
+ja> What is your name ?
+> My name is Stefan! What's yours ?
+ja> My name is Bartek
+> Hello Bartek!
+ja> What is my name ?
+> Yourname is Bartek
+ja> I need help
+> How may I be of assistance? We offer assistance help regarding mobile, cloud and desktop solutions. Please choose interesting topic
+ja> I want know about mobile
+> What do you want to know about Mobile ?
+ja> What kind of products do you have ?
+> Are you interested in phones or tablets
+ja> I am interested in phones
+> No phones in inventory right now. Sorry
+ja> Who are you ?
+> Who, me ? I already told you. I'm Stefan
+ja> I want to know about Cloud
+> What Cloud solution are you looking for ?
+ja> I am looking for SaaS
+> We offer compact SaaS solution. See website (www.compactsolutions.com) for more
+ja> Are you stupid ?
+> Seriously you think like that ?
+ja> I don't know
+> Yes or no ?
+ja> no 
+> That's what i suspected
+ja> I need help
+> How may I be of assistance? We offer assistance help regarding mobile, cloud and desktop solutions. Please choose interesting topic

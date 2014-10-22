@@ -1,0 +1,50 @@
+script:
+name:Deep vector clone
+help:Demonstrates how to clone a vector "deeply"
+code:~
+
+function main()
+{
+  var a = [1, 2, 3];
+  var b = ["a", a, "b"];
+  var c = ["x", b, "y", a];
+  var d = deepCopy(c);
+  Simulator.print("Original vector:");
+  deepPrint(0, c);
+  Simulator.print("Copied vector:");
+  deepPrint(0, d);
+  //verify that d is a deep copy of c:
+  //c.set(1,"newvalue_in_c");
+  //d.set(3,"newvalue_in_d");
+  //Simulator.print("Original vector:");
+  //deepPrint(0, c);
+  //Simulator.print("Copied vector:");
+  //deepPrint(0, d);
+}
+
+function deepPrint(depth, arg)
+{
+  if (typeof(arg) == "Vector") //handles (sub)vectors specifically
+  {
+    var i;
+    for (i = 0;i < arg.size;i++)
+      deepPrint(depth + 1, arg[i]); //recursion
+  }
+  else
+    Simulator.print(String.format("%" + depth + "s", "") + arg);
+}
+
+function deepCopy(arg)
+{
+  if (typeof(arg) == "Vector") //handles (sub)vectors specifically
+  {
+    var i, v = Vector.new();
+    for (i = 0;i < arg.size;i++)
+      v.add(deepCopy(arg[i])); //recursion
+    return v;
+  }
+  else
+    return arg;
+}
+
+~

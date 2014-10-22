@@ -1,0 +1,44 @@
+<HTML><HEAD><TITLE>Visual style definition</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>Visual style definition</H2>
+The style definition comes from the "style" files. It defines the appearance of the OpenGL display. VisParams properties are created according to the "prop:" sections in the file.<BR/>
+<BR/>
+Framsticks calls user defined functions to create and update the object's visual elements during the simulation.<BR/>
+<BR/>
+Each function name is built as follows: "[&lt;element_Vstyle&gt;_]&lt;model_Vstyle&gt;_&lt;element&gt;_&lt;action&gt;"<BR/>
+<BR/>
+- action="build" when the visual model is first created (load or create geometry and set initial attributes)<BR/>
+- action="update" each time the visual model is displayed (modify geometry to reflect current position or attributes)<BR/>
+<BR/>
+"&lt;element&gt;" refers to the kind of the element being processed (part, joint, neuron, model).<BR/>
+The script can access different objects depending on the kind:<BR/>
+1. part<BR/>
+can access:<BR/>
+- "MechPart" after calling Element.useMechPart()<BR/>
+- "Creature" after calling Element.useCreature()<BR/>
+<BR/>
+2. joint<BR/>
+can access:<BR/>
+- "MechJoint" after calling Element.useMechJoint()<BR/>
+- "MechPart" after calling Element.useMechPart1() or Element.useMechPart2()<BR/>
+- "Creature" after calling Element.useCreature()<BR/>
+<BR/>
+3. neuro<BR/>
+can access:<BR/>
+- "n" after calling Element.useNeuro()<BR/>
+- "Creature" after calling Element.useCreature()<BR/>
+<BR/>
+4. model<BR/>
+can access:<BR/>
+- "Creature" after calling Element.useCreature()<BR/>
+<BR/>
+"&lt;element_Vstyle&gt;" and "&lt;model_Vstyle&gt;" are element's and model's Vstyle fields. &lt;element_Vstyle&gt; is omitted when the field is empty. Empty model's Vstyle is replaced with "default". Both &lt;element_Vstyle&gt; and &lt;model_Vstyle&gt; can contain several words separated by "_". This is interpreted as a kind of subclassing, i.e. Framsticks will automatically look for the general version of the function when the specific one is not found. Example:<BR/>
+Assuming a part with Vstyle="green" in a model with Vstyle="food" the following functions will be tried until a match is found:<BR/>
+- green_food_part_...<BR/>
+- food_part_...<BR/>
+- default_part_...<BR/>
+So if the experiment requests visualizing some element as "green food" but the visual style only defines generic form of "food", Framsticks will automatically choose the best available visualization.<BR/>
+<UL>Classes defined in Visual style definition:
+<LI><A HREF="c_creature1.html">Creature</A><DIV CLASS="clsdescr">The object inside the simulated world, including its physical structure, neural network and performance data.</DIV><LI><A HREF="c_element.html">Element</A><DIV CLASS="clsdescr">Information about current visual element: Part, Joint or Neuro.</DIV><LI><A HREF="c_geombuilder.html">GeomBuilder</A><DIV CLASS="clsdescr">Scene graph access (build and manipulate the 3d object tree)</DIV><LI><A HREF="c_gl.html">GL</A><DIV CLASS="clsdescr">OpenGL constants used in GeomBuilder and Material functions.</DIV><LI><A HREF="c_j.html">j</A><LI><A HREF="c_loader1.html">Loader</A><DIV CLASS="clsdescr">Loads 3d objects files.</DIV><LI><A HREF="c_m.html">m</A><LI><A HREF="c_material.html">Material</A><DIV CLASS="clsdescr">Manipulate 3d objects surface properties (Material objects can be associated with geometry nodes).</DIV><LI><A HREF="c_mechjoint1.html">MechJoint</A><DIV CLASS="clsdescr">Current joint properties during the simulation</DIV><LI><A HREF="c_mechpart1.html">MechPart</A><DIV CLASS="clsdescr">Current part properties during the simulation</DIV><LI><A HREF="c_n1.html">n</A><LI><A HREF="c_p.html">p</A><LI><A HREF="c_scene.html">Scene</A><DIV CLASS="clsdescr">Additional properties to be used in the current view, currently only the background settings</DIV><LI><A HREF="c_vertexbuilder.html">VertexBuilder</A><LI><A HREF="c_visparams.html">VisParams</A><LI><A HREF="c_visualmodel.html">VisualModel</A><DIV CLASS="clsdescr">Visual representation of the Creature object.</DIV><LI><A HREF="c_visualstyle.html">VisualStyle</A><LI><A HREF="c_world.html">World</A><DIV CLASS="clsdescr">Environment properties.</DIV><LI><A HREF="c_worldmap.html">WorldMap</A><DIV CLASS="clsdescr">Environment details for "Blocks" and "Heightfield" world type.</DIV></UL>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Visual style definition</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>

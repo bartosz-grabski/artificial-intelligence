@@ -1,0 +1,30 @@
+class:
+name:Sf
+longname:Smell food
+description:~
+Detects only food, not other creatures
+(in experiments with food in group #1)~
+prefoutput:1
+preflocation:1
+vhints:32
+# 32=receptor class
+icon:~
+64,5,7,100,50,90,50,90,40,70,40,80,50,70,60,90,60,90,50,3,10,40,15,45,15,55,10,60,5,20,30,25,35,30,45,30,55,25,65,20,70,4,15,35,20,40,22,50,20,60,15,65,5,75,50,50,50,45,45,40,50,45,55,50,50~
+code:~
+function init()
+{}
+
+function go()
+{
+  //var t="calculating neuron S for creature '"+Neuro.creature.name+"' in group '"+Neuro.creature.group.name;
+  //t+="', position: "+Neuro.position_x+", "+Neuro.position_y+", "+Neuro.position_z;
+  //Simulator.print(t);
+  if (Populations.size>1)
+	Neuro.state = Populations[1].senseCreaturesProperty(
+		Neuro.position_x, Neuro.position_y, Neuro.position_z,
+		"energy", Neuro.creature);
+  else
+	Neuro.state=0;
+  //Simulator.print("sense="+Neuro.state);
+}
+~

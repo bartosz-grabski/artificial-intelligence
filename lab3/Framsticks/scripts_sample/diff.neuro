@@ -1,0 +1,24 @@
+class:
+name:D_Test
+longname:Difference
+prefinputs:1
+prefoutput:1
+description:Sample custom neuron class. This one works just like the "D" neuron.
+icon:24,3,3,25,0,25,100,75,50,25,0,1,75,50,100,50,3,44,42,51,57,36,57,44,42
+code:~
+function init()
+{}
+
+function go()
+{
+  Neuro.state = Fields.prev;
+  Fields.prev = Neuro.weightedInputSum;
+}
+~
+
+prop:
+id:prev
+name:previous input value
+type:f
+flags:32
+

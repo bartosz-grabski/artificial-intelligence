@@ -1,0 +1,1 @@
+theater -g "/*4*/rr<X>#5<,<X>RR<<llX>LX>LX>>X"

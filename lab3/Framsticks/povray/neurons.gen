@@ -1,0 +1,19 @@
+# created Wed Nov 10 15:44:32 2004
+# by Framsticks 2.10
+org:
+name:neurons
+genotype:X[*]X[|][G]X[@][N](X[T],X[S])
+info:used to generate neurons.pov
+num:1
+gnum:0
+popsiz:0
+lifespan:0
+velocity:0
+distance:0
+vertvel:0
+vertpos:0
+user1:null
+user2:null
+user3:null
+uid:g1
+

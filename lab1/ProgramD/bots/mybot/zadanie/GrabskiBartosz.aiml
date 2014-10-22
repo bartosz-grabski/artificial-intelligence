@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!--
+	Zrealizowane konstrukcje:
+		1. Synonimy
+		2. Losowanie
+		3. Redukcja symboliczna
+		4. Podział
+		5. Słowa kluczowe
+		6. Predykaty (name)
+		7. Tematy (4 różne)
+		8. Kontekst <that>
+		9. Wyrażenie warunkowe <condition>
+		10. Lista <li> pod jeden wzorzec
+
+
+-->
+   
+<category><pattern>Hello</pattern><template>Hello :)</template></category>
+<category><pattern>Hello *</pattern><template><srai>Hello</srai></template></category>
+<category><pattern>My name is *</pattern><template>Hello <set name="name"><star/></set>!</template></category>
+<category><pattern>WHAT IS YOUR FAVORITE WEBSITE</pattern><template>My favourite website is www.techsolutions.net</template></category>     
+<category><pattern>What is my name</pattern><template>Your name is <get name="name"/>!</template></category>
+<category><pattern>HELP</pattern><template>How may I be of assistance? We offer assistance help regarding mobile, cloud and desktop solutions. Please choose interesting topic</template></category>       
+<category><pattern>_ HELP *</pattern><template><srai>help</srai></template></category>
+<category><pattern>HELP *</pattern><template><srai>help</srai></template></category>
+<category><pattern>I NEED HELP</pattern><template><srai>help</srai></template></category>
+<category><pattern>I NEED HELP *</pattern><template><srai>help</srai></template></category>
+<category><pattern>TELL ME ABOUT *</pattern><template><srai><star/></srai></template></category>
+<category><pattern>I WANT TO KNOW ABOUT *</pattern><template><srai><star/></srai></template></category>
+<category><pattern>NAME</pattern><template>My name is Stefan. What's Yours ? :)</template></category>
+<category><pattern>NAME *</pattern><template><srai>NAME</srai></template></category>
+<category><pattern>WHAT IS YOUR NAME</pattern><template><srai>NAME</srai></template></category>
+<category><pattern>WHAT IS YOUR NAME *</pattern><template><srai>NAME</srai></template></category>
+<category><pattern>WHO ARE YOU</pattern><that>My name is Stefan. What's Yours ? :)</that><template>Who, me ? I already told you. I'm Stefan</template></category>
+<category><pattern>WHO ARE YOU *</pattern><that>My name is Stefan. What's Yours ? :)</that><template>Who, me ? I already told you. I'm Stefan</template></category>
+
+<category><pattern>NEED HELP WITH *</pattern><template><srai><uppercase><star/></uppercase></srai></template></category>
+<category><pattern>ARE YOU *</pattern><template><think><set name="topic">QUESTION</set></think>Seriously you think like that ?</template></category>
+<category><pattern>SHOW ME *</pattern><template><srai><star/></srai></template></category>
+<category><pattern>SHOW ME OFFER OF *</pattern><template><srai><star/></srai></template></category>
+<category><pattern>I WOULD LIKE TO KNOW ABOUT *</pattern><template><srai><star/></srai></template></category>
+<category><pattern>WHAT KIND OF * DO YOU HAVE</pattern><template><srai><star/></srai></template></category>
+<category><pattern>I AM INTERESTED IN *</pattern><template><srai><star/></srai></template></category>
+
+<topic name="QUESTION">
+<category>
+<pattern>*</pattern>
+<template>
+<think><set name="var"><uppercase><star /></uppercase></set></think>
+<condition>
+<li name="var" value="YES">
+Hmmm...
+<think><set name="topic">*</set></think>
+</li>
+<li name="var" value="NO">
+That's what i suspected
+<think><set name="topic">*</set></think>
+</li>
+<li>Yes or no?</li>
+</condition>
+</template>
+</category>
+</topic>
+
+<category><pattern>MOBILE</pattern><template>
+	<think><set name="topic">MOBILE</set></think>
+	<random>
+		<li>What do you want to know about Mobile</li>
+		<li>What Mobile solution are you looking for ?</li>
+	</random>
+	</template>
+</category>
+
+<category><pattern>MOBILE *</pattern><template><srai>Mobile</srai></template></category>
+<category><pattern>MOBILES</pattern><template><srai>Mobile</srai></template></category>
+
+<category><pattern>DESKTOP</pattern>
+	<template>
+	<think><set name="topic">DESKTOP</set></think>
+		<random>
+			<li>What do you want to know about Desktop</li>
+			<li>What Desktop solution are you looking for ?</li>
+		</random>
+	</template>
+</category>
+
+<category><pattern>CLOUD</pattern>
+	<template>
+	<think><set name="topic">CLOUD</set></think>
+		<random>
+			<li>What do you want to know about Cloud</li>
+			<li>What Cloud solution are you looking for ?</li>
+		</random>
+	</template>
+</category>
+
+<topic name="MOBILE">
+<category>
+	<pattern>PHONE</pattern>
+	<template>
+		<random>
+			<li>No phones in inventory right now. Sorry</li>
+		</random>
+	</template>
+</category>
+<category>
+	<pattern>TABLET</pattern>
+	<template>
+		<random>
+			<li>Unfortunately there are no tablets right now</li>
+			<li>Sorry, but no tablet is available :(</li>
+		</random>
+	</template>
+</category>
+<category><pattern>PRODUCTS</pattern><template>Are you interested in phones or tablets</template></category>
+<category><pattern>PRODUCTS *</pattern><template><srai>PRODUCTS</srai></template></category>
+<category><pattern>PHONES</pattern><template><srai>PPHONE</srai></template></category>
+<category><pattern>TABLETS</pattern><template><srai>TABLET</srai></template></category>
+<category><pattern>PHONES *</pattern><template><srai>PHONE</srai></template></category>
+<category><pattern>TABLETS *</pattern><template><srai>TABLET</srai></template></category>
+</topic>
+
+
+<topic name="CLOUD">
+<category>
+	<pattern>OFFER</pattern>
+	<template>
+		<random>
+			<li>We offer multiple solutions</li>
+		</random>
+	</template>	
+</category>
+<category><pattern>PRODUCTS</pattern><template>Are you interested in SAAS, PAAS or IAAS</template></category>
+<category><pattern>PRODUCTS *</pattern><template><srai>PRODUCTS</srai></template></category>
+<category><pattern>IAAS</pattern><template>We offer compact IaaS solution. See website (www.compactsolutions.com) for more</template></category>
+<category><pattern>PAAS</pattern><template>We offer compact PaaS solution. See website (www.compactsolutions.com) for more</template></category>
+<category><pattern>SAAS</pattern><template>We offer compact SaaS solution. See website (www.compactsolutions.com) for more</template></category>
+<category><pattern>PAAS *</pattern><template><srai>PAAS</srai></template></category>
+<category><pattern>SAAS *</pattern><template><srai>SAAS</srai></template></category>
+<category><pattern>IAAS *</pattern><template><srai>IAAS</srai></template></category>
+</topic>
+
+<topic name="DESKTOP">
+<category>
+	<pattern>OFFER</pattern>
+	<template>
+		<random>
+			<li>No products right now</li>
+			<li>Sorry, no offer right now</li>
+		</random>
+	</template>
+</category>
+<category><pattern>PRODUCTS</pattern><template>Sorry, no products right now :(</template></category>
+</topic>
+
+</aiml>

@@ -1,0 +1,161 @@
+show:
+name:Fireflies
+info:~
+Inter-creature communication.
+Fireflies use photoreceptors to synchronize flashing with others.
+~
+expdef:standard
+code:~
+
+global g_nextaddrem;
+global g_neuro, g_neurowin;
+global g_mincreatures,g_maxcreatures;
+
+function onLoad()
+{
+  Math.seed = Math.time;
+  World.wrldsiz = 40;
+  Populations.group = 0;
+  Population.nnsim = 1;
+  Population.death = 0;
+  Population.energy = 0;
+  ExpParams.MaxCreated = 0;
+  ExpParams.placement = 0;
+  ExpParams.rotation = 4;
+  ExpParams.creath = 5;
+  GLDisplay.desiredsimspeed = 150;
+  g_nextaddrem=0;
+  GLDisplay.banner = "Double click a creature to see its neural network.";
+  restartShow();
+}
+
+function restartShow()
+{
+SignalView.clear();
+SignalView.mode = 1;
+if (ShowParams.colors)
+	{
+	g_mincreatures=4;
+	g_maxcreatures=20;
+	SignalView.addSignalsFilter("light", 0x800000ff, 0,0,0, 0, 2);
+	SignalView.addSignalsFilter("light", 0x8000ff00, 0,0,0, 2, 2);
+	SignalView.addSignalsFilter("light", 0x80ff0000, 0,0,0, 4, 2);
+	}
+else
+	{
+	g_mincreatures=2;
+	g_maxcreatures=10;
+	SignalView.addSignals("light", 0xffffffff, 0, 0, 0);
+	}
+var i;
+for(i=0;i<g_mincreatures;i++)
+	addCreature();
+}
+
+function onShowStep()
+{
+if (Math.time > g_nextaddrem)
+	{
+	g_nextaddrem=Math.time+10+(10.0*Math.rnd01);
+	if (ShowParams.autoaddremove)
+		{
+		Populations.group=0;
+		if (((Math.rnd01>0.5)||(Population.size<=g_mincreatures))&&(Population.size<g_maxcreatures))
+			{
+			addCreature();
+			}
+		else
+			{
+			ShowParams_remove_call();
+			}
+		}
+	}
+}
+
+function ShowParams_add_call()
+{
+  addCreature();
+}
+
+function ShowParams_remove_call()
+{
+  Populations.group = 0;
+  if (Population.size > 0)
+  {
+    Populations.creature = 0;
+    Populations.deleteSelected();
+  }
+}
+
+function ShowParams_colors_set()
+{
+Populations.clearGroup(0);
+restartShow();
+}
+
+function addCreature()
+{
+var flavor=0;
+if (ShowParams.colors) flavor=Math.rnd01*4;
+  Populations.get(0).createFromString("X[SeeLight,flavor:"+flavor+"][*][-1:2.26,6:-2,in:0.01,fo:0.01,si:1][*][-2:1,-1:-0.5,si:9999,fo:1,in:0][*][-2:2,-6:0.3,-1:-0.4,in:0.01,fo:0.01,si:1][*][-2:1,-1:-0.5,si:9999,fo:1,in:0][Light,-1:-1,flavor:"+flavor+"]");
+}
+
+function onMouseClick(options, xy, point, vector)
+{
+// 1025 = 1 (LeftClick) + 1024 (DoubleClick)
+  if (options == 1025)
+  {
+var cr=Populations.findCreatureAt(point,vector);
+if (cr!=null)
+	showNN(cr);
+else
+	hideNN();	
+GLDisplay.banner = "";
+return 1;
+  }
+  return 0;
+}
+
+function showNN(c)
+{
+  hideNN();
+  g_neuro = NeuroDiagram.new();
+  g_neurowin = GLDisplay.createWindow(1 + 2 + 4 + 16, "Neurons", g_neuro);
+  g_neurowin.backcolor = 0x80ffdddd;
+  g_neurowin.size_x = (2*GLDisplay.size_x) / 3;
+  g_neurowin.size_y = GLDisplay.size_y / 3;
+  g_neurowin.pos_x = 0;
+  g_neurowin.pos_y = GLDisplay.size_y - GLDisplay.size_y/3;
+  g_neuro.showCreature(c);
+}
+
+function hideNN()
+{
+  if (g_neurowin)
+    GLDisplay.deleteWindow(g_neurowin);
+  g_neurowin = null;
+  g_neuro = null;
+}
+
+
+~
+
+prop:
+id:colors
+name:Colors
+type:d 0 1
+
+prop:
+id:add
+name:Add a fly
+type:p
+
+prop:
+id:remove
+name:Remove a fly
+type:p
+
+prop:
+id:autoaddremove
+name:Automatic add/remove
+type:d 0 1 1

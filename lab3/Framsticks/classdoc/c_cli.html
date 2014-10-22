@@ -1,0 +1,54 @@
+<HTML><HEAD><TITLE>CLI</TITLE></HEAD><BODY><BODY>
+<link rel="stylesheet" href="classdoc.css">
+<H2>CLI class in <A HREF="x_commandlineinterface.html">Command line interface</A></H2>
+<DIV CLASS="classdesc">Commandline support functions.</DIV><BR>
+12 members:<BR><BR>
+<TABLE BORDER=1 cellpadding=4 width=100%>
+<TR><TD><A NAME="2"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;cmdhandler
+<div class="typedescr">string</div></td><td>
+<p class="membername">cmdhandler</p>
+</TD></TR><TR><TD><A NAME="11"></A><IMG SRC="integer.gif" ALT="integer" TITLE="integer">&nbsp;msgtype
+<div class="typedescr">integer, 0&nbsp;..&nbsp;1<li>0 = Standard<li>1 = Server style</div></td><td>
+<p class="membername">message type</p>
+</TD></TR><TR><TD><A NAME="0"></A><IMG SRC="string.gif" ALT="string" TITLE="string">&nbsp;script
+<div class="typedescr">multiline string</div></td><td>
+<p class="membername">script</p>
+</TD></TR><TR><TD><A NAME="9"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;stdin
+<div class="typedescr">object</div></td><td>
+<p class="membername">standard input file</p>
+</TD></TR><TR><TD><A NAME="10"></A><IMG SRC="object.gif" ALT="object" TITLE="object">&nbsp;stdout
+<div class="typedescr">object</div></td><td>
+<p class="membername">standard output file</p>
+</TD></TR><TR><TD><A NAME="6"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;addMacro
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">add macro</p>
+<code>function addMacro(string name, integer numargs, string definition, string helptext)</code><br>
+</TD></TR><TR><TD><A NAME="1"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;execute
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">execute</p>
+<code>function execute(string command)</code><br>
+</TD></TR><TR><TD><A NAME="8"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;listMacros
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">list macros</p>
+<code>function listMacros()</code><br>
+</TD></TR><TR><TD><A NAME="4"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;print
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">print</p>
+<code>function print(string text)</code><br>
+</TD></TR><TR><TD><A NAME="5"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;println
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">println</p>
+<code>function println(string text)</code><br>
+</TD></TR><TR><TD><A NAME="3"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;quit
+<div class="typedescr"></div></td><td>
+<p class="membername">quit</p>
+<code>function quit()</code><br>
+</TD></TR><TR><TD><A NAME="7"></A><IMG SRC="function.gif" ALT="function" TITLE="function">&nbsp;removeMacro
+<div class="typedescr">doesn't return a value</div></td><td>
+<p class="membername">remove macro</p>
+<code>function removeMacro(string name, integer numargs)</code><br>
+<p class="help">(numargs==-2) means remove all macros matching the name, otherwise only one definition is removed</p>
+</TD></TR></TABLE>
+<BR>
+<TABLE cellpadding=6><TR align=center><TD><A HREF="x_globalcontext.html">Global context</A></TD><TD>&gt;&gt;</TD><TD><A HREF="x_experimentdefinition.html">Experiment definition</A></TD><TD>&gt;&gt;</TD><TD><B>Command line interface</B><BR><BR><DIV CLASS="childrenctx"></DIV></TD></TR></TABLE>
+</BODY></HTML>
