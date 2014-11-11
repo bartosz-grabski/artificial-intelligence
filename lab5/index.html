@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MSI 2014, Bartosz Grabski</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/starter-template.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">MSI 2014, Bartosz Grabski</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Nao</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Programowanie robota Nao za pomocą programu <i>Choreographe</i></h1>
+        <div class="well well-lg">
+          <h2>Wprowadzenie</h2>
+
+          <p>Celem ćwiczenia było zapoznanie się z programowaniem robota Nao za pomocą programu Choreographe firmy Aldebaran. Zapewnia ona przyjemny w użytkowaniu interfejs graficzny, który za pomocą mechanizmów drag and drop pozwala na łatwe programowanie robota Nao. Oprócz intuicyjnego systemu możemy także zagłębić się w szczegóły programistyczne. Choreographe wspiera jako języki <i>Java, JavaScript, C++, Python, MATLAB, Urbi i .Net</i></p>
+
+          <p>
+            Platforma jest dostępna pod platformami:
+          <ul>
+            <li>Linux (Ubuntu 12.04 i późniejsze)</li>
+            <li>Windows (XP SP 3, 7 i późniejsze)</li>
+            <li>Mac (Mountain Lion, Lion)</li>
+          </ul>
+          </p>
+        </div>
+        <div class="well well-lg">
+          <h2>Zaczynamy!</h2>
+
+          <p>Poniżej możemy zaobserwować ekran powitalny programu. Po prawej stronie widzimy naszego robota w postaci animacji wideo. Będzie ona reagować na tworzone przez nas sekwencje zdarzeń, dzięki czemu możemu obserwować reakcję robota w czasie rzeczywistym. Okienko to stanowi podgląd symulacji</i></p>
+
+          <p>
+            Po lewej stronie widzimy obszar z komponentami, które możemy przeciągać na obszar roboczy znajdujący się w centrum. Komponenty te stanowią pewne gotowe operacje, które robot wykonuje.  Możemy modyfikować ruchy robota, co pokaże później
+          </p>
+
+          <img class="center-block" src="img/img1.jpg"/>
+          </p>
+        </div>
+        <div class="well well-lg">
+          <h2>Pierwsza czynność</h2>
+
+          <p>Spróbujmy nakazać robotowi aby usiadł. W tym celu przeciągamy komponent <i>"Sit down"</i> na obszar roboczy</p>
+
+          <img class="center-block" src="img/img2.jpg"/><br>
+
+          <p>Teraz musimy połączyć wejście naszej czynności z wejściem programu, które znajduje się w lewym górnym rogu (zaznaczone na zdjęciu). Wystarczy "złapać myszką" i przeciągnąć do punktu docelowego</p>
+          <img class="center-block" src="img/img3.png"/><br>
+
+          <p>Następnie w podobny sposób łączymy wyjście z wyjściem program. Prostą animację możemy uruchomić za pomocą przycisku <i>Play</i></p>
+          
+        </div>
+        <div class="well well-lg">
+          <h2>Kombinacje ruchów</h2>
+
+          <p>Możemy w łatwysposób stworzyć kombinacje ruchów. Wystarczy tylko odpowiednio połączyć bloki i gotowe!</p>
+
+          <img class="center-block" src="img/img4.png"/><br>
+
+          <p>Efektem będzie po kolei:</p>
+          <ul>
+            <li>Robot wstanie</li>
+            <li>Usiądzie</li>
+            <li>Zatańczy Tai Chi Chuan</li>
+            <li>Pomacha nam :)</li>
+            <li>Wytrze czoło</li>
+          </ul>
+          
+        </div>
+        <div class="well well-lg">
+          <h2>Efekty głosowe</h2>
+
+          <p>Możemy w prosty sposób zmusić robota do wypowiedzenia odpowiedniej kwestii. Wystarczy wybrać język oraz tekst który ma powiedzieć </p>
+
+          <img class="center-block" src="img/img5.png" width="100%"/><br>
+        </div>
+        <div class="well well-lg">
+          <h2>Rozgałęzienia, pętle oraz bodźce od użytkownika</h2>
+
+          <p>Robot Nao posiada wbudowany zestaw czujników oraz odpowiednich komponentów odpowiedzialnych za pewne warunkowe działania. W poniższym przykładzie pokażę jak stosować rozgałęzienia warunkowe oraz wbudowane czujniki aby kontrolować naszego robota. Możemy zaobserwować, że robot w przypadku poruszenia się ("Move To") oczekuje klepnięcia w głowę lub w rękę. W zależności od naszej reakcji, inna będzie reakcja robota. W pierwszym przypadku wróci on do stanu początkowego ("Sit Down"). W przeciwnym przypadku symulacja się zakończy.</p>
+
+          <img class="center-block" src="img/img6.jpg"/><br>
+
+          <p>Oprócz prostych rozgałęziem możemy stosować konstukcję warunkowe If-Else, For i wiele, wiele innych. Poniżej przykład</p>
+
+          <img class="center-block" src="img/img7.png"/><br>
+        </div>
+        <div class="well well-lg">
+          <h2>Programowanie w Pythonie</h2>
+
+          <p>Jak już wspomniałem we wprowadzeniu, oprócz środowiska graficznego możemy także wykorzystać zdolności programistyczne do napisania kodu. Poniżej przykład w Pythonie</p>
+          <pre>
+class MyClass(GeneratedClass):
+    def __init__(self):
+        try: # disable autoBind
+          GeneratedClass.__init__(self, False)
+        except TypeError: # if NAOqi < 1.11
+          GeneratedClass.__init__( self )
+
+    def onLoad(self):
+        self.nTries = 0
+        self.postureProxy = ALProxy("ALRobotPosture")
+        pass
+
+    def onUnload(self):
+        self.postureProxy.stopMove()
+
+    def onInput_onStart(self):
+        if(self.nTries != self.getParameter("Maximum of tries")):
+            self.nTries = self.getParameter("Maximum of tries")
+            self.postureProxy.setMaxTryNumber(self.nTries)
+
+        result = self.postureProxy.goToPosture(self.getParameter("Name"), self.getParameter("Speed (%)")/100.)
+        if(result):
+            self.success()
+        else:
+            self.failure()
+        pass
+
+    def onInput_onStop(self):
+        self.onUnload() #~ it is recommanded to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
+        pass
+
+          </pre>
+          
+        </div>
+        <div class="well well-lg">
+          <h2>Podsumowanie i bibliografia</h2>
+
+          <p>Środowisko <i>Choreographe</i> zapewnia mnóstwo sposobów na zaprogramowanie robota. Sam proces programowania jest przyjemny, bardzo elastyczny i intuicyjny. </p>
+
+          <p>Bibliografia</p>
+          <ul>
+            <li><a href="https://community.aldebaran-robotics.com/resources/tutorials/">Aldebaran Community Tutorials</a></li>
+            <li><a href="https://community.aldebaran-robotics.com/resources/tutorial/Choregraphe-tutorials/">Aldebaran Community Tutorials - Choreographe tutorials</a></li>
+            <li><a href="http://www.youtube.com/watch?v=Me9SZohibPQ">Using Python with NAO</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
